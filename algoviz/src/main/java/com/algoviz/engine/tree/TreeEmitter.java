@@ -84,6 +84,21 @@ final class TreeEmitter {
         state[idx] = 2;
     }
 
+    private final Map<Integer, String> rbMap = new LinkedHashMap<>();
+
+    /** 红黑树颜色（RED/BLACK），null = 不适用。 */
+    void setRb(int idx, String color) {
+        if (color == null) {
+            rbMap.remove(idx);
+        } else {
+            rbMap.put(idx, color);
+        }
+    }
+
+    String rbOf(int idx) {
+        return rbMap.get(idx);
+    }
+
     /** 设置画布指针标签（-1 = 移除）。 */
     void tag(String name, int idx) {
         pointerTags.put(name, idx);
@@ -150,7 +165,8 @@ final class TreeEmitter {
             boxes.add(new TreeView.TreeNodeBox("@" + (i + 1), nd[0],
                     nd[1] >= 0 ? "@" + (nd[1] + 1) : null,
                     nd[2] >= 0 ? "@" + (nd[2] + 1) : null,
-                    st, visitOrder[i] > 0 ? visitOrder[i] : null));
+                    st, visitOrder[i] > 0 ? visitOrder[i] : null,
+                    rbMap.get(i)));
         }
         for (int idx : callStack) {
             if (idx >= 0) {

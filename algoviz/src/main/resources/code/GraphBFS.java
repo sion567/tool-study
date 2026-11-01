@@ -13,4 +13,9 @@ public class GraphBFS {
             }
         }
     }
-}
+
+    // 复制说明：Graph / visited 是伪代码骨架——换成你的邻接表与 boolean 数组后即可运行，
+    // 核心循环逻辑无需改动。
+    public static void main(String[] args) {
+        // bfs(graph, 0);   ← 补全 Graph 后取消注释
+    }

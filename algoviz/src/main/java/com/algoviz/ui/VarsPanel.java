@@ -8,6 +8,8 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -28,8 +30,8 @@ public final class VarsPanel extends VBox {
     private boolean heapChanged;
 
     public VarsPanel() {
-        locals.setPrefHeight(100);
-        heap.setPrefHeight(100);
+        locals.setPrefHeight(110);
+        heap.setPrefHeight(110);
         locals.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -50,11 +52,17 @@ public final class VarsPanel extends VBox {
                         : Theme.cellText());
             }
         });
-        TitledPane localsPane = new TitledPane("栈帧 sort() 局部变量（黄 = 本步变了）", locals);
+        TitledPane localsPane = new TitledPane("栈帧 局部变量（黄 = 本步变了）", locals);
         TitledPane heapPane = new TitledPane("堆（@编号 = 地址；黄 = 本步变了）", heap);
         localsPane.setCollapsible(false);
         heapPane.setCollapsible(false);
-        getChildren().addAll(localsPane, heapPane);
+        // 左右布局：栈帧在左，堆在右
+        HBox h = new HBox(8, localsPane, heapPane);
+        HBox.setHgrow(localsPane, Priority.ALWAYS);
+        HBox.setHgrow(heapPane, Priority.ALWAYS);
+        localsPane.setMaxWidth(Double.MAX_VALUE);
+        heapPane.setMaxWidth(Double.MAX_VALUE);
+        getChildren().add(h);
     }
 
     /** 主题切换后重刷单元格配色。 */

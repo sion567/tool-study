@@ -50,6 +50,23 @@ public final class DfsDemo implements Algorithm {
     private String active;
     private boolean skipping;
 
+    private final Map<Integer, List<Integer>> adj;
+
+    public DfsDemo() {
+        this(0);
+    }
+
+    /** 随机邻居顺序：seed 决定洗牌结果，遍历序随之改变。 */
+    public DfsDemo(long seed) {
+        adj = new LinkedHashMap<>();
+        java.util.Random r = new java.util.Random(seed);
+        for (int i = 0; i < SampleGraph.LABELS.length; i++) {
+            List<Integer> ns = SampleGraph.neighbors(i);
+            java.util.Collections.shuffle(ns, r);
+            adj.put(i, ns);
+        }
+    }
+
     @Override public String id() { return "graph.dfs"; }
     @Override public String title() { return "图的 DFS"; }
     @Override public String codeResource() { return "/code/GraphDFS.java"; }
@@ -86,7 +103,7 @@ public final class DfsDemo implements Algorithm {
                     "访问 " + u + "（编号 " + order.size() + "）", u)),
                     "弹栈即访问：一条路走到黑——下一个去栈顶的路岔");
             // 逆序压栈：编号小的先被访问
-            List<Integer> neighbors = SampleGraph.neighbors(SampleGraph.indexOf(u));
+            List<Integer> neighbors = adj.get(SampleGraph.indexOf(u));
             for (int k = neighbors.size() - 1; k >= 0; k--) {
                 String v = SampleGraph.label(neighbors.get(k));
                 if (!visited.contains(v)) {

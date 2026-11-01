@@ -17,4 +17,9 @@ public class QuickSort {
         int t = a[i]; a[i] = a[hi]; a[hi] = t;     // pivot 归位
         return i;
     }
-}
+
+    public static void main(String[] args) {          // 复制本类即可直接运行
+        int[] a = {5, 2, 9, 1, 5};
+        qs(a, 0, a.length - 1);
+        System.out.println(java.util.Arrays.toString(a));
+    }

@@ -51,3 +51,7 @@ classDiagram
 - `engine/Algorithm.java` **就是那个 Strategy 接口**——10 个算法全是它的实现
 - `AlgorithmRegistry` = Context 的装配处；`ui/` = 只认接口的调用方
 - 你现在引擎里的每加一个算法不动 UI 一行——这就是策略模式在工作
+
+## 变体
+
+- 策略的变体=函数式策略（lambda 即策略）、Map 注入多策略（按 key 取）、策略+工厂自动路由

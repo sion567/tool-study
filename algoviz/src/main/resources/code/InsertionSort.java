@@ -10,4 +10,9 @@ public class InsertionSort {
             a[j + 1] = key;
         }
     }
-}
+
+    public static void main(String[] args) {          // 复制本类即可直接运行
+        int[] a = {5, 2, 9, 1, 5};
+        sort(a);
+        System.out.println(java.util.Arrays.toString(a));
+    }

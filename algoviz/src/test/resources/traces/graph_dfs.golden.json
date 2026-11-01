@@ -890,7 +890,7 @@
               "locals": {
                 "stack": {
                   "kind": "PRIM",
-                  "text": "[C, D]"
+                  "text": "[C, C]"
                 }
               }
             }
@@ -906,183 +906,7 @@
                 "fields": {
                   "stack": {
                     "kind": "PRIM",
-                    "text": "[C, D]"
-                  },
-                  "A": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "B": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "C": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "D": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "E": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "F": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  }
-                },
-                "elements": []
-              }
-            }
-          }
-        },
-        "ds.graph": {
-          "name": "DFS",
-          "vertices": [
-            {
-              "nodeId": "@1",
-              "label": "A",
-              "x": 0.1,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@2",
-              "label": "B",
-              "x": 0.32,
-              "y": 0.16
-            },
-            {
-              "nodeId": "@3",
-              "label": "C",
-              "x": 0.32,
-              "y": 0.76
-            },
-            {
-              "nodeId": "@4",
-              "label": "D",
-              "x": 0.58,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@5",
-              "label": "E",
-              "x": 0.78,
-              "y": 0.78
-            },
-            {
-              "nodeId": "@6",
-              "label": "F",
-              "x": 0.9,
-              "y": 0.2
-            }
-          ],
-          "edges": [
-            {
-              "fromId": "@1",
-              "toId": "@2",
-              "weight": 4
-            },
-            {
-              "fromId": "@1",
-              "toId": "@3",
-              "weight": 2
-            },
-            {
-              "fromId": "@2",
-              "toId": "@3",
-              "weight": 1
-            },
-            {
-              "fromId": "@2",
-              "toId": "@4",
-              "weight": 5
-            },
-            {
-              "fromId": "@3",
-              "toId": "@4",
-              "weight": 8
-            },
-            {
-              "fromId": "@3",
-              "toId": "@5",
-              "weight": 10
-            },
-            {
-              "fromId": "@4",
-              "toId": "@5",
-              "weight": 2
-            },
-            {
-              "fromId": "@4",
-              "toId": "@6",
-              "weight": 6
-            },
-            {
-              "fromId": "@5",
-              "toId": "@6",
-              "weight": 3
-            }
-          ],
-          "activeId": "@2",
-          "settledIds": [
-            "@1",
-            "@2"
-          ],
-          "dist": {},
-          "visitOrderIds": [
-            "@1",
-            "@2"
-          ]
-        }
-      },
-      "events": [
-        {
-          "type": "SET",
-          "targets": [
-            "D"
-          ],
-          "detail": "D 入栈（路岔）"
-        }
-      ],
-      "intent": {
-        "why": "把 B 的路岔压进栈——先探编号小的，所以逆序压",
-        "invariant": "一条路走到黑，走到底才回头——栈顶永远是下一个要探的路岔（与 BFS 只差一个数据结构）"
-      }
-    },
-    {
-      "index": 6,
-      "loc": {
-        "startLine": 11,
-        "endLine": 11,
-        "note": "把 B 的路岔压进栈——先探编号小的，所以逆序压"
-      },
-      "layers": {
-        "mem.stack": {
-          "frames": [
-            {
-              "method": "dfs(src=A)",
-              "locals": {
-                "stack": {
-                  "kind": "PRIM",
-                  "text": "[C, D, C]"
-                }
-              }
-            }
-          ]
-        },
-        "mem.heap": {
-          "heap": {
-            "objects": {
-              "@1": {
-                "id": "@1",
-                "label": "s",
-                "type": "DfsState",
-                "fields": {
-                  "stack": {
-                    "kind": "PRIM",
-                    "text": "[C, D, C]"
+                    "text": "[C, C]"
                   },
                   "A": {
                     "kind": "PRIM",
@@ -1228,6 +1052,182 @@
       }
     },
     {
+      "index": 6,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "把 B 的路岔压进栈——先探编号小的，所以逆序压"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dfs(src=A)",
+              "locals": {
+                "stack": {
+                  "kind": "PRIM",
+                  "text": "[C, C, D]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "s",
+                "type": "DfsState",
+                "fields": {
+                  "stack": {
+                    "kind": "PRIM",
+                    "text": "[C, C, D]"
+                  },
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "DFS",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@2",
+          "settledIds": [
+            "@1",
+            "@2"
+          ],
+          "dist": {},
+          "visitOrderIds": [
+            "@1",
+            "@2"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "D"
+          ],
+          "detail": "D 入栈（路岔）"
+        }
+      ],
+      "intent": {
+        "why": "把 B 的路岔压进栈——先探编号小的，所以逆序压",
+        "invariant": "一条路走到黑，走到底才回头——栈顶永远是下一个要探的路岔（与 BFS 只差一个数据结构）"
+      }
+    },
+    {
       "index": 7,
       "loc": {
         "startLine": 8,
@@ -1242,7 +1242,7 @@
               "locals": {
                 "stack": {
                   "kind": "PRIM",
-                  "text": "[C, D]"
+                  "text": "[C, C]"
                 }
               }
             }
@@ -1258,7 +1258,7 @@
                 "fields": {
                   "stack": {
                     "kind": "PRIM",
-                    "text": "[C, D]"
+                    "text": "[C, C]"
                   },
                   "A": {
                     "kind": "PRIM",
@@ -1270,541 +1270,7 @@
                   },
                   "C": {
                     "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "D": {
-                    "kind": "PRIM",
                     "text": "未访问"
-                  },
-                  "E": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "F": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  }
-                },
-                "elements": []
-              }
-            }
-          }
-        },
-        "ds.graph": {
-          "name": "DFS",
-          "vertices": [
-            {
-              "nodeId": "@1",
-              "label": "A",
-              "x": 0.1,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@2",
-              "label": "B",
-              "x": 0.32,
-              "y": 0.16
-            },
-            {
-              "nodeId": "@3",
-              "label": "C",
-              "x": 0.32,
-              "y": 0.76
-            },
-            {
-              "nodeId": "@4",
-              "label": "D",
-              "x": 0.58,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@5",
-              "label": "E",
-              "x": 0.78,
-              "y": 0.78
-            },
-            {
-              "nodeId": "@6",
-              "label": "F",
-              "x": 0.9,
-              "y": 0.2
-            }
-          ],
-          "edges": [
-            {
-              "fromId": "@1",
-              "toId": "@2",
-              "weight": 4
-            },
-            {
-              "fromId": "@1",
-              "toId": "@3",
-              "weight": 2
-            },
-            {
-              "fromId": "@2",
-              "toId": "@3",
-              "weight": 1
-            },
-            {
-              "fromId": "@2",
-              "toId": "@4",
-              "weight": 5
-            },
-            {
-              "fromId": "@3",
-              "toId": "@4",
-              "weight": 8
-            },
-            {
-              "fromId": "@3",
-              "toId": "@5",
-              "weight": 10
-            },
-            {
-              "fromId": "@4",
-              "toId": "@5",
-              "weight": 2
-            },
-            {
-              "fromId": "@4",
-              "toId": "@6",
-              "weight": 6
-            },
-            {
-              "fromId": "@5",
-              "toId": "@6",
-              "weight": 3
-            }
-          ],
-          "activeId": "@3",
-          "settledIds": [
-            "@1",
-            "@2",
-            "@3"
-          ],
-          "dist": {},
-          "visitOrderIds": [
-            "@1",
-            "@2",
-            "@3"
-          ]
-        }
-      },
-      "events": [
-        {
-          "type": "VISIT",
-          "targets": [
-            "C"
-          ],
-          "detail": "访问 C（编号 3）"
-        }
-      ],
-      "intent": {
-        "why": "弹栈即访问：一条路走到黑——下一个去栈顶的路岔",
-        "invariant": "一条路走到黑，走到底才回头——栈顶永远是下一个要探的路岔（与 BFS 只差一个数据结构）"
-      }
-    },
-    {
-      "index": 8,
-      "loc": {
-        "startLine": 11,
-        "endLine": 11,
-        "note": "把 C 的路岔压进栈——先探编号小的，所以逆序压"
-      },
-      "layers": {
-        "mem.stack": {
-          "frames": [
-            {
-              "method": "dfs(src=A)",
-              "locals": {
-                "stack": {
-                  "kind": "PRIM",
-                  "text": "[C, D, E]"
-                }
-              }
-            }
-          ]
-        },
-        "mem.heap": {
-          "heap": {
-            "objects": {
-              "@1": {
-                "id": "@1",
-                "label": "s",
-                "type": "DfsState",
-                "fields": {
-                  "stack": {
-                    "kind": "PRIM",
-                    "text": "[C, D, E]"
-                  },
-                  "A": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "B": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "C": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "D": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "E": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "F": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  }
-                },
-                "elements": []
-              }
-            }
-          }
-        },
-        "ds.graph": {
-          "name": "DFS",
-          "vertices": [
-            {
-              "nodeId": "@1",
-              "label": "A",
-              "x": 0.1,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@2",
-              "label": "B",
-              "x": 0.32,
-              "y": 0.16
-            },
-            {
-              "nodeId": "@3",
-              "label": "C",
-              "x": 0.32,
-              "y": 0.76
-            },
-            {
-              "nodeId": "@4",
-              "label": "D",
-              "x": 0.58,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@5",
-              "label": "E",
-              "x": 0.78,
-              "y": 0.78
-            },
-            {
-              "nodeId": "@6",
-              "label": "F",
-              "x": 0.9,
-              "y": 0.2
-            }
-          ],
-          "edges": [
-            {
-              "fromId": "@1",
-              "toId": "@2",
-              "weight": 4
-            },
-            {
-              "fromId": "@1",
-              "toId": "@3",
-              "weight": 2
-            },
-            {
-              "fromId": "@2",
-              "toId": "@3",
-              "weight": 1
-            },
-            {
-              "fromId": "@2",
-              "toId": "@4",
-              "weight": 5
-            },
-            {
-              "fromId": "@3",
-              "toId": "@4",
-              "weight": 8
-            },
-            {
-              "fromId": "@3",
-              "toId": "@5",
-              "weight": 10
-            },
-            {
-              "fromId": "@4",
-              "toId": "@5",
-              "weight": 2
-            },
-            {
-              "fromId": "@4",
-              "toId": "@6",
-              "weight": 6
-            },
-            {
-              "fromId": "@5",
-              "toId": "@6",
-              "weight": 3
-            }
-          ],
-          "activeId": "@3",
-          "settledIds": [
-            "@1",
-            "@2",
-            "@3"
-          ],
-          "dist": {},
-          "visitOrderIds": [
-            "@1",
-            "@2",
-            "@3"
-          ]
-        }
-      },
-      "events": [
-        {
-          "type": "SET",
-          "targets": [
-            "E"
-          ],
-          "detail": "E 入栈（路岔）"
-        }
-      ],
-      "intent": {
-        "why": "把 C 的路岔压进栈——先探编号小的，所以逆序压",
-        "invariant": "一条路走到黑，走到底才回头——栈顶永远是下一个要探的路岔（与 BFS 只差一个数据结构）"
-      }
-    },
-    {
-      "index": 9,
-      "loc": {
-        "startLine": 11,
-        "endLine": 11,
-        "note": "把 C 的路岔压进栈——先探编号小的，所以逆序压"
-      },
-      "layers": {
-        "mem.stack": {
-          "frames": [
-            {
-              "method": "dfs(src=A)",
-              "locals": {
-                "stack": {
-                  "kind": "PRIM",
-                  "text": "[C, D, E, D]"
-                }
-              }
-            }
-          ]
-        },
-        "mem.heap": {
-          "heap": {
-            "objects": {
-              "@1": {
-                "id": "@1",
-                "label": "s",
-                "type": "DfsState",
-                "fields": {
-                  "stack": {
-                    "kind": "PRIM",
-                    "text": "[C, D, E, D]"
-                  },
-                  "A": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "B": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "C": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "D": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "E": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "F": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  }
-                },
-                "elements": []
-              }
-            }
-          }
-        },
-        "ds.graph": {
-          "name": "DFS",
-          "vertices": [
-            {
-              "nodeId": "@1",
-              "label": "A",
-              "x": 0.1,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@2",
-              "label": "B",
-              "x": 0.32,
-              "y": 0.16
-            },
-            {
-              "nodeId": "@3",
-              "label": "C",
-              "x": 0.32,
-              "y": 0.76
-            },
-            {
-              "nodeId": "@4",
-              "label": "D",
-              "x": 0.58,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@5",
-              "label": "E",
-              "x": 0.78,
-              "y": 0.78
-            },
-            {
-              "nodeId": "@6",
-              "label": "F",
-              "x": 0.9,
-              "y": 0.2
-            }
-          ],
-          "edges": [
-            {
-              "fromId": "@1",
-              "toId": "@2",
-              "weight": 4
-            },
-            {
-              "fromId": "@1",
-              "toId": "@3",
-              "weight": 2
-            },
-            {
-              "fromId": "@2",
-              "toId": "@3",
-              "weight": 1
-            },
-            {
-              "fromId": "@2",
-              "toId": "@4",
-              "weight": 5
-            },
-            {
-              "fromId": "@3",
-              "toId": "@4",
-              "weight": 8
-            },
-            {
-              "fromId": "@3",
-              "toId": "@5",
-              "weight": 10
-            },
-            {
-              "fromId": "@4",
-              "toId": "@5",
-              "weight": 2
-            },
-            {
-              "fromId": "@4",
-              "toId": "@6",
-              "weight": 6
-            },
-            {
-              "fromId": "@5",
-              "toId": "@6",
-              "weight": 3
-            }
-          ],
-          "activeId": "@3",
-          "settledIds": [
-            "@1",
-            "@2",
-            "@3"
-          ],
-          "dist": {},
-          "visitOrderIds": [
-            "@1",
-            "@2",
-            "@3"
-          ]
-        }
-      },
-      "events": [
-        {
-          "type": "SET",
-          "targets": [
-            "D"
-          ],
-          "detail": "D 入栈（路岔）"
-        }
-      ],
-      "intent": {
-        "why": "把 C 的路岔压进栈——先探编号小的，所以逆序压",
-        "invariant": "一条路走到黑，走到底才回头——栈顶永远是下一个要探的路岔（与 BFS 只差一个数据结构）"
-      }
-    },
-    {
-      "index": 10,
-      "loc": {
-        "startLine": 8,
-        "endLine": 8,
-        "note": "弹栈即访问：一条路走到黑——下一个去栈顶的路岔"
-      },
-      "layers": {
-        "mem.stack": {
-          "frames": [
-            {
-              "method": "dfs(src=A)",
-              "locals": {
-                "stack": {
-                  "kind": "PRIM",
-                  "text": "[C, D, E]"
-                }
-              }
-            }
-          ]
-        },
-        "mem.heap": {
-          "heap": {
-            "objects": {
-              "@1": {
-                "id": "@1",
-                "label": "s",
-                "type": "DfsState",
-                "fields": {
-                  "stack": {
-                    "kind": "PRIM",
-                    "text": "[C, D, E]"
-                  },
-                  "A": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "B": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "C": {
-                    "kind": "PRIM",
-                    "text": "已访问"
                   },
                   "D": {
                     "kind": "PRIM",
@@ -1915,14 +1381,12 @@
           "settledIds": [
             "@1",
             "@2",
-            "@3",
             "@4"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
             "@4"
           ]
         }
@@ -1933,7 +1397,7 @@
           "targets": [
             "D"
           ],
-          "detail": "访问 D（编号 4）"
+          "detail": "访问 D（编号 3）"
         }
       ],
       "intent": {
@@ -1942,7 +1406,7 @@
       }
     },
     {
-      "index": 11,
+      "index": 8,
       "loc": {
         "startLine": 11,
         "endLine": 11,
@@ -1956,7 +1420,7 @@
               "locals": {
                 "stack": {
                   "kind": "PRIM",
-                  "text": "[C, D, E, F]"
+                  "text": "[C, C, E]"
                 }
               }
             }
@@ -1972,7 +1436,7 @@
                 "fields": {
                   "stack": {
                     "kind": "PRIM",
-                    "text": "[C, D, E, F]"
+                    "text": "[C, C, E]"
                   },
                   "A": {
                     "kind": "PRIM",
@@ -1984,7 +1448,7 @@
                   },
                   "C": {
                     "kind": "PRIM",
-                    "text": "已访问"
+                    "text": "未访问"
                   },
                   "D": {
                     "kind": "PRIM",
@@ -2095,14 +1559,368 @@
           "settledIds": [
             "@1",
             "@2",
-            "@3",
             "@4"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "E"
+          ],
+          "detail": "E 入栈（路岔）"
+        }
+      ],
+      "intent": {
+        "why": "把 D 的路岔压进栈——先探编号小的，所以逆序压",
+        "invariant": "一条路走到黑，走到底才回头——栈顶永远是下一个要探的路岔（与 BFS 只差一个数据结构）"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "把 D 的路岔压进栈——先探编号小的，所以逆序压"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dfs(src=A)",
+              "locals": {
+                "stack": {
+                  "kind": "PRIM",
+                  "text": "[C, C, E, C]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "s",
+                "type": "DfsState",
+                "fields": {
+                  "stack": {
+                    "kind": "PRIM",
+                    "text": "[C, C, E, C]"
+                  },
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "DFS",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "dist": {},
+          "visitOrderIds": [
+            "@1",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "C"
+          ],
+          "detail": "C 入栈（路岔）"
+        }
+      ],
+      "intent": {
+        "why": "把 D 的路岔压进栈——先探编号小的，所以逆序压",
+        "invariant": "一条路走到黑，走到底才回头——栈顶永远是下一个要探的路岔（与 BFS 只差一个数据结构）"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "把 D 的路岔压进栈——先探编号小的，所以逆序压"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dfs(src=A)",
+              "locals": {
+                "stack": {
+                  "kind": "PRIM",
+                  "text": "[C, C, E, C, F]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "s",
+                "type": "DfsState",
+                "fields": {
+                  "stack": {
+                    "kind": "PRIM",
+                    "text": "[C, C, E, C, F]"
+                  },
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "DFS",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "dist": {},
+          "visitOrderIds": [
+            "@1",
+            "@2",
             "@4"
           ]
         }
@@ -2122,11 +1940,11 @@
       }
     },
     {
-      "index": 12,
+      "index": 11,
       "loc": {
-        "startLine": 11,
-        "endLine": 11,
-        "note": "把 D 的路岔压进栈——先探编号小的，所以逆序压"
+        "startLine": 8,
+        "endLine": 8,
+        "note": "弹栈即访问：一条路走到黑——下一个去栈顶的路岔"
       },
       "layers": {
         "mem.stack": {
@@ -2136,7 +1954,7 @@
               "locals": {
                 "stack": {
                   "kind": "PRIM",
-                  "text": "[C, D, E, F, E]"
+                  "text": "[C, C, E, C]"
                 }
               }
             }
@@ -2152,7 +1970,7 @@
                 "fields": {
                   "stack": {
                     "kind": "PRIM",
-                    "text": "[C, D, E, F, E]"
+                    "text": "[C, C, E, C]"
                   },
                   "A": {
                     "kind": "PRIM",
@@ -2164,7 +1982,7 @@
                   },
                   "C": {
                     "kind": "PRIM",
-                    "text": "已访问"
+                    "text": "未访问"
                   },
                   "D": {
                     "kind": "PRIM",
@@ -2176,7 +1994,7 @@
                   },
                   "F": {
                     "kind": "PRIM",
-                    "text": "未访问"
+                    "text": "已访问"
                   }
                 },
                 "elements": []
@@ -2271,19 +2089,199 @@
               "weight": 3
             }
           ],
-          "activeId": "@4",
+          "activeId": "@6",
           "settledIds": [
             "@1",
             "@2",
-            "@3",
-            "@4"
+            "@4",
+            "@6"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
-            "@4"
+            "@4",
+            "@6"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "F"
+          ],
+          "detail": "访问 F（编号 4）"
+        }
+      ],
+      "intent": {
+        "why": "弹栈即访问：一条路走到黑——下一个去栈顶的路岔",
+        "invariant": "一条路走到黑，走到底才回头——栈顶永远是下一个要探的路岔（与 BFS 只差一个数据结构）"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "把 F 的路岔压进栈——先探编号小的，所以逆序压"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dfs(src=A)",
+              "locals": {
+                "stack": {
+                  "kind": "PRIM",
+                  "text": "[C, C, E, C, E]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "s",
+                "type": "DfsState",
+                "fields": {
+                  "stack": {
+                    "kind": "PRIM",
+                    "text": "[C, C, E, C, E]"
+                  },
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "DFS",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@6",
+          "settledIds": [
+            "@1",
+            "@2",
+            "@4",
+            "@6"
+          ],
+          "dist": {},
+          "visitOrderIds": [
+            "@1",
+            "@2",
+            "@4",
+            "@6"
           ]
         }
       },
@@ -2297,7 +2295,7 @@
         }
       ],
       "intent": {
-        "why": "把 D 的路岔压进栈——先探编号小的，所以逆序压",
+        "why": "把 F 的路岔压进栈——先探编号小的，所以逆序压",
         "invariant": "一条路走到黑，走到底才回头——栈顶永远是下一个要探的路岔（与 BFS 只差一个数据结构）"
       }
     },
@@ -2316,7 +2314,7 @@
               "locals": {
                 "stack": {
                   "kind": "PRIM",
-                  "text": "[C, D, E, F]"
+                  "text": "[C, C, E, C]"
                 }
               }
             }
@@ -2332,7 +2330,7 @@
                 "fields": {
                   "stack": {
                     "kind": "PRIM",
-                    "text": "[C, D, E, F]"
+                    "text": "[C, C, E, C]"
                   },
                   "A": {
                     "kind": "PRIM",
@@ -2344,7 +2342,7 @@
                   },
                   "C": {
                     "kind": "PRIM",
-                    "text": "已访问"
+                    "text": "未访问"
                   },
                   "D": {
                     "kind": "PRIM",
@@ -2356,7 +2354,7 @@
                   },
                   "F": {
                     "kind": "PRIM",
-                    "text": "未访问"
+                    "text": "已访问"
                   }
                 },
                 "elements": []
@@ -2455,16 +2453,16 @@
           "settledIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5"
           ]
         }
@@ -2498,7 +2496,7 @@
               "locals": {
                 "stack": {
                   "kind": "PRIM",
-                  "text": "[C, D, E, F, F]"
+                  "text": "[C, C, E, C, C]"
                 }
               }
             }
@@ -2514,7 +2512,7 @@
                 "fields": {
                   "stack": {
                     "kind": "PRIM",
-                    "text": "[C, D, E, F, F]"
+                    "text": "[C, C, E, C, C]"
                   },
                   "A": {
                     "kind": "PRIM",
@@ -2526,7 +2524,7 @@
                   },
                   "C": {
                     "kind": "PRIM",
-                    "text": "已访问"
+                    "text": "未访问"
                   },
                   "D": {
                     "kind": "PRIM",
@@ -2538,7 +2536,7 @@
                   },
                   "F": {
                     "kind": "PRIM",
-                    "text": "未访问"
+                    "text": "已访问"
                   }
                 },
                 "elements": []
@@ -2637,16 +2635,16 @@
           "settledIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5"
           ]
         }
@@ -2655,9 +2653,9 @@
         {
           "type": "SET",
           "targets": [
-            "F"
+            "C"
           ],
-          "detail": "F 入栈（路岔）"
+          "detail": "C 入栈（路岔）"
         }
       ],
       "intent": {
@@ -2680,7 +2678,7 @@
               "locals": {
                 "stack": {
                   "kind": "PRIM",
-                  "text": "[C, D, E, F]"
+                  "text": "[C, C, E, C]"
                 }
               }
             }
@@ -2696,7 +2694,7 @@
                 "fields": {
                   "stack": {
                     "kind": "PRIM",
-                    "text": "[C, D, E, F]"
+                    "text": "[C, C, E, C]"
                   },
                   "A": {
                     "kind": "PRIM",
@@ -2815,23 +2813,23 @@
               "weight": 3
             }
           ],
-          "activeId": "@6",
+          "activeId": "@3",
           "settledIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ]
         }
       },
@@ -2839,9 +2837,9 @@
         {
           "type": "VISIT",
           "targets": [
-            "F"
+            "C"
           ],
-          "detail": "访问 F（编号 6）"
+          "detail": "访问 C（编号 6）"
         }
       ],
       "intent": {
@@ -2864,7 +2862,7 @@
               "locals": {
                 "stack": {
                   "kind": "PRIM",
-                  "text": "[C, D, E]"
+                  "text": "[C, C, E]"
                 }
               }
             }
@@ -2880,7 +2878,7 @@
                 "fields": {
                   "stack": {
                     "kind": "PRIM",
-                    "text": "[C, D, E]"
+                    "text": "[C, C, E]"
                   },
                   "A": {
                     "kind": "PRIM",
@@ -2999,23 +2997,23 @@
               "weight": 3
             }
           ],
-          "activeId": "@6",
+          "activeId": "@3",
           "settledIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ]
         }
       },
@@ -3023,9 +3021,9 @@
         {
           "type": "COMPARE",
           "targets": [
-            "F"
+            "C"
           ],
-          "detail": "F 已访问 → 跳过"
+          "detail": "C 已访问 → 跳过"
         }
       ],
       "intent": {
@@ -3048,7 +3046,7 @@
               "locals": {
                 "stack": {
                   "kind": "PRIM",
-                  "text": "[C, D]"
+                  "text": "[C, C]"
                 }
               }
             }
@@ -3064,7 +3062,7 @@
                 "fields": {
                   "stack": {
                     "kind": "PRIM",
-                    "text": "[C, D]"
+                    "text": "[C, C]"
                   },
                   "A": {
                     "kind": "PRIM",
@@ -3187,19 +3185,19 @@
           "settledIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ]
         }
       },
@@ -3367,23 +3365,23 @@
               "weight": 3
             }
           ],
-          "activeId": "@4",
+          "activeId": "@3",
           "settledIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ]
         }
       },
@@ -3391,9 +3389,9 @@
         {
           "type": "COMPARE",
           "targets": [
-            "D"
+            "C"
           ],
-          "detail": "D 已访问 → 跳过"
+          "detail": "C 已访问 → 跳过"
         }
       ],
       "intent": {
@@ -3555,19 +3553,19 @@
           "settledIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ]
         }
       },
@@ -3739,19 +3737,19 @@
           "settledIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ],
           "dist": {},
           "visitOrderIds": [
             "@1",
             "@2",
-            "@3",
             "@4",
+            "@6",
             "@5",
-            "@6"
+            "@3"
           ]
         }
       },
@@ -3759,7 +3757,7 @@
         {
           "type": "RETURN",
           "targets": [],
-          "detail": "栈空：全部 6 个节点访问完毕，顺序 A→B→C→D→E→F"
+          "detail": "栈空：全部 6 个节点访问完毕，顺序 A→B→D→F→E→C"
         }
       ],
       "intent": {

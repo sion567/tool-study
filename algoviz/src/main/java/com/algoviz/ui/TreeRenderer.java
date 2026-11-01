@@ -75,7 +75,8 @@ public final class TreeRenderer {
             g.setFill(switch (nb.state()) {
                 case "onstack" -> ONSTACK;
                 case "visited" -> VISITED;
-                default -> UNVISITED;
+                default -> "RED".equals(nb.rbColor()) ? Color.web("#ef4444")
+                        : "BLACK".equals(nb.rbColor()) ? Color.web("#334155") : UNVISITED;
             });
             g.fillOval(p[0] - r, p[1] - r, r * 2, r * 2);
             boolean isChanged = changedNodes != null && changedNodes.contains(nb.nodeId());
@@ -96,7 +97,7 @@ public final class TreeRenderer {
                 g.strokeOval(p[0] - r - 5, p[1] - r - 5, r * 2 + 10, r * 2 + 10);
                 g.setLineDashes();
             }
-            boolean dark = "unvisited".equals(nb.state());
+            boolean dark = "unvisited".equals(nb.state()) && nb.rbColor() == null;
             g.setFill(dark ? Color.web("#334155") : Color.WHITE);
             g.setFont(Font.font(14));
             g.fillText(String.valueOf(nb.val()), p[0], p[1] + 5);

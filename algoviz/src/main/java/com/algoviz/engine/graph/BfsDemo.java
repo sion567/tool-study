@@ -50,6 +50,23 @@ public final class BfsDemo implements Algorithm {
     private String checkFrom;
     private String checkTo;
 
+    private final Map<Integer, List<Integer>> adj;
+
+    public BfsDemo() {
+        this(0);
+    }
+
+    /** 随机邻居顺序：seed 决定洗牌结果，遍历序随之改变。 */
+    public BfsDemo(long seed) {
+        adj = new LinkedHashMap<>();
+        java.util.Random r = new java.util.Random(seed);
+        for (int i = 0; i < SampleGraph.LABELS.length; i++) {
+            List<Integer> ns = SampleGraph.neighbors(i);
+            java.util.Collections.shuffle(ns, r);
+            adj.put(i, ns);
+        }
+    }
+
     @Override public String id() { return "graph.bfs"; }
     @Override public String title() { return "图的 BFS"; }
     @Override public String codeResource() { return "/code/GraphBFS.java"; }
@@ -80,7 +97,7 @@ public final class BfsDemo implements Algorithm {
                     "访问 " + u + "（编号 " + (order.indexOf(u) + 1) + "）", u)),
                     "出队即访问：绿 = 已访问，数字 = 编号");
             // 邻居检查
-            for (int n : SampleGraph.neighbors(SampleGraph.indexOf(u))) {
+            for (int n : adj.get(SampleGraph.indexOf(u))) {
                 String v = SampleGraph.label(n);
                 checkFrom = u;
                 checkTo = v;

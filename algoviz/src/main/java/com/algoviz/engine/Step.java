@@ -50,4 +50,8 @@ public record Step(int index, Loc loc, Map<String, Layer> layers, List<VizEvent>
     public MathView math() {
         return (MathView) layers.get("math.matrix");
     }
+
+    public com.algoviz.engine.math.BitmapView bitmap() {
+        return (com.algoviz.engine.math.BitmapView) layers.get("math.bitmap");
+    }
 }

@@ -43,3 +43,7 @@ run() → load()〔公共〕→ compute()〔子类〕→ render()〔公共〕—
 
 - `Algorithm` 接口 + 各生产者的 `produce()` 就是这个形状：**建图层的流程一致，"算"的那步各不相同**
 - `TreeEmitter` / `StepEmitter` 也是模板：emit 的骨架共享，snapshot 各域自填
+
+## 变体
+
+- 变体=模板方法+回调（钩子接口代替抽象方法）、组合版（Strategy 注入步骤）

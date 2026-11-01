@@ -43,10 +43,23 @@ public final class BinarySearch implements Algorithm {
     private static final int[] A = {1, 2, 5, 5, 9, 12, 15};
     private static final int TARGET = 9;
 
+    private final int[] data;
+    private final int target;
+
     private final List<Step> steps = new ArrayList<>();
     private int lo;
     private int hi;
     private int mid = -1;
+
+    public BinarySearch() {
+        this(A, TARGET);
+    }
+
+    /** 随机数据：有序数组 + 必定存在的目标。 */
+    public BinarySearch(int[] sorted, int target) {
+        this.data = sorted.clone();
+        this.target = target;
+    }
 
     @Override public String id() { return "search.binary"; }
     @Override public String title() { return "二分查找"; }
@@ -56,10 +69,10 @@ public final class BinarySearch implements Algorithm {
     @Override
     public Trace produce() {
         lo = 0;
-        hi = A.length - 1;
+        hi = data.length - 1;
         mid = -1;
         emit(L_INIT, List.of(VizEvent.of(VizEvent.EventType.INIT,
-                "lo=0, hi=" + hi + "（目标 " + TARGET + "）")),
+                "lo=0, hi=" + hi + "（目标 " + target + "）")),
                 "前提：数组必须有序——乱序二分等于抽签");
         while (lo <= hi) {
             emit(L_WHILE, List.of(VizEvent.of(VizEvent.EventType.COMPARE,
@@ -67,19 +80,19 @@ public final class BinarySearch implements Algorithm {
                     "lo ≤ hi：搜索区间还活着");
             mid = (lo + hi) / 2;
             emit(L_MID, List.of(VizEvent.of(VizEvent.EventType.SET,
-                    "mid = (" + lo + "+" + hi + ")/2 = " + mid + "，a[mid]=" + A[mid], "a[" + mid + "]")),
+                    "mid = (" + lo + "+" + hi + ")/2 = " + mid + "，a[mid]=" + data[mid], "a[" + mid + "]")),
                     "折半点：一次比较排除一半——这就是 O(log n) 的来源");
             emit(L_HIT, List.of(VizEvent.of(VizEvent.EventType.COMPARE,
-                    "a[" + mid + "]=" + A[mid] + (A[mid] == TARGET ? " == " : (A[mid] < TARGET ? " < " : " > "))
-                            + "target=" + TARGET,
+                    "a[" + mid + "]=" + data[mid] + (data[mid] == target ? " == " : (data[mid] < target ? " < " : " > "))
+                            + "target=" + target,
                     "a[" + mid + "]")),
                     "三种走向：等于→命中；小于→去右半；大于→去左半");
-            if (A[mid] == TARGET) {
+            if (data[mid] == target) {
                 emit(L_HIT, List.of(VizEvent.of(VizEvent.EventType.RETURN,
                         "命中！return " + mid)), "找到目标，返回下标");
                 return new Trace(SCHEMA, meta(), steps);
             }
-            if (A[mid] < TARGET) {
+            if (data[mid] < target) {
                 lo = mid + 1;
                 emit(L_GO_RIGHT, List.of(VizEvent.of(VizEvent.EventType.SET,
                         "a[mid] < target → lo = mid+1 = " + lo + "（左半被整段排除）")),
@@ -97,7 +110,7 @@ public final class BinarySearch implements Algorithm {
     }
 
     private void emit(int line, List<VizEvent> events, String why) {
-        StackFrame frame = new StackFrame("search(target=" + TARGET + ")",
+        StackFrame frame = new StackFrame("search(target=" + target + ")",
                 localsMap(), null);
         Map<String, Layer> layers = new LinkedHashMap<>();
         layers.put("mem.stack", new StackLayer(List.of(frame)));
@@ -110,7 +123,7 @@ public final class BinarySearch implements Algorithm {
     private Map<String, Value> localsMap() {
         Map<String, Value> m = new LinkedHashMap<>();
         m.put("a", Value.ref("@1"));
-        m.put("target", Value.prim(TARGET));
+        m.put("target", Value.prim(target));
         m.put("lo", Value.prim(lo));
         m.put("hi", Value.prim(hi));
         if (mid >= 0) {
@@ -121,10 +134,10 @@ public final class BinarySearch implements Algorithm {
 
     private Heap snapshotHeap() {
         List<Value> elems = new ArrayList<>();
-        for (int v : A) {
+        for (int v : data) {
             elems.add(Value.prim(v));
         }
-        HeapObject arr = new HeapObject("@1", "a", "int[" + A.length + "]",
+        HeapObject arr = new HeapObject("@1", "a", "int[" + data.length + "]",
                 new LinkedHashMap<>(), List.copyOf(elems));
         Map<String, HeapObject> objs = new LinkedHashMap<>();
         objs.put("@1", arr);
@@ -133,21 +146,21 @@ public final class BinarySearch implements Algorithm {
 
     private ArrayView snapshotArray() {
         List<Integer> vals = new ArrayList<>();
-        for (int v : A) {
+        for (int v : data) {
             vals.add(v);
         }
         // mid 橙色高亮；lo..hi 之外（已排除区）用 sortedFrom/sortedTo 反着标灰不了——
         // v0 只高亮 mid 与当前区间端点：compareB 放 hi，lo 由事件文本说明
         return new ArrayView("@1", "a", List.copyOf(vals),
-                mid >= 0 ? mid : null, hi, null, null, A.length, -1);
+                mid >= 0 ? mid : null, hi, null, null, data.length, -1);
     }
 
     private Trace.TraceMeta meta() {
         StringBuilder sb = new StringBuilder();
-        for (int k = 0; k < A.length; k++) {
+        for (int k = 0; k < data.length; k++) {
             if (k > 0) sb.append(',');
-            sb.append(A[k]);
+            sb.append(data[k]);
         }
-        return new Trace.TraceMeta(id(), title(), codeResource(), sb.toString(), A.length);
+        return new Trace.TraceMeta(id(), title(), codeResource(), sb.toString(), data.length);
     }
 }

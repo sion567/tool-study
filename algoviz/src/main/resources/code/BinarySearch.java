@@ -9,4 +9,8 @@ public class BinarySearch {
         }
         return -1;                                  // 没找到
     }
-}
+
+    public static void main(String[] args) {          // 复制本类即可直接运行
+        int[] a = {1, 2, 5, 5, 9, 12, 15};
+        System.out.println("target 9 → 下标 " + search(a, 9));
+    }

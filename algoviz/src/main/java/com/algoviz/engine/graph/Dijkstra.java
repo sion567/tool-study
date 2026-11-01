@@ -45,9 +45,27 @@ public final class Dijkstra implements Algorithm {
     private static final double[][] POS = {
             {0.10, 0.45}, {0.32, 0.16}, {0.32, 0.76}, {0.58, 0.45}, {0.78, 0.78}, {0.90, 0.20}
     };
-    private static final int[][] EDGES = {
-            {0, 1, 4}, {0, 2, 2}, {1, 2, 1}, {1, 3, 5}, {2, 3, 8}, {2, 4, 10}, {3, 4, 2}, {3, 5, 6}, {4, 5, 3}
-    };
+    private final int[][] edges;
+
+    public Dijkstra() {
+        this(defaultWeights());
+    }
+
+    /** 随机权重：结构不变，权重 1~20 随机。 */
+    public Dijkstra(int[] weights) {
+        edges = new int[SampleGraph.EDGES.length][];
+        for (int i = 0; i < edges.length; i++) {
+            edges[i] = new int[]{SampleGraph.EDGES[i][0], SampleGraph.EDGES[i][1], weights[i]};
+        }
+    }
+
+    private static int[] defaultWeights() {
+        int[] w = new int[SampleGraph.EDGES.length];
+        for (int i = 0; i < w.length; i++) {
+            w[i] = SampleGraph.EDGES[i][2];
+        }
+        return w;
+    }
 
     private final List<Step> steps = new ArrayList<>();
     private final Map<String, Integer> dist = new LinkedHashMap<>();
@@ -104,7 +122,7 @@ public final class Dijkstra implements Algorithm {
                     u + " 出圈：dist[" + u + "]=" + dist.get(u) + " 定死（不变量达成）", u)),
                     "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密");
             // L7-L11: 松弛所有邻居
-            for (int[] e : EDGES) {
+            for (int[] e : edges) {
                 for (int dir = 0; dir < 2; dir++) {
                     String from = label(e[dir]);
                     String to = label(e[1 - dir]);
@@ -209,16 +227,16 @@ public final class Dijkstra implements Algorithm {
         for (int i = 0; i < LABELS.length; i++) {
             vertices.add(new GraphView.GraphVertex("@" + (i + 1), LABELS[i], POS[i][0], POS[i][1]));
         }
-        List<GraphView.GraphEdge> edges = new ArrayList<>();
-        for (int[] e : EDGES) {
-            edges.add(new GraphView.GraphEdge("@" + (e[0] + 1), "@" + (e[1] + 1), e[2]));
+        List<GraphView.GraphEdge> edgeList = new ArrayList<>();
+        for (int[] e : edges) {
+            edgeList.add(new GraphView.GraphEdge("@" + (e[0] + 1), "@" + (e[1] + 1), e[2]));
         }
         Map<String, Integer> distCopy = new LinkedHashMap<>();
         for (String s : LABELS) {
             distCopy.put(s, dist.get(s)); // null = ∞
         }
         return new GraphView("Dijkstra", Collections.unmodifiableList(vertices),
-                Collections.unmodifiableList(edges),
+                Collections.unmodifiableList(edgeList),
                 active == null ? null : nodeId(active),
                 settled.stream().map(this::nodeId).collect(java.util.stream.Collectors.toList()),
                 Collections.unmodifiableMap(distCopy),

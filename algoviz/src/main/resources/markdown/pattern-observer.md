@@ -50,3 +50,7 @@ subscribe(canvas) → subscribe(vars) → emitStep → update→canvas → updat
 
 - 引擎吐 `Trace` → `PlaybackController.fire()` → 画布/代码/变量/意图四个面板各自刷新——**纯手工观察者**
 - `PlaybackController.addListener()` 就是 subscribe；`fire()` 就是 emitStep
+
+## 变体
+
+- 变体=事件总线（EventBus）、异步观察者（消息队列）、弱引用观察者（防泄漏）

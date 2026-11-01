@@ -29,7 +29,16 @@ public final class LevelOrderTraversal implements Algorithm {
     private static final int L_OFFER_R = 9;
     private static final int L_END = 11;
 
-    private static final int[] INPUT = {5, 3, 8, 1, 4, 7, 9};
+    private final int[] input;
+
+    public LevelOrderTraversal() {
+        this(new int[]{5, 3, 8, 1, 4, 7, 9});
+    }
+
+    /** 随机数据：不同值建 BST，形状每次不同。 */
+    public LevelOrderTraversal(int[] input) {
+        this.input = input.clone();
+    }
 
     private TreeEmitter em;
     private final Deque<Integer> queue = new ArrayDeque<>();
@@ -41,7 +50,7 @@ public final class LevelOrderTraversal implements Algorithm {
 
     @Override
     public Trace produce() {
-        em = TreeEmitter.bst(INPUT.clone(), "level", INVARIANT, Map.of());   // 重复 produce：重建状态
+        em = TreeEmitter.bst(input.clone(), "level", INVARIANT, Map.of());   // 重复 produce：重建状态
         queue.clear();
 
         // L4: 根入队
@@ -87,6 +96,6 @@ public final class LevelOrderTraversal implements Algorithm {
         }
         em.emit(L_END, List.of(VizEvent.of(VizEvent.EventType.RETURN,
                 "队列空：全部 7 个节点按层访问完毕")), "层序完成：5 → 3,8 → 1,4,7,9——一层一层铺下来");
-        return new Trace(SCHEMA, meta(INPUT), em.steps);
+        return new Trace(SCHEMA, meta(input), em.steps);
     }
 }

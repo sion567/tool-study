@@ -17,3 +17,7 @@
 
 - 🎯 预测页：三次 pressPlay，@1.state 的箭头在 Paused/Playing 间转圈——每次「委托到谁」要能答对
 - 新状态 = 加一个 State 实现类，Player 一行不改
+
+## 变体
+
+- 变体=状态机表驱动（转移表）、Spring StateMachine；与策略的区别只在「谁来换」

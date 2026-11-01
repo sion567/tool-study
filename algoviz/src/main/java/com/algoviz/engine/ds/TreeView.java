@@ -17,6 +17,6 @@ public record TreeView(String name, String rootId, List<TreeNodeBox> nodes,
                        List<String> callStackIds, Map<String, String> varTags) implements Layer {
 
     public record TreeNodeBox(String nodeId, int val, String leftId, String rightId,
-                              String state, Integer visitOrder) {
+                              String state, Integer visitOrder, String rbColor) {
     }
 }

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /** 右侧代码区：滚动容器 + 行号 + 注释弱化 + 高亮行自动滚入视野（长清单也不迷路）。 */
@@ -25,6 +26,16 @@ public final class CodePanel extends ScrollPane {
         setContent(box);
         setFitToWidth(false);   // 长行出横向滚动条，保证看得全
         int no = 1;
+        javafx.scene.control.Button copyBtn = new javafx.scene.control.Button("📋 复制全文（可直接粘贴运行）");
+        copyBtn.setStyle("-fx-font-size:11px;");
+        copyBtn.setOnAction(e -> {
+            javafx.scene.input.Clipboard cb = javafx.scene.input.Clipboard.getSystemClipboard();
+            cb.setContent(Collections.singletonMap(javafx.scene.input.DataFormat.PLAIN_TEXT,
+                    String.join("\n", raws)));
+        });
+        javafx.scene.layout.HBox toolRow = new javafx.scene.layout.HBox(copyBtn);
+        toolRow.setStyle("-fx-padding:0 0 6 0;");
+        box.getChildren().add(toolRow);
         for (String text : readLines(resource)) {
             Label label = new Label(String.format("%2d │ %s", no, text));
             label.setStyle(styleFor(text));

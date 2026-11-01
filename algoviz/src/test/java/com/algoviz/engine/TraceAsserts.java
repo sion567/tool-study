@@ -35,7 +35,8 @@ final class TraceAsserts {
             assertNotNull(s.intent(), "intent 缺失 @step " + s.index());
             assertFalse(s.intent().invariant().isBlank(), "不变量为空 @step " + s.index());
             assertTrue(s.array() != null || s.list() != null || s.tree() != null
-                            || s.graph() != null || s.seq() != null || s.math() != null,
+                            || s.graph() != null || s.seq() != null || s.math() != null
+                            || s.bitmap() != null,
                     "缺少 ds/seq/math 图层 @step " + s.index());
 
             ArrayView av = s.array();
@@ -157,6 +158,16 @@ final class TraceAsserts {
                         assertTrue(cell >= 0 && cell < g.values().size(),
                                 "done 越界 @step " + s.index() + " " + g.id());
                     }
+                }
+            }
+
+            if (s.bitmap() != null) {
+                var bm = s.bitmap();
+                assertTrue(bm.bits() > 0, "位图大小非法 @step " + s.index());
+                assertTrue(bm.readIndex() >= -1 && bm.readIndex() <= bm.data().size(),
+                        "readIndex 越界 @step " + s.index());
+                for (int b : bm.ones()) {
+                    assertTrue(b >= 0 && b < bm.bits(), "置位越界 @step " + s.index());
                 }
             }
         }

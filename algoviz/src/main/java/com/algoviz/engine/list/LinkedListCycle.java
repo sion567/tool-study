@@ -39,9 +39,23 @@ public final class LinkedListCycle implements Algorithm {
     private static final int L_MEET = 7;
     private static final int L_NO_CYCLE = 9;
 
-    private static final int[] VALS = {5, 2, 9, 1, 5};
-    private static final int N = VALS.length;
-    private static final int[] NEXT = {1, 2, 3, 4, 1};   // @5.next → @2：有环！
+    private final int[] vals;
+    private final int[] next;
+    private final int n;
+
+    public LinkedListCycle() {
+        this(new int[]{5, 2, 9, 1, 5}, 1);   // @5.next → @2：有环！
+    }
+
+    /** 随机数据：环从尾部接回 anchorIdx。 */
+    public LinkedListCycle(int[] vals, int anchorIdx) {
+        this.vals = vals.clone();
+        this.n = vals.length;
+        this.next = new int[n];
+        for (int i = 0; i < n; i++) {
+            next[i] = i + 1 < n ? i + 1 : anchorIdx;   // 尾节点接回 anchor → 环
+        }
+    }
 
     private final List<Step> steps = new ArrayList<>();
     private int slow;
@@ -59,15 +73,15 @@ public final class LinkedListCycle implements Algorithm {
         emit(L_INIT, List.of(VizEvent.of(VizEvent.EventType.INIT,
                 "slow = fast = @1（同一起点起跑）", "slow", "fast")),
                 "快慢指针从同一起点出发——注意 @5 的箭头绕回了 @2（环在堆里可见）");
-        while (fast != -1 && NEXT[fast] != -1) {
+        while (fast != -1 && next[fast] != -1) {
             emit(L_WHILE, List.of(VizEvent.of(VizEvent.EventType.COMPARE,
                     "fast = @" + (fast + 1) + " ≠ null 且 fast.next ≠ null → 继续", "fast")),
                     "只要快指针没到头，就再跑一轮");
-            slow = NEXT[slow];
+            slow = next[slow];
             emit(L_SLOW, List.of(VizEvent.of(VizEvent.EventType.SET,
                     "slow ← @" + (slow + 1) + "（走 1 步）", "slow")),
                     "慢指针走 1 步");
-            fast = NEXT[NEXT[fast]];
+            fast = next[next[fast]];
             emit(L_FAST, List.of(VizEvent.of(VizEvent.EventType.SET,
                     "fast ← @" + (fast + 1) + "（走 2 步）", "fast")),
                     "快指针走 2 步：每轮把差距拉大 1——有环就必追上");
@@ -102,10 +116,10 @@ public final class LinkedListCycle implements Algorithm {
 
     private Heap snapshotHeap() {
         Map<String, HeapObject> objs = new LinkedHashMap<>();
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < n; i++) {
             Map<String, Value> fields = new LinkedHashMap<>();
-            fields.put("val", Value.prim(VALS[i]));
-            fields.put("next", NEXT[i] >= 0 ? Value.ref("@" + (NEXT[i] + 1)) : Value.NULL);
+            fields.put("val", Value.prim(vals[i]));
+            fields.put("next", next[i] >= 0 ? Value.ref("@" + (next[i] + 1)) : Value.NULL);
             objs.put("@" + (i + 1), new HeapObject("@" + (i + 1), "node", "Node",
                     Collections.unmodifiableMap(fields), List.of()));
         }
@@ -114,19 +128,19 @@ public final class LinkedListCycle implements Algorithm {
 
     private ListView snapshotList() {
         List<ListView.NodeBox> nodes = new ArrayList<>();
-        for (int i = 0; i < N; i++) {
-            nodes.add(new ListView.NodeBox("@" + (i + 1), VALS[i],
-                    NEXT[i] >= 0 ? "@" + (NEXT[i] + 1) : null));
+        for (int i = 0; i < n; i++) {
+            nodes.add(new ListView.NodeBox("@" + (i + 1), vals[i],
+                    next[i] >= 0 ? "@" + (next[i] + 1) : null));
         }
         return new ListView("带环链表", "@1", Collections.unmodifiableList(nodes));
     }
 
     private Trace.TraceMeta meta() {
         StringBuilder sb = new StringBuilder();
-        for (int k = 0; k < N; k++) {
+        for (int k = 0; k < n; k++) {
             if (k > 0) sb.append(',');
-            sb.append(VALS[k]);
+            sb.append(vals[k]);
         }
-        return new Trace.TraceMeta(id(), title(), codeResource(), sb.toString(), N);
+        return new Trace.TraceMeta(id(), title(), codeResource(), sb.toString(), n);
     }
 }

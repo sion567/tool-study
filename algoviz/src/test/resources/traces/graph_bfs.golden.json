@@ -1596,364 +1596,6 @@
       "loc": {
         "startLine": 9,
         "endLine": 9,
-        "note": "标记在入队时就打了：队列里不会有重复节点"
-      },
-      "layers": {
-        "mem.stack": {
-          "frames": [
-            {
-              "method": "bfs(src=A)",
-              "locals": {
-                "q": {
-                  "kind": "PRIM",
-                  "text": "[C]"
-                }
-              }
-            }
-          ]
-        },
-        "mem.heap": {
-          "heap": {
-            "objects": {
-              "@1": {
-                "id": "@1",
-                "label": "q",
-                "type": "BfsState",
-                "fields": {
-                  "queue": {
-                    "kind": "PRIM",
-                    "text": "[C]"
-                  },
-                  "A": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "B": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "C": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "D": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "E": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "F": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  }
-                },
-                "elements": []
-              }
-            }
-          }
-        },
-        "ds.graph": {
-          "name": "BFS",
-          "vertices": [
-            {
-              "nodeId": "@1",
-              "label": "A",
-              "x": 0.1,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@2",
-              "label": "B",
-              "x": 0.32,
-              "y": 0.16
-            },
-            {
-              "nodeId": "@3",
-              "label": "C",
-              "x": 0.32,
-              "y": 0.76
-            },
-            {
-              "nodeId": "@4",
-              "label": "D",
-              "x": 0.58,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@5",
-              "label": "E",
-              "x": 0.78,
-              "y": 0.78
-            },
-            {
-              "nodeId": "@6",
-              "label": "F",
-              "x": 0.9,
-              "y": 0.2
-            }
-          ],
-          "edges": [
-            {
-              "fromId": "@1",
-              "toId": "@2",
-              "weight": 4
-            },
-            {
-              "fromId": "@1",
-              "toId": "@3",
-              "weight": 2
-            },
-            {
-              "fromId": "@2",
-              "toId": "@3",
-              "weight": 1
-            },
-            {
-              "fromId": "@2",
-              "toId": "@4",
-              "weight": 5
-            },
-            {
-              "fromId": "@3",
-              "toId": "@4",
-              "weight": 8
-            },
-            {
-              "fromId": "@3",
-              "toId": "@5",
-              "weight": 10
-            },
-            {
-              "fromId": "@4",
-              "toId": "@5",
-              "weight": 2
-            },
-            {
-              "fromId": "@4",
-              "toId": "@6",
-              "weight": 6
-            },
-            {
-              "fromId": "@5",
-              "toId": "@6",
-              "weight": 3
-            }
-          ],
-          "activeId": "@2",
-          "settledIds": [
-            "@1",
-            "@2",
-            "@3"
-          ],
-          "dist": {},
-          "visitOrderIds": [
-            "@1",
-            "@2",
-            "@3"
-          ]
-        }
-      },
-      "events": [
-        {
-          "type": "COMPARE",
-          "targets": [
-            "B",
-            "A"
-          ],
-          "detail": "A 已访问 → 跳过"
-        }
-      ],
-      "intent": {
-        "why": "标记在入队时就打了：队列里不会有重复节点",
-        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
-      }
-    },
-    {
-      "index": 10,
-      "loc": {
-        "startLine": 9,
-        "endLine": 9,
-        "note": "标记在入队时就打了：队列里不会有重复节点"
-      },
-      "layers": {
-        "mem.stack": {
-          "frames": [
-            {
-              "method": "bfs(src=A)",
-              "locals": {
-                "q": {
-                  "kind": "PRIM",
-                  "text": "[C]"
-                }
-              }
-            }
-          ]
-        },
-        "mem.heap": {
-          "heap": {
-            "objects": {
-              "@1": {
-                "id": "@1",
-                "label": "q",
-                "type": "BfsState",
-                "fields": {
-                  "queue": {
-                    "kind": "PRIM",
-                    "text": "[C]"
-                  },
-                  "A": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "B": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "C": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "D": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "E": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "F": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  }
-                },
-                "elements": []
-              }
-            }
-          }
-        },
-        "ds.graph": {
-          "name": "BFS",
-          "vertices": [
-            {
-              "nodeId": "@1",
-              "label": "A",
-              "x": 0.1,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@2",
-              "label": "B",
-              "x": 0.32,
-              "y": 0.16
-            },
-            {
-              "nodeId": "@3",
-              "label": "C",
-              "x": 0.32,
-              "y": 0.76
-            },
-            {
-              "nodeId": "@4",
-              "label": "D",
-              "x": 0.58,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@5",
-              "label": "E",
-              "x": 0.78,
-              "y": 0.78
-            },
-            {
-              "nodeId": "@6",
-              "label": "F",
-              "x": 0.9,
-              "y": 0.2
-            }
-          ],
-          "edges": [
-            {
-              "fromId": "@1",
-              "toId": "@2",
-              "weight": 4
-            },
-            {
-              "fromId": "@1",
-              "toId": "@3",
-              "weight": 2
-            },
-            {
-              "fromId": "@2",
-              "toId": "@3",
-              "weight": 1
-            },
-            {
-              "fromId": "@2",
-              "toId": "@4",
-              "weight": 5
-            },
-            {
-              "fromId": "@3",
-              "toId": "@4",
-              "weight": 8
-            },
-            {
-              "fromId": "@3",
-              "toId": "@5",
-              "weight": 10
-            },
-            {
-              "fromId": "@4",
-              "toId": "@5",
-              "weight": 2
-            },
-            {
-              "fromId": "@4",
-              "toId": "@6",
-              "weight": 6
-            },
-            {
-              "fromId": "@5",
-              "toId": "@6",
-              "weight": 3
-            }
-          ],
-          "activeId": "@2",
-          "settledIds": [
-            "@1",
-            "@2",
-            "@3"
-          ],
-          "dist": {},
-          "visitOrderIds": [
-            "@1",
-            "@2",
-            "@3"
-          ]
-        }
-      },
-      "events": [
-        {
-          "type": "COMPARE",
-          "targets": [
-            "B",
-            "C"
-          ],
-          "detail": "C 已访问 → 跳过"
-        }
-      ],
-      "intent": {
-        "why": "标记在入队时就打了：队列里不会有重复节点",
-        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
-      }
-    },
-    {
-      "index": 11,
-      "loc": {
-        "startLine": 9,
-        "endLine": 9,
         "note": "第一次见到 D：标记 + 入队一步完成"
       },
       "layers": {
@@ -2129,7 +1771,7 @@
       }
     },
     {
-      "index": 12,
+      "index": 10,
       "loc": {
         "startLine": 11,
         "endLine": 11,
@@ -2305,6 +1947,368 @@
       ],
       "intent": {
         "why": "下一层进队列——等这一层全部扩散完才轮到它们",
+        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "标记在入队时就打了：队列里不会有重复节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bfs(src=A)",
+              "locals": {
+                "q": {
+                  "kind": "PRIM",
+                  "text": "[C, D]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "q",
+                "type": "BfsState",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[C, D]"
+                  },
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "BFS",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@2",
+          "settledIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4"
+          ],
+          "dist": {},
+          "visitOrderIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "B",
+            "A"
+          ],
+          "detail": "A 已访问 → 跳过"
+        }
+      ],
+      "intent": {
+        "why": "标记在入队时就打了：队列里不会有重复节点",
+        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "标记在入队时就打了：队列里不会有重复节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bfs(src=A)",
+              "locals": {
+                "q": {
+                  "kind": "PRIM",
+                  "text": "[C, D]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "q",
+                "type": "BfsState",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[C, D]"
+                  },
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "BFS",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@2",
+          "settledIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4"
+          ],
+          "dist": {},
+          "visitOrderIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "B",
+            "C"
+          ],
+          "detail": "C 已访问 → 跳过"
+        }
+      ],
+      "intent": {
+        "why": "标记在入队时就打了：队列里不会有重复节点",
         "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
       }
     },
@@ -2839,9 +2843,9 @@
           "type": "COMPARE",
           "targets": [
             "C",
-            "A"
+            "B"
           ],
-          "detail": "A 已访问 → 跳过"
+          "detail": "B 已访问 → 跳过"
         }
       ],
       "intent": {
@@ -3020,9 +3024,9 @@
           "type": "COMPARE",
           "targets": [
             "C",
-            "B"
+            "A"
           ],
-          "detail": "B 已访问 → 跳过"
+          "detail": "A 已访问 → 跳过"
         }
       ],
       "intent": {
@@ -3032,187 +3036,6 @@
     },
     {
       "index": 17,
-      "loc": {
-        "startLine": 9,
-        "endLine": 9,
-        "note": "标记在入队时就打了：队列里不会有重复节点"
-      },
-      "layers": {
-        "mem.stack": {
-          "frames": [
-            {
-              "method": "bfs(src=A)",
-              "locals": {
-                "q": {
-                  "kind": "PRIM",
-                  "text": "[D]"
-                }
-              }
-            }
-          ]
-        },
-        "mem.heap": {
-          "heap": {
-            "objects": {
-              "@1": {
-                "id": "@1",
-                "label": "q",
-                "type": "BfsState",
-                "fields": {
-                  "queue": {
-                    "kind": "PRIM",
-                    "text": "[D]"
-                  },
-                  "A": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "B": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "C": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "D": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "E": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  },
-                  "F": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  }
-                },
-                "elements": []
-              }
-            }
-          }
-        },
-        "ds.graph": {
-          "name": "BFS",
-          "vertices": [
-            {
-              "nodeId": "@1",
-              "label": "A",
-              "x": 0.1,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@2",
-              "label": "B",
-              "x": 0.32,
-              "y": 0.16
-            },
-            {
-              "nodeId": "@3",
-              "label": "C",
-              "x": 0.32,
-              "y": 0.76
-            },
-            {
-              "nodeId": "@4",
-              "label": "D",
-              "x": 0.58,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@5",
-              "label": "E",
-              "x": 0.78,
-              "y": 0.78
-            },
-            {
-              "nodeId": "@6",
-              "label": "F",
-              "x": 0.9,
-              "y": 0.2
-            }
-          ],
-          "edges": [
-            {
-              "fromId": "@1",
-              "toId": "@2",
-              "weight": 4
-            },
-            {
-              "fromId": "@1",
-              "toId": "@3",
-              "weight": 2
-            },
-            {
-              "fromId": "@2",
-              "toId": "@3",
-              "weight": 1
-            },
-            {
-              "fromId": "@2",
-              "toId": "@4",
-              "weight": 5
-            },
-            {
-              "fromId": "@3",
-              "toId": "@4",
-              "weight": 8
-            },
-            {
-              "fromId": "@3",
-              "toId": "@5",
-              "weight": 10
-            },
-            {
-              "fromId": "@4",
-              "toId": "@5",
-              "weight": 2
-            },
-            {
-              "fromId": "@4",
-              "toId": "@6",
-              "weight": 6
-            },
-            {
-              "fromId": "@5",
-              "toId": "@6",
-              "weight": 3
-            }
-          ],
-          "activeId": "@3",
-          "settledIds": [
-            "@1",
-            "@2",
-            "@3",
-            "@4"
-          ],
-          "dist": {},
-          "visitOrderIds": [
-            "@1",
-            "@2",
-            "@3",
-            "@4"
-          ]
-        }
-      },
-      "events": [
-        {
-          "type": "COMPARE",
-          "targets": [
-            "C",
-            "D"
-          ],
-          "detail": "D 已访问 → 跳过"
-        }
-      ],
-      "intent": {
-        "why": "标记在入队时就打了：队列里不会有重复节点",
-        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
-      }
-    },
-    {
-      "index": 18,
       "loc": {
         "startLine": 9,
         "endLine": 9,
@@ -3393,7 +3216,7 @@
       }
     },
     {
-      "index": 19,
+      "index": 18,
       "loc": {
         "startLine": 11,
         "endLine": 11,
@@ -3571,6 +3394,189 @@
       ],
       "intent": {
         "why": "下一层进队列——等这一层全部扩散完才轮到它们",
+        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "标记在入队时就打了：队列里不会有重复节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bfs(src=A)",
+              "locals": {
+                "q": {
+                  "kind": "PRIM",
+                  "text": "[D, E]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "q",
+                "type": "BfsState",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[D, E]"
+                  },
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "未访问"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "BFS",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4",
+            "@5"
+          ],
+          "dist": {},
+          "visitOrderIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4",
+            "@5"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "C",
+            "D"
+          ],
+          "detail": "D 已访问 → 跳过"
+        }
+      ],
+      "intent": {
+        "why": "标记在入队时就打了：队列里不会有重复节点",
         "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
       }
     },
@@ -3943,555 +3949,6 @@
       "loc": {
         "startLine": 9,
         "endLine": 9,
-        "note": "标记在入队时就打了：队列里不会有重复节点"
-      },
-      "layers": {
-        "mem.stack": {
-          "frames": [
-            {
-              "method": "bfs(src=A)",
-              "locals": {
-                "q": {
-                  "kind": "PRIM",
-                  "text": "[E]"
-                }
-              }
-            }
-          ]
-        },
-        "mem.heap": {
-          "heap": {
-            "objects": {
-              "@1": {
-                "id": "@1",
-                "label": "q",
-                "type": "BfsState",
-                "fields": {
-                  "queue": {
-                    "kind": "PRIM",
-                    "text": "[E]"
-                  },
-                  "A": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "B": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "C": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "D": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "E": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "F": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  }
-                },
-                "elements": []
-              }
-            }
-          }
-        },
-        "ds.graph": {
-          "name": "BFS",
-          "vertices": [
-            {
-              "nodeId": "@1",
-              "label": "A",
-              "x": 0.1,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@2",
-              "label": "B",
-              "x": 0.32,
-              "y": 0.16
-            },
-            {
-              "nodeId": "@3",
-              "label": "C",
-              "x": 0.32,
-              "y": 0.76
-            },
-            {
-              "nodeId": "@4",
-              "label": "D",
-              "x": 0.58,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@5",
-              "label": "E",
-              "x": 0.78,
-              "y": 0.78
-            },
-            {
-              "nodeId": "@6",
-              "label": "F",
-              "x": 0.9,
-              "y": 0.2
-            }
-          ],
-          "edges": [
-            {
-              "fromId": "@1",
-              "toId": "@2",
-              "weight": 4
-            },
-            {
-              "fromId": "@1",
-              "toId": "@3",
-              "weight": 2
-            },
-            {
-              "fromId": "@2",
-              "toId": "@3",
-              "weight": 1
-            },
-            {
-              "fromId": "@2",
-              "toId": "@4",
-              "weight": 5
-            },
-            {
-              "fromId": "@3",
-              "toId": "@4",
-              "weight": 8
-            },
-            {
-              "fromId": "@3",
-              "toId": "@5",
-              "weight": 10
-            },
-            {
-              "fromId": "@4",
-              "toId": "@5",
-              "weight": 2
-            },
-            {
-              "fromId": "@4",
-              "toId": "@6",
-              "weight": 6
-            },
-            {
-              "fromId": "@5",
-              "toId": "@6",
-              "weight": 3
-            }
-          ],
-          "activeId": "@4",
-          "settledIds": [
-            "@1",
-            "@2",
-            "@3",
-            "@4",
-            "@5"
-          ],
-          "dist": {},
-          "visitOrderIds": [
-            "@1",
-            "@2",
-            "@3",
-            "@4",
-            "@5"
-          ]
-        }
-      },
-      "events": [
-        {
-          "type": "COMPARE",
-          "targets": [
-            "D",
-            "B"
-          ],
-          "detail": "B 已访问 → 跳过"
-        }
-      ],
-      "intent": {
-        "why": "标记在入队时就打了：队列里不会有重复节点",
-        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
-      }
-    },
-    {
-      "index": 23,
-      "loc": {
-        "startLine": 9,
-        "endLine": 9,
-        "note": "标记在入队时就打了：队列里不会有重复节点"
-      },
-      "layers": {
-        "mem.stack": {
-          "frames": [
-            {
-              "method": "bfs(src=A)",
-              "locals": {
-                "q": {
-                  "kind": "PRIM",
-                  "text": "[E]"
-                }
-              }
-            }
-          ]
-        },
-        "mem.heap": {
-          "heap": {
-            "objects": {
-              "@1": {
-                "id": "@1",
-                "label": "q",
-                "type": "BfsState",
-                "fields": {
-                  "queue": {
-                    "kind": "PRIM",
-                    "text": "[E]"
-                  },
-                  "A": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "B": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "C": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "D": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "E": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "F": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  }
-                },
-                "elements": []
-              }
-            }
-          }
-        },
-        "ds.graph": {
-          "name": "BFS",
-          "vertices": [
-            {
-              "nodeId": "@1",
-              "label": "A",
-              "x": 0.1,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@2",
-              "label": "B",
-              "x": 0.32,
-              "y": 0.16
-            },
-            {
-              "nodeId": "@3",
-              "label": "C",
-              "x": 0.32,
-              "y": 0.76
-            },
-            {
-              "nodeId": "@4",
-              "label": "D",
-              "x": 0.58,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@5",
-              "label": "E",
-              "x": 0.78,
-              "y": 0.78
-            },
-            {
-              "nodeId": "@6",
-              "label": "F",
-              "x": 0.9,
-              "y": 0.2
-            }
-          ],
-          "edges": [
-            {
-              "fromId": "@1",
-              "toId": "@2",
-              "weight": 4
-            },
-            {
-              "fromId": "@1",
-              "toId": "@3",
-              "weight": 2
-            },
-            {
-              "fromId": "@2",
-              "toId": "@3",
-              "weight": 1
-            },
-            {
-              "fromId": "@2",
-              "toId": "@4",
-              "weight": 5
-            },
-            {
-              "fromId": "@3",
-              "toId": "@4",
-              "weight": 8
-            },
-            {
-              "fromId": "@3",
-              "toId": "@5",
-              "weight": 10
-            },
-            {
-              "fromId": "@4",
-              "toId": "@5",
-              "weight": 2
-            },
-            {
-              "fromId": "@4",
-              "toId": "@6",
-              "weight": 6
-            },
-            {
-              "fromId": "@5",
-              "toId": "@6",
-              "weight": 3
-            }
-          ],
-          "activeId": "@4",
-          "settledIds": [
-            "@1",
-            "@2",
-            "@3",
-            "@4",
-            "@5"
-          ],
-          "dist": {},
-          "visitOrderIds": [
-            "@1",
-            "@2",
-            "@3",
-            "@4",
-            "@5"
-          ]
-        }
-      },
-      "events": [
-        {
-          "type": "COMPARE",
-          "targets": [
-            "D",
-            "C"
-          ],
-          "detail": "C 已访问 → 跳过"
-        }
-      ],
-      "intent": {
-        "why": "标记在入队时就打了：队列里不会有重复节点",
-        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
-      }
-    },
-    {
-      "index": 24,
-      "loc": {
-        "startLine": 9,
-        "endLine": 9,
-        "note": "标记在入队时就打了：队列里不会有重复节点"
-      },
-      "layers": {
-        "mem.stack": {
-          "frames": [
-            {
-              "method": "bfs(src=A)",
-              "locals": {
-                "q": {
-                  "kind": "PRIM",
-                  "text": "[E]"
-                }
-              }
-            }
-          ]
-        },
-        "mem.heap": {
-          "heap": {
-            "objects": {
-              "@1": {
-                "id": "@1",
-                "label": "q",
-                "type": "BfsState",
-                "fields": {
-                  "queue": {
-                    "kind": "PRIM",
-                    "text": "[E]"
-                  },
-                  "A": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "B": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "C": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "D": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "E": {
-                    "kind": "PRIM",
-                    "text": "已访问"
-                  },
-                  "F": {
-                    "kind": "PRIM",
-                    "text": "未访问"
-                  }
-                },
-                "elements": []
-              }
-            }
-          }
-        },
-        "ds.graph": {
-          "name": "BFS",
-          "vertices": [
-            {
-              "nodeId": "@1",
-              "label": "A",
-              "x": 0.1,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@2",
-              "label": "B",
-              "x": 0.32,
-              "y": 0.16
-            },
-            {
-              "nodeId": "@3",
-              "label": "C",
-              "x": 0.32,
-              "y": 0.76
-            },
-            {
-              "nodeId": "@4",
-              "label": "D",
-              "x": 0.58,
-              "y": 0.45
-            },
-            {
-              "nodeId": "@5",
-              "label": "E",
-              "x": 0.78,
-              "y": 0.78
-            },
-            {
-              "nodeId": "@6",
-              "label": "F",
-              "x": 0.9,
-              "y": 0.2
-            }
-          ],
-          "edges": [
-            {
-              "fromId": "@1",
-              "toId": "@2",
-              "weight": 4
-            },
-            {
-              "fromId": "@1",
-              "toId": "@3",
-              "weight": 2
-            },
-            {
-              "fromId": "@2",
-              "toId": "@3",
-              "weight": 1
-            },
-            {
-              "fromId": "@2",
-              "toId": "@4",
-              "weight": 5
-            },
-            {
-              "fromId": "@3",
-              "toId": "@4",
-              "weight": 8
-            },
-            {
-              "fromId": "@3",
-              "toId": "@5",
-              "weight": 10
-            },
-            {
-              "fromId": "@4",
-              "toId": "@5",
-              "weight": 2
-            },
-            {
-              "fromId": "@4",
-              "toId": "@6",
-              "weight": 6
-            },
-            {
-              "fromId": "@5",
-              "toId": "@6",
-              "weight": 3
-            }
-          ],
-          "activeId": "@4",
-          "settledIds": [
-            "@1",
-            "@2",
-            "@3",
-            "@4",
-            "@5"
-          ],
-          "dist": {},
-          "visitOrderIds": [
-            "@1",
-            "@2",
-            "@3",
-            "@4",
-            "@5"
-          ]
-        }
-      },
-      "events": [
-        {
-          "type": "COMPARE",
-          "targets": [
-            "D",
-            "E"
-          ],
-          "detail": "E 已访问 → 跳过"
-        }
-      ],
-      "intent": {
-        "why": "标记在入队时就打了：队列里不会有重复节点",
-        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
-      }
-    },
-    {
-      "index": 25,
-      "loc": {
-        "startLine": 9,
-        "endLine": 9,
         "note": "第一次见到 F：标记 + 入队一步完成"
       },
       "layers": {
@@ -4671,7 +4128,7 @@
       }
     },
     {
-      "index": 26,
+      "index": 23,
       "loc": {
         "startLine": 11,
         "endLine": 11,
@@ -4851,6 +4308,561 @@
       ],
       "intent": {
         "why": "下一层进队列——等这一层全部扩散完才轮到它们",
+        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "标记在入队时就打了：队列里不会有重复节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bfs(src=A)",
+              "locals": {
+                "q": {
+                  "kind": "PRIM",
+                  "text": "[E, F]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "q",
+                "type": "BfsState",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[E, F]"
+                  },
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "BFS",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4",
+            "@5",
+            "@6"
+          ],
+          "dist": {},
+          "visitOrderIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4",
+            "@5",
+            "@6"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "D",
+            "C"
+          ],
+          "detail": "C 已访问 → 跳过"
+        }
+      ],
+      "intent": {
+        "why": "标记在入队时就打了：队列里不会有重复节点",
+        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "标记在入队时就打了：队列里不会有重复节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bfs(src=A)",
+              "locals": {
+                "q": {
+                  "kind": "PRIM",
+                  "text": "[E, F]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "q",
+                "type": "BfsState",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[E, F]"
+                  },
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "BFS",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4",
+            "@5",
+            "@6"
+          ],
+          "dist": {},
+          "visitOrderIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4",
+            "@5",
+            "@6"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "D",
+            "B"
+          ],
+          "detail": "B 已访问 → 跳过"
+        }
+      ],
+      "intent": {
+        "why": "标记在入队时就打了：队列里不会有重复节点",
+        "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "标记在入队时就打了：队列里不会有重复节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bfs(src=A)",
+              "locals": {
+                "q": {
+                  "kind": "PRIM",
+                  "text": "[E, F]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "q",
+                "type": "BfsState",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[E, F]"
+                  },
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "已访问"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "BFS",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4",
+            "@5",
+            "@6"
+          ],
+          "dist": {},
+          "visitOrderIds": [
+            "@1",
+            "@2",
+            "@3",
+            "@4",
+            "@5",
+            "@6"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "D",
+            "E"
+          ],
+          "detail": "E 已访问 → 跳过"
+        }
+      ],
+      "intent": {
+        "why": "标记在入队时就打了：队列里不会有重复节点",
         "invariant": "队列按层扩散：先入队的先出队——编号顺序就是离起点的跳数顺序（最短边数路径）"
       }
     },
@@ -5397,9 +5409,9 @@
           "type": "COMPARE",
           "targets": [
             "E",
-            "C"
+            "D"
           ],
-          "detail": "C 已访问 → 跳过"
+          "detail": "D 已访问 → 跳过"
         }
       ],
       "intent": {
@@ -5582,9 +5594,9 @@
           "type": "COMPARE",
           "targets": [
             "E",
-            "D"
+            "C"
           ],
-          "detail": "D 已访问 → 跳过"
+          "detail": "C 已访问 → 跳过"
         }
       ],
       "intent": {
@@ -6320,9 +6332,9 @@
           "type": "COMPARE",
           "targets": [
             "F",
-            "D"
+            "E"
           ],
-          "detail": "D 已访问 → 跳过"
+          "detail": "E 已访问 → 跳过"
         }
       ],
       "intent": {
@@ -6505,9 +6517,9 @@
           "type": "COMPARE",
           "targets": [
             "F",
-            "E"
+            "D"
           ],
-          "detail": "E 已访问 → 跳过"
+          "detail": "D 已访问 → 跳过"
         }
       ],
       "intent": {

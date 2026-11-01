@@ -17,3 +17,7 @@
 
 - 🎯 预测页：盯堆面板 `@2.cursor` 逐帧右移——next 之后才动
 - 三个元素遍历完，hasNext 返回 false 那帧也要能预测
+
+## 变体
+
+- 变体=java.util.Iterator 协议、分页迭代器、流式惰性求值

@@ -7,6 +7,7 @@ import com.algoviz.engine.ds.ListView;
 import com.algoviz.engine.math.MathView;
 import com.algoviz.engine.trace.Trace;
 import com.algoviz.ui.BarRenderer;
+import com.algoviz.ui.BitmapRenderer;
 import com.algoviz.ui.CodePanel;
 import com.algoviz.ui.DiffHighlighter;
 import com.algoviz.ui.GraphRenderer;
@@ -232,6 +233,16 @@ public class MainApp extends Application {
             themeBtn.setText(dark ? "☀" : "🌙");
             applyTheme();
         });
+        Button randBtn = new Button("🎲");
+        randBtn.setOnAction(e -> {
+            if (currentAlgorithm == null) {
+                return;
+            }
+            Algorithm fresh = AlgorithmRegistry.randomVariant(currentAlgorithm);
+            if (fresh != null) {
+                load(fresh);
+            }
+        });
 
         first.setOnAction(e -> playback.go(0));
         prev.setOnAction(e -> playback.prev());
@@ -244,7 +255,7 @@ public class MainApp extends Application {
         slider.valueProperty().addListener((o, ov, nv) -> playback.go((int) Math.round(nv.doubleValue())));
 
         stepLabel = new Label("0 / 0");
-        HBox bar = new HBox(8, first, prev, playBtn, next, last, themeBtn, slider, stepLabel);
+        HBox bar = new HBox(8, first, prev, playBtn, next, last, randBtn, themeBtn, slider, stepLabel);
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setPadding(new Insets(4, 0, 4, 0));
         return bar;
@@ -308,6 +319,12 @@ public class MainApp extends Application {
                     prev == null ? null : prev.seq(), cur == null ? null : cur.seq());
             Set<String> changedMatrix = DiffHighlighter.changedMatrixCells(
                     prev == null ? null : prev.math(), cur == null ? null : cur.math());
+            Set<Integer> changedBits = new java.util.LinkedHashSet<>();
+            for (String k : changedMatrix) {
+                if (k.startsWith("bits:")) {
+                    changedBits.add(Integer.parseInt(k.substring(5)));
+                }
+            }
             Set<Integer> pickedNow = phase == PredictPhase.ARMED ? picked : null;
             if (cur != null && cur.list() != null) {
                 ListRenderer.draw(canvas, cur, pickedNow, changedArrows);
@@ -317,8 +334,10 @@ public class MainApp extends Application {
                 GraphRenderer.draw(canvas, cur, pickedNow, changedGraphNodes);
             } else if (cur != null && cur.seq() != null) {
                 SequenceRenderer.draw(canvas, cur, pickedNow, changedSeq);
-            } else if (cur != null && cur.math() != null) {
+            } else if (cur != null && cur.math() != null && cur.bitmap() == null) {
                 MatrixRenderer.draw(canvas, cur, pickedNow, changedMatrix);
+            } else if (cur != null && cur.bitmap() != null) {
+                BitmapRenderer.draw(canvas, cur, pickedNow, changedBits);
             } else {
                 BarRenderer.draw(canvas, cur, pickedNow, changed);
             }
@@ -373,6 +392,8 @@ public class MainApp extends Application {
             idx = SequenceRenderer.hitIndex(canvas, cur, x, y);
         } else if (cur.math() != null) {
             idx = MatrixRenderer.hitIndex(canvas, cur, x, y);
+        } else if (cur.bitmap() != null) {
+            idx = BitmapRenderer.hitIndex(canvas, cur, x, y);
         } else if (cur.array() != null) {
             idx = BarRenderer.hitIndex(canvas.getWidth(), canvas.getHeight(),
                     cur.array().values().size(), x, y);
@@ -408,13 +429,16 @@ public class MainApp extends Application {
                 boolean treeMode = cur != null && cur.tree() != null;
                 boolean graphMode = cur != null && cur.graph() != null;
                 boolean seqMode = cur != null && cur.seq() != null;
-                boolean mathMode = cur != null && cur.math() != null;
-                String target = mathMode ? "C 的哪个格子会写数？（点 C 矩阵的格子）"
+                boolean mathMode = cur != null && cur.math() != null && cur.bitmap() == null;
+                boolean bitmapMode = cur != null && cur.bitmap() != null;
+                String target = bitmapMode ? "BitSet 上哪些格子会翻转？（点格子）"
+                        : mathMode ? "C 的哪个格子会写数？（点 C 矩阵的格子）"
                         : seqMode ? "下一条消息会经过哪些泳道？（点泳道头选择）"
                         : graphMode || treeMode ? "哪些节点会变？（点节点选择）"
                         : listMode ? "哪些节点的 next 箭头会变？（点盒子选择）"
                         : "哪些数组格子会变？（点柱子选择）";
-                String noneCase = mathMode ? "本步没有格子写数"
+                String noneCase = bitmapMode ? "没有格子翻转"
+                        : mathMode ? "本步没有格子写数"
                         : seqMode ? "没有消息要发"
                         : graphMode ? "没有节点变化" : treeMode ? "没有任何节点变化"
                         : listMode ? "一根箭头都不断" : "数组不变";
@@ -451,7 +475,8 @@ public class MainApp extends Application {
         boolean listMode = cur.list() != null;
         boolean treeMode = cur.tree() != null;
         boolean graphMode = cur.graph() != null;
-        boolean mathMode = cur.math() != null;
+        boolean mathMode = cur.math() != null && cur.bitmap() == null;
+        boolean bitmapMode = cur.bitmap() != null;
 
         asked++;
         List<Integer> missed = truth.stream().filter(t -> !picked.contains(t)).toList();
@@ -465,7 +490,8 @@ public class MainApp extends Application {
         }
 
         String truthStr = truth.isEmpty()
-                ? (mathMode ? "本步没有格子写数（只是移动了读取的行列）"
+                ? (bitmapMode ? "没有格子翻转（只是读了一下）"
+                : mathMode ? "本步没有格子写数（只是移动了读取的行列）"
                         : treeMode || graphMode ? "没有节点变化（只动了栈/表）"
                         : listMode ? "一根箭头都没断（变的是栈里的指针变量！）"
                         : "数组一个格子都没变（变的是栈里的变量！）")
@@ -564,6 +590,19 @@ public class MainApp extends Application {
             }
             return out;
         }
+        if (cur.bitmap() != null) {
+            Set<Integer> out = new LinkedHashSet<>();
+            var nb = next.bitmap();
+            for (int b : nb.ones()) {
+                if (!cur.bitmap().ones().contains(b)) {
+                    out.add(b);
+                }
+            }
+            if (nb.dupBit() != null) {
+                out.add(nb.dupBit());
+            }
+            return out;
+        }
         if (cur.math() != null) {
             Set<Integer> out = new LinkedHashSet<>();
             for (String key : DiffHighlighter.changedMatrixCells(cur.math(), next.math())) {
@@ -581,9 +620,13 @@ public class MainApp extends Application {
         boolean treeMode = refStep != null && refStep.tree() != null;
         boolean graphMode = refStep != null && refStep.graph() != null;
         boolean seqMode = refStep != null && refStep.seq() != null;
-        boolean mathMode = refStep != null && refStep.math() != null;
+        boolean mathMode = refStep != null && refStep.math() != null && refStep.bitmap() == null;
+        boolean bitmapMode = refStep != null && refStep.bitmap() != null;
         return idxs.stream().sorted()
                 .map(i -> {
+                    if (bitmapMode) {
+                        return "bit[" + i + "]";
+                    }
                     if (mathMode) {
                         var grids = refStep.math().grids();
                         MathView.Grid c = grids.stream().filter(g -> g.id().equals("C")).findFirst().orElse(null);
