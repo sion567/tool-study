@@ -1,0 +1,458 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.singleton",
+    "title": "单例模式",
+    "codeResource": "/code/SingletonDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "第一次：触发 Holder 类加载，实例在这时诞生"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "holder",
+              "label": "Holder : 类加载器"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getInstance()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "Holder : 类加载器"
+          ],
+          "detail": "client → Holder : 类加载器：getInstance()"
+        }
+      ],
+      "intent": {
+        "why": "第一次：触发 Holder 类加载，实例在这时诞生",
+        "invariant": "无论调多少次 getInstance，全局只有一根引用——第一次创建，之后只读"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "静态初始化由 JVM 保证只跑一次、线程安全"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Config",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "holder",
+              "label": "Holder : 类加载器"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getInstance()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "造出 @1 并返回（全局唯一的那份）"
+        }
+      ],
+      "intent": {
+        "why": "静态初始化由 JVM 保证只跑一次、线程安全",
+        "invariant": "无论调多少次 getInstance，全局只有一根引用——第一次创建，之后只读"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "把同一根引用交给调用方"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Config",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "holder",
+              "label": "Holder : 类加载器"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getInstance()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "return @1",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Holder : 类加载器",
+            "client"
+          ],
+          "detail": "Holder : 类加载器 → client：return @1"
+        }
+      ],
+      "intent": {
+        "why": "把同一根引用交给调用方",
+        "invariant": "无论调多少次 getInstance，全局只有一根引用——第一次创建，之后只读"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "第二次：类已加载，直接拿现成的"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Config",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "holder",
+              "label": "Holder : 类加载器"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getInstance()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "return @1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getInstance()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "Holder : 类加载器"
+          ],
+          "detail": "client → Holder : 类加载器：getInstance()"
+        }
+      ],
+      "intent": {
+        "why": "第二次：类已加载，直接拿现成的",
+        "invariant": "无论调多少次 getInstance，全局只有一根引用——第一次创建，之后只读"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "没有第二次 new——堆面板里还是 @1"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Config",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "holder",
+              "label": "Holder : 类加载器"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getInstance()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "return @1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getInstance()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "return @1（同一个！）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Holder : 类加载器",
+            "client"
+          ],
+          "detail": "Holder : 类加载器 → client：return @1（同一个！）"
+        }
+      ],
+      "intent": {
+        "why": "没有第二次 new——堆面板里还是 @1",
+        "invariant": "无论调多少次 getInstance，全局只有一根引用——第一次创建，之后只读"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "单例的本质：把「只造一次」写进类结构，而不是靠调用方自觉"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Config",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "holder",
+              "label": "Holder : 类加载器"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getInstance()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "return @1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getInstance()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "return @1（同一个！）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "a == b → true：两根引用指向同一个对象"
+        }
+      ],
+      "intent": {
+        "why": "单例的本质：把「只造一次」写进类结构，而不是靠调用方自觉",
+        "invariant": "无论调多少次 getInstance，全局只有一根引用——第一次创建，之后只读"
+      }
+    }
+  ]
+}

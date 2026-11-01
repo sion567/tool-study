@@ -1,0 +1,871 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.mediator",
+    "title": "中介者模式",
+    "codeResource": "/code/MediatorDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "依赖画出来是星形——中介在中心，同事在辐条上"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "ChatMediator",
+                "fields": {
+                  "members": {
+                    "kind": "PRIM",
+                    "text": "[画布, 变量面板]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "a",
+              "label": "a : Colleague(画布)"
+            },
+            {
+              "id": "mediator",
+              "label": "m : ChatMediator"
+            },
+            {
+              "id": "b",
+              "label": "b : Colleague(变量面板)"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "两个同事入群：都只认识 @1（互不认识）"
+        }
+      ],
+      "intent": {
+        "why": "依赖画出来是星形——中介在中心，同事在辐条上",
+        "invariant": "N 个对象两两通信 = N(N-1) 根依赖；经中介 = N 根——网状变星形"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "A 要通知 B——但 A 手里根本没有 B 的引用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "ChatMediator",
+                "fields": {
+                  "members": {
+                    "kind": "PRIM",
+                    "text": "[画布, 变量面板]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "a",
+              "label": "a : Colleague(画布)"
+            },
+            {
+              "id": "mediator",
+              "label": "m : ChatMediator"
+            },
+            {
+              "id": "b",
+              "label": "b : Colleague(变量面板)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "a.send(\"我刷新了\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "m : ChatMediator"
+          ],
+          "detail": "client → m : ChatMediator：a.send(\"我刷新了\")"
+        }
+      ],
+      "intent": {
+        "why": "A 要通知 B——但 A 手里根本没有 B 的引用",
+        "invariant": "N 个对象两两通信 = N(N-1) 根依赖；经中介 = N 根——网状变星形"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "A 只把消息交给中介"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "ChatMediator",
+                "fields": {
+                  "members": {
+                    "kind": "PRIM",
+                    "text": "[画布, 变量面板]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "a",
+              "label": "a : Colleague(画布)"
+            },
+            {
+              "id": "mediator",
+              "label": "m : ChatMediator"
+            },
+            {
+              "id": "b",
+              "label": "b : Colleague(变量面板)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "a.send(\"我刷新了\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "mediator.send(...)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "m : ChatMediator",
+            "a : Colleague(画布)"
+          ],
+          "detail": "m : ChatMediator → a : Colleague(画布)：mediator.send(...)"
+        }
+      ],
+      "intent": {
+        "why": "A 只把消息交给中介",
+        "invariant": "N 个对象两两通信 = N(N-1) 根依赖；经中介 = N 根——网状变星形"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "中介认识所有人：B 收到了——A 从没见过 B"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "ChatMediator",
+                "fields": {
+                  "members": {
+                    "kind": "PRIM",
+                    "text": "[画布, 变量面板]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "a",
+              "label": "a : Colleague(画布)"
+            },
+            {
+              "id": "mediator",
+              "label": "m : ChatMediator"
+            },
+            {
+              "id": "b",
+              "label": "b : Colleague(变量面板)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "a.send(\"我刷新了\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "mediator.send(...)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "广播给 b",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "a : Colleague(画布)",
+            "b : Colleague(变量面板)"
+          ],
+          "detail": "a : Colleague(画布) → b : Colleague(变量面板)：广播给 b"
+        }
+      ],
+      "intent": {
+        "why": "中介认识所有人：B 收到了——A 从没见过 B",
+        "invariant": "N 个对象两两通信 = N(N-1) 根依赖；经中介 = N 根——网状变星形"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "B 的回执"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "ChatMediator",
+                "fields": {
+                  "members": {
+                    "kind": "PRIM",
+                    "text": "[画布, 变量面板]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "a",
+              "label": "a : Colleague(画布)"
+            },
+            {
+              "id": "mediator",
+              "label": "m : ChatMediator"
+            },
+            {
+              "id": "b",
+              "label": "b : Colleague(变量面板)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "a.send(\"我刷新了\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "mediator.send(...)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "广播给 b",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "收到",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "b : Colleague(变量面板)",
+            "a : Colleague(画布)"
+          ],
+          "detail": "b : Colleague(变量面板) → a : Colleague(画布)：收到"
+        }
+      ],
+      "intent": {
+        "why": "B 的回执",
+        "invariant": "N 个对象两两通信 = N(N-1) 根依赖；经中介 = N 根——网状变星形"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "A 的调用结束"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "ChatMediator",
+                "fields": {
+                  "members": {
+                    "kind": "PRIM",
+                    "text": "[画布, 变量面板]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "a",
+              "label": "a : Colleague(画布)"
+            },
+            {
+              "id": "mediator",
+              "label": "m : ChatMediator"
+            },
+            {
+              "id": "b",
+              "label": "b : Colleague(变量面板)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "a.send(\"我刷新了\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "mediator.send(...)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "广播给 b",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "收到",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "完成",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "a : Colleague(画布)",
+            "m : ChatMediator"
+          ],
+          "detail": "a : Colleague(画布) → m : ChatMediator：完成"
+        }
+      ],
+      "intent": {
+        "why": "A 的调用结束",
+        "invariant": "N 个对象两两通信 = N(N-1) 根依赖；经中介 = N 根——网状变星形"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "代价：中介者容易变成上帝对象——它一坏全坏"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "ChatMediator",
+                "fields": {
+                  "members": {
+                    "kind": "PRIM",
+                    "text": "[画布, 变量面板]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Colleague",
+                "fields": {
+                  "mediator": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "a",
+              "label": "a : Colleague(画布)"
+            },
+            {
+              "id": "mediator",
+              "label": "m : ChatMediator"
+            },
+            {
+              "id": "b",
+              "label": "b : Colleague(变量面板)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "a.send(\"我刷新了\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "mediator.send(...)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "广播给 b",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "收到",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "完成",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "加第 N 个同事：join 一行；同事两两之间的 N(N-1) 根线全消失"
+        }
+      ],
+      "intent": {
+        "why": "代价：中介者容易变成上帝对象——它一坏全坏",
+        "invariant": "N 个对象两两通信 = N(N-1) 根依赖；经中介 = N 根——网状变星形"
+      }
+    }
+  ]
+}

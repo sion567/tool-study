@@ -1,0 +1,1433 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.facade",
+    "title": "外观模式",
+    "codeResource": "/code/FacadeDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "子系统照常工作，Facade 只是站在它们前面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "app": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "AppFacade",
+                "fields": {
+                  "engine": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "panels": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "player": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Engine",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Panels",
+                "fields": {},
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Player",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "facade",
+              "label": "app : AppFacade"
+            },
+            {
+              "id": "engine",
+              "label": "engine"
+            },
+            {
+              "id": "panels",
+              "label": "panels"
+            },
+            {
+              "id": "player",
+              "label": "player"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1 门牌就位：内部握着三个子系统（@2 @3 @4）"
+        }
+      ],
+      "intent": {
+        "why": "子系统照常工作，Facade 只是站在它们前面",
+        "invariant": "子系统收进一个门牌：client 与 3 个子系统的依赖 → 与 Facade 的 1 个依赖"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "client 只认识 Facade 的一个方法——三步编排藏在里面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "app": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "AppFacade",
+                "fields": {
+                  "engine": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "panels": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "player": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Engine",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Panels",
+                "fields": {},
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Player",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "facade",
+              "label": "app : AppFacade"
+            },
+            {
+              "id": "engine",
+              "label": "engine"
+            },
+            {
+              "id": "panels",
+              "label": "panels"
+            },
+            {
+              "id": "player",
+              "label": "player"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "app : AppFacade"
+          ],
+          "detail": "client → app : AppFacade：open()"
+        }
+      ],
+      "intent": {
+        "why": "client 只认识 Facade 的一个方法——三步编排藏在里面",
+        "invariant": "子系统收进一个门牌：client 与 3 个子系统的依赖 → 与 Facade 的 1 个依赖"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "编排①：引擎启动"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "app": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "AppFacade",
+                "fields": {
+                  "engine": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "panels": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "player": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Engine",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Panels",
+                "fields": {},
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Player",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "facade",
+              "label": "app : AppFacade"
+            },
+            {
+              "id": "engine",
+              "label": "engine"
+            },
+            {
+              "id": "panels",
+              "label": "panels"
+            },
+            {
+              "id": "player",
+              "label": "player"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "engine.start()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "app : AppFacade",
+            "engine"
+          ],
+          "detail": "app : AppFacade → engine：engine.start()"
+        }
+      ],
+      "intent": {
+        "why": "编排①：引擎启动",
+        "invariant": "子系统收进一个门牌：client 与 3 个子系统的依赖 → 与 Facade 的 1 个依赖"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "app": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "AppFacade",
+                "fields": {
+                  "engine": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "panels": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "player": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Engine",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Panels",
+                "fields": {},
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Player",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "facade",
+              "label": "app : AppFacade"
+            },
+            {
+              "id": "engine",
+              "label": "engine"
+            },
+            {
+              "id": "panels",
+              "label": "panels"
+            },
+            {
+              "id": "player",
+              "label": "player"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "engine.start()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "引擎启动",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "engine",
+            "app : AppFacade"
+          ],
+          "detail": "engine → app : AppFacade：引擎启动"
+        }
+      ],
+      "intent": {
+        "why": "完成",
+        "invariant": "子系统收进一个门牌：client 与 3 个子系统的依赖 → 与 Facade 的 1 个依赖"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "编排②：面板刷新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "app": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "AppFacade",
+                "fields": {
+                  "engine": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "panels": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "player": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Engine",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Panels",
+                "fields": {},
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Player",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "facade",
+              "label": "app : AppFacade"
+            },
+            {
+              "id": "engine",
+              "label": "engine"
+            },
+            {
+              "id": "panels",
+              "label": "panels"
+            },
+            {
+              "id": "player",
+              "label": "player"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "engine.start()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "引擎启动",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "panels.refresh()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "app : AppFacade",
+            "panels"
+          ],
+          "detail": "app : AppFacade → panels：panels.refresh()"
+        }
+      ],
+      "intent": {
+        "why": "编排②：面板刷新",
+        "invariant": "子系统收进一个门牌：client 与 3 个子系统的依赖 → 与 Facade 的 1 个依赖"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "app": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "AppFacade",
+                "fields": {
+                  "engine": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "panels": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "player": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Engine",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Panels",
+                "fields": {},
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Player",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "facade",
+              "label": "app : AppFacade"
+            },
+            {
+              "id": "engine",
+              "label": "engine"
+            },
+            {
+              "id": "panels",
+              "label": "panels"
+            },
+            {
+              "id": "player",
+              "label": "player"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "engine.start()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "引擎启动",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "panels.refresh()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "面板刷新",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "panels",
+            "app : AppFacade"
+          ],
+          "detail": "panels → app : AppFacade：面板刷新"
+        }
+      ],
+      "intent": {
+        "why": "完成",
+        "invariant": "子系统收进一个门牌：client 与 3 个子系统的依赖 → 与 Facade 的 1 个依赖"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "编排③：开始播放"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "app": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "AppFacade",
+                "fields": {
+                  "engine": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "panels": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "player": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Engine",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Panels",
+                "fields": {},
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Player",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "facade",
+              "label": "app : AppFacade"
+            },
+            {
+              "id": "engine",
+              "label": "engine"
+            },
+            {
+              "id": "panels",
+              "label": "panels"
+            },
+            {
+              "id": "player",
+              "label": "player"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "engine.start()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "引擎启动",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "panels.refresh()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "面板刷新",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 4,
+              "label": "player.play()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "app : AppFacade",
+            "player"
+          ],
+          "detail": "app : AppFacade → player：player.play()"
+        }
+      ],
+      "intent": {
+        "why": "编排③：开始播放",
+        "invariant": "子系统收进一个门牌：client 与 3 个子系统的依赖 → 与 Facade 的 1 个依赖"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "app": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "AppFacade",
+                "fields": {
+                  "engine": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "panels": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "player": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Engine",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Panels",
+                "fields": {},
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Player",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "facade",
+              "label": "app : AppFacade"
+            },
+            {
+              "id": "engine",
+              "label": "engine"
+            },
+            {
+              "id": "panels",
+              "label": "panels"
+            },
+            {
+              "id": "player",
+              "label": "player"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "engine.start()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "引擎启动",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "panels.refresh()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "面板刷新",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 4,
+              "label": "player.play()",
+              "kind": "CALL"
+            },
+            {
+              "from": 4,
+              "to": 1,
+              "label": "开始播放",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "player",
+            "app : AppFacade"
+          ],
+          "detail": "player → app : AppFacade：开始播放"
+        }
+      ],
+      "intent": {
+        "why": "完成",
+        "invariant": "子系统收进一个门牌：client 与 3 个子系统的依赖 → 与 Facade 的 1 个依赖"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "顺序错了会坏——所以编排权收在 Facade 一处"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "app": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "AppFacade",
+                "fields": {
+                  "engine": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "panels": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "player": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Engine",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Panels",
+                "fields": {},
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Player",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "facade",
+              "label": "app : AppFacade"
+            },
+            {
+              "id": "engine",
+              "label": "engine"
+            },
+            {
+              "id": "panels",
+              "label": "panels"
+            },
+            {
+              "id": "player",
+              "label": "player"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "engine.start()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "引擎启动",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "panels.refresh()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "面板刷新",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 4,
+              "label": "player.play()",
+              "kind": "CALL"
+            },
+            {
+              "from": 4,
+              "to": 1,
+              "label": "开始播放",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "open() 完成",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "app : AppFacade",
+            "client"
+          ],
+          "detail": "app : AppFacade → client：open() 完成"
+        }
+      ],
+      "intent": {
+        "why": "顺序错了会坏——所以编排权收在 Facade 一处",
+        "invariant": "子系统收进一个门牌：client 与 3 个子系统的依赖 → 与 Facade 的 1 个依赖"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "反向引用：本工具的「打开一个算法」背后也是一串子系统（建图/渲染/面板），UI 只调一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "app": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "AppFacade",
+                "fields": {
+                  "engine": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "panels": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "player": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Engine",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Panels",
+                "fields": {},
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Player",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "facade",
+              "label": "app : AppFacade"
+            },
+            {
+              "id": "engine",
+              "label": "engine"
+            },
+            {
+              "id": "panels",
+              "label": "panels"
+            },
+            {
+              "id": "player",
+              "label": "player"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "engine.start()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "引擎启动",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "panels.refresh()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "面板刷新",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 4,
+              "label": "player.play()",
+              "kind": "CALL"
+            },
+            {
+              "from": 4,
+              "to": 1,
+              "label": "开始播放",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "open() 完成",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "client 的依赖数：3 → 1——门面不改变子系统，只挡住复杂度"
+        }
+      ],
+      "intent": {
+        "why": "反向引用：本工具的「打开一个算法」背后也是一串子系统（建图/渲染/面板），UI 只调一层",
+        "invariant": "子系统收进一个门牌：client 与 3 个子系统的依赖 → 与 Facade 的 1 个依赖"
+      }
+    }
+  ]
+}

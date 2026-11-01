@@ -1,0 +1,4896 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "list.reverse",
+    "title": "链表反转",
+    "codeResource": "/code/ReverseList.java",
+    "input": "5,2,9,1,5",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "prev = null：已反转部分的头，初始为空（空链也是链）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "prev"
+          ],
+          "detail": "prev ← null"
+        }
+      ],
+      "intent": {
+        "why": "prev = null：已反转部分的头，初始为空（空链也是链）",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "curr = head：curr 站上待处理部分的头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr ← head = @1"
+        }
+      ],
+      "intent": {
+        "why": "curr = head：curr 站上待处理部分的头",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "curr ≠ null？待处理部分还有节点就继续"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr = @1 ≠ null → 进入循环"
+        }
+      ],
+      "intent": {
+        "why": "curr ≠ null？待处理部分还有节点就继续",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "① 先记住下一个：马上要改 curr.next，不记住就断了后路"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next"
+          ],
+          "detail": "next ← curr.next = @2"
+        }
+      ],
+      "intent": {
+        "why": "① 先记住下一个：马上要改 curr.next，不记住就断了后路",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "② 反转本体就这一行：curr 掉头指向 prev"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1.next"
+          ],
+          "detail": "curr.next: @2 → null（断旧箭、接新箭）"
+        }
+      ],
+      "intent": {
+        "why": "② 反转本体就这一行：curr 掉头指向 prev",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "③ 窗口左半右移：prev 前进到已反转部分的新头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prev"
+          ],
+          "detail": "prev ← curr = @1"
+        }
+      ],
+      "intent": {
+        "why": "③ 窗口左半右移：prev 前进到已反转部分的新头",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "③ 窗口右半右移：curr 前进到待处理部分"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr ← next = @2"
+        }
+      ],
+      "intent": {
+        "why": "③ 窗口右半右移：curr 前进到待处理部分",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "curr ≠ null？待处理部分还有节点就继续"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr = @2 ≠ null → 进入循环"
+        }
+      ],
+      "intent": {
+        "why": "curr ≠ null？待处理部分还有节点就继续",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "① 先记住下一个：马上要改 curr.next，不记住就断了后路"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next"
+          ],
+          "detail": "next ← curr.next = @3"
+        }
+      ],
+      "intent": {
+        "why": "① 先记住下一个：马上要改 curr.next，不记住就断了后路",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "② 反转本体就这一行：curr 掉头指向 prev"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2.next"
+          ],
+          "detail": "curr.next: @3 → @1（断旧箭、接新箭）"
+        }
+      ],
+      "intent": {
+        "why": "② 反转本体就这一行：curr 掉头指向 prev",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "③ 窗口左半右移：prev 前进到已反转部分的新头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prev"
+          ],
+          "detail": "prev ← curr = @2"
+        }
+      ],
+      "intent": {
+        "why": "③ 窗口左半右移：prev 前进到已反转部分的新头",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "③ 窗口右半右移：curr 前进到待处理部分"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr ← next = @3"
+        }
+      ],
+      "intent": {
+        "why": "③ 窗口右半右移：curr 前进到待处理部分",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "curr ≠ null？待处理部分还有节点就继续"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr = @3 ≠ null → 进入循环"
+        }
+      ],
+      "intent": {
+        "why": "curr ≠ null？待处理部分还有节点就继续",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "① 先记住下一个：马上要改 curr.next，不记住就断了后路"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next"
+          ],
+          "detail": "next ← curr.next = @4"
+        }
+      ],
+      "intent": {
+        "why": "① 先记住下一个：马上要改 curr.next，不记住就断了后路",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "② 反转本体就这一行：curr 掉头指向 prev"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3.next"
+          ],
+          "detail": "curr.next: @4 → @2（断旧箭、接新箭）"
+        }
+      ],
+      "intent": {
+        "why": "② 反转本体就这一行：curr 掉头指向 prev",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "③ 窗口左半右移：prev 前进到已反转部分的新头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prev"
+          ],
+          "detail": "prev ← curr = @3"
+        }
+      ],
+      "intent": {
+        "why": "③ 窗口左半右移：prev 前进到已反转部分的新头",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "③ 窗口右半右移：curr 前进到待处理部分"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr ← next = @4"
+        }
+      ],
+      "intent": {
+        "why": "③ 窗口右半右移：curr 前进到待处理部分",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "curr ≠ null？待处理部分还有节点就继续"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr = @4 ≠ null → 进入循环"
+        }
+      ],
+      "intent": {
+        "why": "curr ≠ null？待处理部分还有节点就继续",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "① 先记住下一个：马上要改 curr.next，不记住就断了后路"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next"
+          ],
+          "detail": "next ← curr.next = @5"
+        }
+      ],
+      "intent": {
+        "why": "① 先记住下一个：马上要改 curr.next，不记住就断了后路",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "② 反转本体就这一行：curr 掉头指向 prev"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4.next"
+          ],
+          "detail": "curr.next: @5 → @3（断旧箭、接新箭）"
+        }
+      ],
+      "intent": {
+        "why": "② 反转本体就这一行：curr 掉头指向 prev",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "③ 窗口左半右移：prev 前进到已反转部分的新头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prev"
+          ],
+          "detail": "prev ← curr = @4"
+        }
+      ],
+      "intent": {
+        "why": "③ 窗口左半右移：prev 前进到已反转部分的新头",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "③ 窗口右半右移：curr 前进到待处理部分"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "next": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr ← next = @5"
+        }
+      ],
+      "intent": {
+        "why": "③ 窗口右半右移：curr 前进到待处理部分",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "curr ≠ null？待处理部分还有节点就继续"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr = @5 ≠ null → 进入循环"
+        }
+      ],
+      "intent": {
+        "why": "curr ≠ null？待处理部分还有节点就继续",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "① 先记住下一个：马上要改 curr.next，不记住就断了后路"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "next": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next"
+          ],
+          "detail": "next ← curr.next = null"
+        }
+      ],
+      "intent": {
+        "why": "① 先记住下一个：马上要改 curr.next，不记住就断了后路",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "② 反转本体就这一行：curr 掉头指向 prev"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "next": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@5.next"
+          ],
+          "detail": "curr.next: null → @4（断旧箭、接新箭）"
+        }
+      ],
+      "intent": {
+        "why": "② 反转本体就这一行：curr 掉头指向 prev",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "③ 窗口左半右移：prev 前进到已反转部分的新头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "next": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prev"
+          ],
+          "detail": "prev ← curr = @5"
+        }
+      ],
+      "intent": {
+        "why": "③ 窗口左半右移：prev 前进到已反转部分的新头",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "③ 窗口右半右移：curr 前进到待处理部分"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "curr": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "next": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr ← next = null"
+        }
+      ],
+      "intent": {
+        "why": "③ 窗口右半右移：curr 前进到待处理部分",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 27,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "curr = null：待处理部分空了，反转完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "curr": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr = null → 循环结束"
+        }
+      ],
+      "intent": {
+        "why": "curr = null：待处理部分空了，反转完成",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    },
+    {
+      "index": 28,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "返回 prev：新链表的头（不变量全程成立）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "reverse",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "curr": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "反转链表",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 9,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return @5（新头）"
+        }
+      ],
+      "intent": {
+        "why": "返回 prev：新链表的头（不变量全程成立）",
+        "invariant": "prev 开头的链永远是已反转完成的部分，curr 开头的链是待处理部分"
+      }
+    }
+  ]
+}

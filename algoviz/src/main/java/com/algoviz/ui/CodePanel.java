@@ -1,0 +1,94 @@
+package com.algoviz.ui;
+
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.VBox;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+/** 右侧代码区：滚动容器 + 行号 + 注释弱化 + 高亮行自动滚入视野（长清单也不迷路）。 */
+public final class CodePanel extends ScrollPane {
+
+    private final VBox box = new VBox(2);
+    private final List<Label> lines = new ArrayList<>();
+    private final List<String> raws = new ArrayList<>();
+    private int highlighted = -1;
+
+    public CodePanel(String resource) {
+        box.setPadding(new Insets(10));
+        setContent(box);
+        setFitToWidth(false);   // 长行出横向滚动条，保证看得全
+        int no = 1;
+        for (String text : readLines(resource)) {
+            Label label = new Label(String.format("%2d │ %s", no, text));
+            label.setStyle(styleFor(text));
+            attachCommentTooltip(label, text, no);
+            lines.add(label);
+            raws.add(text);
+            box.getChildren().add(label);
+            no++;
+        }
+    }
+
+    /** 注释约定：`// 短注释 —— 详细说明`（或用 | 分隔）。
+     *  可见部分只显示短注释（加 … 提示有详情），完整说明放进悬停浮窗。 */
+    private void attachCommentTooltip(Label label, String raw, int no) {
+        String t = raw.stripLeading();
+        if (!t.startsWith("//")) {
+            return;
+        }
+        String body = t.substring(2).strip();
+        String sep = body.contains("——") ? "——" : (body.contains("|") ? "|" : null);
+        if (sep == null) {
+            label.setTooltip(new Tooltip("// " + body));
+            return;
+        }
+        int at = body.indexOf(sep);
+        String shortPart = body.substring(0, at).strip();
+        String detail = body.substring(at + sep.length()).strip();
+        label.setText(String.format("%2d │ // %s …", no, shortPart));
+        label.setTooltip(new Tooltip("// " + shortPart + "\n\n详细：" + detail));
+    }
+
+    private String styleFor(String raw) {
+        return raw.stripLeading().startsWith("//") ? Theme.codeComment() : Theme.codeNormal();
+    }
+
+    public void highlight(int line1based) {
+        if (highlighted >= 0 && highlighted < lines.size()) {
+            lines.get(highlighted).setStyle(styleFor(raws.get(highlighted)));
+        }
+        highlighted = line1based - 1;
+        if (highlighted >= 0 && highlighted < lines.size()) {
+            lines.get(highlighted).setStyle(Theme.codeHighlight());
+            // 自动滚动：让高亮行大致处于视口上 1/3 处
+            double frac = lines.size() <= 1 ? 0
+                    : (double) Math.max(0, highlighted - 3) / Math.max(1, lines.size() - 6);
+            setVvalue(Math.max(0, Math.min(1, frac)));
+        }
+    }
+
+    /** 主题切换后重刷所有行的配色。 */
+    public void applyTheme() {
+        for (int i = 0; i < lines.size(); i++) {
+            lines.get(i).setStyle(i == highlighted ? Theme.codeHighlight() : styleFor(raws.get(i)));
+        }
+    }
+
+    private List<String> readLines(String resource) {
+        try (InputStream in = CodePanel.class.getResourceAsStream(resource)) {
+            if (in == null) {
+                return List.of("(找不到资源 " + resource + ")");
+            }
+            return new ArrayList<>(new String(in.readAllBytes(), StandardCharsets.UTF_8).lines().toList());
+        } catch (IOException e) {
+            return List.of("(读取失败: " + e.getMessage() + ")");
+        }
+    }
+}

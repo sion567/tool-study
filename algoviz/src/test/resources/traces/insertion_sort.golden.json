@@ -1,0 +1,3461 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "sort.insertion",
+    "title": "插入排序",
+    "codeResource": "/code/InsertionSort.java",
+    "input": "5,2,9,1,5",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "i = 1：第 1 张天然有序，从第 2 张开始摸牌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "i"
+          ],
+          "detail": "i = 1，第 2 张牌开始摸"
+        }
+      ],
+      "intent": {
+        "why": "i = 1：第 1 张天然有序，从第 2 张开始摸牌",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "key = a[i]：把新牌抽出来（原位置待会儿会被腾出来）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "key"
+          ],
+          "detail": "key ← a[i] = 2"
+        }
+      ],
+      "intent": {
+        "why": "key = a[i]：把新牌抽出来（原位置待会儿会被腾出来）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j = i-1：从手牌最右边开始往左找插入点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "j"
+          ],
+          "detail": "j ← i-1 = 0"
+        }
+      ],
+      "intent": {
+        "why": "j = i-1：从手牌最右边开始往左找插入点",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] > key？——比新牌大的牌要往右挪一格"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[0]"
+          ],
+          "detail": "a[0]=5 > key=2 → 右移腾位"
+        }
+      ],
+      "intent": {
+        "why": "a[j] > key？——比新牌大的牌要往右挪一格",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "a[j+1] ← a[j]：大牌右移（此刻有两张 5——真实的执行中间态）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            5,
+            9,
+            1,
+            5
+          ],
+          "swapA": 0,
+          "swapB": 1,
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[0]",
+            "a[1]"
+          ],
+          "detail": "a[1] ← a[0] = 5"
+        }
+      ],
+      "intent": {
+        "why": "a[j+1] ← a[j]：大牌右移（此刻有两张 5——真实的执行中间态）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "j--：继续往左找插入点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            5,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j--：继续往左找插入点",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "新牌比手牌都小：插在最前面 j+1 = 0"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            5,
+            9,
+            1,
+            5
+          ],
+          "compareB": 1,
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "j"
+          ],
+          "detail": "j = -1 → 到头了"
+        }
+      ],
+      "intent": {
+        "why": "新牌比手牌都小：插在最前面 j+1 = 0",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "a[j+1] ← key：新牌插入，手牌区又多一张（不变量达成）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "swapA": 0,
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[0]"
+          ],
+          "detail": "a[0] ← key = 2"
+        }
+      ],
+      "intent": {
+        "why": "a[j+1] ← key：新牌插入，手牌区又多一张（不变量达成）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "i++：手牌区 [0..1] 有序，摸下一张 a[2]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "i++：手牌区 [0..1] 有序，摸下一张 a[2]",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "key = a[i]：把新牌抽出来（原位置待会儿会被腾出来）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "key"
+          ],
+          "detail": "key ← a[i] = 9"
+        }
+      ],
+      "intent": {
+        "why": "key = a[i]：把新牌抽出来（原位置待会儿会被腾出来）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j = i-1：从手牌最右边开始往左找插入点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "9"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "j"
+          ],
+          "detail": "j ← i-1 = 1"
+        }
+      ],
+      "intent": {
+        "why": "j = i-1：从手牌最右边开始往左找插入点",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] ≤ key：找到插入点 j+1 = 2"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "9"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "compareA": 1,
+          "compareB": 2,
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[1]"
+          ],
+          "detail": "a[1]=5 ≤ key=9 → 停"
+        }
+      ],
+      "intent": {
+        "why": "a[j] ≤ key：找到插入点 j+1 = 2",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "a[j+1] ← key：新牌插入，手牌区又多一张（不变量达成）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "9"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "swapA": 2,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[2]"
+          ],
+          "detail": "a[2] ← key = 9"
+        }
+      ],
+      "intent": {
+        "why": "a[j+1] ← key：新牌插入，手牌区又多一张（不变量达成）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "i++：手牌区 [0..2] 有序，摸下一张 a[3]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "i++：手牌区 [0..2] 有序，摸下一张 a[3]",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "key = a[i]：把新牌抽出来（原位置待会儿会被腾出来）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "key"
+          ],
+          "detail": "key ← a[i] = 1"
+        }
+      ],
+      "intent": {
+        "why": "key = a[i]：把新牌抽出来（原位置待会儿会被腾出来）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j = i-1：从手牌最右边开始往左找插入点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "j"
+          ],
+          "detail": "j ← i-1 = 2"
+        }
+      ],
+      "intent": {
+        "why": "j = i-1：从手牌最右边开始往左找插入点",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] > key？——比新牌大的牌要往右挪一格"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "compareA": 2,
+          "compareB": 3,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[2]"
+          ],
+          "detail": "a[2]=9 > key=1 → 右移腾位"
+        }
+      ],
+      "intent": {
+        "why": "a[j] > key？——比新牌大的牌要往右挪一格",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "a[j+1] ← a[j]：大牌右移（此刻有两张 9——真实的执行中间态）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            9,
+            5
+          ],
+          "swapA": 2,
+          "swapB": 3,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[2]",
+            "a[3]"
+          ],
+          "detail": "a[3] ← a[2] = 9"
+        }
+      ],
+      "intent": {
+        "why": "a[j+1] ← a[j]：大牌右移（此刻有两张 9——真实的执行中间态）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "j--：继续往左找插入点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j--：继续往左找插入点",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] > key？——比新牌大的牌要往右挪一格"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            9,
+            5
+          ],
+          "compareA": 1,
+          "compareB": 3,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[1]"
+          ],
+          "detail": "a[1]=5 > key=1 → 右移腾位"
+        }
+      ],
+      "intent": {
+        "why": "a[j] > key？——比新牌大的牌要往右挪一格",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "a[j+1] ← a[j]：大牌右移（此刻有两张 5——真实的执行中间态）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            5,
+            9,
+            5
+          ],
+          "swapA": 1,
+          "swapB": 2,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[1]",
+            "a[2]"
+          ],
+          "detail": "a[2] ← a[1] = 5"
+        }
+      ],
+      "intent": {
+        "why": "a[j+1] ← a[j]：大牌右移（此刻有两张 5——真实的执行中间态）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "j--：继续往左找插入点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j--：继续往左找插入点",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] > key？——比新牌大的牌要往右挪一格"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            5,
+            9,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 3,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[0]"
+          ],
+          "detail": "a[0]=2 > key=1 → 右移腾位"
+        }
+      ],
+      "intent": {
+        "why": "a[j] > key？——比新牌大的牌要往右挪一格",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "a[j+1] ← a[j]：大牌右移（此刻有两张 2——真实的执行中间态）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            2,
+            5,
+            9,
+            5
+          ],
+          "swapA": 0,
+          "swapB": 1,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[0]",
+            "a[1]"
+          ],
+          "detail": "a[1] ← a[0] = 2"
+        }
+      ],
+      "intent": {
+        "why": "a[j+1] ← a[j]：大牌右移（此刻有两张 2——真实的执行中间态）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "j--：继续往左找插入点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            2,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j--：继续往左找插入点",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "新牌比手牌都小：插在最前面 j+1 = 0"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            2,
+            5,
+            9,
+            5
+          ],
+          "compareB": 3,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "j"
+          ],
+          "detail": "j = -1 → 到头了"
+        }
+      ],
+      "intent": {
+        "why": "新牌比手牌都小：插在最前面 j+1 = 0",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "a[j+1] ← key：新牌插入，手牌区又多一张（不变量达成）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "swapA": 0,
+          "sortedFrom": 5,
+          "sortedTo": 3
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[0]"
+          ],
+          "detail": "a[0] ← key = 1"
+        }
+      ],
+      "intent": {
+        "why": "a[j+1] ← key：新牌插入，手牌区又多一张（不变量达成）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 27,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "i++：手牌区 [0..3] 有序，摸下一张 a[4]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 3
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "i++：手牌区 [0..3] 有序，摸下一张 a[4]",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 28,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "key = a[i]：把新牌抽出来（原位置待会儿会被腾出来）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 3
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "key"
+          ],
+          "detail": "key ← a[i] = 5"
+        }
+      ],
+      "intent": {
+        "why": "key = a[i]：把新牌抽出来（原位置待会儿会被腾出来）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 29,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j = i-1：从手牌最右边开始往左找插入点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 3
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "j"
+          ],
+          "detail": "j ← i-1 = 3"
+        }
+      ],
+      "intent": {
+        "why": "j = i-1：从手牌最右边开始往左找插入点",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 30,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] > key？——比新牌大的牌要往右挪一格"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "compareA": 3,
+          "compareB": 4,
+          "sortedFrom": 5,
+          "sortedTo": 3
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[3]"
+          ],
+          "detail": "a[3]=9 > key=5 → 右移腾位"
+        }
+      ],
+      "intent": {
+        "why": "a[j] > key？——比新牌大的牌要往右挪一格",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 31,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "a[j+1] ← a[j]：大牌右移（此刻有两张 9——真实的执行中间态）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            9
+          ],
+          "swapA": 3,
+          "swapB": 4,
+          "sortedFrom": 5,
+          "sortedTo": 3
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[3]",
+            "a[4]"
+          ],
+          "detail": "a[4] ← a[3] = 9"
+        }
+      ],
+      "intent": {
+        "why": "a[j+1] ← a[j]：大牌右移（此刻有两张 9——真实的执行中间态）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 32,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "j--：继续往左找插入点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 3
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j--：继续往左找插入点",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 33,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] ≤ key：找到插入点 j+1 = 3"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            9
+          ],
+          "compareA": 2,
+          "compareB": 4,
+          "sortedFrom": 5,
+          "sortedTo": 3
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[2]"
+          ],
+          "detail": "a[2]=5 ≤ key=5 → 停"
+        }
+      ],
+      "intent": {
+        "why": "a[j] ≤ key：找到插入点 j+1 = 3",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 34,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "a[j+1] ← key：新牌插入，手牌区又多一张（不变量达成）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "key": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "swapA": 3,
+          "sortedFrom": 5,
+          "sortedTo": 4
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[3]"
+          ],
+          "detail": "a[3] ← key = 5"
+        }
+      ],
+      "intent": {
+        "why": "a[j+1] ← key：新牌插入，手牌区又多一张（不变量达成）",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 35,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "i = n：全部摸完"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 4
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "i = n：全部摸完",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    },
+    {
+      "index": 36,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "排序完成：全部 5 个元素已就位"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 4
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "排序完成，全部就位"
+        }
+      ],
+      "intent": {
+        "why": "排序完成：全部 5 个元素已就位",
+        "invariant": "手牌区 [0..i-1] 始终有序——每张新牌（key）都插进正确位置"
+      }
+    }
+  ]
+}

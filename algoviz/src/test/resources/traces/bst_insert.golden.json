@@ -1,0 +1,2111 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "tree.bst.insert",
+    "title": "BST 插入",
+    "codeResource": "/code/BstInsert.java",
+    "input": "5,3,8",
+    "inputSize": 3
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 insert(@1)：带着要插的值 4 走搜索路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 insert(root=@1, val=4) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 insert(@1)：带着要插的值 4 走搜索路径",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "比根小：插入位置只可能在左子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@1"
+          ],
+          "detail": "4 < @1.val=5 → 往左走"
+        }
+      ],
+      "intent": {
+        "why": "比根小：插入位置只可能在左子树",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 insert(@2)：带着要插的值 4 走搜索路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 insert(root=@2, val=4) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 insert(@2)：带着要插的值 4 走搜索路径",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "不比根小，接着问右边"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@2"
+          ],
+          "detail": "4 < @2.val=3？否"
+        }
+      ],
+      "intent": {
+        "why": "不比根小，接着问右边",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "比根大：插入位置只可能在右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@2"
+          ],
+          "detail": "4 > @2.val=3 → 往右走"
+        }
+      ],
+      "intent": {
+        "why": "比根大：插入位置只可能在右子树",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 insert(null)：带着要插的值 4 走搜索路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 insert(root=null, val=4) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 insert(null)：带着要插的值 4 走搜索路径",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "root == null：搜索路径尽头就是空位"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "root = null → 落位（基线）"
+        }
+      ],
+      "intent": {
+        "why": "root == null：搜索路径尽头就是空位",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "return new Node(val)：堆里造盒子，搜索路径决定它的位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "state": "visited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "new Node(4) = @4 —— 空位上造新盒子"
+        }
+      ],
+      "intent": {
+        "why": "return new Node(val)：堆里造盒子，搜索路径决定它的位置",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "把新盒子作为返回值交回给父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "state": "visited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return @4 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "把新盒子作为返回值交回给父调用",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "接住子调用的返回值，挂到 right 指针上"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "rightId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "state": "visited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2.right"
+          ],
+          "detail": "@2.right ← @4（挂上/接住）"
+        }
+      ],
+      "intent": {
+        "why": "接住子调用的返回值，挂到 right 指针上",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "本层子树的根不变，原样交回父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "insert(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "rightId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "state": "visited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return @2 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "本层子树的根不变，原样交回父调用",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "接住子调用的返回值，挂到 left 指针上"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "rightId": "@4",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "state": "visited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1.left"
+          ],
+          "detail": "@1.left ← @2（挂上/接住）"
+        }
+      ],
+      "intent": {
+        "why": "接住子调用的返回值，挂到 left 指针上",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "本层子树的根不变，原样交回父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "insert(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "insert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "rightId": "@4",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "state": "visited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return @1 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "本层子树的根不变，原样交回父调用",
+        "invariant": "走到哪里都对：左子树 < 根 < 右子树（BST 性质），新值最终挂在搜索路径尽头的空位上"
+      }
+    }
+  ]
+}

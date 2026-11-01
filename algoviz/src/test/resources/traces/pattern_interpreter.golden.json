@@ -1,0 +1,1051 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.interpreter",
+    "title": "解释器模式",
+    "codeResource": "/code/InterpreterDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "「1 + 2」不再是字符串，是一棵能求值的树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "e": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Plus",
+                "fields": {
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "plus",
+              "label": "e : Plus"
+            },
+            {
+              "id": "left",
+              "label": "left : Num(1)"
+            },
+            {
+              "id": "right",
+              "label": "right : Num(2)"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "语法树搭好：@1(Plus){@2, @3}——表达式即对象"
+        }
+      ],
+      "intent": {
+        "why": "「1 + 2」不再是字符串，是一棵能求值的树",
+        "invariant": "每种语法规则一个类，解释 = 语法树的后序求值——正则/SQL/公式的引擎原型"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "求值开始：从根出发"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "e": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Plus",
+                "fields": {
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "plus",
+              "label": "e : Plus"
+            },
+            {
+              "id": "left",
+              "label": "left : Num(1)"
+            },
+            {
+              "id": "right",
+              "label": "right : Num(2)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "interpret()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "e : Plus"
+          ],
+          "detail": "client → e : Plus：interpret()"
+        }
+      ],
+      "intent": {
+        "why": "求值开始：从根出发",
+        "invariant": "每种语法规则一个类，解释 = 语法树的后序求值——正则/SQL/公式的引擎原型"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "先算左子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "e": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Plus",
+                "fields": {
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "plus",
+              "label": "e : Plus"
+            },
+            {
+              "id": "left",
+              "label": "left : Num(1)"
+            },
+            {
+              "id": "right",
+              "label": "right : Num(2)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "left.interpret()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "e : Plus",
+            "left : Num(1)"
+          ],
+          "detail": "e : Plus → left : Num(1)：left.interpret()"
+        }
+      ],
+      "intent": {
+        "why": "先算左子树",
+        "invariant": "每种语法规则一个类，解释 = 语法树的后序求值——正则/SQL/公式的引擎原型"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "叶子直接返回自己的值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "e": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Plus",
+                "fields": {
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "plus",
+              "label": "e : Plus"
+            },
+            {
+              "id": "left",
+              "label": "left : Num(1)"
+            },
+            {
+              "id": "right",
+              "label": "right : Num(2)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "left.interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "1",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "left : Num(1)",
+            "e : Plus"
+          ],
+          "detail": "left : Num(1) → e : Plus：1"
+        }
+      ],
+      "intent": {
+        "why": "叶子直接返回自己的值",
+        "invariant": "每种语法规则一个类，解释 = 语法树的后序求值——正则/SQL/公式的引擎原型"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "再算右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "e": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Plus",
+                "fields": {
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "plus",
+              "label": "e : Plus"
+            },
+            {
+              "id": "left",
+              "label": "left : Num(1)"
+            },
+            {
+              "id": "right",
+              "label": "right : Num(2)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "left.interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "right.interpret()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "e : Plus",
+            "right : Num(2)"
+          ],
+          "detail": "e : Plus → right : Num(2)：right.interpret()"
+        }
+      ],
+      "intent": {
+        "why": "再算右子树",
+        "invariant": "每种语法规则一个类，解释 = 语法树的后序求值——正则/SQL/公式的引擎原型"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "叶子返回 2"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "e": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Plus",
+                "fields": {
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "plus",
+              "label": "e : Plus"
+            },
+            {
+              "id": "left",
+              "label": "left : Num(1)"
+            },
+            {
+              "id": "right",
+              "label": "right : Num(2)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "left.interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "right.interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "2",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "right : Num(2)",
+            "e : Plus"
+          ],
+          "detail": "right : Num(2) → e : Plus：2"
+        }
+      ],
+      "intent": {
+        "why": "叶子返回 2",
+        "invariant": "每种语法规则一个类，解释 = 语法树的后序求值——正则/SQL/公式的引擎原型"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "根把两边相加——后序遍历求值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "e": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Plus",
+                "fields": {
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "plus",
+              "label": "e : Plus"
+            },
+            {
+              "id": "left",
+              "label": "left : Num(1)"
+            },
+            {
+              "id": "right",
+              "label": "right : Num(2)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "left.interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "right.interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "2",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "3",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "e : Plus",
+            "client"
+          ],
+          "detail": "e : Plus → client：3"
+        }
+      ],
+      "intent": {
+        "why": "根把两边相加——后序遍历求值",
+        "invariant": "每种语法规则一个类，解释 = 语法树的后序求值——正则/SQL/公式的引擎原型"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "嵌套：new Plus(new Plus(new Num(1), new Num(2)), new Num(3)) 也一样跑"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "e": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Plus",
+                "fields": {
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Num",
+                "fields": {
+                  "v": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "plus",
+              "label": "e : Plus"
+            },
+            {
+              "id": "left",
+              "label": "left : Num(1)"
+            },
+            {
+              "id": "right",
+              "label": "right : Num(2)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "left.interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "right.interpret()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "2",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "3",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "树有多深，递归多深——嵌套表达式自然支持"
+        }
+      ],
+      "intent": {
+        "why": "嵌套：new Plus(new Plus(new Num(1), new Num(2)), new Num(3)) 也一样跑",
+        "invariant": "每种语法规则一个类，解释 = 语法树的后序求值——正则/SQL/公式的引擎原型"
+      }
+    }
+  ]
+}

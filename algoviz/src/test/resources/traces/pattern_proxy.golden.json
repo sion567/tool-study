@@ -1,0 +1,1067 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.proxy",
+    "title": "代理模式",
+    "codeResource": "/code/ProxyDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "client 拿到的是代理——它以为自己在和金库说话"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "VaultProxy",
+                "fields": {
+                  "real": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "loggedIn": {
+                    "kind": "PRIM",
+                    "text": "false"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "RealVault",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "proxy",
+              "label": "v : VaultProxy"
+            },
+            {
+              "id": "real",
+              "label": "real : RealVault"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "装配：@1 代理持有真身 @2（同接口）"
+        }
+      ],
+      "intent": {
+        "why": "client 拿到的是代理——它以为自己在和金库说话",
+        "invariant": "代理与真身同接口：转发之前先做点别的（权限/远程/缓存/懒加载）——区别于装饰器的是意图"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "第一次请求"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "VaultProxy",
+                "fields": {
+                  "real": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "loggedIn": {
+                    "kind": "PRIM",
+                    "text": "false"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "RealVault",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "proxy",
+              "label": "v : VaultProxy"
+            },
+            {
+              "id": "real",
+              "label": "real : RealVault"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "v : VaultProxy"
+          ],
+          "detail": "client → v : VaultProxy：open()"
+        }
+      ],
+      "intent": {
+        "why": "第一次请求",
+        "invariant": "代理与真身同接口：转发之前先做点别的（权限/远程/缓存/懒加载）——区别于装饰器的是意图"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "转发前插一道关卡——这就是代理多干的事"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "VaultProxy",
+                "fields": {
+                  "real": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "loggedIn": {
+                    "kind": "PRIM",
+                    "text": "false"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "RealVault",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "proxy",
+              "label": "v : VaultProxy"
+            },
+            {
+              "id": "real",
+              "label": "real : RealVault"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "检查：loggedIn=false → 拒绝（真身 @2 纹丝不动）"
+        }
+      ],
+      "intent": {
+        "why": "转发前插一道关卡——这就是代理多干的事",
+        "invariant": "代理与真身同接口：转发之前先做点别的（权限/远程/缓存/懒加载）——区别于装饰器的是意图"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "没碰到真身就回来了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "VaultProxy",
+                "fields": {
+                  "real": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "loggedIn": {
+                    "kind": "PRIM",
+                    "text": "false"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "RealVault",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "proxy",
+              "label": "v : VaultProxy"
+            },
+            {
+              "id": "real",
+              "label": "real : RealVault"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "拒绝：请先登录",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "v : VaultProxy",
+            "client"
+          ],
+          "detail": "v : VaultProxy → client：拒绝：请先登录"
+        }
+      ],
+      "intent": {
+        "why": "没碰到真身就回来了",
+        "invariant": "代理与真身同接口：转发之前先做点别的（权限/远程/缓存/懒加载）——区别于装饰器的是意图"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "代理自己的状态变化"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "VaultProxy",
+                "fields": {
+                  "real": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "loggedIn": {
+                    "kind": "PRIM",
+                    "text": "false"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "RealVault",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "proxy",
+              "label": "v : VaultProxy"
+            },
+            {
+              "id": "real",
+              "label": "real : RealVault"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "拒绝：请先登录",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "login()：@1.loggedIn ← true"
+        }
+      ],
+      "intent": {
+        "why": "代理自己的状态变化",
+        "invariant": "代理与真身同接口：转发之前先做点别的（权限/远程/缓存/懒加载）——区别于装饰器的是意图"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "第二次请求"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "VaultProxy",
+                "fields": {
+                  "real": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "loggedIn": {
+                    "kind": "PRIM",
+                    "text": "false"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "RealVault",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "proxy",
+              "label": "v : VaultProxy"
+            },
+            {
+              "id": "real",
+              "label": "real : RealVault"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "拒绝：请先登录",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "v : VaultProxy"
+          ],
+          "detail": "client → v : VaultProxy：open()"
+        }
+      ],
+      "intent": {
+        "why": "第二次请求",
+        "invariant": "代理与真身同接口：转发之前先做点别的（权限/远程/缓存/懒加载）——区别于装饰器的是意图"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "检查通过，这次真转发——真身终于被碰到了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "VaultProxy",
+                "fields": {
+                  "real": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "loggedIn": {
+                    "kind": "PRIM",
+                    "text": "false"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "RealVault",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "proxy",
+              "label": "v : VaultProxy"
+            },
+            {
+              "id": "real",
+              "label": "real : RealVault"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "拒绝：请先登录",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "real.open()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "v : VaultProxy",
+            "real : RealVault"
+          ],
+          "detail": "v : VaultProxy → real : RealVault：real.open()"
+        }
+      ],
+      "intent": {
+        "why": "检查通过，这次真转发——真身终于被碰到了",
+        "invariant": "代理与真身同接口：转发之前先做点别的（权限/远程/缓存/懒加载）——区别于装饰器的是意图"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "真身干活"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "VaultProxy",
+                "fields": {
+                  "real": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "loggedIn": {
+                    "kind": "PRIM",
+                    "text": "false"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "RealVault",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "proxy",
+              "label": "v : VaultProxy"
+            },
+            {
+              "id": "real",
+              "label": "real : RealVault"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "拒绝：请先登录",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "real.open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "金库里的宝藏",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "real : RealVault",
+            "v : VaultProxy"
+          ],
+          "detail": "real : RealVault → v : VaultProxy：金库里的宝藏"
+        }
+      ],
+      "intent": {
+        "why": "真身干活",
+        "invariant": "代理与真身同接口：转发之前先做点别的（权限/远程/缓存/懒加载）——区别于装饰器的是意图"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "原样交回调用方"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "VaultProxy",
+                "fields": {
+                  "real": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "loggedIn": {
+                    "kind": "PRIM",
+                    "text": "false"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "RealVault",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "proxy",
+              "label": "v : VaultProxy"
+            },
+            {
+              "id": "real",
+              "label": "real : RealVault"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "拒绝：请先登录",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "real.open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "金库里的宝藏",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "金库里的宝藏",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "v : VaultProxy",
+            "client"
+          ],
+          "detail": "v : VaultProxy → client：金库里的宝藏"
+        }
+      ],
+      "intent": {
+        "why": "原样交回调用方",
+        "invariant": "代理与真身同接口：转发之前先做点别的（权限/远程/缓存/懒加载）——区别于装饰器的是意图"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "Spring AOP / RPC stub / 懒加载图片，全是这个骨架"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "VaultProxy",
+                "fields": {
+                  "real": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "loggedIn": {
+                    "kind": "PRIM",
+                    "text": "false"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "RealVault",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "proxy",
+              "label": "v : VaultProxy"
+            },
+            {
+              "id": "real",
+              "label": "real : RealVault"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "拒绝：请先登录",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "real.open()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "金库里的宝藏",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "金库里的宝藏",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "对比装饰器：结构一模一样，意图不同——代理控制访问，装饰器叠加行为"
+        }
+      ],
+      "intent": {
+        "why": "Spring AOP / RPC stub / 懒加载图片，全是这个骨架",
+        "invariant": "代理与真身同接口：转发之前先做点别的（权限/远程/缓存/懒加载）——区别于装饰器的是意图"
+      }
+    }
+  ]
+}

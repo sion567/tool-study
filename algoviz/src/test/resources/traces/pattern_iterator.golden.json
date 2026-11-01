@@ -1,0 +1,1821 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.iterator",
+    "title": "迭代器模式",
+    "codeResource": "/code/IteratorDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "集合把「怎么走」的职责整个交给了迭代器对象"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@2"
+          ],
+          "detail": "iterator()：@2.cursor = 0（游标站在第一个元素之前）"
+        }
+      ],
+      "intent": {
+        "why": "集合把「怎么走」的职责整个交给了迭代器对象",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "先问还有没有——游标没到头就继续"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "it : Iterator"
+          ],
+          "detail": "client → it : Iterator：hasNext() → true"
+        }
+      ],
+      "intent": {
+        "why": "先问还有没有——游标没到头就继续",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "取当前元素，游标右移"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "it : Iterator"
+          ],
+          "detail": "client → it : Iterator：next() → step1"
+        }
+      ],
+      "intent": {
+        "why": "取当前元素，游标右移",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "游标状态活在迭代器内部——调用方永远不用操心下标"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "@2.cursor: 0 → 1（游标右移）"
+        }
+      ],
+      "intent": {
+        "why": "游标状态活在迭代器内部——调用方永远不用操心下标",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "拿到元素，干活"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "it : Iterator"
+          ],
+          "detail": "client → it : Iterator：播放 step1"
+        }
+      ],
+      "intent": {
+        "why": "拿到元素，干活",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "先问还有没有——游标没到头就继续"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "it : Iterator"
+          ],
+          "detail": "client → it : Iterator：hasNext() → true"
+        }
+      ],
+      "intent": {
+        "why": "先问还有没有——游标没到头就继续",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "取当前元素，游标右移"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step2",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "it : Iterator"
+          ],
+          "detail": "client → it : Iterator：next() → step2"
+        }
+      ],
+      "intent": {
+        "why": "取当前元素，游标右移",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "游标状态活在迭代器内部——调用方永远不用操心下标"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step2",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "@2.cursor: 1 → 2（游标右移）"
+        }
+      ],
+      "intent": {
+        "why": "游标状态活在迭代器内部——调用方永远不用操心下标",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "拿到元素，干活"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step2",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "it : Iterator"
+          ],
+          "detail": "client → it : Iterator：播放 step2"
+        }
+      ],
+      "intent": {
+        "why": "拿到元素，干活",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "先问还有没有——游标没到头就继续"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "it : Iterator"
+          ],
+          "detail": "client → it : Iterator：hasNext() → true"
+        }
+      ],
+      "intent": {
+        "why": "先问还有没有——游标没到头就继续",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "取当前元素，游标右移"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step3",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "it : Iterator"
+          ],
+          "detail": "client → it : Iterator：next() → step3"
+        }
+      ],
+      "intent": {
+        "why": "取当前元素，游标右移",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "游标状态活在迭代器内部——调用方永远不用操心下标"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step3",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "@2.cursor: 2 → 3（游标右移）"
+        }
+      ],
+      "intent": {
+        "why": "游标状态活在迭代器内部——调用方永远不用操心下标",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "拿到元素，干活"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step3",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step3",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 8
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "it : Iterator"
+          ],
+          "detail": "client → it : Iterator：播放 step3"
+        }
+      ],
+      "intent": {
+        "why": "拿到元素，干活",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "游标到头，循环退出"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step3",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step3",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → false",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "it : Iterator"
+          ],
+          "detail": "client → it : Iterator：hasNext() → false"
+        }
+      ],
+      "intent": {
+        "why": "游标到头，循环退出",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "换一种集合（链表/树），调用方代码不变——变的只是迭代器内部"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "steps": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "it": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "List",
+                "fields": {
+                  "elements": {
+                    "kind": "PRIM",
+                    "text": "[step1, step2, step3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Iterator",
+                "fields": {
+                  "cursor": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "iterator",
+              "label": "it : Iterator"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step2",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → true",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "next() → step3",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "播放 step3",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "hasNext() → false",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@2"
+          ],
+          "detail": "遍历结束：3 个元素，一个没漏一个没重"
+        }
+      ],
+      "intent": {
+        "why": "换一种集合（链表/树），调用方代码不变——变的只是迭代器内部",
+        "invariant": "怎么走封装在迭代器里，调用方只问 hasNext/next——for-each 是它的语法糖"
+      }
+    }
+  ]
+}

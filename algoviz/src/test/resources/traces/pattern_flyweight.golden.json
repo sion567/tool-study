@@ -1,0 +1,865 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.flyweight",
+    "title": "享元模式",
+    "codeResource": "/code/FlyweightDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "一百万棵树在门外排队，池子里却只需要「样式」这么几种对象"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "pool": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "StylePool",
+                "fields": {
+                  "pool": {
+                    "kind": "PRIM",
+                    "text": "{}"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "pool",
+              "label": "pool : StylePool"
+            },
+            {
+              "id": "green",
+              "label": "绿色 : TreeStyle"
+            },
+            {
+              "id": "blue",
+              "label": "蓝色 : TreeStyle"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "new StylePool()：@1.pool = {}（空池）"
+        }
+      ],
+      "intent": {
+        "why": "一百万棵树在门外排队，池子里却只需要「样式」这么几种对象",
+        "invariant": "内在状态共享（池子），外在状态外置（每棵树的坐标）——内存从 N 份降到种类数"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "第一次：池里没有"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "pool": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "StylePool",
+                "fields": {
+                  "pool": {
+                    "kind": "PRIM",
+                    "text": "{}"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "pool",
+              "label": "pool : StylePool"
+            },
+            {
+              "id": "green",
+              "label": "绿色 : TreeStyle"
+            },
+            {
+              "id": "blue",
+              "label": "蓝色 : TreeStyle"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "pool : StylePool"
+          ],
+          "detail": "client → pool : StylePool：get(\"绿色\")"
+        }
+      ],
+      "intent": {
+        "why": "第一次：池里没有",
+        "invariant": "内在状态共享（池子），外在状态外置（每棵树的坐标）——内存从 N 份降到种类数"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "computeIfAbsent：不存在才造"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "pool": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "StylePool",
+                "fields": {
+                  "pool": {
+                    "kind": "PRIM",
+                    "text": "{绿色=@2}"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "TreeStyle",
+                "fields": {
+                  "color": {
+                    "kind": "PRIM",
+                    "text": "绿色"
+                  },
+                  "shape": {
+                    "kind": "PRIM",
+                    "text": "圆锥"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "pool",
+              "label": "pool : StylePool"
+            },
+            {
+              "id": "green",
+              "label": "绿色 : TreeStyle"
+            },
+            {
+              "id": "blue",
+              "label": "蓝色 : TreeStyle"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "miss → 真的造 @2 入池"
+        }
+      ],
+      "intent": {
+        "why": "computeIfAbsent：不存在才造",
+        "invariant": "内在状态共享（池子），外在状态外置（每棵树的坐标）——内存从 N 份降到种类数"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "第二次要同款——这次有讲究了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "pool": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "StylePool",
+                "fields": {
+                  "pool": {
+                    "kind": "PRIM",
+                    "text": "{绿色=@2}"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "TreeStyle",
+                "fields": {
+                  "color": {
+                    "kind": "PRIM",
+                    "text": "绿色"
+                  },
+                  "shape": {
+                    "kind": "PRIM",
+                    "text": "圆锥"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "pool",
+              "label": "pool : StylePool"
+            },
+            {
+              "id": "green",
+              "label": "绿色 : TreeStyle"
+            },
+            {
+              "id": "blue",
+              "label": "蓝色 : TreeStyle"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "pool : StylePool"
+          ],
+          "detail": "client → pool : StylePool：get(\"绿色\")"
+        }
+      ],
+      "intent": {
+        "why": "第二次要同款——这次有讲究了",
+        "invariant": "内在状态共享（池子），外在状态外置（每棵树的坐标）——内存从 N 份降到种类数"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "看堆面板：@2 的引用被第二次交了出去——这就是共享"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "pool": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "StylePool",
+                "fields": {
+                  "pool": {
+                    "kind": "PRIM",
+                    "text": "{绿色=@2}"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "TreeStyle",
+                "fields": {
+                  "color": {
+                    "kind": "PRIM",
+                    "text": "绿色"
+                  },
+                  "shape": {
+                    "kind": "PRIM",
+                    "text": "圆锥"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "pool",
+              "label": "pool : StylePool"
+            },
+            {
+              "id": "green",
+              "label": "绿色 : TreeStyle"
+            },
+            {
+              "id": "blue",
+              "label": "蓝色 : TreeStyle"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "hit → 直接返回 @2（没有 new！）"
+        }
+      ],
+      "intent": {
+        "why": "看堆面板：@2 的引用被第二次交了出去——这就是共享",
+        "invariant": "内在状态共享（池子），外在状态外置（每棵树的坐标）——内存从 N 份降到种类数"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "新 key：池里真没有"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "pool": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "StylePool",
+                "fields": {
+                  "pool": {
+                    "kind": "PRIM",
+                    "text": "{绿色=@2}"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "TreeStyle",
+                "fields": {
+                  "color": {
+                    "kind": "PRIM",
+                    "text": "绿色"
+                  },
+                  "shape": {
+                    "kind": "PRIM",
+                    "text": "圆锥"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "pool",
+              "label": "pool : StylePool"
+            },
+            {
+              "id": "green",
+              "label": "绿色 : TreeStyle"
+            },
+            {
+              "id": "blue",
+              "label": "蓝色 : TreeStyle"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"蓝色\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "pool : StylePool"
+          ],
+          "detail": "client → pool : StylePool：get(\"蓝色\")"
+        }
+      ],
+      "intent": {
+        "why": "新 key：池里真没有",
+        "invariant": "内在状态共享（池子），外在状态外置（每棵树的坐标）——内存从 N 份降到种类数"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "外在状态（每棵树的坐标）不进池——交给使用现场各自保存"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "pool": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "StylePool",
+                "fields": {
+                  "pool": {
+                    "kind": "PRIM",
+                    "text": "{绿色=@2, 蓝色=@3}"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "TreeStyle",
+                "fields": {
+                  "color": {
+                    "kind": "PRIM",
+                    "text": "绿色"
+                  },
+                  "shape": {
+                    "kind": "PRIM",
+                    "text": "圆锥"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "TreeStyle",
+                "fields": {
+                  "color": {
+                    "kind": "PRIM",
+                    "text": "蓝色"
+                  },
+                  "shape": {
+                    "kind": "PRIM",
+                    "text": "圆锥"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "pool",
+              "label": "pool : StylePool"
+            },
+            {
+              "id": "green",
+              "label": "绿色 : TreeStyle"
+            },
+            {
+              "id": "blue",
+              "label": "蓝色 : TreeStyle"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"蓝色\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3"
+          ],
+          "detail": "miss → 造 @3 入池（现在一共 2 份）"
+        }
+      ],
+      "intent": {
+        "why": "外在状态（每棵树的坐标）不进池——交给使用现场各自保存",
+        "invariant": "内在状态共享（池子），外在状态外置（每棵树的坐标）——内存从 N 份降到种类数"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "反向引用：Integer.valueOf(-128~127) 的缓存就是 JDK 内置的享元"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "pool": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "StylePool",
+                "fields": {
+                  "pool": {
+                    "kind": "PRIM",
+                    "text": "{绿色=@2, 蓝色=@3}"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "TreeStyle",
+                "fields": {
+                  "color": {
+                    "kind": "PRIM",
+                    "text": "绿色"
+                  },
+                  "shape": {
+                    "kind": "PRIM",
+                    "text": "圆锥"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "TreeStyle",
+                "fields": {
+                  "color": {
+                    "kind": "PRIM",
+                    "text": "蓝色"
+                  },
+                  "shape": {
+                    "kind": "PRIM",
+                    "text": "圆锥"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "pool",
+              "label": "pool : StylePool"
+            },
+            {
+              "id": "green",
+              "label": "绿色 : TreeStyle"
+            },
+            {
+              "id": "blue",
+              "label": "蓝色 : TreeStyle"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"绿色\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "get(\"蓝色\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@2",
+            "@3"
+          ],
+          "detail": "a == b → true：一百万棵树共享 2 个样式对象"
+        }
+      ],
+      "intent": {
+        "why": "反向引用：Integer.valueOf(-128~127) 的缓存就是 JDK 内置的享元",
+        "invariant": "内在状态共享（池子），外在状态外置（每棵树的坐标）——内存从 N 份降到种类数"
+      }
+    }
+  ]
+}

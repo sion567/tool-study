@@ -1,0 +1,652 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.memento",
+    "title": "备忘录模式",
+    "codeResource": "/code/MementoDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "原发器知道自己该被存什么——但快照长什么样由它说了算"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ed": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Editor",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "editor",
+              "label": "ed : Editor"
+            },
+            {
+              "id": "snapshot",
+              "label": "save1 : Snapshot"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "new Editor()：@1.text = ''（初始状态）"
+        }
+      ],
+      "intent": {
+        "why": "原发器知道自己该被存什么——但快照长什么样由它说了算",
+        "invariant": "快照不可变，恢复 = 引用换回——Editor 的历史由 Snapshot 全权保管（封装：内容不外泄）"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "存档：把当前状态打包成一个对象交出去"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ed": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Editor",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "editor",
+              "label": "ed : Editor"
+            },
+            {
+              "id": "snapshot",
+              "label": "save1 : Snapshot"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "ed : Editor"
+          ],
+          "detail": "client → ed : Editor：save()"
+        }
+      ],
+      "intent": {
+        "why": "存档：把当前状态打包成一个对象交出去",
+        "invariant": "快照不可变，恢复 = 引用换回——Editor 的历史由 Snapshot 全权保管（封装：内容不外泄）"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "不可变 = 存多久都不会被偷改；存一串快照 = 撤销栈"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ed": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Editor",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Snapshot",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "editor",
+              "label": "ed : Editor"
+            },
+            {
+              "id": "snapshot",
+              "label": "save1 : Snapshot"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "@2 备忘录诞生（text=''）——record：天生不可变"
+        }
+      ],
+      "intent": {
+        "why": "不可变 = 存多久都不会被偷改；存一串快照 = 撤销栈",
+        "invariant": "快照不可变，恢复 = 引用换回——Editor 的历史由 Snapshot 全权保管（封装：内容不外泄）"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "现在的状态将一去不复返——除非有快照"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ed": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Editor",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Snapshot",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "editor",
+              "label": "ed : Editor"
+            },
+            {
+              "id": "snapshot",
+              "label": "save1 : Snapshot"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1.text ← \"画到一半\"（继续编辑，世界变了）"
+        }
+      ],
+      "intent": {
+        "why": "现在的状态将一去不复返——除非有快照",
+        "invariant": "快照不可变，恢复 = 引用换回——Editor 的历史由 Snapshot 全权保管（封装：内容不外泄）"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "读档：把快照交回给原发器"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ed": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Editor",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Snapshot",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "editor",
+              "label": "ed : Editor"
+            },
+            {
+              "id": "snapshot",
+              "label": "save1 : Snapshot"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "restore(save1)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "ed : Editor"
+          ],
+          "detail": "client → ed : Editor：restore(save1)"
+        }
+      ],
+      "intent": {
+        "why": "读档：把快照交回给原发器",
+        "invariant": "快照不可变，恢复 = 引用换回——Editor 的历史由 Snapshot 全权保管（封装：内容不外泄）"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "恢复 = 字段从快照抄回——引用一换，时间倒流"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ed": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Editor",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Snapshot",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "editor",
+              "label": "ed : Editor"
+            },
+            {
+              "id": "snapshot",
+              "label": "save1 : Snapshot"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "restore(save1)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1.text ← 从 @2 读回 ''（一键回滚）"
+        }
+      ],
+      "intent": {
+        "why": "恢复 = 字段从快照抄回——引用一换，时间倒流",
+        "invariant": "快照不可变，恢复 = 引用换回——Editor 的历史由 Snapshot 全权保管（封装：内容不外泄）"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "封装的漂亮之处：快照内容只有 Editor 能读懂（text 字段不外泄给 client）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ed": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Editor",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Snapshot",
+                "fields": {
+                  "text": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "editor",
+              "label": "ed : Editor"
+            },
+            {
+              "id": "snapshot",
+              "label": "save1 : Snapshot"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "restore(save1)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "打印 ''：回到存档时刻"
+        }
+      ],
+      "intent": {
+        "why": "封装的漂亮之处：快照内容只有 Editor 能读懂（text 字段不外泄给 client）",
+        "invariant": "快照不可变，恢复 = 引用换回——Editor 的历史由 Snapshot 全权保管（封装：内容不外泄）"
+      }
+    }
+  ]
+}

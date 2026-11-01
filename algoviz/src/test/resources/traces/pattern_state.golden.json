@@ -1,0 +1,1509 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.state",
+    "title": "状态模式",
+    "codeResource": "/code/StateDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "Player 里没有一句 if(state==...)：行为全部委托给 state 对象"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "new Player()：@1.state = @3（Paused）——初始状态决定第一次按钮的行为"
+        }
+      ],
+      "intent": {
+        "why": "Player 里没有一句 if(state==...)：行为全部委托给 state 对象",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "同一个按钮被按下——Player 不知道结果会是播放还是暂停"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "player : Player"
+          ],
+          "detail": "client → player : Player：pressPlay()"
+        }
+      ],
+      "intent": {
+        "why": "同一个按钮被按下——Player 不知道结果会是播放还是暂停",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "委托给当前状态对象 Paused"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "player : Player",
+            "Paused"
+          ],
+          "detail": "player : Player → Paused：state.play(this)"
+        }
+      ],
+      "intent": {
+        "why": "委托给当前状态对象 Paused",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "关键区别：切换由状态对象自己驱动，不是外部指挥"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1.state"
+          ],
+          "detail": "Paused 说：该切到 Playing 了 → @1.state: @3 → @2"
+        }
+      ],
+      "intent": {
+        "why": "关键区别：切换由状态对象自己驱动，不是外部指挥",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "按钮没变，行为变了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "返回：现在是 Playing"
+        }
+      ],
+      "intent": {
+        "why": "按钮没变，行为变了",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "再按一次——同一个方法调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "player : Player"
+          ],
+          "detail": "client → player : Player：pressPlay()"
+        }
+      ],
+      "intent": {
+        "why": "再按一次——同一个方法调用",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "这次委托到的是 Playing——箭头已经换了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "player : Player",
+            "Playing"
+          ],
+          "detail": "player : Player → Playing：state.play(this)"
+        }
+      ],
+      "intent": {
+        "why": "这次委托到的是 Playing——箭头已经换了",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "Paused→Playing→Paused：状态机在对象图上转圈"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1.state"
+          ],
+          "detail": "Playing 说：切回 Paused → @1.state: @2 → @3"
+        }
+      ],
+      "intent": {
+        "why": "Paused→Playing→Paused：状态机在对象图上转圈",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "行为跟着状态走"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "返回：现在是 Paused"
+        }
+      ],
+      "intent": {
+        "why": "行为跟着状态走",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "第三次"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "player : Player"
+          ],
+          "detail": "client → player : Player：pressPlay()"
+        }
+      ],
+      "intent": {
+        "why": "第三次",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "又回到 Paused 的行为"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "player : Player",
+            "Paused"
+          ],
+          "detail": "player : Player → Paused：state.play(this)"
+        }
+      ],
+      "intent": {
+        "why": "又回到 Paused 的行为",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "新状态？加一个 State 实现类即可，Player 一行不改"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1.state"
+          ],
+          "detail": "@1.state: @3 → @2（循环往复）"
+        }
+      ],
+      "intent": {
+        "why": "新状态？加一个 State 实现类即可，Player 一行不改",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "对比策略模式：结构一样，区别在「谁来换」——策略外部换，状态自己换"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "player": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Player",
+                "fields": {
+                  "state": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Playing",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Paused",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "player",
+              "label": "player : Player"
+            },
+            {
+              "id": "playing",
+              "label": "Playing"
+            },
+            {
+              "id": "paused",
+              "label": "Paused"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "pressPlay()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "state.play(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "返回：现在是 Playing"
+        }
+      ],
+      "intent": {
+        "why": "对比策略模式：结构一样，区别在「谁来换」——策略外部换，状态自己换",
+        "invariant": "上下文的行为由当前状态对象决定：换状态 = 换引用，但切换由状态自己驱动（策略是外部换，状态是自己换）"
+      }
+    }
+  ]
+}

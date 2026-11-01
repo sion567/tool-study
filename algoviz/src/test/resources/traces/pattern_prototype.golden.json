@@ -1,0 +1,599 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.prototype",
+    "title": "原型模式",
+    "codeResource": "/code/PrototypeDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "昂贵的创建过程只走一次：这个对象从此当模板"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "tpl": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Sheet",
+                "fields": {
+                  "owner": {
+                    "kind": "PRIM",
+                    "text": "模板"
+                  },
+                  "cells": {
+                    "kind": "PRIM",
+                    "text": "[A1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "tpl",
+              "label": "tpl : Sheet(模板)"
+            },
+            {
+              "id": "copy",
+              "label": "copy : Sheet(副本)"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1 模板就位（owner=模板, cells=[A1]）"
+        }
+      ],
+      "intent": {
+        "why": "昂贵的创建过程只走一次：这个对象从此当模板",
+        "invariant": "复制现成对象当起点，省掉重建成本——深/浅拷贝的分界就在 clone 里"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "要一个新 Sheet——但不想重走初始化"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "tpl": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Sheet",
+                "fields": {
+                  "owner": {
+                    "kind": "PRIM",
+                    "text": "模板"
+                  },
+                  "cells": {
+                    "kind": "PRIM",
+                    "text": "[A1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "tpl",
+              "label": "tpl : Sheet(模板)"
+            },
+            {
+              "id": "copy",
+              "label": "copy : Sheet(副本)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "clone()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "tpl : Sheet(模板)"
+          ],
+          "detail": "client → tpl : Sheet(模板)：clone()"
+        }
+      ],
+      "intent": {
+        "why": "要一个新 Sheet——但不想重走初始化",
+        "invariant": "复制现成对象当起点，省掉重建成本——深/浅拷贝的分界就在 clone 里"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "clone 里逐字段复制：引用字段再拷一层 = 深拷贝（第 8 行正是这么干的）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "tpl": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Sheet",
+                "fields": {
+                  "owner": {
+                    "kind": "PRIM",
+                    "text": "模板"
+                  },
+                  "cells": {
+                    "kind": "PRIM",
+                    "text": "[A1]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Sheet",
+                "fields": {
+                  "owner": {
+                    "kind": "PRIM",
+                    "text": "模板"
+                  },
+                  "cells": {
+                    "kind": "PRIM",
+                    "text": "[A1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "tpl",
+              "label": "tpl : Sheet(模板)"
+            },
+            {
+              "id": "copy",
+              "label": "copy : Sheet(副本)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "clone()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "@2 从模板复制而来（字段同值）"
+        }
+      ],
+      "intent": {
+        "why": "clone 里逐字段复制：引用字段再拷一层 = 深拷贝（第 8 行正是这么干的）",
+        "invariant": "复制现成对象当起点，省掉重建成本——深/浅拷贝的分界就在 clone 里"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "只动副本"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "tpl": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Sheet",
+                "fields": {
+                  "owner": {
+                    "kind": "PRIM",
+                    "text": "模板"
+                  },
+                  "cells": {
+                    "kind": "PRIM",
+                    "text": "[A1]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Sheet",
+                "fields": {
+                  "owner": {
+                    "kind": "PRIM",
+                    "text": "模板"
+                  },
+                  "cells": {
+                    "kind": "PRIM",
+                    "text": "[A1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "tpl",
+              "label": "tpl : Sheet(模板)"
+            },
+            {
+              "id": "copy",
+              "label": "copy : Sheet(副本)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "clone()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "改副本：owner/cells",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "copy : Sheet(副本)"
+          ],
+          "detail": "client → copy : Sheet(副本)：改副本：owner/cells"
+        }
+      ],
+      "intent": {
+        "why": "只动副本",
+        "invariant": "复制现成对象当起点，省掉重建成本——深/浅拷贝的分界就在 clone 里"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "检验深浅拷贝的时刻：模板动没动？"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "tpl": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Sheet",
+                "fields": {
+                  "owner": {
+                    "kind": "PRIM",
+                    "text": "模板"
+                  },
+                  "cells": {
+                    "kind": "PRIM",
+                    "text": "[A1]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Sheet",
+                "fields": {
+                  "owner": {
+                    "kind": "PRIM",
+                    "text": "副本"
+                  },
+                  "cells": {
+                    "kind": "PRIM",
+                    "text": "[改过]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "tpl",
+              "label": "tpl : Sheet(模板)"
+            },
+            {
+              "id": "copy",
+              "label": "copy : Sheet(副本)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "clone()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "改副本：owner/cells",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "@2.owner ← 副本、cells ← [改过]"
+        }
+      ],
+      "intent": {
+        "why": "检验深浅拷贝的时刻：模板动没动？",
+        "invariant": "复制现成对象当起点，省掉重建成本——深/浅拷贝的分界就在 clone 里"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "若 clone 里直接 copy.cells = cells（浅拷贝），这里模板就被污染了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "tpl": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Sheet",
+                "fields": {
+                  "owner": {
+                    "kind": "PRIM",
+                    "text": "模板"
+                  },
+                  "cells": {
+                    "kind": "PRIM",
+                    "text": "[A1]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Sheet",
+                "fields": {
+                  "owner": {
+                    "kind": "PRIM",
+                    "text": "副本"
+                  },
+                  "cells": {
+                    "kind": "PRIM",
+                    "text": "[改过]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "tpl",
+              "label": "tpl : Sheet(模板)"
+            },
+            {
+              "id": "copy",
+              "label": "copy : Sheet(副本)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "clone()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "改副本：owner/cells",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "模板 @1 纹丝不动——两个对象各自独立"
+        }
+      ],
+      "intent": {
+        "why": "若 clone 里直接 copy.cells = cells（浅拷贝），这里模板就被污染了",
+        "invariant": "复制现成对象当起点，省掉重建成本——深/浅拷贝的分界就在 clone 里"
+      }
+    }
+  ]
+}

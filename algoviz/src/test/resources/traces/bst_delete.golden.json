@@ -1,0 +1,4820 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "tree.bst.delete",
+    "title": "BST 删除",
+    "codeResource": "/code/BstDelete.java",
+    "input": "5,3,8,1,4,7,9",
+    "inputSize": 7
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 delete(@1)：带着要删的值 5 走搜索路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 delete(root=@1, val=5) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 delete(@1)：带着要删的值 5 走搜索路径",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "找到 @1：现在问它有几个孩子"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@1"
+          ],
+          "detail": "val == @1.val → 找到目标"
+        }
+      ],
+      "intent": {
+        "why": "找到 @1：现在问它有几个孩子",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "情况一问左：没有左孩子，右孩子（哪怕也是 null）直接顶替自己"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@1"
+          ],
+          "detail": "root.left == null？否（有左孩子 @2）"
+        }
+      ],
+      "intent": {
+        "why": "情况一问左：没有左孩子，右孩子（哪怕也是 null）直接顶替自己",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "情况二问右：没有右孩子，左孩子顶替；两边都有 → 最难的第三种"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@1"
+          ],
+          "detail": "root.right == null？否 → 双子删除"
+        }
+      ],
+      "intent": {
+        "why": "情况二问右：没有右孩子，左孩子顶替；两边都有 → 最难的第三种",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "双子删除：右子树的最小值 = 中序后继，它是替代者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {
+            "min": "@3"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "min"
+          ],
+          "detail": "min ← root.right = @3（去右子树找最小值）"
+        }
+      ],
+      "intent": {
+        "why": "双子删除：右子树的最小值 = 中序后继，它是替代者",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "比 min 还小的一定在左边，一路向左走到头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {
+            "min": "@3"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "min"
+          ],
+          "detail": "min.left ≠ null → 继续往左"
+        }
+      ],
+      "intent": {
+        "why": "比 min 还小的一定在左边，一路向左走到头",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "min 左移一格"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {
+            "min": "@6"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "min"
+          ],
+          "detail": "min ← min.left = @6"
+        }
+      ],
+      "intent": {
+        "why": "min 左移一格",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "只换值不换节点——结构与指针都不动，BST 性质立刻恢复"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {
+            "min": "@6"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "root.val ← 7（后继的值抄进来，@1 现在装着 7）"
+        }
+      ],
+      "intent": {
+        "why": "只换值不换节点——结构与指针都不动，BST 性质立刻恢复",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 22,
+        "endLine": 22,
+        "note": "值抄完了，真正的删除发生在右子树里：注意这层的 val 变成了 7"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {
+            "min": "@6"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1.right"
+          ],
+          "detail": "root.right ← delete(root.right, 7)（把后继从右子树里删掉）"
+        }
+      ],
+      "intent": {
+        "why": "值抄完了，真正的删除发生在右子树里：注意这层的 val 变成了 7",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 delete(@3)：带着要删的值 7 走搜索路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            },
+            {
+              "method": "delete(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 delete(root=@3, val=7) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 delete(@3)：带着要删的值 7 走搜索路径",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "比根小：目标只可能在左子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            },
+            {
+              "method": "delete(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@3"
+          ],
+          "detail": "7 < @3.val=8 → 往左找"
+        }
+      ],
+      "intent": {
+        "why": "比根小：目标只可能在左子树",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 delete(@6)：带着要删的值 7 走搜索路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            },
+            {
+              "method": "delete(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            },
+            {
+              "method": "delete(@6)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@6",
+                  "refId": "@6"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@6"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 delete(root=@6, val=7) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 delete(@6)：带着要删的值 7 走搜索路径",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "找到 @6：现在问它有几个孩子"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            },
+            {
+              "method": "delete(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            },
+            {
+              "method": "delete(@6)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@6",
+                  "refId": "@6"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@6"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@6"
+          ],
+          "detail": "val == @6.val → 找到目标"
+        }
+      ],
+      "intent": {
+        "why": "找到 @6：现在问它有几个孩子",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "情况一问左：没有左孩子，右孩子（哪怕也是 null）直接顶替自己"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            },
+            {
+              "method": "delete(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            },
+            {
+              "method": "delete(@6)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@6",
+                  "refId": "@6"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@6"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@6"
+          ],
+          "detail": "root.left == null？是 → 用右孩子顶替"
+        }
+      ],
+      "intent": {
+        "why": "情况一问左：没有左孩子，右孩子（哪怕也是 null）直接顶替自己",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "断链方式①/②：parent 原本指向我，现在改指我的右孩子"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            },
+            {
+              "method": "delete(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            },
+            {
+              "method": "delete(@6)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@6",
+                  "refId": "@6"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@6"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "null"
+          ],
+          "detail": "return root.right = null —— 自己被跳过"
+        }
+      ],
+      "intent": {
+        "why": "断链方式①/②：parent 原本指向我，现在改指我的右孩子",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "接住返回值——子树可能已被删改，指针重新挂"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            },
+            {
+              "method": "delete(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3.left"
+          ],
+          "detail": "@3.left ← null（接住删完的子树）"
+        }
+      ],
+      "intent": {
+        "why": "接住返回值——子树可能已被删改，指针重新挂",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 25,
+        "endLine": 25,
+        "note": "本层子树处理完，原样交回父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            },
+            {
+              "method": "delete(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return @3 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "本层子树处理完，原样交回父调用",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "后继已从右子树摘除，接住剩余部分"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1.right"
+          ],
+          "detail": "@1.right ← @3（接住删完的右子树）"
+        }
+      ],
+      "intent": {
+        "why": "后继已从右子树摘除，接住剩余部分",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 25,
+        "endLine": 25,
+        "note": "本层子树处理完，原样交回父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "val": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "delete",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 7,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return @1 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "本层子树处理完，原样交回父调用",
+        "invariant": "删完仍是 BST：左 < 根 < 右；双子删除用「中序后继」补位，等价于把节点和后继交换后删掉"
+      }
+    }
+  ]
+}

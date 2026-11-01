@@ -1,0 +1,597 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.adapter",
+    "title": "适配器模式",
+    "codeResource": "/code/AdapterDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "已有的类不能改（库/历史代码），包一层让它说 Target 的话"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "t": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Adapter",
+                "fields": {
+                  "adaptee": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Adaptee",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "adapter",
+              "label": "t : Adapter"
+            },
+            {
+              "id": "adaptee",
+              "label": "adaptee : Adaptee"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "装配：@1 包住 @2——Target 在左，Adaptee 在右"
+        }
+      ],
+      "intent": {
+        "why": "已有的类不能改（库/历史代码），包一层让它说 Target 的话",
+        "invariant": "接口不兼容的两个人合作：中间加一个翻译层，双方代码零改动"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "调用方按 Target 接口发请求——它以为自己在调「原生」方法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "t": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Adapter",
+                "fields": {
+                  "adaptee": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Adaptee",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "adapter",
+              "label": "t : Adapter"
+            },
+            {
+              "id": "adaptee",
+              "label": "adaptee : Adaptee"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "request()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "t : Adapter"
+          ],
+          "detail": "client → t : Adapter：request()"
+        }
+      ],
+      "intent": {
+        "why": "调用方按 Target 接口发请求——它以为自己在调「原生」方法",
+        "invariant": "接口不兼容的两个人合作：中间加一个翻译层，双方代码零改动"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "翻译层转手：调的是被适配者的原名"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "t": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Adapter",
+                "fields": {
+                  "adaptee": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Adaptee",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "adapter",
+              "label": "t : Adapter"
+            },
+            {
+              "id": "adaptee",
+              "label": "adaptee : Adaptee"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "request()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "specificRequest()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "t : Adapter",
+            "adaptee : Adaptee"
+          ],
+          "detail": "t : Adapter → adaptee : Adaptee：specificRequest()"
+        }
+      ],
+      "intent": {
+        "why": "翻译层转手：调的是被适配者的原名",
+        "invariant": "接口不兼容的两个人合作：中间加一个翻译层，双方代码零改动"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "旧接口的返回形状"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "t": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Adapter",
+                "fields": {
+                  "adaptee": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Adaptee",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "adapter",
+              "label": "t : Adapter"
+            },
+            {
+              "id": "adaptee",
+              "label": "adaptee : Adaptee"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "request()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "specificRequest()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "EUR 100",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "adaptee : Adaptee",
+            "t : Adapter"
+          ],
+          "detail": "adaptee : Adaptee → t : Adapter：EUR 100"
+        }
+      ],
+      "intent": {
+        "why": "旧接口的返回形状",
+        "invariant": "接口不兼容的两个人合作：中间加一个翻译层，双方代码零改动"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "适配器把返回值也翻译了——欧换人民币"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "t": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Adapter",
+                "fields": {
+                  "adaptee": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Adaptee",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "adapter",
+              "label": "t : Adapter"
+            },
+            {
+              "id": "adaptee",
+              "label": "adaptee : Adaptee"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "request()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "specificRequest()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "EUR 100",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "CNY 800",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "t : Adapter",
+            "client"
+          ],
+          "detail": "t : Adapter → client：CNY 800"
+        }
+      ],
+      "intent": {
+        "why": "适配器把返回值也翻译了——欧换人民币",
+        "invariant": "接口不兼容的两个人合作：中间加一个翻译层，双方代码零改动"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "适配器 = 接口转换器：改一层，救两边"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "t": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Adapter",
+                "fields": {
+                  "adaptee": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Adaptee",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "adapter",
+              "label": "t : Adapter"
+            },
+            {
+              "id": "adaptee",
+              "label": "adaptee : Adaptee"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "request()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "specificRequest()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "EUR 100",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "CNY 800",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "调用方拿到 CNY：Adaptee 与 Client 至死不见面"
+        }
+      ],
+      "intent": {
+        "why": "适配器 = 接口转换器：改一层，救两边",
+        "invariant": "接口不兼容的两个人合作：中间加一个翻译层，双方代码零改动"
+      }
+    }
+  ]
+}

@@ -1,0 +1,4439 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.matrix.multiply",
+    "title": "矩阵乘法",
+    "codeResource": "/code/MatrixMultiply.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "A 和 B 摆上桌：内维相等（3=3）才能乘"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "A(2×3)、B(3×2) 就位，C 全 0"
+        }
+      ],
+      "intent": {
+        "why": "A 和 B 摆上桌：内维相等（3=3）才能乘",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "C(0,0) = A 的第 0 行 · B 的第 0 列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 0,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "C:0"
+          ],
+          "detail": "目标格 C[0][0] 清零——准备累加"
+        }
+      ],
+      "intent": {
+        "why": "C(0,0) = A 的第 0 行 · B 的第 0 列",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 1 项：对应相乘再相加——第 1 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 0,
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "7",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:0",
+            "B:0",
+            "C:0"
+          ],
+          "detail": "A[0][0]×B[0][0] = 1×7 → C[0][0] 累加为 7"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 1 项：对应相乘再相加——第 1 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 2 项：对应相乘再相加——第 2 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "25"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [
+                1
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 0,
+              "activeCells": [
+                2
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "25",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:1",
+            "B:2",
+            "C:0"
+          ],
+          "detail": "A[0][1]×B[1][0] = 2×9 → C[0][0] 累加为 25"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 2 项：对应相乘再相加——第 2 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 3 项：对应相乘再相加——第 3 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [
+                2
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 0,
+              "activeCells": [
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:2",
+            "B:4",
+            "C:0"
+          ],
+          "detail": "A[0][2]×B[2][0] = 3×11 → C[0][0] 累加为 58"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 3 项：对应相乘再相加——第 3 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "K 项加完：这个格子从此不再变（行列独立的直接推论）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 0,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": [
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "C:0"
+          ],
+          "detail": "C[0][0] 定格 = 58（三项加完）"
+        }
+      ],
+      "intent": {
+        "why": "K 项加完：这个格子从此不再变（行列独立的直接推论）",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "C(0,1) = A 的第 0 行 · B 的第 1 列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 1,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                1
+              ],
+              "doneCells": [
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "C:1"
+          ],
+          "detail": "目标格 C[0][1] 清零——准备累加"
+        }
+      ],
+      "intent": {
+        "why": "C(0,1) = A 的第 0 行 · B 的第 1 列",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 1 项：对应相乘再相加——第 1 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 1,
+              "activeCells": [
+                1
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "8",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                1
+              ],
+              "doneCells": [
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:0",
+            "B:1",
+            "C:1"
+          ],
+          "detail": "A[0][0]×B[0][1] = 1×8 → C[0][1] 累加为 8"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 1 项：对应相乘再相加——第 1 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 2 项：对应相乘再相加——第 2 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "28"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [
+                1
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 1,
+              "activeCells": [
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "28",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                1
+              ],
+              "doneCells": [
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:1",
+            "B:3",
+            "C:1"
+          ],
+          "detail": "A[0][1]×B[1][1] = 2×10 → C[0][1] 累加为 28"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 2 项：对应相乘再相加——第 2 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 3 项：对应相乘再相加——第 3 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [
+                2
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 1,
+              "activeCells": [
+                5
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                1
+              ],
+              "doneCells": [
+                0
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:2",
+            "B:5",
+            "C:1"
+          ],
+          "detail": "A[0][2]×B[2][1] = 3×12 → C[0][1] 累加为 64"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 3 项：对应相乘再相加——第 3 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "K 项加完：这个格子从此不再变（行列独立的直接推论）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 1,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                1
+              ],
+              "doneCells": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "C:1"
+          ],
+          "detail": "C[0][1] 定格 = 64（三项加完）"
+        }
+      ],
+      "intent": {
+        "why": "K 项加完：这个格子从此不再变（行列独立的直接推论）",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "C(1,0) = A 的第 1 行 · B 的第 0 列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 0,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "C:2"
+          ],
+          "detail": "目标格 C[1][0] 清零——准备累加"
+        }
+      ],
+      "intent": {
+        "why": "C(1,0) = A 的第 1 行 · B 的第 0 列",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 1 项：对应相乘再相加——第 1 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "28"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 0,
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "28",
+                "0"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:3",
+            "B:0",
+            "C:2"
+          ],
+          "detail": "A[1][0]×B[0][0] = 4×7 → C[1][0] 累加为 28"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 1 项：对应相乘再相加——第 1 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 2 项：对应相乘再相加——第 2 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "73"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 0,
+              "activeCells": [
+                2
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "73",
+                "0"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:4",
+            "B:2",
+            "C:2"
+          ],
+          "detail": "A[1][1]×B[1][0] = 5×9 → C[1][0] 累加为 73"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 2 项：对应相乘再相加——第 2 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 3 项：对应相乘再相加——第 3 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "139"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [
+                5
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 0,
+              "activeCells": [
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "139",
+                "0"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": [
+                0,
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:5",
+            "B:4",
+            "C:2"
+          ],
+          "detail": "A[1][2]×B[2][0] = 6×11 → C[1][0] 累加为 139"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 3 项：对应相乘再相加——第 3 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "K 项加完：这个格子从此不再变（行列独立的直接推论）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "139"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 0,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "139",
+                "0"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": [
+                0,
+                1,
+                2
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "C:2"
+          ],
+          "detail": "C[1][0] 定格 = 139（三项加完）"
+        }
+      ],
+      "intent": {
+        "why": "K 项加完：这个格子从此不再变（行列独立的直接推论）",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "C(1,1) = A 的第 1 行 · B 的第 1 列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "139"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 1,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "139",
+                "0"
+              ],
+              "activeCells": [
+                3
+              ],
+              "doneCells": [
+                0,
+                1,
+                2
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "C:3"
+          ],
+          "detail": "目标格 C[1][1] 清零——准备累加"
+        }
+      ],
+      "intent": {
+        "why": "C(1,1) = A 的第 1 行 · B 的第 1 列",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 1 项：对应相乘再相加——第 1 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "139"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "32"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 1,
+              "activeCells": [
+                1
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "139",
+                "32"
+              ],
+              "activeCells": [
+                3
+              ],
+              "doneCells": [
+                0,
+                1,
+                2
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:3",
+            "B:1",
+            "C:3"
+          ],
+          "detail": "A[1][0]×B[0][1] = 4×8 → C[1][1] 累加为 32"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 1 项：对应相乘再相加——第 1 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 2 项：对应相乘再相加——第 2 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "139"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "82"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 1,
+              "activeCells": [
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "139",
+                "82"
+              ],
+              "activeCells": [
+                3
+              ],
+              "doneCells": [
+                0,
+                1,
+                2
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:4",
+            "B:3",
+            "C:3"
+          ],
+          "detail": "A[1][1]×B[1][1] = 5×10 → C[1][1] 累加为 82"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 2 项：对应相乘再相加——第 2 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Σ 的第 3 项：对应相乘再相加——第 3 滴涟漪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "139"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "154"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [
+                5
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 1,
+              "activeCells": [
+                5
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "139",
+                "154"
+              ],
+              "activeCells": [
+                3
+              ],
+              "doneCells": [
+                0,
+                1,
+                2
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "A:5",
+            "B:5",
+            "C:3"
+          ],
+          "detail": "A[1][2]×B[2][1] = 6×12 → C[1][1] 累加为 154"
+        }
+      ],
+      "intent": {
+        "why": "Σ 的第 3 项：对应相乘再相加——第 3 滴涟漪",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "K 项加完：这个格子从此不再变（行列独立的直接推论）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "139"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "154"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "hlCol": 1,
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "139",
+                "154"
+              ],
+              "activeCells": [
+                3
+              ],
+              "doneCells": [
+                0,
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "C:3"
+          ],
+          "detail": "C[1][1] 定格 = 154（三项加完）"
+        }
+      ],
+      "intent": {
+        "why": "K 项加完：这个格子从此不再变（行列独立的直接推论）",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "2×3 · 3×2 = 2×2：内维消化掉，剩下外维"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "multiply",
+              "locals": {
+                "A": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "B": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "C": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "Matrix2x3",
+                "fields": {
+                  "a00": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "a01": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "a02": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "a10": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "a11": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "a12": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "Matrix3x2",
+                "fields": {
+                  "b00": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "b01": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "b10": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "b11": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "b20": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "b21": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "C",
+                "type": "Matrix2x2",
+                "fields": {
+                  "c00": {
+                    "kind": "PRIM",
+                    "text": "58"
+                  },
+                  "c01": {
+                    "kind": "PRIM",
+                    "text": "64"
+                  },
+                  "c10": {
+                    "kind": "PRIM",
+                    "text": "139"
+                  },
+                  "c11": {
+                    "kind": "PRIM",
+                    "text": "154"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "矩阵乘法",
+          "grids": [
+            {
+              "id": "A",
+              "label": "A 2×3",
+              "rows": 2,
+              "cols": 3,
+              "values": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "B",
+              "label": "B 3×2",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "C",
+              "label": "C 2×2",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "58",
+                "64",
+                "139",
+                "154"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                0,
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "完成：C = [[58, 64], [139, 154]]"
+        }
+      ],
+      "intent": {
+        "why": "2×3 · 3×2 = 2×2：内维消化掉，剩下外维",
+        "invariant": "C(i,j) 只由 A 的第 i 行和 B 的第 j 列决定——行列独立，与别的格子无关（可并行/可分块）"
+      }
+    }
+  ]
+}

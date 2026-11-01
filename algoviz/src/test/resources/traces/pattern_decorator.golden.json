@@ -1,0 +1,979 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.decorator",
+    "title": "装饰器模式",
+    "codeResource": "/code/DecoratorDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 23,
+        "endLine": 23,
+        "note": "看堆面板：每个装饰器都握着 inner 引用——包一层，加一点行为"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BorderFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "GridFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "PlainFrame",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "border",
+              "label": "border : BorderFrame"
+            },
+            {
+              "id": "grid",
+              "label": "grid : GridFrame"
+            },
+            {
+              "id": "plain",
+              "label": "plain : PlainFrame"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "装配：@1{inner=@2{inner=@3}}——三层洋葱，全部实现同一个 Frame 接口"
+        }
+      ],
+      "intent": {
+        "why": "看堆面板：每个装饰器都握着 inner 引用——包一层，加一点行为",
+        "invariant": "装饰器与组件同接口：包几层，调用入口不变——层层转发，洋葱式执行"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 24,
+        "endLine": 24,
+        "note": "调用入口只有一个：最外层的 draw()——加了几层调用方根本不知道"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BorderFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "GridFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "PlainFrame",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "border",
+              "label": "border : BorderFrame"
+            },
+            {
+              "id": "grid",
+              "label": "grid : GridFrame"
+            },
+            {
+              "id": "plain",
+              "label": "plain : PlainFrame"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "f.draw()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "border : BorderFrame"
+          ],
+          "detail": "client → border : BorderFrame：f.draw()"
+        }
+      ],
+      "intent": {
+        "why": "调用入口只有一个：最外层的 draw()——加了几层调用方根本不知道",
+        "invariant": "装饰器与组件同接口：包几层，调用入口不变——层层转发，洋葱式执行"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "边框画一半，把活转交给里层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BorderFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "GridFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "PlainFrame",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "border",
+              "label": "border : BorderFrame"
+            },
+            {
+              "id": "grid",
+              "label": "grid : GridFrame"
+            },
+            {
+              "id": "plain",
+              "label": "plain : PlainFrame"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "f.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "border : BorderFrame",
+            "grid : GridFrame"
+          ],
+          "detail": "border : BorderFrame → grid : GridFrame：inner.draw()"
+        }
+      ],
+      "intent": {
+        "why": "边框画一半，把活转交给里层",
+        "invariant": "装饰器与组件同接口：包几层，调用入口不变——层层转发，洋葱式执行"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "再转交——洋葱剥到芯"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BorderFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "GridFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "PlainFrame",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "border",
+              "label": "border : BorderFrame"
+            },
+            {
+              "id": "grid",
+              "label": "grid : GridFrame"
+            },
+            {
+              "id": "plain",
+              "label": "plain : PlainFrame"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "f.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "grid : GridFrame",
+            "plain : PlainFrame"
+          ],
+          "detail": "grid : GridFrame → plain : PlainFrame：inner.draw()"
+        }
+      ],
+      "intent": {
+        "why": "再转交——洋葱剥到芯",
+        "invariant": "装饰器与组件同接口：包几层，调用入口不变——层层转发，洋葱式执行"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "核心工作在原始组件里完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BorderFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "GridFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "PlainFrame",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "border",
+              "label": "border : BorderFrame"
+            },
+            {
+              "id": "grid",
+              "label": "grid : GridFrame"
+            },
+            {
+              "id": "plain",
+              "label": "plain : PlainFrame"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "f.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "画柱状图",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "plain : PlainFrame",
+            "grid : GridFrame"
+          ],
+          "detail": "plain : PlainFrame → grid : GridFrame：画柱状图"
+        }
+      ],
+      "intent": {
+        "why": "核心工作在原始组件里完成",
+        "invariant": "装饰器与组件同接口：包几层，调用入口不变——层层转发，洋葱式执行"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "网格收尾，向外层交还"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BorderFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "GridFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "PlainFrame",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "border",
+              "label": "border : BorderFrame"
+            },
+            {
+              "id": "grid",
+              "label": "grid : GridFrame"
+            },
+            {
+              "id": "plain",
+              "label": "plain : PlainFrame"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "f.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "画柱状图",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "返回",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "grid : GridFrame",
+            "border : BorderFrame"
+          ],
+          "detail": "grid : GridFrame → border : BorderFrame：返回"
+        }
+      ],
+      "intent": {
+        "why": "网格收尾，向外层交还",
+        "invariant": "装饰器与组件同接口：包几层，调用入口不变——层层转发，洋葱式执行"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "边框最后收口——层层退出"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BorderFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "GridFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "PlainFrame",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "border",
+              "label": "border : BorderFrame"
+            },
+            {
+              "id": "grid",
+              "label": "grid : GridFrame"
+            },
+            {
+              "id": "plain",
+              "label": "plain : PlainFrame"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "f.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "画柱状图",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "返回",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "返回",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "border : BorderFrame",
+            "client"
+          ],
+          "detail": "border : BorderFrame → client：返回"
+        }
+      ],
+      "intent": {
+        "why": "边框最后收口——层层退出",
+        "invariant": "装饰器与组件同接口：包几层，调用入口不变——层层转发，洋葱式执行"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 24,
+        "endLine": 24,
+        "note": "继承加行为的静态版；运行时想再加一层？new 一个包上去即可"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BorderFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "GridFrame",
+                "fields": {
+                  "inner": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "PlainFrame",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "border",
+              "label": "border : BorderFrame"
+            },
+            {
+              "id": "grid",
+              "label": "grid : GridFrame"
+            },
+            {
+              "id": "plain",
+              "label": "plain : PlainFrame"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "f.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "inner.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "画柱状图",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "返回",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "返回",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "调用方全程只调了一次 f.draw()——加了三层行为，一行代码没多"
+        }
+      ],
+      "intent": {
+        "why": "继承加行为的静态版；运行时想再加一层？new 一个包上去即可",
+        "invariant": "装饰器与组件同接口：包几层，调用入口不变——层层转发，洋葱式执行"
+      }
+    }
+  ]
+}

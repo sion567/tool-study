@@ -1,0 +1,5106 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "tree.levelorder",
+    "title": "层序遍历",
+    "codeResource": "/code/LevelOrderTraversal.java",
+    "input": "5,3,8,1,4,7,9",
+    "inputSize": 7
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "和递归版最大的不同：这里没有任何调用栈，全靠队列排队"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@1"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "root 入队（@1）——队列是层序的心脏"
+        }
+      ],
+      "intent": {
+        "why": "和递归版最大的不同：这里没有任何调用栈，全靠队列排队",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "队首出队：先进来的先访问——这就是「层」的来历"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "poll() → @1（队首出队）"
+        }
+      ],
+      "intent": {
+        "why": "队首出队：先进来的先访问——这就是「层」的来历",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "visit(@1)：第 1 个访问"
+        }
+      ],
+      "intent": {
+        "why": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "下一层从左到右排队——当前层还没出完，它们只能等"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@2"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "左孩子 @2 入队"
+        }
+      ],
+      "intent": {
+        "why": "下一层从左到右排队——当前层还没出完，它们只能等",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "队首标签永远指着下一个要出队的节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@2"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3"
+          ],
+          "detail": "右孩子 @3 入队"
+        }
+      ],
+      "intent": {
+        "why": "队首标签永远指着下一个要出队的节点",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "队首出队：先进来的先访问——这就是「层」的来历"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@3"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "poll() → @2（队首出队）"
+        }
+      ],
+      "intent": {
+        "why": "队首出队：先进来的先访问——这就是「层」的来历",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@3"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@2"
+          ],
+          "detail": "visit(@2)：第 2 个访问"
+        }
+      ],
+      "intent": {
+        "why": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "下一层从左到右排队——当前层还没出完，它们只能等"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@3"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "左孩子 @4 入队"
+        }
+      ],
+      "intent": {
+        "why": "下一层从左到右排队——当前层还没出完，它们只能等",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "队首标签永远指着下一个要出队的节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@3"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@5"
+          ],
+          "detail": "右孩子 @5 入队"
+        }
+      ],
+      "intent": {
+        "why": "队首标签永远指着下一个要出队的节点",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "队首出队：先进来的先访问——这就是「层」的来历"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@4"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3"
+          ],
+          "detail": "poll() → @3（队首出队）"
+        }
+      ],
+      "intent": {
+        "why": "队首出队：先进来的先访问——这就是「层」的来历",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@4"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@3"
+          ],
+          "detail": "visit(@3)：第 3 个访问"
+        }
+      ],
+      "intent": {
+        "why": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "下一层从左到右排队——当前层还没出完，它们只能等"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@4"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@6"
+          ],
+          "detail": "左孩子 @6 入队"
+        }
+      ],
+      "intent": {
+        "why": "下一层从左到右排队——当前层还没出完，它们只能等",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "队首标签永远指着下一个要出队的节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@4"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@7"
+          ],
+          "detail": "右孩子 @7 入队"
+        }
+      ],
+      "intent": {
+        "why": "队首标签永远指着下一个要出队的节点",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "队首出队：先进来的先访问——这就是「层」的来历"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@5"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "poll() → @4（队首出队）"
+        }
+      ],
+      "intent": {
+        "why": "队首出队：先进来的先访问——这就是「层」的来历",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "visited",
+              "visitOrder": 4
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@5"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@4"
+          ],
+          "detail": "visit(@4)：第 4 个访问"
+        }
+      ],
+      "intent": {
+        "why": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "队首出队：先进来的先访问——这就是「层」的来历"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "visited",
+              "visitOrder": 4
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@6"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@5"
+          ],
+          "detail": "poll() → @5（队首出队）"
+        }
+      ],
+      "intent": {
+        "why": "队首出队：先进来的先访问——这就是「层」的来历",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "visited",
+              "visitOrder": 4
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited",
+              "visitOrder": 5
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@6"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@5"
+          ],
+          "detail": "visit(@5)：第 5 个访问"
+        }
+      ],
+      "intent": {
+        "why": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "队首出队：先进来的先访问——这就是「层」的来历"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "visited",
+              "visitOrder": 4
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited",
+              "visitOrder": 5
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@7"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@6"
+          ],
+          "detail": "poll() → @6（队首出队）"
+        }
+      ],
+      "intent": {
+        "why": "队首出队：先进来的先访问——这就是「层」的来历",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "visited",
+              "visitOrder": 4
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited",
+              "visitOrder": 5
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "visited",
+              "visitOrder": 6
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {
+            "队首": "@7"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@6"
+          ],
+          "detail": "visit(@6)：第 6 个访问"
+        }
+      ],
+      "intent": {
+        "why": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "队首出队：先进来的先访问——这就是「层」的来历"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "visited",
+              "visitOrder": 4
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited",
+              "visitOrder": 5
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "visited",
+              "visitOrder": 6
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@7"
+          ],
+          "detail": "poll() → @7（队首出队）"
+        }
+      ],
+      "intent": {
+        "why": "队首出队：先进来的先访问——这就是「层」的来历",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "visited",
+              "visitOrder": 4
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited",
+              "visitOrder": 5
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "visited",
+              "visitOrder": 6
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "visited",
+              "visitOrder": 7
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@7"
+          ],
+          "detail": "visit(@7)：第 7 个访问"
+        }
+      ],
+      "intent": {
+        "why": "访问顺序 = 从上到下、从左到右——对比中序的 1,3,4,5,7,8,9 完全不同",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "层序完成：5 → 3,8 → 1,4,7,9——一层一层铺下来"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "level",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited",
+              "visitOrder": 1
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited",
+              "visitOrder": 2
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "visited",
+              "visitOrder": 3
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "visited",
+              "visitOrder": 4
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited",
+              "visitOrder": 5
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "visited",
+              "visitOrder": 6
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "visited",
+              "visitOrder": 7
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "队列空：全部 7 个节点按层访问完毕"
+        }
+      ],
+      "intent": {
+        "why": "层序完成：5 → 3,8 → 1,4,7,9——一层一层铺下来",
+        "invariant": "队列里最多同时存在两层：出队顺序 = 从上到下、从左到右（和前中后序的递归完全不同路）"
+      }
+    }
+  ]
+}

@@ -1,0 +1,608 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.chain",
+    "title": "责任链模式",
+    "codeResource": "/code/ChainDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": "链可以运行时任意拼接：删一环、加一环，发送方无感"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "chain": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "FrontDesk",
+                "fields": {
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Manager",
+                "fields": {
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "front",
+              "label": "chain : FrontDesk"
+            },
+            {
+              "id": "manager",
+              "label": "next : Manager"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1.link(@2)：链搭好——front 处理不了就给 manager"
+        }
+      ],
+      "intent": {
+        "why": "链可以运行时任意拼接：删一环、加一环，发送方无感",
+        "invariant": "请求不知道会被谁处理：沿链传递，处理权在链上各环——发送方与处理方解耦"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "请求从链头进入——发送方不知道也不关心终点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "chain": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "FrontDesk",
+                "fields": {
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Manager",
+                "fields": {
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "front",
+              "label": "chain : FrontDesk"
+            },
+            {
+              "id": "manager",
+              "label": "next : Manager"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "handle(\"投诉\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "chain : FrontDesk"
+          ],
+          "detail": "client → chain : FrontDesk：handle(\"投诉\")"
+        }
+      ],
+      "intent": {
+        "why": "请求从链头进入——发送方不知道也不关心终点",
+        "invariant": "请求不知道会被谁处理：沿链传递，处理权在链上各环——发送方与处理方解耦"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "前台一看：不是问路 → 传给下一环"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "chain": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "FrontDesk",
+                "fields": {
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Manager",
+                "fields": {
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "front",
+              "label": "chain : FrontDesk"
+            },
+            {
+              "id": "manager",
+              "label": "next : Manager"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "handle(\"投诉\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "next.handle(\"投诉\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "chain : FrontDesk",
+            "next : Manager"
+          ],
+          "detail": "chain : FrontDesk → next : Manager：next.handle(\"投诉\")"
+        }
+      ],
+      "intent": {
+        "why": "前台一看：不是问路 → 传给下一环",
+        "invariant": "请求不知道会被谁处理：沿链传递，处理权在链上各环——发送方与处理方解耦"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "谁来处理由链上各环自己判断——client 零参与"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "chain": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "FrontDesk",
+                "fields": {
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Manager",
+                "fields": {
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "front",
+              "label": "chain : FrontDesk"
+            },
+            {
+              "id": "manager",
+              "label": "next : Manager"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "handle(\"投诉\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "next.handle(\"投诉\")",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "经理：是投诉，我处理（终点找到了）"
+        }
+      ],
+      "intent": {
+        "why": "谁来处理由链上各环自己判断——client 零参与",
+        "invariant": "请求不知道会被谁处理：沿链传递，处理权在链上各环——发送方与处理方解耦"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "结果沿链回传"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "chain": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "FrontDesk",
+                "fields": {
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Manager",
+                "fields": {
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "front",
+              "label": "chain : FrontDesk"
+            },
+            {
+              "id": "manager",
+              "label": "next : Manager"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "handle(\"投诉\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "next.handle(\"投诉\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "经理解决",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "next : Manager",
+            "client"
+          ],
+          "detail": "next : Manager → client：经理解决"
+        }
+      ],
+      "intent": {
+        "why": "结果沿链回传",
+        "invariant": "请求不知道会被谁处理：沿链传递，处理权在链上各环——发送方与处理方解耦"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "反向引用：Servlet Filter、拦截器、DNS 解析都是责任链"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "chain": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "FrontDesk",
+                "fields": {
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Manager",
+                "fields": {
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "front",
+              "label": "chain : FrontDesk"
+            },
+            {
+              "id": "manager",
+              "label": "next : Manager"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "handle(\"投诉\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "next.handle(\"投诉\")",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "经理解决",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "对比 if-else 大 Mig：每环一个类，顺序可配"
+        }
+      ],
+      "intent": {
+        "why": "反向引用：Servlet Filter、拦截器、DNS 解析都是责任链",
+        "invariant": "请求不知道会被谁处理：沿链传递，处理权在链上各环——发送方与处理方解耦"
+      }
+    }
+  ]
+}

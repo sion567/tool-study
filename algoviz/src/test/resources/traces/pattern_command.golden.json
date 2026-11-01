@@ -1,0 +1,1379 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.command",
+    "title": "命令模式",
+    "codeResource": "/code/CommandDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "关键动作在 new 的时候完成了：请求 → 对象"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "new Invoker()：@1.queue = []——两个请求已经打包成对象 @2、@3"
+        }
+      ],
+      "intent": {
+        "why": "关键动作在 new 的时候完成了：请求 → 对象",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "请求入队——注意：只是排队，没人执行"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd1)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "invoker : Invoker"
+          ],
+          "detail": "client → invoker : Invoker：submit(cmd1)"
+        }
+      ],
+      "intent": {
+        "why": "请求入队——注意：只是排队，没人执行",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "排队 = 往列表放对象，和执行彻底分离"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[@2]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd1)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1.queue += @2（排队中）"
+        }
+      ],
+      "intent": {
+        "why": "排队 = 往列表放对象，和执行彻底分离",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "第二条也入队"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[@2]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd2)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "invoker : Invoker"
+          ],
+          "detail": "client → invoker : Invoker：submit(cmd2)"
+        }
+      ],
+      "intent": {
+        "why": "第二条也入队",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "Invoker 只看到 Command 接口——里面装的是什么，它不知道"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd2)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1.queue += @3（排队中）"
+        }
+      ],
+      "intent": {
+        "why": "Invoker 只看到 Command 接口——里面装的是什么，它不知道",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "统一执行：遍历队列逐个调 execute()"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "flush()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "invoker : Invoker"
+          ],
+          "detail": "client → invoker : Invoker：flush()"
+        }
+      ],
+      "intent": {
+        "why": "统一执行：遍历队列逐个调 execute()",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "第一条命令被执行"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "flush()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "invoker : Invoker",
+            "cmd1 : Command"
+          ],
+          "detail": "invoker : Invoker → cmd1 : Command：execute()"
+        }
+      ],
+      "intent": {
+        "why": "第一条命令被执行",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "命令对象自己知道要干什么"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "flush()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "cmd1 : Command",
+            "invoker : Invoker"
+          ],
+          "detail": "cmd1 : Command → invoker : Invoker：播放 step1"
+        }
+      ],
+      "intent": {
+        "why": "命令对象自己知道要干什么",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "第二条"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "flush()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "execute()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "invoker : Invoker",
+            "cmd2 : Command"
+          ],
+          "detail": "invoker : Invoker → cmd2 : Command：execute()"
+        }
+      ],
+      "intent": {
+        "why": "第二条",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "flush()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "execute()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "播放 step2",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "cmd2 : Command",
+            "invoker : Invoker"
+          ],
+          "detail": "cmd2 : Command → invoker : Invoker：播放 step2"
+        }
+      ],
+      "intent": {
+        "why": "完成",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "把请求变成对象之后，一切针对「请求」的花活都只是对对象的操作"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "invoker": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Invoker",
+                "fields": {
+                  "queue": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "AddStepCommand",
+                "fields": {
+                  "step": {
+                    "kind": "PRIM",
+                    "text": "step2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "invoker",
+              "label": "invoker : Invoker"
+            },
+            {
+              "id": "cmd1",
+              "label": "cmd1 : Command"
+            },
+            {
+              "id": "cmd2",
+              "label": "cmd2 : Command"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(cmd2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "flush()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "播放 step1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "execute()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "播放 step2",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "两帧排队、一次执行——撤销 = 记历史栈，日志 = 序列化，宏 = 命令列表"
+        }
+      ],
+      "intent": {
+        "why": "把请求变成对象之后，一切针对「请求」的花活都只是对对象的操作",
+        "invariant": "请求打包成对象 → 排队/撤销/日志都成了对对象的操作；调用者与执行者彻底解耦"
+      }
+    }
+  ]
+}

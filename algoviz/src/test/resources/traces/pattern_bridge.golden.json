@@ -1,0 +1,1438 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.bridge",
+    "title": "桥接模式",
+    "codeResource": "/code/BridgeDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "形状维与颜色维在这里「桥」在一起——一根引用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1 Circle 桥接 @2 Red（@1.color → @2）"
+        }
+      ],
+      "intent": {
+        "why": "形状维与颜色维在这里「桥」在一起——一根引用",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": "两个维度互不感知，各自独立继承"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@3"
+          ],
+          "detail": "@3 Square 桥接 @4 Blue"
+        }
+      ],
+      "intent": {
+        "why": "两个维度互不感知，各自独立继承",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "画圆：形状维先干活"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "draw()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "s1 : Circle"
+          ],
+          "detail": "client → s1 : Circle：draw()"
+        }
+      ],
+      "intent": {
+        "why": "画圆：形状维先干活",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "桥到颜色维：要颜色去这里拿"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "color.apply()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "s1 : Circle",
+            "Red"
+          ],
+          "detail": "s1 : Circle → Red：color.apply()"
+        }
+      ],
+      "intent": {
+        "why": "桥到颜色维：要颜色去这里拿",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "颜色维的答案"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "color.apply()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "红",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Red",
+            "s1 : Circle"
+          ],
+          "detail": "Red → s1 : Circle：红"
+        }
+      ],
+      "intent": {
+        "why": "颜色维的答案",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "两维拼接完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "color.apply()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "红",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "红 的圆",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "s1 : Circle",
+            "client"
+          ],
+          "detail": "s1 : Circle → client：红 的圆"
+        }
+      ],
+      "intent": {
+        "why": "两维拼接完成",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "画方：另一个形状，同一套桥"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "color.apply()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "红",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "红 的圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "draw()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "s2 : Square"
+          ],
+          "detail": "client → s2 : Square：draw()"
+        }
+      ],
+      "intent": {
+        "why": "画方：另一个形状，同一套桥",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "Square 只认 Color 接口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "color.apply()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "红",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "红 的圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 4,
+              "label": "color.apply()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "s2 : Square",
+            "Blue"
+          ],
+          "detail": "s2 : Square → Blue：color.apply()"
+        }
+      ],
+      "intent": {
+        "why": "Square 只认 Color 接口",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "Blue 的答案"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "color.apply()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "红",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "红 的圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 4,
+              "label": "color.apply()",
+              "kind": "CALL"
+            },
+            {
+              "from": 4,
+              "to": 3,
+              "label": "蓝",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Blue",
+            "s2 : Square"
+          ],
+          "detail": "Blue → s2 : Square：蓝"
+        }
+      ],
+      "intent": {
+        "why": "Blue 的答案",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "color.apply()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "红",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "红 的圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 4,
+              "label": "color.apply()",
+              "kind": "CALL"
+            },
+            {
+              "from": 4,
+              "to": 3,
+              "label": "蓝",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "蓝 的方",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "s2 : Square",
+            "client"
+          ],
+          "detail": "s2 : Square → client：蓝 的方"
+        }
+      ],
+      "intent": {
+        "why": "完成",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "继承方案要 4 个子类，3×3 就是 9 个——维度一多，乘法爆炸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Circle",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Red",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {
+                  "color": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "@4",
+                "type": "Blue",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "red",
+              "label": "Red"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            },
+            {
+              "id": "blue",
+              "label": "Blue"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "color.apply()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "红",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "红 的圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 4,
+              "label": "color.apply()",
+              "kind": "CALL"
+            },
+            {
+              "from": 4,
+              "to": 3,
+              "label": "蓝",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "蓝 的方",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1",
+            "@3"
+          ],
+          "detail": "2 形状 + 2 颜色 = 4 种组合，只用 4 个类"
+        }
+      ],
+      "intent": {
+        "why": "继承方案要 4 个子类，3×3 就是 9 个——维度一多，乘法爆炸",
+        "invariant": "两个维度各自变化、桥接引用相连：m+n 个类覆盖 m×n 种组合（继承要 m×n 个类）"
+      }
+    }
+  ]
+}

@@ -1,0 +1,923 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.composite",
+    "title": "组合模式",
+    "codeResource": "/code/CompositeDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "Composite 也实现 Node：容器可以套容器，树就长起来了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "root": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Chart",
+                "fields": {
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "chart",
+              "label": "root : Chart(容器)"
+            },
+            {
+              "id": "bar1",
+              "label": "bar1 : Bar(叶)"
+            },
+            {
+              "id": "bar2",
+              "label": "bar2 : Bar(叶)"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1.children = [@2, @3]——叶子和容器装在同一个名单里"
+        }
+      ],
+      "intent": {
+        "why": "Composite 也实现 Node：容器可以套容器，树就长起来了",
+        "invariant": "叶子和容器统一对待：递归结构 = 同一个接口反复调用——UI 树、文件系统全是它"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "对整棵树只调一次——调用方不管里面有几个、是什么"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "root": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Chart",
+                "fields": {
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "chart",
+              "label": "root : Chart(容器)"
+            },
+            {
+              "id": "bar1",
+              "label": "bar1 : Bar(叶)"
+            },
+            {
+              "id": "bar2",
+              "label": "bar2 : Bar(叶)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "root.draw()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "root : Chart(容器)"
+          ],
+          "detail": "client → root : Chart(容器)：root.draw()"
+        }
+      ],
+      "intent": {
+        "why": "对整棵树只调一次——调用方不管里面有几个、是什么",
+        "invariant": "叶子和容器统一对待：递归结构 = 同一个接口反复调用——UI 树、文件系统全是它"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "容器把调用转给第一个孩子"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "root": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Chart",
+                "fields": {
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "chart",
+              "label": "root : Chart(容器)"
+            },
+            {
+              "id": "bar1",
+              "label": "bar1 : Bar(叶)"
+            },
+            {
+              "id": "bar2",
+              "label": "bar2 : Bar(叶)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "root.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "n.draw()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "root : Chart(容器)",
+            "bar1 : Bar(叶)"
+          ],
+          "detail": "root : Chart(容器) → bar1 : Bar(叶)：n.draw()"
+        }
+      ],
+      "intent": {
+        "why": "容器把调用转给第一个孩子",
+        "invariant": "叶子和容器统一对待：递归结构 = 同一个接口反复调用——UI 树、文件系统全是它"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "叶子真正干活"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "root": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Chart",
+                "fields": {
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "chart",
+              "label": "root : Chart(容器)"
+            },
+            {
+              "id": "bar1",
+              "label": "bar1 : Bar(叶)"
+            },
+            {
+              "id": "bar2",
+              "label": "bar2 : Bar(叶)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "root.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "n.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "画一根柱子",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "bar1 : Bar(叶)",
+            "root : Chart(容器)"
+          ],
+          "detail": "bar1 : Bar(叶) → root : Chart(容器)：画一根柱子"
+        }
+      ],
+      "intent": {
+        "why": "叶子真正干活",
+        "invariant": "叶子和容器统一对待：递归结构 = 同一个接口反复调用——UI 树、文件系统全是它"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "第二个孩子"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "root": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Chart",
+                "fields": {
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "chart",
+              "label": "root : Chart(容器)"
+            },
+            {
+              "id": "bar1",
+              "label": "bar1 : Bar(叶)"
+            },
+            {
+              "id": "bar2",
+              "label": "bar2 : Bar(叶)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "root.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "n.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "画一根柱子",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "n.draw()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "root : Chart(容器)",
+            "bar2 : Bar(叶)"
+          ],
+          "detail": "root : Chart(容器) → bar2 : Bar(叶)：n.draw()"
+        }
+      ],
+      "intent": {
+        "why": "第二个孩子",
+        "invariant": "叶子和容器统一对待：递归结构 = 同一个接口反复调用——UI 树、文件系统全是它"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "root": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Chart",
+                "fields": {
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "chart",
+              "label": "root : Chart(容器)"
+            },
+            {
+              "id": "bar1",
+              "label": "bar1 : Bar(叶)"
+            },
+            {
+              "id": "bar2",
+              "label": "bar2 : Bar(叶)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "root.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "n.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "画一根柱子",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "n.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "画一根柱子",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "bar2 : Bar(叶)",
+            "root : Chart(容器)"
+          ],
+          "detail": "bar2 : Bar(叶) → root : Chart(容器)：画一根柱子"
+        }
+      ],
+      "intent": {
+        "why": "完成",
+        "invariant": "叶子和容器统一对待：递归结构 = 同一个接口反复调用——UI 树、文件系统全是它"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "若孩子还是容器，这里会递归下去——结构任意深，代码零特判"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "root": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Chart",
+                "fields": {
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "chart",
+              "label": "root : Chart(容器)"
+            },
+            {
+              "id": "bar1",
+              "label": "bar1 : Bar(叶)"
+            },
+            {
+              "id": "bar2",
+              "label": "bar2 : Bar(叶)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "root.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "n.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "画一根柱子",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "n.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "画一根柱子",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "整棵树画完",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "root : Chart(容器)",
+            "client"
+          ],
+          "detail": "root : Chart(容器) → client：整棵树画完"
+        }
+      ],
+      "intent": {
+        "why": "若孩子还是容器，这里会递归下去——结构任意深，代码零特判",
+        "invariant": "叶子和容器统一对待：递归结构 = 同一个接口反复调用——UI 树、文件系统全是它"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "反向引用：本工具左侧的 TreeView 节点树就是组合模式"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "root": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Chart",
+                "fields": {
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Bar",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "chart",
+              "label": "root : Chart(容器)"
+            },
+            {
+              "id": "bar1",
+              "label": "bar1 : Bar(叶)"
+            },
+            {
+              "id": "bar2",
+              "label": "bar2 : Bar(叶)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "root.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "n.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "画一根柱子",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "n.draw()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "画一根柱子",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "整棵树画完",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "调用方没有写一句 if (x 是叶子) … else …——类型统一就是威力"
+        }
+      ],
+      "intent": {
+        "why": "反向引用：本工具左侧的 TreeView 节点树就是组合模式",
+        "invariant": "叶子和容器统一对待：递归结构 = 同一个接口反复调用——UI 树、文件系统全是它"
+      }
+    }
+  ]
+}

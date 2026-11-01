@@ -1,0 +1,963 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.observer",
+    "title": "观察者模式",
+    "codeResource": "/code/ObserverDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 24,
+        "endLine": 24,
+        "note": "被观察者只维护一个订阅名单，别的什么都不管"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "engine": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Engine",
+                "fields": {
+                  "observers": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "engine",
+              "label": "engine : Subject"
+            },
+            {
+              "id": "canvas",
+              "label": "canvas : Observer"
+            },
+            {
+              "id": "vars",
+              "label": "vars : Observer"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "new Engine()：@1.observers = []（还没有人订阅）"
+        }
+      ],
+      "intent": {
+        "why": "被观察者只维护一个订阅名单，别的什么都不管",
+        "invariant": "Subject 只管广播：一次 emit，所有订阅者按订阅顺序被通知，双向解耦"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 25,
+        "endLine": 25,
+        "note": "订阅：观察者把自己登记进名单"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "engine": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Engine",
+                "fields": {
+                  "observers": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "CanvasPanel",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "engine",
+              "label": "engine : Subject"
+            },
+            {
+              "id": "canvas",
+              "label": "canvas : Observer"
+            },
+            {
+              "id": "vars",
+              "label": "vars : Observer"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(canvas)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "engine : Subject"
+          ],
+          "detail": "client → engine : Subject：subscribe(canvas)"
+        }
+      ],
+      "intent": {
+        "why": "订阅：观察者把自己登记进名单",
+        "invariant": "Subject 只管广播：一次 emit，所有订阅者按订阅顺序被通知，双向解耦"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "名单变长——Subject 与 Observer 从此只通过名单发生关系"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "engine": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Engine",
+                "fields": {
+                  "observers": {
+                    "kind": "PRIM",
+                    "text": "[@2]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "CanvasPanel",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "engine",
+              "label": "engine : Subject"
+            },
+            {
+              "id": "canvas",
+              "label": "canvas : Observer"
+            },
+            {
+              "id": "vars",
+              "label": "vars : Observer"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(canvas)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1.observers += @2（现在 1 个）"
+        }
+      ],
+      "intent": {
+        "why": "名单变长——Subject 与 Observer 从此只通过名单发生关系",
+        "invariant": "Subject 只管广播：一次 emit，所有订阅者按订阅顺序被通知，双向解耦"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "再订阅一个：随时可以加"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "engine": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Engine",
+                "fields": {
+                  "observers": {
+                    "kind": "PRIM",
+                    "text": "[@2]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "CanvasPanel",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "VarsPanel",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "engine",
+              "label": "engine : Subject"
+            },
+            {
+              "id": "canvas",
+              "label": "canvas : Observer"
+            },
+            {
+              "id": "vars",
+              "label": "vars : Observer"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(canvas)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(vars)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "engine : Subject"
+          ],
+          "detail": "client → engine : Subject：subscribe(vars)"
+        }
+      ],
+      "intent": {
+        "why": "再订阅一个：随时可以加",
+        "invariant": "Subject 只管广播：一次 emit，所有订阅者按订阅顺序被通知，双向解耦"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "加观察者不需要改 Subject 的一行代码"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "engine": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Engine",
+                "fields": {
+                  "observers": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "CanvasPanel",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "VarsPanel",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "engine",
+              "label": "engine : Subject"
+            },
+            {
+              "id": "canvas",
+              "label": "canvas : Observer"
+            },
+            {
+              "id": "vars",
+              "label": "vars : Observer"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(canvas)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(vars)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1.observers += @3（现在 2 个）"
+        }
+      ],
+      "intent": {
+        "why": "加观察者不需要改 Subject 的一行代码",
+        "invariant": "Subject 只管广播：一次 emit，所有订阅者按订阅顺序被通知，双向解耦"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 27,
+        "endLine": 27,
+        "note": "事件来了：Subject 只做一件事——遍历名单广播"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "engine": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Engine",
+                "fields": {
+                  "observers": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "CanvasPanel",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "VarsPanel",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "engine",
+              "label": "engine : Subject"
+            },
+            {
+              "id": "canvas",
+              "label": "canvas : Observer"
+            },
+            {
+              "id": "vars",
+              "label": "vars : Observer"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(canvas)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(vars)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "emitStep(step42)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "engine : Subject"
+          ],
+          "detail": "client → engine : Subject：emitStep(step42)"
+        }
+      ],
+      "intent": {
+        "why": "事件来了：Subject 只做一件事——遍历名单广播",
+        "invariant": "Subject 只管广播：一次 emit，所有订阅者按订阅顺序被通知，双向解耦"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "多方响应①：动画面板刷新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "engine": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Engine",
+                "fields": {
+                  "observers": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "CanvasPanel",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "VarsPanel",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "engine",
+              "label": "engine : Subject"
+            },
+            {
+              "id": "canvas",
+              "label": "canvas : Observer"
+            },
+            {
+              "id": "vars",
+              "label": "vars : Observer"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(canvas)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(vars)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "emitStep(step42)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "update(step42)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "engine : Subject",
+            "canvas : Observer"
+          ],
+          "detail": "engine : Subject → canvas : Observer：update(step42)"
+        }
+      ],
+      "intent": {
+        "why": "多方响应①：动画面板刷新",
+        "invariant": "Subject 只管广播：一次 emit，所有订阅者按订阅顺序被通知，双向解耦"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "多方响应②：变量面板刷新（顺序 = 订阅顺序）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "engine": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Engine",
+                "fields": {
+                  "observers": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "CanvasPanel",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "VarsPanel",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "engine",
+              "label": "engine : Subject"
+            },
+            {
+              "id": "canvas",
+              "label": "canvas : Observer"
+            },
+            {
+              "id": "vars",
+              "label": "vars : Observer"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(canvas)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(vars)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "emitStep(step42)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "update(step42)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "update(step42)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "engine : Subject",
+            "vars : Observer"
+          ],
+          "detail": "engine : Subject → vars : Observer：update(step42)"
+        }
+      ],
+      "intent": {
+        "why": "多方响应②：变量面板刷新（顺序 = 订阅顺序）",
+        "invariant": "Subject 只管广播：一次 emit，所有订阅者按订阅顺序被通知，双向解耦"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 27,
+        "endLine": 27,
+        "note": "广播结束：新增第三种面板？subscribe 一行，其他不变"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "engine": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Engine",
+                "fields": {
+                  "observers": {
+                    "kind": "PRIM",
+                    "text": "[@2, @3]"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "CanvasPanel",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "VarsPanel",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "engine",
+              "label": "engine : Subject"
+            },
+            {
+              "id": "canvas",
+              "label": "canvas : Observer"
+            },
+            {
+              "id": "vars",
+              "label": "vars : Observer"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(canvas)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "subscribe(vars)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "emitStep(step42)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "update(step42)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "update(step42)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "广播完毕：同一事件，N 个观察者各自响应——这就是「一发，多方响应」"
+        }
+      ],
+      "intent": {
+        "why": "广播结束：新增第三种面板？subscribe 一行，其他不变",
+        "invariant": "Subject 只管广播：一次 emit，所有订阅者按订阅顺序被通知，双向解耦"
+      }
+    }
+  ]
+}

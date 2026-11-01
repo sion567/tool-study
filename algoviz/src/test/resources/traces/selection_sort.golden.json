@@ -1,0 +1,4716 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "sort.selection",
+    "title": "选择排序",
+    "codeResource": "/code/SelectionSort.java",
+    "input": "5,2,9,1,5",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "i = 0：第 1 轮开始——从一堆里挑最小的，放到队头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "i"
+          ],
+          "detail": "i = 0，第 1 轮开始"
+        }
+      ],
+      "intent": {
+        "why": "i = 0：第 1 轮开始——从一堆里挑最小的，放到队头",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "min = i：先假设 a[i] 就是最小值（卫冕者）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "min"
+          ],
+          "detail": "min ← i = 0"
+        }
+      ],
+      "intent": {
+        "why": "min = i：先假设 a[i] 就是最小值（卫冕者）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j = 1：从 i+1 开始向右扫描"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "j"
+          ],
+          "detail": "j = i+1，开始扫描"
+        }
+      ],
+      "intent": {
+        "why": "j = 1：从 i+1 开始向右扫描",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[min]？——挑战者 vs 卫冕最小值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "compareA": 1,
+          "compareB": 0,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[1]",
+            "a[min]"
+          ],
+          "detail": "a[1]=2 vs a[min]=5 → a[j] 更小"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[min]？——挑战者 vs 卫冕最小值",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "min ← j：卫冕失败，新最小值登场"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "min"
+          ],
+          "detail": "min ← j = 1（新最小值 a[j]=2）"
+        }
+      ],
+      "intent": {
+        "why": "min ← j：卫冕失败，新最小值登场",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j++：继续扫描"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j++：继续扫描",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[min]？——挑战者 vs 卫冕最小值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "compareA": 2,
+          "compareB": 1,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[2]",
+            "a[min]"
+          ],
+          "detail": "a[2]=9 vs a[min]=2 → min 不变"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[min]？——挑战者 vs 卫冕最小值",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j++：继续扫描"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j++：继续扫描",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[min]？——挑战者 vs 卫冕最小值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "compareA": 3,
+          "compareB": 1,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[3]",
+            "a[min]"
+          ],
+          "detail": "a[3]=1 vs a[min]=2 → a[j] 更小"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[min]？——挑战者 vs 卫冕最小值",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "min ← j：卫冕失败，新最小值登场"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "min"
+          ],
+          "detail": "min ← j = 3（新最小值 a[j]=1）"
+        }
+      ],
+      "intent": {
+        "why": "min ← j：卫冕失败，新最小值登场",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j++：继续扫描"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j++：继续扫描",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[min]？——挑战者 vs 卫冕最小值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "compareA": 4,
+          "compareB": 3,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[4]",
+            "a[min]"
+          ],
+          "detail": "a[4]=5 vs a[min]=1 → min 不变"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[min]？——挑战者 vs 卫冕最小值",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "t = a[i]：把要换出去的先记住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "t"
+          ],
+          "detail": "t ← a[i] = 5"
+        }
+      ],
+      "intent": {
+        "why": "t = a[i]：把要换出去的先记住",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "a[i] ← a[min]：最小的归位（注意如果 min==i，这是和自己换）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            1,
+            5
+          ],
+          "swapA": 0,
+          "swapB": 3,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[i]",
+            "a[min]"
+          ],
+          "detail": "a[i] ← a[min] = 1"
+        }
+      ],
+      "intent": {
+        "why": "a[i] ← a[min]：最小的归位（注意如果 min==i，这是和自己换）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "a[min] ← t：换出值补位，交换完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "swapA": 0,
+          "swapB": 3,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[min]"
+          ],
+          "detail": "a[min] ← t = 5"
+        }
+      ],
+      "intent": {
+        "why": "a[min] ← t：换出值补位，交换完成",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 1 轮结束：a[0] 归位（不变量达成）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a[0]"
+          ],
+          "detail": "a[0] = 1 已就位"
+        }
+      ],
+      "intent": {
+        "why": "第 1 轮结束：a[0] 归位（不变量达成）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "i++：前 1 个已就位，进入第 2 轮"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "i++：前 1 个已就位，进入第 2 轮",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "min = i：先假设 a[i] 就是最小值（卫冕者）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "min"
+          ],
+          "detail": "min ← i = 1"
+        }
+      ],
+      "intent": {
+        "why": "min = i：先假设 a[i] 就是最小值（卫冕者）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j = 2：从 i+1 开始向右扫描"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "j"
+          ],
+          "detail": "j = i+1，开始扫描"
+        }
+      ],
+      "intent": {
+        "why": "j = 2：从 i+1 开始向右扫描",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[min]？——挑战者 vs 卫冕最小值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "compareA": 2,
+          "compareB": 1,
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[2]",
+            "a[min]"
+          ],
+          "detail": "a[2]=9 vs a[min]=2 → min 不变"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[min]？——挑战者 vs 卫冕最小值",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j++：继续扫描"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j++：继续扫描",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[min]？——挑战者 vs 卫冕最小值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "compareA": 3,
+          "compareB": 1,
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[3]",
+            "a[min]"
+          ],
+          "detail": "a[3]=5 vs a[min]=2 → min 不变"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[min]？——挑战者 vs 卫冕最小值",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j++：继续扫描"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j++：继续扫描",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[min]？——挑战者 vs 卫冕最小值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "compareA": 4,
+          "compareB": 1,
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[4]",
+            "a[min]"
+          ],
+          "detail": "a[4]=5 vs a[min]=2 → min 不变"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[min]？——挑战者 vs 卫冕最小值",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "t = a[i]：把要换出去的先记住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "t"
+          ],
+          "detail": "t ← a[i] = 2"
+        }
+      ],
+      "intent": {
+        "why": "t = a[i]：把要换出去的先记住",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "a[i] ← a[min]：最小的归位（注意如果 min==i，这是和自己换）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "swapA": 1,
+          "swapB": 1,
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[i]",
+            "a[min]"
+          ],
+          "detail": "a[i] ← a[min] = 2"
+        }
+      ],
+      "intent": {
+        "why": "a[i] ← a[min]：最小的归位（注意如果 min==i，这是和自己换）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "a[min] ← t：换出值补位，交换完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "swapA": 1,
+          "swapB": 1,
+          "sortedFrom": 5,
+          "sortedTo": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[min]"
+          ],
+          "detail": "a[min] ← t = 2"
+        }
+      ],
+      "intent": {
+        "why": "a[min] ← t：换出值补位，交换完成",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 27,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 2 轮结束：a[1] 归位（不变量达成）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a[1]"
+          ],
+          "detail": "a[1] = 2 已就位"
+        }
+      ],
+      "intent": {
+        "why": "第 2 轮结束：a[1] 归位（不变量达成）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 28,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "i++：前 2 个已就位，进入第 3 轮"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "i++：前 2 个已就位，进入第 3 轮",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 29,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "min = i：先假设 a[i] 就是最小值（卫冕者）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "min"
+          ],
+          "detail": "min ← i = 2"
+        }
+      ],
+      "intent": {
+        "why": "min = i：先假设 a[i] 就是最小值（卫冕者）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 30,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j = 3：从 i+1 开始向右扫描"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "j"
+          ],
+          "detail": "j = i+1，开始扫描"
+        }
+      ],
+      "intent": {
+        "why": "j = 3：从 i+1 开始向右扫描",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 31,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[min]？——挑战者 vs 卫冕最小值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "compareA": 3,
+          "compareB": 2,
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[3]",
+            "a[min]"
+          ],
+          "detail": "a[3]=5 vs a[min]=9 → a[j] 更小"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[min]？——挑战者 vs 卫冕最小值",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 32,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "min ← j：卫冕失败，新最小值登场"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "min"
+          ],
+          "detail": "min ← j = 3（新最小值 a[j]=5）"
+        }
+      ],
+      "intent": {
+        "why": "min ← j：卫冕失败，新最小值登场",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 33,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j++：继续扫描"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "j++：继续扫描",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 34,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[min]？——挑战者 vs 卫冕最小值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "compareA": 4,
+          "compareB": 3,
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[4]",
+            "a[min]"
+          ],
+          "detail": "a[4]=5 vs a[min]=5 → min 不变"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[min]？——挑战者 vs 卫冕最小值",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 35,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "t = a[i]：把要换出去的先记住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "t"
+          ],
+          "detail": "t ← a[i] = 9"
+        }
+      ],
+      "intent": {
+        "why": "t = a[i]：把要换出去的先记住",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 36,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "a[i] ← a[min]：最小的归位（注意如果 min==i，这是和自己换）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            5
+          ],
+          "swapA": 2,
+          "swapB": 3,
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[i]",
+            "a[min]"
+          ],
+          "detail": "a[i] ← a[min] = 5"
+        }
+      ],
+      "intent": {
+        "why": "a[i] ← a[min]：最小的归位（注意如果 min==i，这是和自己换）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 37,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "a[min] ← t：换出值补位，交换完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "swapA": 2,
+          "swapB": 3,
+          "sortedFrom": 5,
+          "sortedTo": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[min]"
+          ],
+          "detail": "a[min] ← t = 9"
+        }
+      ],
+      "intent": {
+        "why": "a[min] ← t：换出值补位，交换完成",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 38,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 3 轮结束：a[2] 归位（不变量达成）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a[2]"
+          ],
+          "detail": "a[2] = 5 已就位"
+        }
+      ],
+      "intent": {
+        "why": "第 3 轮结束：a[2] 归位（不变量达成）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 39,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "i++：前 3 个已就位，进入第 4 轮"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "i++：前 3 个已就位，进入第 4 轮",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 40,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "min = i：先假设 a[i] 就是最小值（卫冕者）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "min"
+          ],
+          "detail": "min ← i = 3"
+        }
+      ],
+      "intent": {
+        "why": "min = i：先假设 a[i] 就是最小值（卫冕者）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 41,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "j = 4：从 i+1 开始向右扫描"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "j"
+          ],
+          "detail": "j = i+1，开始扫描"
+        }
+      ],
+      "intent": {
+        "why": "j = 4：从 i+1 开始向右扫描",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 42,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[min]？——挑战者 vs 卫冕最小值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "compareA": 4,
+          "compareB": 3,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[4]",
+            "a[min]"
+          ],
+          "detail": "a[4]=5 vs a[min]=9 → a[j] 更小"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[min]？——挑战者 vs 卫冕最小值",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 43,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "min ← j：卫冕失败，新最小值登场"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "j": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "min"
+          ],
+          "detail": "min ← j = 4（新最小值 a[j]=5）"
+        }
+      ],
+      "intent": {
+        "why": "min ← j：卫冕失败，新最小值登场",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 44,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "t = a[i]：把要换出去的先记住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            9,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "t"
+          ],
+          "detail": "t ← a[i] = 9"
+        }
+      ],
+      "intent": {
+        "why": "t = a[i]：把要换出去的先记住",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 45,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "a[i] ← a[min]：最小的归位（注意如果 min==i，这是和自己换）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            5
+          ],
+          "swapA": 3,
+          "swapB": 4,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[i]",
+            "a[min]"
+          ],
+          "detail": "a[i] ← a[min] = 5"
+        }
+      ],
+      "intent": {
+        "why": "a[i] ← a[min]：最小的归位（注意如果 min==i，这是和自己换）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 46,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "a[min] ← t：换出值补位，交换完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "swapA": 3,
+          "swapB": 4,
+          "sortedFrom": 5,
+          "sortedTo": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[min]"
+          ],
+          "detail": "a[min] ← t = 9"
+        }
+      ],
+      "intent": {
+        "why": "a[min] ← t：换出值补位，交换完成",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 47,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 4 轮结束：a[3] 归位（不变量达成）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "min": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "t": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a[3]"
+          ],
+          "detail": "a[3] = 5 已就位"
+        }
+      ],
+      "intent": {
+        "why": "第 4 轮结束：a[3] 归位（不变量达成）",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 48,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "i = 4：只剩最后一个，天然就位"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 3
+        }
+      },
+      "events": [],
+      "intent": {
+        "why": "i = 4：只剩最后一个，天然就位",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    },
+    {
+      "index": 49,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "排序完成：全部 5 个元素已就位"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sort",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "i": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": 4
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "排序完成，全部就位"
+        }
+      ],
+      "intent": {
+        "why": "排序完成：全部 5 个元素已就位",
+        "invariant": "每轮结束后，前 i+1 个位置是全数组最小的 i+1 个，且有序"
+      }
+    }
+  ]
+}

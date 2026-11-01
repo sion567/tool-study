@@ -1,0 +1,992 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.strategy",
+    "title": "策略模式",
+    "codeResource": "/code/StrategyDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 23,
+        "endLine": 23,
+        "note": "构造器注入：Context 拿到策略引用，但不知道也不关心具体是谁"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ctx": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Context",
+                "fields": {
+                  "strategy": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSort",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "ctx",
+              "label": "ctx : Context"
+            },
+            {
+              "id": "strategy",
+              "label": "strategy : Strategy"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "装配：new Context(new BubbleSort()) —— @1.strategy → @2"
+        }
+      ],
+      "intent": {
+        "why": "构造器注入：Context 拿到策略引用，但不知道也不关心具体是谁",
+        "invariant": "调用方只认 ctx.run()——运行时换成哪个策略，调用代码一行不改"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 24,
+        "endLine": 24,
+        "note": "调用方只说 run()：请求交给 Context"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ctx": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Context",
+                "fields": {
+                  "strategy": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSort",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "ctx",
+              "label": "ctx : Context"
+            },
+            {
+              "id": "strategy",
+              "label": "strategy : Strategy"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "ctx : Context"
+          ],
+          "detail": "client → ctx : Context：run()"
+        }
+      ],
+      "intent": {
+        "why": "调用方只说 run()：请求交给 Context",
+        "invariant": "调用方只认 ctx.run()——运行时换成哪个策略，调用代码一行不改"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "Context 转发给策略对象——多态分发，编译期只认接口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ctx": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Context",
+                "fields": {
+                  "strategy": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSort",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "ctx",
+              "label": "ctx : Context"
+            },
+            {
+              "id": "strategy",
+              "label": "strategy : Strategy"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()〔冒泡〕",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "ctx : Context",
+            "strategy : Strategy"
+          ],
+          "detail": "ctx : Context → strategy : Strategy：execute()〔冒泡〕"
+        }
+      ],
+      "intent": {
+        "why": "Context 转发给策略对象——多态分发，编译期只认接口",
+        "invariant": "调用方只认 ctx.run()——运行时换成哪个策略，调用代码一行不改"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "策略干完活，结果交回"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ctx": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Context",
+                "fields": {
+                  "strategy": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSort",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "ctx",
+              "label": "ctx : Context"
+            },
+            {
+              "id": "strategy",
+              "label": "strategy : Strategy"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()〔冒泡〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "逐帧 Step",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "strategy : Strategy",
+            "ctx : Context"
+          ],
+          "detail": "strategy : Strategy → ctx : Context：逐帧 Step"
+        }
+      ],
+      "intent": {
+        "why": "策略干完活，结果交回",
+        "invariant": "调用方只认 ctx.run()——运行时换成哪个策略，调用代码一行不改"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 25,
+        "endLine": 25,
+        "note": "运行时换实现：接口不变，实现可换"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ctx": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Context",
+                "fields": {
+                  "strategy": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSort",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "InsertionSort",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "ctx",
+              "label": "ctx : Context"
+            },
+            {
+              "id": "strategy",
+              "label": "strategy : Strategy"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()〔冒泡〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "逐帧 Step",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "setStrategy(插入排序)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "ctx : Context"
+          ],
+          "detail": "client → ctx : Context：setStrategy(插入排序)"
+        }
+      ],
+      "intent": {
+        "why": "运行时换实现：接口不变，实现可换",
+        "invariant": "调用方只认 ctx.run()——运行时换成哪个策略，调用代码一行不改"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "同一接口、另一实现：行为改变，调用代码结构零改动"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ctx": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Context",
+                "fields": {
+                  "strategy": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSort",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "InsertionSort",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "ctx",
+              "label": "ctx : Context"
+            },
+            {
+              "id": "strategy",
+              "label": "strategy : Strategy"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()〔冒泡〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "逐帧 Step",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "setStrategy(插入排序)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1.strategy"
+          ],
+          "detail": "@1.strategy: @2 → @3（箭头换位——策略模式的本体就这一下）"
+        }
+      ],
+      "intent": {
+        "why": "同一接口、另一实现：行为改变，调用代码结构零改动",
+        "invariant": "调用方只认 ctx.run()——运行时换成哪个策略，调用代码一行不改"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "再跑一遍：调用代码一行没改"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ctx": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Context",
+                "fields": {
+                  "strategy": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSort",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "InsertionSort",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "ctx",
+              "label": "ctx : Context"
+            },
+            {
+              "id": "strategy",
+              "label": "strategy : Strategy"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()〔冒泡〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "逐帧 Step",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "setStrategy(插入排序)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "ctx : Context"
+          ],
+          "detail": "client → ctx : Context：run()"
+        }
+      ],
+      "intent": {
+        "why": "再跑一遍：调用代码一行没改",
+        "invariant": "调用方只认 ctx.run()——运行时换成哪个策略，调用代码一行不改"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "这次转发到的是插入排序——箭头已经换了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ctx": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Context",
+                "fields": {
+                  "strategy": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSort",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "InsertionSort",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "ctx",
+              "label": "ctx : Context"
+            },
+            {
+              "id": "strategy",
+              "label": "strategy : Strategy"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()〔冒泡〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "逐帧 Step",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "setStrategy(插入排序)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()〔插入〕",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "ctx : Context",
+            "strategy : Strategy"
+          ],
+          "detail": "ctx : Context → strategy : Strategy：execute()〔插入〕"
+        }
+      ],
+      "intent": {
+        "why": "这次转发到的是插入排序——箭头已经换了",
+        "invariant": "调用方只认 ctx.run()——运行时换成哪个策略，调用代码一行不改"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "返回结果"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "ctx": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "Context",
+                "fields": {
+                  "strategy": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSort",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "InsertionSort",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "ctx",
+              "label": "ctx : Context"
+            },
+            {
+              "id": "strategy",
+              "label": "strategy : Strategy"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()〔冒泡〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "逐帧 Step",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "setStrategy(插入排序)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "execute()〔插入〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "逐帧 Step",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "strategy : Strategy",
+            "ctx : Context"
+          ],
+          "detail": "strategy : Strategy → ctx : Context：逐帧 Step"
+        }
+      ],
+      "intent": {
+        "why": "返回结果",
+        "invariant": "调用方只认 ctx.run()——运行时换成哪个策略，调用代码一行不改"
+      }
+    }
+  ]
+}

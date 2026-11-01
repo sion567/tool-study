@@ -1,0 +1,485 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.templatemethod",
+    "title": "模板方法模式",
+    "codeResource": "/code/TemplateMethodDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": "入口只有一个：骨架方法（final，谁也改不了顺序）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "runner": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BubbleSortRunner",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSortStep",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "skeleton",
+              "label": "run() : 骨架(final)"
+            },
+            {
+              "id": "impl",
+              "label": "compute() : 子类(冒泡)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "run() : 骨架(final)"
+          ],
+          "detail": "client → run() : 骨架(final)：run()"
+        }
+      ],
+      "intent": {
+        "why": "入口只有一个：骨架方法（final，谁也改不了顺序）",
+        "invariant": "骨架顺序由 final run() 锁死：load → compute → render，子类只填变化点"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "① 公共步骤：骨架自己实现，所有子类共享"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "runner": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BubbleSortRunner",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSortStep",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "skeleton",
+              "label": "run() : 骨架(final)"
+            },
+            {
+              "id": "impl",
+              "label": "compute() : 子类(冒泡)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 1,
+              "label": "load()〔公共〕",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "run() : 骨架(final)",
+            "run() : 骨架(final)"
+          ],
+          "detail": "run() : 骨架(final) → run() : 骨架(final)：load()〔公共〕"
+        }
+      ],
+      "intent": {
+        "why": "① 公共步骤：骨架自己实现，所有子类共享",
+        "invariant": "骨架顺序由 final run() 锁死：load → compute → render，子类只填变化点"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "② 变化点：钩子方法，子类填自己的算法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "runner": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BubbleSortRunner",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSortStep",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "skeleton",
+              "label": "run() : 骨架(final)"
+            },
+            {
+              "id": "impl",
+              "label": "compute() : 子类(冒泡)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 1,
+              "label": "load()〔公共〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "compute()〔冒泡实现〕",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "run() : 骨架(final)",
+            "compute() : 子类(冒泡)"
+          ],
+          "detail": "run() : 骨架(final) → compute() : 子类(冒泡)：compute()〔冒泡实现〕"
+        }
+      ],
+      "intent": {
+        "why": "② 变化点：钩子方法，子类填自己的算法",
+        "invariant": "骨架顺序由 final run() 锁死：load → compute → render，子类只填变化点"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "③ 公共步骤：收尾也定死"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "runner": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BubbleSortRunner",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSortStep",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "skeleton",
+              "label": "run() : 骨架(final)"
+            },
+            {
+              "id": "impl",
+              "label": "compute() : 子类(冒泡)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 1,
+              "label": "load()〔公共〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "compute()〔冒泡实现〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 1,
+              "label": "render()〔公共〕",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "run() : 骨架(final)",
+            "run() : 骨架(final)"
+          ],
+          "detail": "run() : 骨架(final) → run() : 骨架(final)：render()〔公共〕"
+        }
+      ],
+      "intent": {
+        "why": "③ 公共步骤：收尾也定死",
+        "invariant": "骨架顺序由 final run() 锁死：load → compute → render，子类只填变化点"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "模板方法 = 好莱坞原则：别调用我们，我们会调用你"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "runner": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "BubbleSortRunner",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "BubbleSortStep",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "skeleton",
+              "label": "run() : 骨架(final)"
+            },
+            {
+              "id": "impl",
+              "label": "compute() : 子类(冒泡)"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "run()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 1,
+              "label": "load()〔公共〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "compute()〔冒泡实现〕",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 1,
+              "label": "render()〔公共〕",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "顺序永远 ①②③——子类换的是 compute 的内容，不是 run 的结构"
+        }
+      ],
+      "intent": {
+        "why": "模板方法 = 好莱坞原则：别调用我们，我们会调用你",
+        "invariant": "骨架顺序由 final run() 锁死：load → compute → render，子类只填变化点"
+      }
+    }
+  ]
+}

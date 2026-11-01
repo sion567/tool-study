@@ -1,0 +1,1163 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.visitor",
+    "title": "访问者模式",
+    "codeResource": "/code/VisitorDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "想加「导出 SVG」？新写一个 Visitor——元素类一行不改"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "DrawVisitor",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Circle",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "visitor",
+              "label": "v : DrawVisitor"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "结构（@2 @3）与操作（@1）分家：元素类里没有一行绘制代码"
+        }
+      ],
+      "intent": {
+        "why": "想加「导出 SVG」？新写一个 Visitor——元素类一行不改",
+        "invariant": "结构稳定、操作多变：双车分发（accept + visit 重载）把「按类型分派」搬进方法调用"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": "第一跳：元素接受访问者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "DrawVisitor",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Circle",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "visitor",
+              "label": "v : DrawVisitor"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "accept(v)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "s1 : Circle"
+          ],
+          "detail": "client → s1 : Circle：accept(v)"
+        }
+      ],
+      "intent": {
+        "why": "第一跳：元素接受访问者",
+        "invariant": "结构稳定、操作多变：双车分发（accept + visit 重载）把「按类型分派」搬进方法调用"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "第二跳：按元素类型分派到对应方法（this 带着类型来了）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "DrawVisitor",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Circle",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "visitor",
+              "label": "v : DrawVisitor"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "visitCircle(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "s1 : Circle",
+            "v : DrawVisitor"
+          ],
+          "detail": "s1 : Circle → v : DrawVisitor：visitCircle(this)"
+        }
+      ],
+      "intent": {
+        "why": "第二跳：按元素类型分派到对应方法（this 带着类型来了）",
+        "invariant": "结构稳定、操作多变：双车分发（accept + visit 重载）把「按类型分派」搬进方法调用"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "操作在 Visitor 侧完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "DrawVisitor",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Circle",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "visitor",
+              "label": "v : DrawVisitor"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "visitCircle(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "画圆",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "v : DrawVisitor",
+            "s1 : Circle"
+          ],
+          "detail": "v : DrawVisitor → s1 : Circle：画圆"
+        }
+      ],
+      "intent": {
+        "why": "操作在 Visitor 侧完成",
+        "invariant": "结构稳定、操作多变：双车分发（accept + visit 重载）把「按类型分派」搬进方法调用"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "Circle 的任务只是把自己交给访问者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "DrawVisitor",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Circle",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "visitor",
+              "label": "v : DrawVisitor"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "visitCircle(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "画圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "完成",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "s1 : Circle",
+            "client"
+          ],
+          "detail": "s1 : Circle → client：完成"
+        }
+      ],
+      "intent": {
+        "why": "Circle 的任务只是把自己交给访问者",
+        "invariant": "结构稳定、操作多变：双车分发（accept + visit 重载）把「按类型分派」搬进方法调用"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": "轮到 Square"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "DrawVisitor",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Circle",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "visitor",
+              "label": "v : DrawVisitor"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "visitCircle(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "画圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "完成",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "accept(v)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "s2 : Square"
+          ],
+          "detail": "client → s2 : Square：accept(v)"
+        }
+      ],
+      "intent": {
+        "why": "轮到 Square",
+        "invariant": "结构稳定、操作多变：双车分发（accept + visit 重载）把「按类型分派」搬进方法调用"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "又落到另一个重载——类型分派完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "DrawVisitor",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Circle",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "visitor",
+              "label": "v : DrawVisitor"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "visitCircle(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "画圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "完成",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "visitSquare(this)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "s2 : Square",
+            "v : DrawVisitor"
+          ],
+          "detail": "s2 : Square → v : DrawVisitor：visitSquare(this)"
+        }
+      ],
+      "intent": {
+        "why": "又落到另一个重载——类型分派完成",
+        "invariant": "结构稳定、操作多变：双车分发（accept + visit 重载）把「按类型分派」搬进方法调用"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "各走各的方法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "DrawVisitor",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Circle",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "visitor",
+              "label": "v : DrawVisitor"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "visitCircle(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "画圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "完成",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "visitSquare(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "画方",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "v : DrawVisitor",
+            "s2 : Square"
+          ],
+          "detail": "v : DrawVisitor → s2 : Square：画方"
+        }
+      ],
+      "intent": {
+        "why": "各走各的方法",
+        "invariant": "结构稳定、操作多变：双车分发（accept + visit 重载）把「按类型分派」搬进方法调用"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "循环结束"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "DrawVisitor",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Circle",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "visitor",
+              "label": "v : DrawVisitor"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "visitCircle(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "画圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "完成",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "visitSquare(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "画方",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "完成",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "s2 : Square",
+            "client"
+          ],
+          "detail": "s2 : Square → client：完成"
+        }
+      ],
+      "intent": {
+        "why": "循环结束",
+        "invariant": "结构稳定、操作多变：双车分发（accept + visit 重载）把「按类型分派」搬进方法调用"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": "反向引用：编译器的 AST 处理、ASM 字节码框架，全是访问者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "v": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "DrawVisitor",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Circle",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "Square",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "visitor",
+              "label": "v : DrawVisitor"
+            },
+            {
+              "id": "circle",
+              "label": "s1 : Circle"
+            },
+            {
+              "id": "square",
+              "label": "s2 : Square"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "visitCircle(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "画圆",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "完成",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "accept(v)",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "visitSquare(this)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "画方",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "完成",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "结构不变加操作，或操作不变加结构—— Visitor 管前者，子类管后者"
+        }
+      ],
+      "intent": {
+        "why": "反向引用：编译器的 AST 处理、ASM 字节码框架，全是访问者",
+        "invariant": "结构稳定、操作多变：双车分发（accept + visit 重载）把「按类型分派」搬进方法调用"
+      }
+    }
+  ]
+}

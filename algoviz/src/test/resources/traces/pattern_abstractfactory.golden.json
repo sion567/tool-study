@@ -1,0 +1,547 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.abstractfactory",
+    "title": "抽象工厂",
+    "codeResource": "/code/AbstractFactoryDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "族的「血统」由工厂对象携带——之后造什么都带着它"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "WinFactory",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "winf",
+              "label": "f : WinFactory"
+            },
+            {
+              "id": "button",
+              "label": "b : Button"
+            },
+            {
+              "id": "checkbox",
+              "label": "c : Checkbox"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "new WinFactory()：风格只选这一次"
+        }
+      ],
+      "intent": {
+        "why": "族的「血统」由工厂对象携带——之后造什么都带着它",
+        "invariant": "工厂方法造一种，抽象工厂造一族：选一次工厂，整族一致"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 22,
+        "endLine": 22,
+        "note": "要一个按钮"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "WinFactory",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "winf",
+              "label": "f : WinFactory"
+            },
+            {
+              "id": "button",
+              "label": "b : Button"
+            },
+            {
+              "id": "checkbox",
+              "label": "c : Checkbox"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "createButton()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "f : WinFactory"
+          ],
+          "detail": "client → f : WinFactory：createButton()"
+        }
+      ],
+      "intent": {
+        "why": "要一个按钮",
+        "invariant": "工厂方法造一种，抽象工厂造一族：选一次工厂，整族一致"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "工厂承诺：我造的按钮和等下造的复选框必然配套"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "WinFactory",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "WinButton",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "winf",
+              "label": "f : WinFactory"
+            },
+            {
+              "id": "button",
+              "label": "b : Button"
+            },
+            {
+              "id": "checkbox",
+              "label": "c : Checkbox"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "createButton()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "@2 WinButton 造出（Win 族）"
+        }
+      ],
+      "intent": {
+        "why": "工厂承诺：我造的按钮和等下造的复选框必然配套",
+        "invariant": "工厂方法造一种，抽象工厂造一族：选一次工厂，整族一致"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 23,
+        "endLine": 23,
+        "note": "再要一个复选框"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "WinFactory",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "WinButton",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "winf",
+              "label": "f : WinFactory"
+            },
+            {
+              "id": "button",
+              "label": "b : Button"
+            },
+            {
+              "id": "checkbox",
+              "label": "c : Checkbox"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "createButton()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "createCheckbox()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "f : WinFactory"
+          ],
+          "detail": "client → f : WinFactory：createCheckbox()"
+        }
+      ],
+      "intent": {
+        "why": "再要一个复选框",
+        "invariant": "工厂方法造一种，抽象工厂造一族：选一次工厂，整族一致"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "两个产品来自同一个工厂 → 保证同族，混搭在结构上不可能"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "WinFactory",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "WinButton",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "WinCheckbox",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "winf",
+              "label": "f : WinFactory"
+            },
+            {
+              "id": "button",
+              "label": "b : Button"
+            },
+            {
+              "id": "checkbox",
+              "label": "c : Checkbox"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "createButton()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "createCheckbox()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3"
+          ],
+          "detail": "@3 WinCheckbox 造出（同族）"
+        }
+      ],
+      "intent": {
+        "why": "两个产品来自同一个工厂 → 保证同族，混搭在结构上不可能",
+        "invariant": "工厂方法造一种，抽象工厂造一族：选一次工厂，整族一致"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 24,
+        "endLine": 24,
+        "note": "对比工厂方法：多产品配套时用它，防止 A1+B2 的错配"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "f": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "WinFactory",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "WinButton",
+                "fields": {},
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "@3",
+                "type": "WinCheckbox",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "winf",
+              "label": "f : WinFactory"
+            },
+            {
+              "id": "button",
+              "label": "b : Button"
+            },
+            {
+              "id": "checkbox",
+              "label": "c : Checkbox"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "createButton()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "createCheckbox()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "b 和 c 必然配套——换 Mac？换一个工厂对象即可"
+        }
+      ],
+      "intent": {
+        "why": "对比工厂方法：多产品配套时用它，防止 A1+B2 的错配",
+        "invariant": "工厂方法造一种，抽象工厂造一族：选一次工厂，整族一致"
+      }
+    }
+  ]
+}

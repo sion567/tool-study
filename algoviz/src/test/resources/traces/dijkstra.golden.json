@@ -1,0 +1,7267 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "graph.dijkstra",
+    "title": "Dijkstra",
+    "codeResource": "/code/Dijkstra.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "起点距离 0，其他点还够不着：∞"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "C": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "settledIds": [],
+          "dist": {
+            "A": 0
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "A"
+          ],
+          "detail": "dist[A] ← 0（起点入圈），其余 ∞"
+        }
+      ],
+      "intent": {
+        "why": "起点距离 0，其他点还够不着：∞",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "C": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "settledIds": [],
+          "dist": {
+            "A": 0
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "A"
+          ],
+          "detail": "未定点里 dist 最小的是 A(0) → 涟漪下一个圆心"
+        }
+      ],
+      "intent": {
+        "why": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "A"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "C": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@1",
+          "settledIds": [
+            "@1"
+          ],
+          "dist": {
+            "A": 0
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "A"
+          ],
+          "detail": "A 出圈：dist[A]=0 定死（不变量达成）"
+        }
+      ],
+      "intent": {
+        "why": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "经过 A 绕过去更近？涟漪推到 B"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "A"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "C": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@1",
+          "settledIds": [
+            "@1"
+          ],
+          "dist": {
+            "A": 0
+          },
+          "relaxFrom": "@1",
+          "relaxTo": "@2",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "A",
+            "B"
+          ],
+          "detail": "dist[A]+4 = 4 < ∞ → 松弛"
+        }
+      ],
+      "intent": {
+        "why": "经过 A 绕过去更近？涟漪推到 B",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "松弛成功：到 B 的已知最短路被更新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "A"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "C": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@1",
+          "settledIds": [
+            "@1"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 4
+          },
+          "relaxFrom": "@1",
+          "relaxTo": "@2",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "B"
+          ],
+          "detail": "dist[B] ← 4"
+        }
+      ],
+      "intent": {
+        "why": "松弛成功：到 B 的已知最短路被更新",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "经过 A 绕过去更近？涟漪推到 C"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "A"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "C": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@1",
+          "settledIds": [
+            "@1"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 4
+          },
+          "relaxFrom": "@1",
+          "relaxTo": "@3",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "A",
+            "C"
+          ],
+          "detail": "dist[A]+2 = 2 < ∞ → 松弛"
+        }
+      ],
+      "intent": {
+        "why": "经过 A 绕过去更近？涟漪推到 C",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "松弛成功：到 C 的已知最短路被更新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "A"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@1",
+          "settledIds": [
+            "@1"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 4,
+            "C": 2
+          },
+          "relaxFrom": "@1",
+          "relaxTo": "@3",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "C"
+          ],
+          "detail": "dist[C] ← 2"
+        }
+      ],
+      "intent": {
+        "why": "松弛成功：到 C 的已知最短路被更新",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@1"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 4,
+            "C": 2
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "C"
+          ],
+          "detail": "未定点里 dist 最小的是 C(2) → 涟漪下一个圆心"
+        }
+      ],
+      "intent": {
+        "why": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 4,
+            "C": 2
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "C"
+          ],
+          "detail": "C 出圈：dist[C]=2 定死（不变量达成）"
+        }
+      ],
+      "intent": {
+        "why": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "绕路不划算：已知最短路保住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 4,
+            "C": 2
+          },
+          "relaxFrom": "@3",
+          "relaxTo": "@1",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "C",
+            "A"
+          ],
+          "detail": "dist[C]+2 = 4 ≥ dist[A]=0 → 不动"
+        }
+      ],
+      "intent": {
+        "why": "绕路不划算：已知最短路保住",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "经过 C 绕过去更近？涟漪推到 B"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 4,
+            "C": 2
+          },
+          "relaxFrom": "@3",
+          "relaxTo": "@2",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "C",
+            "B"
+          ],
+          "detail": "dist[C]+1 = 3 < dist[B]=4 → 松弛"
+        }
+      ],
+      "intent": {
+        "why": "经过 C 绕过去更近？涟漪推到 B",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "松弛成功：到 B 的已知最短路被更新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2
+          },
+          "relaxFrom": "@3",
+          "relaxTo": "@2",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "B"
+          ],
+          "detail": "dist[B] ← 3"
+        }
+      ],
+      "intent": {
+        "why": "松弛成功：到 B 的已知最短路被更新",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "经过 C 绕过去更近？涟漪推到 D"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2
+          },
+          "relaxFrom": "@3",
+          "relaxTo": "@4",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "C",
+            "D"
+          ],
+          "detail": "dist[C]+8 = 10 < ∞ → 松弛"
+        }
+      ],
+      "intent": {
+        "why": "经过 C 绕过去更近？涟漪推到 D",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "松弛成功：到 D 的已知最短路被更新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 10
+          },
+          "relaxFrom": "@3",
+          "relaxTo": "@4",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "D"
+          ],
+          "detail": "dist[D] ← 10"
+        }
+      ],
+      "intent": {
+        "why": "松弛成功：到 D 的已知最短路被更新",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "经过 C 绕过去更近？涟漪推到 E"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "E": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 10
+          },
+          "relaxFrom": "@3",
+          "relaxTo": "@5",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "C",
+            "E"
+          ],
+          "detail": "dist[C]+10 = 12 < ∞ → 松弛"
+        }
+      ],
+      "intent": {
+        "why": "经过 C 绕过去更近？涟漪推到 E",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "松弛成功：到 E 的已知最短路被更新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 10,
+            "E": 12
+          },
+          "relaxFrom": "@3",
+          "relaxTo": "@5",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "E"
+          ],
+          "detail": "dist[E] ← 12"
+        }
+      ],
+      "intent": {
+        "why": "松弛成功：到 E 的已知最短路被更新",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 10,
+            "E": 12
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "B"
+          ],
+          "detail": "未定点里 dist 最小的是 B(3) → 涟漪下一个圆心"
+        }
+      ],
+      "intent": {
+        "why": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "B"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@2",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 10,
+            "E": 12
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "B"
+          ],
+          "detail": "B 出圈：dist[B]=3 定死（不变量达成）"
+        }
+      ],
+      "intent": {
+        "why": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "绕路不划算：已知最短路保住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "B"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@2",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 10,
+            "E": 12
+          },
+          "relaxFrom": "@2",
+          "relaxTo": "@1",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "B",
+            "A"
+          ],
+          "detail": "dist[B]+4 = 7 ≥ dist[A]=0 → 不动"
+        }
+      ],
+      "intent": {
+        "why": "绕路不划算：已知最短路保住",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "绕路不划算：已知最短路保住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "B"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@2",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 10,
+            "E": 12
+          },
+          "relaxFrom": "@2",
+          "relaxTo": "@3",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "B",
+            "C"
+          ],
+          "detail": "dist[B]+1 = 4 ≥ dist[C]=2 → 不动"
+        }
+      ],
+      "intent": {
+        "why": "绕路不划算：已知最短路保住",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "经过 B 绕过去更近？涟漪推到 D"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "B"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@2",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 10,
+            "E": 12
+          },
+          "relaxFrom": "@2",
+          "relaxTo": "@4",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "B",
+            "D"
+          ],
+          "detail": "dist[B]+5 = 8 < dist[D]=10 → 松弛"
+        }
+      ],
+      "intent": {
+        "why": "经过 B 绕过去更近？涟漪推到 D",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "松弛成功：到 D 的已知最短路被更新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "B"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@2",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 12
+          },
+          "relaxFrom": "@2",
+          "relaxTo": "@4",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "D"
+          ],
+          "detail": "dist[D] ← 8"
+        }
+      ],
+      "intent": {
+        "why": "松弛成功：到 D 的已知最短路被更新",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 12
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "D"
+          ],
+          "detail": "未定点里 dist 最小的是 D(8) → 涟漪下一个圆心"
+        }
+      ],
+      "intent": {
+        "why": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "D"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 12
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "D"
+          ],
+          "detail": "D 出圈：dist[D]=8 定死（不变量达成）"
+        }
+      ],
+      "intent": {
+        "why": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "绕路不划算：已知最短路保住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "D"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 12
+          },
+          "relaxFrom": "@4",
+          "relaxTo": "@2",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "D",
+            "B"
+          ],
+          "detail": "dist[D]+5 = 13 ≥ dist[B]=3 → 不动"
+        }
+      ],
+      "intent": {
+        "why": "绕路不划算：已知最短路保住",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "绕路不划算：已知最短路保住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "D"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 12
+          },
+          "relaxFrom": "@4",
+          "relaxTo": "@3",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "D",
+            "C"
+          ],
+          "detail": "dist[D]+8 = 16 ≥ dist[C]=2 → 不动"
+        }
+      ],
+      "intent": {
+        "why": "绕路不划算：已知最短路保住",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "经过 D 绕过去更近？涟漪推到 E"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "D"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 12
+          },
+          "relaxFrom": "@4",
+          "relaxTo": "@5",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "D",
+            "E"
+          ],
+          "detail": "dist[D]+2 = 10 < dist[E]=12 → 松弛"
+        }
+      ],
+      "intent": {
+        "why": "经过 D 绕过去更近？涟漪推到 E",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 27,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "松弛成功：到 E 的已知最短路被更新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "D"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10
+          },
+          "relaxFrom": "@4",
+          "relaxTo": "@5",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "E"
+          ],
+          "detail": "dist[E] ← 10"
+        }
+      ],
+      "intent": {
+        "why": "松弛成功：到 E 的已知最短路被更新",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 28,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "经过 D 绕过去更近？涟漪推到 F"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "D"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10
+          },
+          "relaxFrom": "@4",
+          "relaxTo": "@6",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "D",
+            "F"
+          ],
+          "detail": "dist[D]+6 = 14 < ∞ → 松弛"
+        }
+      ],
+      "intent": {
+        "why": "经过 D 绕过去更近？涟漪推到 F",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 29,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "松弛成功：到 F 的已知最短路被更新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "D"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 14
+          },
+          "relaxFrom": "@4",
+          "relaxTo": "@6",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "F"
+          ],
+          "detail": "dist[F] ← 14"
+        }
+      ],
+      "intent": {
+        "why": "松弛成功：到 F 的已知最短路被更新",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 30,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 14
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "E"
+          ],
+          "detail": "未定点里 dist 最小的是 E(10) → 涟漪下一个圆心"
+        }
+      ],
+      "intent": {
+        "why": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 31,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "E"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@5",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4",
+            "@5"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 14
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "E"
+          ],
+          "detail": "E 出圈：dist[E]=10 定死（不变量达成）"
+        }
+      ],
+      "intent": {
+        "why": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 32,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "绕路不划算：已知最短路保住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "E"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@5",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4",
+            "@5"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 14
+          },
+          "relaxFrom": "@5",
+          "relaxTo": "@3",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "E",
+            "C"
+          ],
+          "detail": "dist[E]+10 = 20 ≥ dist[C]=2 → 不动"
+        }
+      ],
+      "intent": {
+        "why": "绕路不划算：已知最短路保住",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 33,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "绕路不划算：已知最短路保住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "E"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@5",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4",
+            "@5"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 14
+          },
+          "relaxFrom": "@5",
+          "relaxTo": "@4",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "E",
+            "D"
+          ],
+          "detail": "dist[E]+2 = 12 ≥ dist[D]=8 → 不动"
+        }
+      ],
+      "intent": {
+        "why": "绕路不划算：已知最短路保住",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 34,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "经过 E 绕过去更近？涟漪推到 F"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "E"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@5",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4",
+            "@5"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 14
+          },
+          "relaxFrom": "@5",
+          "relaxTo": "@6",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "E",
+            "F"
+          ],
+          "detail": "dist[E]+3 = 13 < dist[F]=14 → 松弛"
+        }
+      ],
+      "intent": {
+        "why": "经过 E 绕过去更近？涟漪推到 F",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 35,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "松弛成功：到 F 的已知最短路被更新"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "E"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@5",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4",
+            "@5"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 13
+          },
+          "relaxFrom": "@5",
+          "relaxTo": "@6",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "F"
+          ],
+          "detail": "dist[F] ← 13"
+        }
+      ],
+      "intent": {
+        "why": "松弛成功：到 F 的已知最短路被更新",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 36,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4",
+            "@5"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 13
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "F"
+          ],
+          "detail": "未定点里 dist 最小的是 F(13) → 涟漪下一个圆心"
+        }
+      ],
+      "intent": {
+        "why": "贪心：当前够得着的点里最近的那个，它的距离不可能再被绕路改善了",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 37,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "F"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@6",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4",
+            "@5",
+            "@6"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 13
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "F"
+          ],
+          "detail": "F 出圈：dist[F]=13 定死（不变量达成）"
+        }
+      ],
+      "intent": {
+        "why": "出圈即定死——这就是 Dijkstra 只对非负权图成立的全部秘密",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 38,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "绕路不划算：已知最短路保住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "F"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@6",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4",
+            "@5",
+            "@6"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 13
+          },
+          "relaxFrom": "@6",
+          "relaxTo": "@4",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "F",
+            "D"
+          ],
+          "detail": "dist[F]+6 = 19 ≥ dist[D]=8 → 不动"
+        }
+      ],
+      "intent": {
+        "why": "绕路不划算：已知最短路保住",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 39,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "绕路不划算：已知最短路保住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "F"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "activeId": "@6",
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4",
+            "@5",
+            "@6"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 13
+          },
+          "relaxFrom": "@6",
+          "relaxTo": "@5",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "F",
+            "E"
+          ],
+          "detail": "dist[F]+3 = 16 ≥ dist[E]=10 → 不动"
+        }
+      ],
+      "intent": {
+        "why": "绕路不划算：已知最短路保住",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    },
+    {
+      "index": 40,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "所有节点的最短路都定了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dijkstra(src=A)",
+              "locals": {
+                "u": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dist",
+                "type": "DistanceTable",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "C": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "D": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "E": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "F": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "Dijkstra",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.1,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.32,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.32,
+              "y": 0.76
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.58,
+              "y": 0.45
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.78,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.9,
+              "y": 0.2
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 4
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 2
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 5
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 8
+            },
+            {
+              "fromId": "@3",
+              "toId": "@5",
+              "weight": 10
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 2
+            },
+            {
+              "fromId": "@4",
+              "toId": "@6",
+              "weight": 6
+            },
+            {
+              "fromId": "@5",
+              "toId": "@6",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@1",
+            "@3",
+            "@2",
+            "@4",
+            "@5",
+            "@6"
+          ],
+          "dist": {
+            "A": 0,
+            "B": 3,
+            "C": 2,
+            "D": 8,
+            "E": 10,
+            "F": 13
+          },
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "全部出圈：A0 B3 C2 D8 E10 F13"
+        }
+      ],
+      "intent": {
+        "why": "所有节点的最短路都定了",
+        "invariant": "已出圈节点的距离永远不再变——出圈时的 dist 就是它真正的最短路"
+      }
+    }
+  ]
+}

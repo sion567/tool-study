@@ -1,0 +1,5280 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "sort.quick",
+    "title": "快速排序",
+    "codeResource": "/code/QuickSort.java",
+    "input": "5,2,9,1,5",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 qs(0,4)：负责让这段区间有序"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 qs(lo=0, hi=4) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 qs(0,4)：负责让这段区间有序",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "选基准：最后一个元素（Lomuto 方案）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "a[4]"
+          ],
+          "detail": "pivot ← a[4] = 5（以最后一个为基准）"
+        }
+      ],
+      "intent": {
+        "why": "选基准：最后一个元素（Lomuto 方案）",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "a[j] 和 pivot 比大小——决定去左区还是留在右区"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[0]",
+            "a[4]"
+          ],
+          "detail": "a[0]=5 ≥ pivot=5"
+        }
+      ],
+      "intent": {
+        "why": "a[j] 和 pivot 比大小——决定去左区还是留在右区",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "a[j] 和 pivot 比大小——决定去左区还是留在右区"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            5,
+            2,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[1]",
+            "a[4]"
+          ],
+          "detail": "a[1]=2 < pivot=5"
+        }
+      ],
+      "intent": {
+        "why": "a[j] 和 pivot 比大小——决定去左区还是留在右区",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "换到 i 的位置：小于区向右长一格"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[0]",
+            "a[1]"
+          ],
+          "detail": "swap a[0] ↔ a[1]（小于区扩张一格）"
+        }
+      ],
+      "intent": {
+        "why": "换到 i 的位置：小于区向右长一格",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "a[j] 和 pivot 比大小——决定去左区还是留在右区"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[2]",
+            "a[4]"
+          ],
+          "detail": "a[2]=9 ≥ pivot=5"
+        }
+      ],
+      "intent": {
+        "why": "a[j] 和 pivot 比大小——决定去左区还是留在右区",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "a[j] 和 pivot 比大小——决定去左区还是留在右区"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            5,
+            9,
+            1,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[3]",
+            "a[4]"
+          ],
+          "detail": "a[3]=1 < pivot=5"
+        }
+      ],
+      "intent": {
+        "why": "a[j] 和 pivot 比大小——决定去左区还是留在右区",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "换到 i 的位置：小于区向右长一格"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            9,
+            5,
+            5
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[1]",
+            "a[3]"
+          ],
+          "detail": "swap a[1] ↔ a[3]（小于区扩张一格）"
+        }
+      ],
+      "intent": {
+        "why": "换到 i 的位置：小于区向右长一格",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "把 pivot 从队尾换到它的最终位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[2]",
+            "a[4]"
+          ],
+          "detail": "swap a[2] ↔ a[4]：pivot 归位"
+        }
+      ],
+      "intent": {
+        "why": "把 pivot 从队尾换到它的最终位置",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "返回 pivot 的最终下标"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return 2 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "返回 pivot 的最终下标",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "一次分区定死一个元素——这就是快排的「分」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a[2]"
+          ],
+          "detail": "分区完成：pivot 归位到 a[2]=5（左边全 ≤，右边全 ≥）"
+        }
+      ],
+      "intent": {
+        "why": "一次分区定死一个元素——这就是快排的「分」",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "左半区间 [lo,1] 交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "qs(a, 0, 1) —— 递归左半"
+        }
+      ],
+      "intent": {
+        "why": "左半区间 [lo,1] 交给递归",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 qs(0,1)：负责让这段区间有序"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 qs(lo=0, hi=1) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 qs(0,1)：负责让这段区间有序",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "选基准：最后一个元素（Lomuto 方案）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            },
+            {
+              "method": "partition(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "a[1]"
+          ],
+          "detail": "pivot ← a[1] = 1（以最后一个为基准）"
+        }
+      ],
+      "intent": {
+        "why": "选基准：最后一个元素（Lomuto 方案）",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "a[j] 和 pivot 比大小——决定去左区还是留在右区"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            },
+            {
+              "method": "partition(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[0]",
+            "a[1]"
+          ],
+          "detail": "a[0]=2 ≥ pivot=1"
+        }
+      ],
+      "intent": {
+        "why": "a[j] 和 pivot 比大小——决定去左区还是留在右区",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "把 pivot 从队尾换到它的最终位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            },
+            {
+              "method": "partition(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[0]",
+            "a[1]"
+          ],
+          "detail": "swap a[0] ↔ a[1]：pivot 归位"
+        }
+      ],
+      "intent": {
+        "why": "把 pivot 从队尾换到它的最终位置",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "返回 pivot 的最终下标"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            },
+            {
+              "method": "partition(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return 0 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "返回 pivot 的最终下标",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "一次分区定死一个元素——这就是快排的「分」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a[0]"
+          ],
+          "detail": "分区完成：pivot 归位到 a[0]=1（左边全 ≤，右边全 ≥）"
+        }
+      ],
+      "intent": {
+        "why": "一次分区定死一个元素——这就是快排的「分」",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "左半区间 [lo,-1] 交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "qs(a, 0, -1) —— 递归左半"
+        }
+      ],
+      "intent": {
+        "why": "左半区间 [lo,-1] 交给递归",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 qs(0,-1)：负责让这段区间有序"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            },
+            {
+              "method": "qs(0,-1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 qs(lo=0, hi=-1) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 qs(0,-1)：负责让这段区间有序",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "区间长度 ≤ 1：递归出口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            },
+            {
+              "method": "qs(0,-1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "lo ≥ hi → return（基线：0 或 1 个元素天然有序）"
+        }
+      ],
+      "intent": {
+        "why": "区间长度 ≤ 1：递归出口",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "弹栈回到父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            },
+            {
+              "method": "qs(0,-1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "弹栈回到父调用",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "右半区间 [1,1] 交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "qs(a, 1, 1) —— 递归右半"
+        }
+      ],
+      "intent": {
+        "why": "右半区间 [1,1] 交给递归",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 qs(1,1)：负责让这段区间有序"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            },
+            {
+              "method": "qs(1,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 qs(lo=1, hi=1) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 qs(1,1)：负责让这段区间有序",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "区间长度 ≤ 1：递归出口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            },
+            {
+              "method": "qs(1,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "lo ≥ hi → return（基线：0 或 1 个元素天然有序）"
+        }
+      ],
+      "intent": {
+        "why": "区间长度 ≤ 1：递归出口",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "弹栈回到父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            },
+            {
+              "method": "qs(1,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "弹栈回到父调用",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "本段有序，弹栈"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(0,1)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "qs(0,1) 完成 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "本段有序，弹栈",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 27,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "右半区间 [3,4] 交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "qs(a, 3, 4) —— 递归右半"
+        }
+      ],
+      "intent": {
+        "why": "右半区间 [3,4] 交给递归",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 28,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 qs(3,4)：负责让这段区间有序"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 qs(lo=3, hi=4) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 qs(3,4)：负责让这段区间有序",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 29,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "选基准：最后一个元素（Lomuto 方案）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "a[4]"
+          ],
+          "detail": "pivot ← a[4] = 9（以最后一个为基准）"
+        }
+      ],
+      "intent": {
+        "why": "选基准：最后一个元素（Lomuto 方案）",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 30,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "a[j] 和 pivot 比大小——决定去左区还是留在右区"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[3]",
+            "a[4]"
+          ],
+          "detail": "a[3]=5 < pivot=9"
+        }
+      ],
+      "intent": {
+        "why": "a[j] 和 pivot 比大小——决定去左区还是留在右区",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 31,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "换到 i 的位置：小于区向右长一格"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[3]",
+            "a[3]"
+          ],
+          "detail": "swap a[3] ↔ a[3]（小于区扩张一格）"
+        }
+      ],
+      "intent": {
+        "why": "换到 i 的位置：小于区向右长一格",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 32,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "把 pivot 从队尾换到它的最终位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "a[4]",
+            "a[4]"
+          ],
+          "detail": "swap a[4] ↔ a[4]：pivot 归位"
+        }
+      ],
+      "intent": {
+        "why": "把 pivot 从队尾换到它的最终位置",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 33,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "返回 pivot 的最终下标"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "partition(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pivot": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return 4 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "返回 pivot 的最终下标",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 34,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "一次分区定死一个元素——这就是快排的「分」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a[4]"
+          ],
+          "detail": "分区完成：pivot 归位到 a[4]=9（左边全 ≤，右边全 ≥）"
+        }
+      ],
+      "intent": {
+        "why": "一次分区定死一个元素——这就是快排的「分」",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 35,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "左半区间 [lo,3] 交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "qs(a, 3, 3) —— 递归左半"
+        }
+      ],
+      "intent": {
+        "why": "左半区间 [lo,3] 交给递归",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 36,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 qs(3,3)：负责让这段区间有序"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,3)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 qs(lo=3, hi=3) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 qs(3,3)：负责让这段区间有序",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 37,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "区间长度 ≤ 1：递归出口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,3)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "lo ≥ hi → return（基线：0 或 1 个元素天然有序）"
+        }
+      ],
+      "intent": {
+        "why": "区间长度 ≤ 1：递归出口",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 38,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "弹栈回到父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,3)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "弹栈回到父调用",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 39,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "右半区间 [5,4] 交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "qs(a, 5, 4) —— 递归右半"
+        }
+      ],
+      "intent": {
+        "why": "右半区间 [5,4] 交给递归",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 40,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 qs(5,4)：负责让这段区间有序"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(5,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 qs(lo=5, hi=4) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 qs(5,4)：负责让这段区间有序",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 41,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "区间长度 ≤ 1：递归出口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(5,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "lo ≥ hi → return（基线：0 或 1 个元素天然有序）"
+        }
+      ],
+      "intent": {
+        "why": "区间长度 ≤ 1：递归出口",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 42,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "弹栈回到父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(5,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "弹栈回到父调用",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 43,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "本段有序，弹栈"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "qs(3,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "qs(3,4) 完成 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "本段有序，弹栈",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    },
+    {
+      "index": 44,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "本段有序，弹栈"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qs(0,4)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "qs(0,4) 完成 —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "本段有序，弹栈",
+        "invariant": "分区后：pivot 左边全部 ≤ pivot、右边全部 ≥ pivot——pivot 一步到位，再也不动"
+      }
+    }
+  ]
+}

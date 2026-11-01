@@ -1,0 +1,636 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "pattern.factorymethod",
+    "title": "工厂方法",
+    "codeResource": "/code/FactoryMethodDemo.java",
+    "input": "",
+    "inputSize": 0
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": "Logistics 骨架已就位，但造什么产品由子类决定"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "sea": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "SeaLogistics",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "sea",
+              "label": "sea : SeaLogistics"
+            },
+            {
+              "id": "ship",
+              "label": "ship : Ship"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@1"
+          ],
+          "detail": "new SeaLogistics()：选定了「海运」这条产品线"
+        }
+      ],
+      "intent": {
+        "why": "Logistics 骨架已就位，但造什么产品由子类决定",
+        "invariant": "工厂方法 = 把 new 的决定权下放给子类：父类骨架用产品，造什么由 create() 说"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "骨架方法：用 create() 拿产品，全程不出现 Ship 字样"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "sea": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "SeaLogistics",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "sea",
+              "label": "sea : SeaLogistics"
+            },
+            {
+              "id": "ship",
+              "label": "ship : Ship"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "plan()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "sea : SeaLogistics"
+          ],
+          "detail": "client → sea : SeaLogistics：plan()"
+        }
+      ],
+      "intent": {
+        "why": "骨架方法：用 create() 拿产品，全程不出现 Ship 字样",
+        "invariant": "工厂方法 = 把 new 的决定权下放给子类：父类骨架用产品，造什么由 create() 说"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "子类的工厂方法被回调——决定权在这里"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "sea": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "SeaLogistics",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "sea",
+              "label": "sea : SeaLogistics"
+            },
+            {
+              "id": "ship",
+              "label": "ship : Ship"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "plan()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "create() → new Ship()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "sea : SeaLogistics",
+            "ship : Ship"
+          ],
+          "detail": "sea : SeaLogistics → ship : Ship：create() → new Ship()"
+        }
+      ],
+      "intent": {
+        "why": "子类的工厂方法被回调——决定权在这里",
+        "invariant": "工厂方法 = 把 new 的决定权下放给子类：父类骨架用产品，造什么由 create() 说"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "换成 RoadLogistics，这里就是 Truck：骨架零改动"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "sea": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "SeaLogistics",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Ship",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "sea",
+              "label": "sea : SeaLogistics"
+            },
+            {
+              "id": "ship",
+              "label": "ship : Ship"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "plan()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "create() → new Ship()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "@2 Ship 造出来了——由 SeaLogistics 说了算"
+        }
+      ],
+      "intent": {
+        "why": "换成 RoadLogistics，这里就是 Truck：骨架零改动",
+        "invariant": "工厂方法 = 把 new 的决定权下放给子类：父类骨架用产品，造什么由 create() 说"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "骨架拿产品干活——只认 Transport 接口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "sea": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "SeaLogistics",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Ship",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "sea",
+              "label": "sea : SeaLogistics"
+            },
+            {
+              "id": "ship",
+              "label": "ship : Ship"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "plan()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "create() → new Ship()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "t.deliver()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "sea : SeaLogistics",
+            "ship : Ship"
+          ],
+          "detail": "sea : SeaLogistics → ship : Ship：t.deliver()"
+        }
+      ],
+      "intent": {
+        "why": "骨架拿产品干活——只认 Transport 接口",
+        "invariant": "工厂方法 = 把 new 的决定权下放给子类：父类骨架用产品，造什么由 create() 说"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "具体行为在产品类里"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "sea": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "SeaLogistics",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Ship",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "sea",
+              "label": "sea : SeaLogistics"
+            },
+            {
+              "id": "ship",
+              "label": "ship : Ship"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "plan()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "create() → new Ship()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "t.deliver()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "海运",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "ship : Ship",
+            "sea : SeaLogistics"
+          ],
+          "detail": "ship : Ship → sea : SeaLogistics：海运"
+        }
+      ],
+      "intent": {
+        "why": "具体行为在产品类里",
+        "invariant": "工厂方法 = 把 new 的决定权下放给子类：父类骨架用产品，造什么由 create() 说"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "交付：新增产品线 = 新增一对（产品+工厂）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {
+                "sea": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "@1",
+                "type": "SeaLogistics",
+                "fields": {},
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "@2",
+                "type": "Ship",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "sea",
+              "label": "sea : SeaLogistics"
+            },
+            {
+              "id": "ship",
+              "label": "ship : Ship"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "plan()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "create() → new Ship()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "t.deliver()",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "海运",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "plan() 完成",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "sea : SeaLogistics",
+            "client"
+          ],
+          "detail": "sea : SeaLogistics → client：plan() 完成"
+        }
+      ],
+      "intent": {
+        "why": "交付：新增产品线 = 新增一对（产品+工厂）",
+        "invariant": "工厂方法 = 把 new 的决定权下放给子类：父类骨架用产品，造什么由 create() 说"
+      }
+    }
+  ]
+}
