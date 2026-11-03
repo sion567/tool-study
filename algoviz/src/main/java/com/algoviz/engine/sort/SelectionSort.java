@@ -1,5 +1,6 @@
 package com.algoviz.engine.sort;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.Value;
 import com.algoviz.engine.VizEvent;
@@ -155,5 +156,15 @@ public final class SelectionSort implements Algorithm {
         if (j != null) m.put("j", Value.prim(j));
         if (t != null) m.put("t", Value.prim(t));
         return m;
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(input));
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(n²)", "O(1)", "每轮扫完剩余全部找最小：n + (n-1) + … + 1 ≈ n²/2 次比较。交换只有 O(n) 次——适合「比较便宜但写入贵」的场景");
     }
 }

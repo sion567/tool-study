@@ -1,5 +1,6 @@
 package com.algoviz.engine.list;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.Intent;
 import com.algoviz.engine.Layer;
@@ -42,6 +43,7 @@ public final class LinkedListCycle implements Algorithm {
     private final int[] vals;
     private final int[] next;
     private final int n;
+    private final int anchorIdx;
 
     public LinkedListCycle() {
         this(new int[]{5, 2, 9, 1, 5}, 1);   // @5.next → @2：有环！
@@ -51,6 +53,7 @@ public final class LinkedListCycle implements Algorithm {
     public LinkedListCycle(int[] vals, int anchorIdx) {
         this.vals = vals.clone();
         this.n = vals.length;
+        this.anchorIdx = anchorIdx;
         this.next = new int[n];
         for (int i = 0; i < n; i++) {
             next[i] = i + 1 < n ? i + 1 : anchorIdx;   // 尾节点接回 anchor → 环
@@ -142,5 +145,15 @@ public final class LinkedListCycle implements Algorithm {
             sb.append(vals[k]);
         }
         return new Trace.TraceMeta(id(), title(), codeResource(), sb.toString(), n);
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(vals), "int anchor = " + anchorIdx + ";");
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(n)", "O(1) 两个指针", "快指针每轮走 2 步，最多 2n 步追上或到头。两个人在环形跑道上跑步，速度差恒定 → 必然相遇");
     }
 }

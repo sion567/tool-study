@@ -1,6 +1,7 @@
 package com.algoviz.engine.graph;
 
 import com.algoviz.engine.Algorithm;
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Intent;
 import com.algoviz.engine.Layer;
 import com.algoviz.engine.Loc;
@@ -165,5 +166,10 @@ public final class DfsDemo implements Algorithm {
 
     private Trace.TraceMeta meta() {
         return new Trace.TraceMeta(id(), title(), codeResource(), "src=A", 6);
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(V + E)", "O(V) 栈", "每个节点压栈/弹栈 + 每条边看一次。与 BFS 只差队列换栈——遍历序完全不同");
     }
 }

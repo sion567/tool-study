@@ -1,5 +1,6 @@
 package com.algoviz.engine.tree;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.VizEvent;
 import com.algoviz.engine.trace.Trace;
@@ -154,5 +155,11 @@ public final class TreeTraversal implements Algorithm {
             case IN -> "左根右";
             case POST -> "左右根";
         };
+    }
+
+    @Override
+    public com.algoviz.engine.Complexity complexity() {
+        return new com.algoviz.engine.Complexity("O(n) 每节点恰好访问一次", "O(h) 递归栈 = 树高",
+                "每个节点入栈/出栈恰好一次；栈深 = 树高，平衡时 log n，最坏（退化链表）n");
     }
 }

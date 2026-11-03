@@ -19,7 +19,12 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {          // 复制本类即可直接运行
-        int[] a = {5, 2, 9, 1, 5};
+        int[] a = {5, 2, 9, 1, 5};   //@DATA
         qs(a, 0, a.length - 1);
         System.out.println(java.util.Arrays.toString(a));
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(input));
     }
+}

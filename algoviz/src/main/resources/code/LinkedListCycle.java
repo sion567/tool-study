@@ -15,9 +15,22 @@ public class LinkedListCycle {
     }
 
     public static void main(String[] args) {          // 复制本类即可直接运行
-        Node head = new Node(5); Node b = new Node(2); Node c = new Node(9);
-        Node d = new Node(1); Node e = new Node(5);
-        head.next = b; b.next = c; c.next = d; d.next = e;
-        e.next = b;                                    // 制造环：尾接回第二个
+        int[] vals = {5, 2, 9, 1, 5};                  //@DATA
+        int anchor = 1;                                // 环接回的下标（0-based）
+        Node head = buildCycle(vals, anchor);
         System.out.println("有环吗？" + hasCycle(head));
     }
+
+    static Node buildCycle(int[] vals, int anchor) {
+        Node[] ns = new Node[vals.length];
+        for (int i = 0; i < ns.length; i++) ns[i] = new Node(vals[i]);
+        for (int i = 0; i < ns.length - 1; i++) ns[i].next = ns[i + 1];
+        ns[ns.length - 1].next = ns[anchor];
+        return ns[0];
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(vals), "int anchor = " + anchorIdx + ";");
+    }
+}

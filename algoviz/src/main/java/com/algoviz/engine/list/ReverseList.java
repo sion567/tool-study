@@ -1,5 +1,6 @@
 package com.algoviz.engine.list;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.Intent;
 import com.algoviz.engine.Layer;
@@ -199,5 +200,15 @@ public final class ReverseList implements Algorithm {
             return new ListView("反转链表", headIdx >= 0 ? "@" + (headIdx + 1) : null,
                     Collections.unmodifiableList(nodes));
         }
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(input));
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(n)", "O(1) 原地", "单趟遍历：每个节点恰好被指针访问一次，指针反转 O(1)。没有嵌套循环 → 线性");
     }
 }

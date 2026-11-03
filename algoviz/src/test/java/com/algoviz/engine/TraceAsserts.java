@@ -6,6 +6,7 @@ import com.algoviz.engine.ds.ListView;
 import com.algoviz.engine.ds.SeqView;
 import com.algoviz.engine.ds.TreeView;
 import com.algoviz.engine.math.MathView;
+import com.algoviz.engine.math.PlotView;
 import com.algoviz.engine.mem.HeapObject;
 import com.algoviz.engine.trace.Trace;
 import org.junit.jupiter.api.function.ThrowingConsumer;
@@ -36,7 +37,7 @@ final class TraceAsserts {
             assertFalse(s.intent().invariant().isBlank(), "不变量为空 @step " + s.index());
             assertTrue(s.array() != null || s.list() != null || s.tree() != null
                             || s.graph() != null || s.seq() != null || s.math() != null
-                            || s.bitmap() != null,
+                            || s.bitmap() != null || s.plot() != null,
                     "缺少 ds/seq/math 图层 @step " + s.index());
 
             ArrayView av = s.array();

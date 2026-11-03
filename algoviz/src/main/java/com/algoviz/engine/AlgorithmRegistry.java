@@ -5,6 +5,8 @@ import com.algoviz.engine.graph.Dijkstra;
 import com.algoviz.engine.graph.DfsDemo;
 import com.algoviz.engine.list.LinkedListCycle;
 import com.algoviz.engine.list.ReverseList;
+import com.algoviz.engine.array.PrefixSum;
+import com.algoviz.engine.array.TwoPointers;
 import com.algoviz.engine.tree.RedBlackDemo;
 import com.algoviz.engine.math.BitmapDemo;
 import com.algoviz.engine.math.MatrixMultiply;
@@ -70,6 +72,9 @@ public final class AlgorithmRegistry {
             new Entry("算法", "图", new Dijkstra()),
             new Entry("算法", "图", new BfsDemo()),
             new Entry("算法", "图", new DfsDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.UnitCircleDemo()),
+            new Entry("算法", "前缀和", new com.algoviz.engine.array.PrefixSum(new int[]{3, 7, 2, 5, 1})),
+            new Entry("算法", "双指针", new com.algoviz.engine.array.TwoPointers(new int[]{1, 2, 5, 5, 9, 12, 15}, 14)),
             new Entry("设计模式", "创建型", new SingletonDemo()),
             new Entry("设计模式", "创建型", new FactoryMethodDemo()),
             new Entry("设计模式", "创建型", new AbstractFactoryDemo()),

@@ -20,11 +20,42 @@ public final class CodePanel extends ScrollPane {
     private final List<Label> lines = new ArrayList<>();
     private final List<String> raws = new ArrayList<>();
     private int highlighted = -1;
+    private final Label complexityLabel = new Label();
 
     public CodePanel(String resource) {
+        this(resource, Collections.<String>emptyList(), null);
+    }
+
+    /** dataLines：🎲 随机输入后，替换清单中带 //@DATA 标记行的真实数据代码行。
+     *  cx：复杂度标注（M7），null = 不显示。 */
+    public CodePanel(String resource, java.util.List<String> dataLines,
+                     com.algoviz.engine.Complexity cx) {
         box.setPadding(new Insets(10));
         setContent(box);
         setFitToWidth(false);   // 长行出横向滚动条，保证看得全
+        // 复杂度横幅（算法演示才有，模式/数学不显示）
+        if (cx != null) {
+            complexityLabel.setStyle("-fx-text-fill:#1e3a5f; -fx-font-size:12px; -fx-font-weight:bold;"
+                    + "-fx-background-color:#dbeafe; -fx-padding:6 10; -fx-background-radius:4;");
+            complexityLabel.setWrapText(true);
+            complexityLabel.setText("⏱ 时间: " + cx.time() + "   💾 空间: " + cx.space()
+                    + "\n🧠 " + cx.why());
+            box.getChildren().add(complexityLabel);
+        }
+        List<String> source = readLines(resource);
+        // 找到 //@DATA 标记行，用 dataLines 替换（🎲 后代码与画面数据同步）
+        int marker = -1;
+        for (int i = 0; i < source.size(); i++) {
+            if (source.get(i).contains("//@DATA")) {
+                marker = i;
+                break;
+            }
+        }
+        List<String> effective = new ArrayList<>(source);
+        if (marker >= 0 && !dataLines.isEmpty()) {
+            effective.remove(marker);
+            effective.addAll(marker, dataLines);
+        }
         int no = 1;
         javafx.scene.control.Button copyBtn = new javafx.scene.control.Button("📋 复制全文（可直接粘贴运行）");
         copyBtn.setStyle("-fx-font-size:11px;");
@@ -36,7 +67,7 @@ public final class CodePanel extends ScrollPane {
         javafx.scene.layout.HBox toolRow = new javafx.scene.layout.HBox(copyBtn);
         toolRow.setStyle("-fx-padding:0 0 6 0;");
         box.getChildren().add(toolRow);
-        for (String text : readLines(resource)) {
+        for (String text : effective) {
             Label label = new Label(String.format("%2d │ %s", no, text));
             label.setStyle(styleFor(text));
             attachCommentTooltip(label, text, no);

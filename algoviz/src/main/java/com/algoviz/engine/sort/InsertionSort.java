@@ -1,5 +1,6 @@
 package com.algoviz.engine.sort;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.Value;
 import com.algoviz.engine.VizEvent;
@@ -150,5 +151,15 @@ public final class InsertionSort implements Algorithm {
         if (key != null) m.put("key", Value.prim(key));
         if (j != null) m.put("j", Value.prim(j));
         return m;
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(input));
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(n²) 最坏 / O(n) 近乎有序", "O(1)", "最坏（逆序）：每张插到最前，1+2+…+n ≈ n²/2。近乎有序时内层几乎不移动 → 接近 O(n)。这就是为什么 Timsort 在小区间用它");
     }
 }

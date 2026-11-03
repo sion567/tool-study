@@ -52,6 +52,9 @@ public final class TreeRenderer {
         g.setTextAlign(TextAlignment.CENTER);
         for (TreeView.TreeNodeBox nb : tv.nodes()) {
             double[] p = pos.get(nb.nodeId());
+            if (p == null) {
+                continue;   // 布局够不到的节点（不应发生），防御性跳过
+            }
             for (String childId : new String[]{nb.leftId(), nb.rightId()}) {
                 if (childId == null) {
                     continue;
@@ -72,6 +75,9 @@ public final class TreeRenderer {
         for (int i = 0; i < n; i++) {
             TreeView.TreeNodeBox nb = tv.nodes().get(i);
             double[] p = pos.get(nb.nodeId());
+            if (p == null) {
+                continue;   // 防御：布局不可达的节点跳过
+            }
             g.setFill(switch (nb.state()) {
                 case "onstack" -> ONSTACK;
                 case "visited" -> VISITED;

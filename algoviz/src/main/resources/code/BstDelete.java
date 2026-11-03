@@ -30,10 +30,33 @@ public class BstDelete {
     }
 
     public static void main(String[] args) {          // 复制本类即可直接运行
-        Node root = new Node(5);
-        root.left = new Node(3); root.right = new Node(8);
-        root.left.left = new Node(1); root.left.right = new Node(4);
-        root.right.left = new Node(7); root.right.right = new Node(9);
-        root = delete(root, 5);                        // 删根：双子换后继
-        System.out.println("新根 = " + root.val);       // 7（后继顶上）
+        int[] vals = {5, 3, 8, 1, 4, 7, 9};            //@DATA
+        int deleteVal = 5;
+        Node root = bstFrom(vals);
+        root = delete(root, deleteVal);
+        System.out.println("删除 " + deleteVal + " 后中序: " + inOrder(root) + "｜新根 = " + root.val);
     }
+
+    static Node bstInsert(Node root, int v) {
+        if (root == null) return new Node(v);
+        if (v < root.val) root.left = bstInsert(root.left, v);
+        else if (v > root.val) root.right = bstInsert(root.right, v);
+        return root;
+    }
+
+    static Node bstFrom(int... vals) {
+        Node r = null;
+        for (int v : vals) r = bstInsert(r, v);
+        return r;
+    }
+
+    static String inOrder(Node n) {
+        if (n == null) return "";
+        return inOrder(n.left) + n.val + " " + inOrder(n.right);
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(input), "int deleteVal = " + deleteVal + ";");
+    }
+}

@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 树生产者共用的快照发射器（蓝图 §2.1 铁律 1：每步深拷贝）。
@@ -173,7 +174,25 @@ final class TreeEmitter {
                 stackIds.add("@" + (idx + 1));
             }
         }
-        return new TreeView(methodBase, nodes.isEmpty() ? null : "@1",
+        // 真根 = 没有被任何 left/right 指向的节点——旋转/删根后真根会变，写死 @1 是 bug
+        Set<String> referenced = new java.util.HashSet<>();
+        for (int i = 0; i < nodes.size(); i++) {
+            int[] nd = nodes.get(i);
+            if (nd[1] >= 0) {
+                referenced.add("@" + (nd[1] + 1));
+            }
+            if (nd[2] >= 0) {
+                referenced.add("@" + (nd[2] + 1));
+            }
+        }
+        String rootId = null;
+        for (int i = 0; i < nodes.size(); i++) {
+            if (!referenced.contains("@" + (i + 1))) {
+                rootId = "@" + (i + 1);
+                break;
+            }
+        }
+        return new TreeView(methodBase, rootId,
                 Collections.unmodifiableList(boxes), Collections.unmodifiableList(stackIds),
                 snapshotVarTags());
     }

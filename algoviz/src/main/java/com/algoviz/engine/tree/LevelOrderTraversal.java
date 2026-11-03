@@ -1,5 +1,6 @@
 package com.algoviz.engine.tree;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.VizEvent;
 import com.algoviz.engine.trace.Trace;
@@ -97,5 +98,15 @@ public final class LevelOrderTraversal implements Algorithm {
         em.emit(L_END, List.of(VizEvent.of(VizEvent.EventType.RETURN,
                 "队列空：全部 7 个节点按层访问完毕")), "层序完成：5 → 3,8 → 1,4,7,9——一层一层铺下来");
         return new Trace(SCHEMA, meta(input), em.steps);
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(input));
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(n)", "O(w) 队列，w = 最宽层", "每个节点入队/出队各一次 → O(n)。队列最宽 = 最底层节点数，最坏 n/2");
     }
 }

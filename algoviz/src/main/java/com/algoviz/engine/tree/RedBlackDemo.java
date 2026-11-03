@@ -1,5 +1,6 @@
 package com.algoviz.engine.tree;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.VizEvent;
 import com.algoviz.engine.trace.Trace;
@@ -123,5 +124,11 @@ public final class RedBlackDemo implements Algorithm {
         em.setRb(x, hc == null ? "BLACK" : hc);
         em.setRb(h, "RED");
         return x;
+    }
+
+    @Override
+    public com.algoviz.engine.Complexity complexity() {
+        return new com.algoviz.engine.Complexity("O(log n) 插入", "O(n) 存储 + O(log n) 递归栈",
+                "插入路径 = 树高 ≤ 2 log n（红黑性质保证平衡）；变色 O(1)、旋转 O(1)——只动指针不搬数据");
     }
 }

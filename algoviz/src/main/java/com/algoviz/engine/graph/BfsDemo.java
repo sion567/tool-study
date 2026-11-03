@@ -1,6 +1,7 @@
 package com.algoviz.engine.graph;
 
 import com.algoviz.engine.Algorithm;
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Intent;
 import com.algoviz.engine.Layer;
 import com.algoviz.engine.Loc;
@@ -173,5 +174,10 @@ public final class BfsDemo implements Algorithm {
 
     private Trace.TraceMeta meta() {
         return new Trace.TraceMeta(id(), title(), codeResource(), "src=A", 6);
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(V + E)", "O(V) 队列", "每个节点入队/出队一次 + 每条边检查一次 → V + E。边权全为 1 时 = 最短路（分层扩散）");
     }
 }

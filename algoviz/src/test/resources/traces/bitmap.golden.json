@@ -1,0 +1,1343 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.bitmap",
+    "title": "位图判重",
+    "codeResource": "/code/BitmapDemo.java",
+    "input": "3,7,2,7,5,1",
+    "inputSize": 6
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "一个 long 就是 64 个格子：空间优化的本体是「用 bit 当记录本」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b00000000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b00000000"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": -1,
+          "ones": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "bits = 0（8 个格子全白）——还没读任何数"
+        }
+      ],
+      "intent": {
+        "why": "一个 long 就是 64 个格子：空间优化的本体是「用 bit 当记录本」",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "逐个读数——每读一个，问一句「见过吗」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b00000000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b00000000"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 0,
+          "ones": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "data:0"
+          ],
+          "detail": "读取 data[0] = 3"
+        }
+      ],
+      "intent": {
+        "why": "逐个读数——每读一个，问一句「见过吗」",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "第一次遇到 3：格子还是白的"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b00000000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b00000000"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 0,
+          "ones": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "bit:3"
+          ],
+          "detail": "bit[3] = 0 → 没见过"
+        }
+      ],
+      "intent": {
+        "why": "第一次遇到 3：格子还是白的",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "标记成本：一次置位——读完全部也只用 8 个 bit"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b00001000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b00001000"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 0,
+          "ones": [
+            3
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "bit:3"
+          ],
+          "detail": "bit[3] ← 1（标记为「见过」）"
+        }
+      ],
+      "intent": {
+        "why": "标记成本：一次置位——读完全部也只用 8 个 bit",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "逐个读数——每读一个，问一句「见过吗」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b00001000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b00001000"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 1,
+          "ones": [
+            3
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "data:1"
+          ],
+          "detail": "读取 data[1] = 7"
+        }
+      ],
+      "intent": {
+        "why": "逐个读数——每读一个，问一句「见过吗」",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "第一次遇到 7：格子还是白的"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b00001000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b00001000"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 1,
+          "ones": [
+            3
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "bit:7"
+          ],
+          "detail": "bit[7] = 0 → 没见过"
+        }
+      ],
+      "intent": {
+        "why": "第一次遇到 7：格子还是白的",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "标记成本：一次置位——读完全部也只用 8 个 bit"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b10001000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b10001000"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 1,
+          "ones": [
+            3,
+            7
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "bit:7"
+          ],
+          "detail": "bit[7] ← 1（标记为「见过」）"
+        }
+      ],
+      "intent": {
+        "why": "标记成本：一次置位——读完全部也只用 8 个 bit",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "逐个读数——每读一个，问一句「见过吗」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b10001000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b10001000"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 2,
+          "ones": [
+            3,
+            7
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "data:2"
+          ],
+          "detail": "读取 data[2] = 2"
+        }
+      ],
+      "intent": {
+        "why": "逐个读数——每读一个，问一句「见过吗」",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "第一次遇到 2：格子还是白的"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b10001000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b10001000"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 2,
+          "ones": [
+            3,
+            7
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "bit:2"
+          ],
+          "detail": "bit[2] = 0 → 没见过"
+        }
+      ],
+      "intent": {
+        "why": "第一次遇到 2：格子还是白的",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "标记成本：一次置位——读完全部也只用 8 个 bit"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b10001100"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b10001100"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 2,
+          "ones": [
+            3,
+            7,
+            2
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "bit:2"
+          ],
+          "detail": "bit[2] ← 1（标记为「见过」）"
+        }
+      ],
+      "intent": {
+        "why": "标记成本：一次置位——读完全部也只用 8 个 bit",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "逐个读数——每读一个，问一句「见过吗」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b10001100"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b10001100"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 3,
+          "ones": [
+            3,
+            7,
+            2
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "data:3"
+          ],
+          "detail": "读取 data[3] = 7"
+        }
+      ],
+      "intent": {
+        "why": "逐个读数——每读一个，问一句「见过吗」",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "第二次遇到同一个数：格子上已经有记录"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b10001100"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b10001100"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 3,
+          "ones": [
+            3,
+            7,
+            2
+          ],
+          "dupBit": 7
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "bit:7"
+          ],
+          "detail": "bit[7] = 1 → 见过！"
+        }
+      ],
+      "intent": {
+        "why": "第二次遇到同一个数：格子上已经有记录",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "O(1) 判重完成——两两比较要 9 次，这里 1 次"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dedup",
+              "locals": {
+                "bits": {
+                  "kind": "PRIM",
+                  "text": "0b10001100"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitSet(8b)",
+                "fields": {
+                  "bits": {
+                    "kind": "PRIM",
+                    "text": "0b10001100"
+                  },
+                  "b0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b2": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b3": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "b4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b5": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b6": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "b7": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.bitmap": {
+          "name": "位图判重",
+          "bits": 8,
+          "data": [
+            3,
+            7,
+            2,
+            7,
+            5,
+            1
+          ],
+          "readIndex": 3,
+          "ones": [
+            3,
+            7,
+            2
+          ],
+          "dupBit": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "bit:7"
+          ],
+          "detail": "重复！7 在 data[3] 再次出现（格子红闪）"
+        }
+      ],
+      "intent": {
+        "why": "O(1) 判重完成——两两比较要 9 次，这里 1 次",
+        "invariant": "bit[x] = 1 ⟺ x 出现过——查重从两两比较 O(n²) 变成一次下标访问 O(1)，代价是 bit 的空间"
+      }
+    }
+  ]
+}

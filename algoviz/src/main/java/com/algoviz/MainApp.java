@@ -9,19 +9,24 @@ import com.algoviz.engine.trace.Trace;
 import com.algoviz.ui.BarRenderer;
 import com.algoviz.ui.BitmapRenderer;
 import com.algoviz.ui.CodePanel;
+import com.algoviz.ui.DictationDiff;
 import com.algoviz.ui.DiffHighlighter;
+import com.algoviz.ui.NotesStore;
+import com.algoviz.ui.DictationPanel;
+
+
 import com.algoviz.ui.GraphRenderer;
 import com.algoviz.ui.IntentBar;
 import com.algoviz.ui.ListRenderer;
 import com.algoviz.ui.MarkdownView;
 import com.algoviz.ui.MatrixRenderer;
 import com.algoviz.ui.PlaybackController;
+import com.algoviz.ui.PlotRenderer;
 import com.algoviz.ui.PredictionPanel;
 import com.algoviz.ui.SequenceRenderer;
 import com.algoviz.ui.Theme;
 import com.algoviz.ui.TreeRenderer;
 import com.algoviz.ui.VarsPanel;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -67,6 +72,7 @@ public class MainApp extends Application {
     private BorderPane rootPane;
     private Pane canvasPane;
     private Timeline timer;
+    private boolean playing;   // 播放状态的唯一真源（避免依赖 Timeline.getStatus 的瞬时值）
     private Algorithm currentAlgorithm;
     private TreeView<String> tree;
     private CodePanel codePanel;
@@ -74,6 +80,7 @@ public class MainApp extends Application {
     private Tab codeTab;
     private MarkdownView markdownView;
     private PredictionPanel predictPanel;
+    private DictationPanel dictationPanel;
     private VarsPanel varsPanel;
     private IntentBar intentBar;
     private Canvas canvas;
@@ -134,7 +141,11 @@ public class MainApp extends Application {
         predictPanel.onReveal = this::onPredictReveal;
         Tab predictTab = new Tab("🎯 预测", predictPanel);
         predictTab.setClosable(false);
-        TabPane tabs = new TabPane(codeTab, docTab, predictTab);
+        dictationPanel = new DictationPanel();
+        dictationPanel.onCompare = this::onDictationCompare;
+        Tab dictationTab = new Tab("📝 默写", dictationPanel);
+        dictationTab.setClosable(false);
+        TabPane tabs = new TabPane(codeTab, docTab, predictTab, dictationTab);
         tabs.setPrefWidth(500);
 
         // 底：意图栏 + 控制栏 + 现场面板
@@ -262,15 +273,20 @@ public class MainApp extends Application {
     }
 
     private void togglePlay() {
-        if (timer != null && timer.getStatus() == Animation.Status.RUNNING) {
-            timer.stop();
-            playBtn.setText("▶");
+        if (playing) {
+            stopPlayback();
             return;
         }
+        playing = true;
+        playBtn.setText("⏸");
         if (timer == null) {
+            // 到尾即停：直接停表，不递归 togglePlay（避免与按钮/空格的重入竞态）
             timer = new Timeline(new KeyFrame(Duration.millis(350), e -> {
+                if (!playing) {
+                    return;   // 已被外部停止：本次 tick 作废
+                }
                 if (playback.index() >= playback.size() - 1) {
-                    togglePlay();
+                    stopPlayback();   // 播完：停在最后一帧
                 } else {
                     playback.next();
                 }
@@ -278,10 +294,17 @@ public class MainApp extends Application {
             timer.setCycleCount(Timeline.INDEFINITE);
         }
         if (playback.index() >= playback.size() - 1) {
-            playback.go(0);
+            playback.go(0);   // 从头重播
         }
         timer.play();
-        playBtn.setText("⏸");
+    }
+
+    private void stopPlayback() {
+        playing = false;
+        playBtn.setText("▶");
+        if (timer != null) {
+            timer.stop();
+        }
     }
 
     /** 主题切换后统一重刷各面板。 */
@@ -336,6 +359,8 @@ public class MainApp extends Application {
                 SequenceRenderer.draw(canvas, cur, pickedNow, changedSeq);
             } else if (cur != null && cur.math() != null && cur.bitmap() == null) {
                 MatrixRenderer.draw(canvas, cur, pickedNow, changedMatrix);
+            } else if (cur != null && cur.plot() != null) {
+                PlotRenderer.draw(canvas, cur);
             } else if (cur != null && cur.bitmap() != null) {
                 BitmapRenderer.draw(canvas, cur, pickedNow, changedBits);
             } else {
@@ -357,14 +382,23 @@ public class MainApp extends Application {
     }
 
     private void load(Algorithm alg) {
+        stopPlayback();   // 换算法：播放立刻停，避免 timer 在新 Trace 上继续走
         currentAlgorithm = alg;
         Trace trace = alg.produce();
-        if (!alg.codeResource().equals(currentCodeResource)) {
-            currentCodeResource = alg.codeResource();
-            codePanel = new CodePanel(currentCodeResource);
-            codeTab.setContent(codePanel);
-        }
+        // 代码页每次重建：🎲 随机输入后，main() 里的数据行要与画面同步
+        codePanel = new CodePanel(alg.codeResource(), alg.dataLines(), alg.complexity());
+        codeTab.setContent(codePanel);
         markdownView.loadResource(alg.docResource());
+        // 默写面板：设置参考答案 + 清空白纸
+        var refLines = new java.util.ArrayList<String>();
+        try (var is = getClass().getResourceAsStream(alg.codeResource())) {
+            if (is != null) {
+                new String(is.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8)
+                        .lines().forEach(refLines::add);
+            }
+        } catch (java.io.IOException e) { /* ignore */ }
+        dictationPanel.setReferenceCode(String.join("\n", refLines));
+        dictationPanel.clear();
         phase = null;
         picked.clear();
         playback.load(trace);
@@ -459,6 +493,19 @@ public class MainApp extends Application {
         }
     }
 
+    /** 默写对比：用户代码 vs 参考答案，逐行 LCS diff。 */
+    private void onDictationCompare() {
+        var lines = DictationDiff.diff(dictationPanel.getUserCode(), dictationPanel.getReferenceCode());
+        dictationPanel.setResultText(DictationDiff.report(lines));
+        // 持久化
+        if (currentAlgorithm != null) {
+            var entry = NotesStore.get(currentAlgorithm.id());
+            entry.lastDictation = dictationPanel.getUserCode();
+            entry.lastDictationDiff = DictationDiff.report(lines);
+            NotesStore.save(currentAlgorithm.id(), entry);
+        }
+    }
+
     private void onPredictSubmit() {
         if (phase == PredictPhase.REVEALED) {
             arm(false);
@@ -506,6 +553,14 @@ public class MainApp extends Application {
         }
         predictPanel.setResult(sb.toString());
         predictPanel.setScore(asked + " 题 · " + correct + " 全对 · 连对 " + streak);
+        // 持久化预测得分
+        if (currentAlgorithm != null) {
+            var entry = NotesStore.get(currentAlgorithm.id());
+            entry.predictionAsked = asked;
+            entry.predictionCorrect = correct;
+            entry.predictionStreak = streak;
+            NotesStore.save(currentAlgorithm.id(), entry);
+        }
 
         phase = PredictPhase.REVEALED;
         playback.go(idx + 1);   // 揭晓：跳到下一帧，diff 黄圈可见
@@ -684,6 +739,12 @@ public class MainApp extends Application {
                 case RIGHT -> playback.next();
                 case LEFT -> playback.prev();
                 case N -> cycleAlgorithm(1);   // N = 下一个算法
+                case R -> {                     // R = 换一批随机数据（同 🎲）
+                    if (currentAlgorithm != null) {
+                        Algorithm fresh = AlgorithmRegistry.randomVariant(currentAlgorithm);
+                        if (fresh != null) load(fresh);
+                    }
+                }
                 case P -> cycleAlgorithm(-1);  // P = 上一个算法
                 case SPACE -> {
                     e.consume();

@@ -17,8 +17,26 @@ public class BstInsert {
     }
 
     public static void main(String[] args) {          // 复制本类即可直接运行
-        Node root = new Node(5);
-        root.left = new Node(3); root.right = new Node(8);
-        root = insert(root, 4);                        // 4 挂到 3 的右边
-        System.out.println("root.left.right.val = " + root.left.right.val);
+        int[] vals = {5, 3, 8};                        //@DATA
+        int insertVal = 4;
+        Node root = bstFrom(vals);
+        root = insert(root, insertVal);
+        System.out.println("插入 " + insertVal + " 后中序: " + inOrder(root));
     }
+
+    static Node bstFrom(int... vals) {
+        Node r = null;
+        for (int v : vals) r = insert(r, v);
+        return r;
+    }
+
+    static String inOrder(Node n) {
+        if (n == null) return "";
+        return inOrder(n.left) + n.val + " " + inOrder(n.right);
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(input), "int insertVal = " + insertVal + ";");
+    }
+}

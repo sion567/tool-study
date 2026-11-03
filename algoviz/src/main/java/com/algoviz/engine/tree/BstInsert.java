@@ -1,5 +1,6 @@
 package com.algoviz.engine.tree;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.VizEvent;
 import com.algoviz.engine.trace.Trace;
@@ -138,5 +139,15 @@ public final class BstInsert implements Algorithm {
                 "本层子树的根不变，原样交回父调用");
         em.pop();
         return idx;
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(input));
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(h) = O(log n) 平衡 / O(n) 最坏", "O(1) 迭代版", "搜索路径长度 = 树高。平衡 BST 高 log n → 插入极快；退化成链表高 n → 插入变遍历。这就是为什么需要 AVL/红黑树");
     }
 }

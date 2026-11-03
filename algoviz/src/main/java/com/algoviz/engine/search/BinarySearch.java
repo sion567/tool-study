@@ -1,5 +1,6 @@
 package com.algoviz.engine.search;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.Intent;
 import com.algoviz.engine.Layer;
@@ -162,5 +163,20 @@ public final class BinarySearch implements Algorithm {
             sb.append(data[k]);
         }
         return new Trace.TraceMeta(id(), title(), codeResource(), sb.toString(), data.length);
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        StringBuilder sb = new StringBuilder("int[] a = {");
+        for (int k = 0; k < data.length; k++) {
+            if (k > 0) sb.append(", ");
+            sb.append(data[k]);
+        }
+        return java.util.List.of(sb.append("};").toString(), "int target = " + target + ";");
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(log n)", "O(1)", "每轮排除一半：n → n/2 → n/4 → … → 1。比较次数 = log₂n。100 万数据只要 ~20 次——这就是「有序」的威力");
     }
 }

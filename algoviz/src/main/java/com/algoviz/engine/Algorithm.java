@@ -32,4 +32,31 @@ public interface Algorithm {
         }
         return new Trace.TraceMeta(id(), title(), codeResource(), sb.toString(), input.length);
     }
+
+    /**
+     * 🎲 随机输入后，代码页 main() 里需要同步替换的数据行。
+     * CodePanel 会用这些行替换清单中带 //@DATA 标记的那一行；默认空 = 代码与数据无关。
+     */
+    default java.util.List<String> dataLines() {
+        return java.util.Collections.emptyList();
+    }
+
+    /** int 数组 → "int[] a = {1, 2, 3};" 形式的代码行（供 dataLines 使用）。 */
+    static String joinArray(int[] a) {
+        StringBuilder sb = new StringBuilder("int[] a = {");
+        for (int k = 0; k < a.length; k++) {
+            if (k > 0) {
+                sb.append(", ");
+            }
+            sb.append(a[k]);
+        }
+        return sb.append("};").toString();
+    }
+
+    /**
+     * 复杂度标注（M7）：时间 + 空间 + 推导过程。null = 不适用（模式/数学演示）。
+     */
+    default Complexity complexity() {
+        return null;
+    }
 }

@@ -1,5 +1,6 @@
 package com.algoviz.engine.tree;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.VizEvent;
 import com.algoviz.engine.trace.Trace;
@@ -186,5 +187,15 @@ public final class BstDelete implements Algorithm {
                 "本层子树处理完，原样交回父调用");
         em.pop();
         return idx;
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(input));
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(h)", "O(1) 迭代版", "搜索 O(h) + 可能的后继查找 O(h) → 总计 O(h)。双子删除的后继必无左孩子 → 不会更深");
     }
 }

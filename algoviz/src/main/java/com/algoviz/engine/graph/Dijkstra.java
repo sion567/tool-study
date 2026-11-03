@@ -1,5 +1,6 @@
 package com.algoviz.engine.graph;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.Intent;
 import com.algoviz.engine.Layer;
@@ -252,5 +253,10 @@ public final class Dijkstra implements Algorithm {
             }
         }
         return null;
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(V²) 简单版 / O((V+E) log V) 堆版", "O(V) 距离表", "V 轮出圈 × 每轮扫邻居 → V²。优先队列把「挑最小」从 O(V) 降到 O(log V)。负权边会破坏出圈定死的不变量 → 不适用");
     }
 }

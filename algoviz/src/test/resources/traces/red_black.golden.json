@@ -1,0 +1,3194 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "tree.rb.insert",
+    "title": "红黑树插入",
+    "codeResource": "/code/RedBlackDemo.java",
+    "input": "10,5,1,8,7,9",
+    "inputSize": 6
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "F1：新节点一律红色——黑高度才不会立刻被破坏"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "插入 10 = @1（红色新节点）"
+        }
+      ],
+      "intent": {
+        "why": "F1：新节点一律红色——黑高度才不会立刻被破坏",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "F7 收尾：无论修复成什么样，根永远压成黑色"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "根必须为黑 → @1 变黑"
+        }
+      ],
+      "intent": {
+        "why": "F7 收尾：无论修复成什么样，根永远压成黑色",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "F1：新节点一律红色——黑高度才不会立刻被破坏"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "插入 5 = @2（红色新节点）"
+        }
+      ],
+      "intent": {
+        "why": "F1：新节点一律红色——黑高度才不会立刻被破坏",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "F7 收尾：无论修复成什么样，根永远压成黑色"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "leftId": "@2",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "根必须为黑 → @1 变黑"
+        }
+      ],
+      "intent": {
+        "why": "F7 收尾：无论修复成什么样，根永远压成黑色",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "F1：新节点一律红色——黑高度才不会立刻被破坏"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "leftId": "@2",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3"
+          ],
+          "detail": "插入 1 = @3（红色新节点）"
+        }
+      ],
+      "intent": {
+        "why": "F1：新节点一律红色——黑高度才不会立刻被破坏",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "F4：双红相连违反「红红不相邻」——右旋把中间节点顶上去"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "leftId": "@2",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "左子与左孙双红 → 右旋 @1（下一帧看位置互换）"
+        }
+      ],
+      "intent": {
+        "why": "F4：双红相连违反「红红不相邻」——右旋把中间节点顶上去",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "旋转后仍可能要变色——看下一层检查"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "右旋完成：@2 接管子树"
+        }
+      ],
+      "intent": {
+        "why": "旋转后仍可能要变色——看下一层检查",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "F3：黑数不变地度过一层——红色问题向上抛给爷爷（帧4：递归向上）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2",
+            "@3",
+            "@1"
+          ],
+          "detail": "左右皆红 → 变色：@2 的两个孩子变黑、自己变红"
+        }
+      ],
+      "intent": {
+        "why": "F3：黑数不变地度过一层——红色问题向上抛给爷爷（帧4：递归向上）",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "向上传递：这就是「爷爷变红后可能又违规」的递归修复"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "变色完成：@2 变红——若它的父亲也是红，下一层会继续修"
+        }
+      ],
+      "intent": {
+        "why": "向上传递：这就是「爷爷变红后可能又违规」的递归修复",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "F7 收尾：无论修复成什么样，根永远压成黑色"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "根必须为黑 → @2 变黑"
+        }
+      ],
+      "intent": {
+        "why": "F7 收尾：无论修复成什么样，根永远压成黑色",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "F1：新节点一律红色——黑高度才不会立刻被破坏"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "插入 8 = @4（红色新节点）"
+        }
+      ],
+      "intent": {
+        "why": "F1：新节点一律红色——黑高度才不会立刻被破坏",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "F7 收尾：无论修复成什么样，根永远压成黑色"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "leftId": "@4",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "根必须为黑 → @2 变黑"
+        }
+      ],
+      "intent": {
+        "why": "F7 收尾：无论修复成什么样，根永远压成黑色",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "F1：新节点一律红色——黑高度才不会立刻被破坏"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "leftId": "@4",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@5",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@5"
+          ],
+          "detail": "插入 7 = @5（红色新节点）"
+        }
+      ],
+      "intent": {
+        "why": "F1：新节点一律红色——黑高度才不会立刻被破坏",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "F4：双红相连违反「红红不相邻」——右旋把中间节点顶上去"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "leftId": "@4",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "leftId": "@5",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@5",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "左子与左孙双红 → 右旋 @1（下一帧看位置互换）"
+        }
+      ],
+      "intent": {
+        "why": "F4：双红相连违反「红红不相邻」——右旋把中间节点顶上去",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "旋转后仍可能要变色——看下一层检查"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "leftId": "@5",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "右旋完成：@4 接管子树"
+        }
+      ],
+      "intent": {
+        "why": "旋转后仍可能要变色——看下一层检查",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "F3：黑数不变地度过一层——红色问题向上抛给爷爷（帧4：递归向上）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "leftId": "@5",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4",
+            "@5",
+            "@1"
+          ],
+          "detail": "左右皆红 → 变色：@4 的两个孩子变黑、自己变红"
+        }
+      ],
+      "intent": {
+        "why": "F3：黑数不变地度过一层——红色问题向上抛给爷爷（帧4：递归向上）",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "向上传递：这就是「爷爷变红后可能又违规」的递归修复"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "leftId": "@5",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@5",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "变色完成：@4 变红——若它的父亲也是红，下一层会继续修"
+        }
+      ],
+      "intent": {
+        "why": "向上传递：这就是「爷爷变红后可能又违规」的递归修复",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "F5：右红破坏左倾——旋转把孩子位置对调，颜色随位互换"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@4",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "leftId": "@5",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@5",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "右子红、左子黑 → 左旋 @2（下一帧看位置互换）"
+        }
+      ],
+      "intent": {
+        "why": "F5：右红破坏左倾——旋转把孩子位置对调，颜色随位互换",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "F6：旋转 = 位置交换 + 颜色随位——BST 性质不受影响"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@5",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "leftId": "@2",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "左旋完成：@4 接管子树，原根变红"
+        }
+      ],
+      "intent": {
+        "why": "F6：旋转 = 位置交换 + 颜色随位——BST 性质不受影响",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "F7 收尾：无论修复成什么样，根永远压成黑色"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@5",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "leftId": "@2",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "根必须为黑 → @4 变黑"
+        }
+      ],
+      "intent": {
+        "why": "F7 收尾：无论修复成什么样，根永远压成黑色",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "F1：新节点一律红色——黑高度才不会立刻被破坏"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@5",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "leftId": "@2",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@6"
+          ],
+          "detail": "插入 9 = @6（红色新节点）"
+        }
+      ],
+      "intent": {
+        "why": "F1：新节点一律红色——黑高度才不会立刻被破坏",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "F7 收尾：无论修复成什么样，根永远压成黑色"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbInsert",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 10,
+              "leftId": "@6",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 5,
+              "leftId": "@3",
+              "rightId": "@5",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@3",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 8,
+              "leftId": "@2",
+              "rightId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "根必须为黑 → @4 变黑"
+        }
+      ],
+      "intent": {
+        "why": "F7 收尾：无论修复成什么样，根永远压成黑色",
+        "invariant": "RB 三性质：根必须黑；红红不相邻；所有根到叶路径的黑数相同——插入靠变色与旋转恢复"
+      }
+    }
+  ]
+}

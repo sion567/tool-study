@@ -122,18 +122,13 @@ public final class BitmapDemo implements Algorithm {
         return new Heap(Collections.unmodifiableMap(objs));
     }
 
-    private MathView snapshotBitmap() {
-        return new MathView("位图判重", List.of(
-                new MathView.Grid("bits", "BitSet " + BITS + "b", 1, BITS,
-                        cells(), null, null, Set.of(), Set.of())));
-    }
-
-    private List<String> cells() {
-        List<String> out = new ArrayList<>();
-        for (int b = 0; b < BITS; b++) {
-            out.add(String.valueOf(ones.contains(b) ? 1 : 0));
+    private BitmapView snapshotBitmap() {
+        List<Integer> data = new ArrayList<>();
+        for (int v : DATA) {
+            data.add(v);
         }
-        return out;
+        return new BitmapView("位图判重", BITS, List.copyOf(data), readIndex,
+                Collections.unmodifiableSet(new LinkedHashSet<>(ones)), dupBit);
     }
 
     private Trace.TraceMeta meta() {

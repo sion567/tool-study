@@ -1,5 +1,6 @@
 package com.algoviz.engine.sort;
 
+import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.Intent;
 import com.algoviz.engine.Layer;
@@ -190,5 +191,15 @@ public final class QuickSort implements Algorithm {
             sb.append(input[k]);
         }
         return new Trace.TraceMeta(id(), title(), codeResource(), sb.toString(), input.length);
+    }
+
+    @Override
+    public java.util.List<String> dataLines() {
+        return java.util.List.of(Algorithm.joinArray(input));
+    }
+
+    @Override
+    public Complexity complexity() {
+        return new Complexity("O(n log n) 平均 / O(n²) 最坏", "O(log n) 递归栈", "均匀分区：每层 n 次比较 × 递归深度 log n → n log n。最坏（已有序 + 取端点为 pivot）退化成链表 → n²。随机 pivot 可避免");
     }
 }
