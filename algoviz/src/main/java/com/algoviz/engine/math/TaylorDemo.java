@@ -125,11 +125,12 @@ public final class TaylorDemo implements Algorithm {
             real.add(List.of(x, Math.sin(x)));
             approx.add(List.of(x, taylorSin(x, termCount)));
         }
-        return new PlotView("泰勒展开逼近 sin(x)", termCount,
+        return new PlotView(PlotView.UNIT_CIRCLE, "泰勒展开逼近 sin(x)", termCount,
                 termCount, maxError,
+                0, X_MAX, -1.4, 1.4,
                 Collections.unmodifiableList(real),      // 真实曲线
                 Collections.unmodifiableList(approx),    // 近似曲线
-                List.of("真实 sin(x)", termCount + " 项近似"));
+                List.of(), List.of("真实 sin(x)", termCount + " 项近似"));
     }
 
     private Trace.TraceMeta meta() {

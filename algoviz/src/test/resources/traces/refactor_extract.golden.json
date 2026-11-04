@@ -1,0 +1,270 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "refactor.extract",
+    "title": "重构·提取方法",
+    "codeResource": "/code/RefactorExtractDemo.java",
+    "input": "20 行 → 3×N 行",
+    "inputSize": 2
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "反例：一段长方法，三层缩进里混着三件事——读懂一次要花 5 分钟，下次还得重读"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "reader",
+              "label": "读代码的人"
+            },
+            {
+              "id": "blob",
+              "label": "process() 20 行"
+            },
+            {
+              "id": "small",
+              "label": "validate / compute / print"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "读 process()：校验在哪？算什么？为什么打印？——从头啃到尾",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "读代码的人",
+            "process() 20 行"
+          ],
+          "detail": "读代码的人 → process() 20 行：读 process()：校验在哪？算什么？为什么打印？——从头啃到尾"
+        }
+      ],
+      "intent": {
+        "why": "反例：一段长方法，三层缩进里混着三件事——读懂一次要花 5 分钟，下次还得重读",
+        "invariant": "提取的判据：你能给这段代码起一个**不带「和」**的名字——起得出就提得出"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "长方法的成本不在写，在**每一次读和改**"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "reader",
+              "label": "读代码的人"
+            },
+            {
+              "id": "blob",
+              "label": "process() 20 行"
+            },
+            {
+              "id": "small",
+              "label": "validate / compute / print"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "读 process()：校验在哪？算什么？为什么打印？——从头啃到尾",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "改打印格式 → 得先在 20 行里翻出「哪几行是打印」——改动半径=整个方法"
+        }
+      ],
+      "intent": {
+        "why": "长方法的成本不在写，在**每一次读和改**",
+        "invariant": "提取的判据：你能给这段代码起一个**不带「和」**的名字——起得出就提得出"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "正例：调用处 3 行 = 方法名组成的摘要——main 逻辑 5 秒读完"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "reader",
+              "label": "读代码的人"
+            },
+            {
+              "id": "blob",
+              "label": "process() 20 行"
+            },
+            {
+              "id": "small",
+              "label": "validate / compute / print"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "读 process()：校验在哪？算什么？为什么打印？——从头啃到尾",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "读 process()：validate() → compute() → print()（读名字就懂了）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "读代码的人",
+            "validate / compute / print"
+          ],
+          "detail": "读代码的人 → validate / compute / print：读 process()：validate() → compute() → print()（读名字就懂了）"
+        }
+      ],
+      "intent": {
+        "why": "正例：调用处 3 行 = 方法名组成的摘要——main 逻辑 5 秒读完",
+        "invariant": "提取的判据：你能给这段代码起一个**不带「和」**的名字——起得出就提得出"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "行为零变化（重构的定义），但每次阅读/修改的成本从「全方法」缩到「单方法」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "reader",
+              "label": "读代码的人"
+            },
+            {
+              "id": "blob",
+              "label": "process() 20 行"
+            },
+            {
+              "id": "small",
+              "label": "validate / compute / print"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "读 process()：校验在哪？算什么？为什么打印？——从头啃到尾",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "读 process()：validate() → compute() → print()（读名字就懂了）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "改打印 → 直奔 print() 一个方法；改规则 → 直奔 validate()"
+        }
+      ],
+      "intent": {
+        "why": "行为零变化（重构的定义），但每次阅读/修改的成本从「全方法」缩到「单方法」",
+        "invariant": "提取的判据：你能给这段代码起一个**不带「和」**的名字——起得出就提得出"
+      }
+    }
+  ]
+}

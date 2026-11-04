@@ -102,4 +102,115 @@ public final class ComplexityPanel {
                 O(n²)       两两比              1 万亿步      慢，数据大了崩
                 """;
     }
+
+    // ==================== ⚖ 对比模式：六种排序的实测步数曲线 ====================
+
+    /** 参赛选手：六个真实 trace 的步数（不是公式，是跑出来的）。 */
+    private static final String[] SORT_NAMES = {"冒泡", "选择", "插入", "快排", "归并", "堆排"};
+    private static final Color[] SORT_COLORS = {
+            Color.web("#ef4444"), Color.web("#f59e0b"), Color.web("#8b5cf6"),
+            Color.web("#22c55e"), Color.web("#3b82f6"), Color.web("#0891b2")};
+
+    /**
+     * 实测：每个 n 用同一批（固定种子）随机数据跑六种排序，纵轴 = 步数。
+     * 冒泡 vs 快排的差距在 n=50 时就已经一目了然——这就是"同一问题、不同代价"的现场证据。
+     */
+    public static void drawEmpirical(Canvas canvas, int maxN) {
+        GraphicsContext g = canvas.getGraphicsContext2D();
+        g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        double w = canvas.getWidth(), h = canvas.getHeight();
+        double margin = 60;
+        double x0 = margin, y0 = h - margin;
+        double plotW = w - margin * 2, plotH = h - margin * 2;
+        g.setTextAlign(TextAlignment.CENTER);
+
+        // 实测：n = 5..maxN 步长 5
+        java.util.List<Integer> ns = new java.util.ArrayList<>();
+        for (int n = 5; n <= maxN; n += 5) ns.add(n);
+        java.util.List<long[]> series = new java.util.ArrayList<>();   // 6 组 × ns.size() 步数
+        for (int s = 0; s < SORT_NAMES.length; s++) series.add(new long[ns.size()]);
+        java.util.Random r = new java.util.Random(42);   // 固定种子：同一批数据六个算法共用
+        for (int i = 0; i < ns.size(); i++) {
+            int n = ns.get(i);
+            int[] base = new int[n];
+            for (int k = 0; k < n; k++) base[k] = 1 + r.nextInt(99);
+            for (int s = 0; s < SORT_NAMES.length; s++) {
+                series.get(s)[i] = runSort(s, base);
+            }
+        }
+        long yMax = 1;
+        for (long[] s1 : series) {
+            for (long v : s1) yMax = Math.max(yMax, v);
+        }
+
+        // 坐标轴
+        g.setStroke(Color.web("#94a3b8"));
+        g.setLineWidth(1.5);
+        g.strokeLine(x0, y0, x0 + plotW, y0);
+        g.strokeLine(x0, y0, x0, y0 - plotH);
+        g.setFill(Color.web("#6b7280"));
+        g.setFont(Font.font(11));
+        g.fillText("n（数据量）", x0 + plotW / 2, y0 + 26);
+        g.save();
+        g.translate(x0 - 30, y0 - plotH / 2);
+        g.rotate(-90);
+        g.fillText("实测步数", 0, 0);
+        g.restore();
+        // y 轴刻度
+        for (int t = 0; t <= 4; t++) {
+            double v = yMax * t / 4.0;
+            double y = y0 - (double) t / 4 * plotH;
+            g.setStroke(Color.web("#e5e7eb"));
+            g.strokeLine(x0, y, x0 + plotW, y);
+            g.setFill(Color.web("#9ca3af"));
+            g.fillText(String.valueOf(Math.round(v)), x0 - 8, y + 4);
+        }
+
+        // 六条实测曲线
+        for (int s = 0; s < SORT_NAMES.length; s++) {
+            g.setStroke(SORT_COLORS[s]);
+            g.setLineWidth(2.4);
+            double prevX = 0, prevY = 0;
+            for (int i = 0; i < ns.size(); i++) {
+                double cx = x0 + (double) (ns.get(i) - 5) / (maxN - 5) * plotW;
+                double cy = y0 - Math.min(1.0, (double) series.get(s)[i] / yMax) * plotH;
+                if (i > 0) g.strokeLine(prevX, prevY, cx, cy);
+                g.setFill(SORT_COLORS[s]);
+                g.fillOval(cx - 2.5, cy - 2.5, 5, 5);
+                prevX = cx;
+                prevY = cy;
+            }
+        }
+
+        // 图例（右上角）
+        double lx = x0 + plotW - 130, ly = y0 - plotH + 14;
+        g.setFont(Font.font(12));
+        for (int s = 0; s < SORT_NAMES.length; s++) {
+            g.setStroke(SORT_COLORS[s]);
+            g.setLineWidth(3);
+            int row = s / 3, col = s % 3;
+            double gx = lx + col * 92, gy = ly + row * 18;
+            g.strokeLine(gx, gy, gx + 20, gy);
+            g.setFill(Color.web("#374151"));
+            g.setTextAlign(TextAlignment.LEFT);
+            g.fillText(SORT_NAMES[s], gx + 25, gy + 4);
+        }
+        g.setTextAlign(TextAlignment.CENTER);
+        g.setFill(Color.web("#9ca3af"));
+        g.setFont(Font.font(10));
+        g.fillText("同一批随机数据（种子 42）· 步数 = trace 长度 · 冒泡在 n=50 时步数 ≈ 快排 10 倍",
+                x0 + plotW / 2, y0 + 44);
+    }
+
+    private static long runSort(int which, int[] base) {
+        int[] a = base.clone();
+        return switch (which) {
+            case 0 -> new com.algoviz.engine.sort.BubbleSort(a).produce().steps().size();
+            case 1 -> new com.algoviz.engine.sort.SelectionSort(a).produce().steps().size();
+            case 2 -> new com.algoviz.engine.sort.InsertionSort(a).produce().steps().size();
+            case 3 -> new com.algoviz.engine.sort.QuickSort(a).produce().steps().size();
+            case 4 -> new com.algoviz.engine.sort.MergeSort(a).produce().steps().size();
+            default -> new com.algoviz.engine.sort.HeapSort(a).produce().steps().size();
+        };
+    }
 }

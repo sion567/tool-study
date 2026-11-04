@@ -22,6 +22,7 @@ public final class NotesStore {
         public int predictionStreak;
         public String lastDictation = "";
         public String lastDictationDiff = "";
+        public String behaviorVerdict = "";
     }
 
     public static NoteEntry get(String algorithmId) {

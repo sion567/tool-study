@@ -74,7 +74,31 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
                 new Object[]{"math_bitops", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BitOpsDemo::new},
-                new Object[]{"math_sieve", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.SieveDemo::new}
+                new Object[]{"math_sieve", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.SieveDemo::new},
+                // ---- 第六批：牛顿迭代 / CORDIC / 数独 / A* / 分桶 / 路径总和 ----
+                new Object[]{"math_newton", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.NewtonDemo::new},
+                new Object[]{"math_cordic", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.CordicDemo::new},
+                new Object[]{"math_bucket", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BucketDemo::new},
+                new Object[]{"bt_sudoku", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.backtracking.SudokuDemo::new},
+                new Object[]{"graph_astar", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.graph.AStarDemo::new},
+                new Object[]{"tree_pathsum", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.tree.PathSumDemo::new},
+                // ---- 第七批：链表三件套 / 哈希表 / Karatsuba / 序列化 ----
+                new Object[]{"list_build", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.list.ListBuildDemo::new},
+                new Object[]{"list_delete", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.list.ListDeleteDemo::new},
+                new Object[]{"list_doubly", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.list.DoublyListDemo::new},
+                new Object[]{"math_hashmap", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.HashMapDemo::new},
+                new Object[]{"math_karatsuba", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.KaratsubaDemo::new},
+                new Object[]{"tree_serialize", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.tree.TreeSerializeDemo::new},
+                new Object[]{"tree_bplus", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.tree.BPlusTreeDemo::new},
+                // ---- 第八批：SOLID 五原则 + 重构三招（正反例对照）----
+                new Object[]{"solid_srp", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.SolidSrpDemo::new},
+                new Object[]{"solid_ocp", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.SolidOcpDemo::new},
+                new Object[]{"solid_lsp", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.SolidLspDemo::new},
+                new Object[]{"solid_isp", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.SolidIspDemo::new},
+                new Object[]{"solid_dip", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.SolidDipDemo::new},
+                new Object[]{"refactor_extract", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.RefactorExtractDemo::new},
+                new Object[]{"refactor_param", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.RefactorParamDemo::new},
+                new Object[]{"refactor_poly", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.RefactorPolyDemo::new}
         );
     }
 
@@ -296,5 +320,275 @@ class AlgorithmBatchTraceTest {
             if (vals.get(i) == 0) primes++;   // 未被标记 = 素数
         }
         assertEquals(8, primes, "20 以内素数应为 8 个（2,3,5,7,11,13,17,19）");
+    }
+
+    /** 行为：牛顿迭代——最后一步误差 < 1e-9（平方收敛，5 步内达 12 位精度）。 */
+    @org.junit.jupiter.api.Test
+    void newtonConvergesToSqrt2() {
+        var steps = new com.algoviz.engine.math.NewtonDemo().produce().steps();
+        Step last = steps.get(steps.size() - 1);
+        // 堆里 |x−√2| 应为 e 级小数
+        String err = last.heap().heap().objects().values().stream()
+                .filter(o -> o.fields().containsKey("|x−√2|"))
+                .map(o -> o.fields().get("|x−√2|").text())
+                .findFirst().orElse("1");
+        double e = Double.parseDouble(err.replaceAll("[^0-9.eE\\-]", ""));
+        assertTrue2(e < 1e-9, "最终误差应为 1e-9 以下，实际 " + err);
+        // 曲线图层是 newton 形态
+        assertEquals(com.algoviz.engine.math.PlotView.NEWTON, last.plot().kind());
+    }
+
+    /** 行为：CORDIC——9 次迭代后向量角逼近 37°，残差 ≤ atan(2⁻⁸) ≈ 0.225°（理论精度）。 */
+    @org.junit.jupiter.api.Test
+    void cordicApproachesTarget() {
+        var steps = new com.algoviz.engine.math.CordicDemo().produce().steps();
+        Step last = steps.get(steps.size() - 1);
+        double angle = Math.toDegrees(Math.atan2(last.plot().pointY(), last.plot().pointX()));
+        assertEquals(37.0, angle, 0.225, "9 次迭代残差应 ≤ atan(2⁻⁸)，实际偏差 " + (angle - 37.0));
+        // 校正后应落回单位圆
+        double len = Math.hypot(last.plot().pointX(), last.plot().pointY());
+        assertEquals(1.0, len, 1e-9, "×K 后向量长度应恰为 1");
+    }
+
+    /** 行为：数独——终局每行/列/宫 1~9 不重不漏，题面数字保留。 */
+    @org.junit.jupiter.api.Test
+    void sudokuSolutionIsValid() {
+        var steps = new com.algoviz.engine.backtracking.SudokuDemo().produce().steps();
+        var grid = steps.get(steps.size() - 1).math().grids().get(0);
+        int[][] b = new int[9][9];
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                String v = grid.value(r, c);
+                b[r][c] = v.isEmpty() ? 0 : Integer.parseInt(v);
+                assertTrue2(b[r][c] > 0, "终局 (" + r + "," + c + ") 仍有空格——没解出");
+            }
+        }
+        java.util.Set<Integer> want = java.util.Set.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        for (int r = 0; r < 9; r++) {
+            assertEquals(want, java.util.Arrays.stream(b[r]).boxed().collect(java.util.stream.Collectors.toSet()),
+                    "第 " + r + " 行不是 1~9 排列");
+        }
+        for (int c = 0; c < 9; c++) {
+            java.util.Set<Integer> col = new java.util.HashSet<>();
+            for (int r = 0; r < 9; r++) col.add(b[r][c]);
+            assertEquals(want, col, "第 " + c + " 列不是 1~9 排列");
+        }
+        for (int br = 0; br < 3; br++) {
+            for (int bc = 0; bc < 3; bc++) {
+                java.util.Set<Integer> box = new java.util.HashSet<>();
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) box.add(b[br * 3 + i][bc * 3 + j]);
+                }
+                assertEquals(want, box, "宫 (" + br + "," + bc + ") 不是 1~9 排列");
+            }
+        }
+    }
+
+    /** 行为：A*——终点弹出且路径 ◎ 连成 S→G，步数 = h(S)=18 的可行最短长度。 */
+    @org.junit.jupiter.api.Test
+    void astarFindsPath() {
+        var steps = new com.algoviz.engine.graph.AStarDemo().produce().steps();
+        var grid = steps.get(steps.size() - 1).math().grids().get(0);
+        // 终局网格里应有 ◎ 路径
+        long pathCells = grid.values().stream().filter("◎"::equals).count();
+        assertTrue2(pathCells >= 15, "路径格太少：" + pathCells + "——路径没画出来");
+        // 事件流里应有"路径长"回溯事件
+        boolean hasPath = steps.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("路径长"));
+        assertTrue2(hasPath, "应有路径回溯事件");
+    }
+
+    /** 行为：分桶——发现 700 重复（两遍扫描后 dupNums=[700]）。 */
+    @org.junit.jupiter.api.Test
+    void bucketDetectsDuplicate() {
+        var steps = new com.algoviz.engine.math.BucketDemo().produce().steps();
+        boolean dup = steps.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("700") && e.detail().contains("重复"));
+        assertTrue2(dup, "应检测到 700 重复");
+        // 终局：4 桶 + 数据条 共 5 个网格
+        assertEquals(5, steps.get(steps.size() - 1).math().grids().size(), "data + 4 桶");
+    }
+
+    /** 行为：路径总和——5→3→4 = 12 命中，且三个节点保持 visited。 */
+    @org.junit.jupiter.api.Test
+    void pathSumFindsHit() {
+        var steps = new com.algoviz.engine.tree.PathSumDemo().produce().steps();
+        boolean hit = steps.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("命中"));
+        assertTrue2(hit, "应出现命中事件（5+3+4=12）");
+        var tree = steps.get(steps.size() - 1).tree();
+        List<Integer> visited = tree.nodes().stream()
+                .filter(nb -> "visited".equals(nb.state()))
+                .map(com.algoviz.engine.ds.TreeView.TreeNodeBox::val)
+                .toList();
+        assertTrue2(visited.containsAll(List.of(5, 3, 4)), "命中路径 5,3,4 应保持高亮，实际 " + visited);
+    }
+
+    /** 行为：头插/尾插——头插终态 [3,2,1]，尾插终态 [1,2,3]。 */
+    @org.junit.jupiter.api.Test
+    void listBuildReversesWithHeadInsert() {
+        var steps = new com.algoviz.engine.list.ListBuildDemo().produce().steps();
+        // 找"头插完成"与"尾插完成"两步，校验链序
+        var headDone = steps.stream().filter(s -> s.events().stream()
+                .anyMatch(e -> e.detail() != null && e.detail().startsWith("头插完成"))).findFirst().orElseThrow();
+        var tailDone = steps.stream().filter(s -> s.events().stream()
+                .anyMatch(e -> e.detail() != null && e.detail().startsWith("尾插完成"))).findFirst().orElseThrow();
+        assertEquals(List.of(3, 2, 1), headDone.list().nodes().stream()
+                .map(com.algoviz.engine.ds.ListView.NodeBox::val).toList(), "头插 = 逆序");
+        assertEquals(List.of(1, 2, 3), tailDone.list().nodes().stream()
+                .map(com.algoviz.engine.ds.ListView.NodeBox::val).toList(), "尾插 = 保序");
+    }
+
+    /** 行为：删除节点——7 出链，其余保持连接。 */
+    @org.junit.jupiter.api.Test
+    void listDeleteBypassesTarget() {
+        var steps = new com.algoviz.engine.list.ListDeleteDemo().produce().steps();
+        var last = steps.get(steps.size() - 1);
+        var nodes = last.list().nodes();
+        var delNode = nodes.stream().filter(nb -> nb.val() == 7).findFirst().orElseThrow();
+        boolean referenced = nodes.stream()
+                .anyMatch(nb -> Integer.toString(4).equals(delNode.nodeId())
+                        ? false : delNode.nodeId().equals(nb.nextId()));
+        assertTrue2(!referenced, "被删节点不应再被指向");
+        // 改道验证：@3(2) 的 next 直指 @5(5)
+        var two = nodes.stream().filter(nb -> nb.val() == 2).findFirst().orElseThrow();
+        assertEquals("@5", two.nextId(), "2 的 next 应跳过 7 直指 5");
+        boolean swapped = steps.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.type() == com.algoviz.engine.VizEvent.EventType.SWAP);
+        assertTrue2(swapped, "应有改道事件");
+    }
+
+    /** 行为：双链表——镜像处处成立（A.next=B ⟺ B.prev=A），插入后 4↔7↔9↔2，删 9 后 4↔7↔2。 */
+    @org.junit.jupiter.api.Test
+    void doublyListKeepsMirrorInvariant() {
+        var steps = new com.algoviz.engine.list.DoublyListDemo().produce().steps();
+        for (Step s : steps) {
+            boolean midInsert = s.events().stream()
+                    .anyMatch(e -> e.detail() != null
+                            && (e.detail().contains("new.prev") || e.detail().contains("右邻.prev")));
+            if (midInsert) {
+                continue;   // 插入前两步刻意分步动箭——镜像补齐 ② 完成后才恢复
+            }
+            var nodes = s.list().nodes();
+            for (var nb : nodes) {
+                if (nb.nextId() != null) {
+                    var next = nodes.stream().filter(o -> o.nodeId().equals(nb.nextId())).findFirst().orElseThrow();
+                    assertEquals(nb.nodeId(), next.prevId(),
+                            "镜像破坏 @" + nb.nodeId() + " → " + nb.nextId() + " @step " + s.index());
+                }
+            }
+        }
+        var last = steps.get(steps.size() - 1).list().nodes();
+        List<Integer> seq = last.stream().map(com.algoviz.engine.ds.ListView.NodeBox::val).toList();
+        assertEquals(List.of(4, 7, 2), seq, "终态应为 4↔7↔2（9 已删，7 已插）");
+    }
+
+    /** 行为：哈希表——put 5 键撞 3 次，get(7) 走链 3 步命中。 */
+    @org.junit.jupiter.api.Test
+    void hashMapCollidesAndWalks() {
+        var steps = new com.algoviz.engine.math.HashMapDemo().produce().steps();
+        long collisions = steps.stream().flatMap(s -> s.events().stream())
+                .filter(e -> e.detail() != null && e.detail().contains("撞车！")).count();
+        assertEquals(3, collisions, "12/20 撞桶0，7/3/15 撞桶3 → 3 次撞车");
+        boolean hit = steps.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("走链第 3 步"));
+        assertTrue2(hit, "get(7) 应走链 3 步（链 15→3→7）");
+        var last = steps.get(steps.size() - 1).hash();
+        assertEquals(4, last.bucketCount());
+        assertEquals(5, last.nodes().size(), "5 个键全部入表");
+    }
+
+    /** 行为：Karatsuba——结果 = 7006652（与朴素乘一致）。 */
+    @org.junit.jupiter.api.Test
+    void karatsubaResultMatches() {
+        var steps = new com.algoviz.engine.math.KaratsubaDemo().produce().steps();
+        var last = steps.get(steps.size() - 1);
+        String detail = last.events().get(last.events().size() - 1).detail();
+        assertTrue2(detail.contains("7006652"), "1234×5678 = 7006652，实际：" + detail);
+        assertTrue2(detail.contains("7006652") && detail.contains("验算"), "应含验算对照");
+    }
+
+    /** 行为：SOLID/重构八连——每个 demo 都有「反例痛点」+「正例收益」两幕。 */
+    @org.junit.jupiter.api.Test
+    void solidAndRefactorNarrativesComplete() throws Exception {
+        Class<?>[] demos = {
+                com.algoviz.engine.pattern.SolidSrpDemo.class,
+                com.algoviz.engine.pattern.SolidOcpDemo.class,
+                com.algoviz.engine.pattern.SolidLspDemo.class,
+                com.algoviz.engine.pattern.SolidIspDemo.class,
+                com.algoviz.engine.pattern.SolidDipDemo.class,
+                com.algoviz.engine.pattern.RefactorExtractDemo.class,
+                com.algoviz.engine.pattern.RefactorParamDemo.class,
+                com.algoviz.engine.pattern.RefactorPolyDemo.class};
+        for (Class<?> c : demos) {
+            var alg = (com.algoviz.engine.Algorithm) c.getDeclaredConstructor().newInstance();
+            var steps = alg.produce().steps();
+            boolean pain = steps.stream().anyMatch(s ->
+                    s.events().stream().anyMatch(e -> e.detail() != null
+                            && (e.detail().contains("反例") || e.detail().contains("痛")))
+                    || s.intent().why().contains("反例") || s.intent().why().contains("痛"));
+            boolean gain = steps.get(steps.size() - 1).events().stream()
+                    .anyMatch(e -> e.type() == com.algoviz.engine.VizEvent.EventType.RETURN);
+            assertTrue2(pain, c.getSimpleName() + " 缺反例痛感事件");
+            assertTrue2(gain, c.getSimpleName() + " 收尾应是正例 RETURN");
+        }
+    }
+
+    /** 行为：B+ 树——数据全在叶子且叶链升序；4 次叶分裂 + 1 次内部分裂；children=keys+1。 */
+    @org.junit.jupiter.api.Test
+    void bplusTreeInvariantsHold() {
+        var steps = new com.algoviz.engine.tree.BPlusTreeDemo().produce().steps();
+        var last = steps.get(steps.size() - 1).btree();
+        // 叶链 = 全部数据，升序
+        java.util.Map<String, com.algoviz.engine.ds.BTreeView.BNode> byId = new java.util.HashMap<>();
+        last.nodes().forEach(nd -> byId.put(nd.nodeId(), nd));
+        List<Integer> data = new ArrayList<>();
+        for (String id : last.leafChainIds()) {
+            var nd = byId.get(id);
+            assertTrue2(nd.leaf(), "叶链上的必须是叶子: " + id);
+            data.addAll(nd.keys());
+        }
+        assertEquals(12, data.size(), "12 个键全部在叶子上");
+        for (int i = 1; i < data.size(); i++) {
+            assertTrue2(data.get(i - 1) < data.get(i), "叶链必须升序 @" + i);
+        }
+        // 分裂次数：SWAP 事件 = 叶/内部分裂，MARK_SORTED = 新根
+        long splits = steps.stream().flatMap(s -> s.events().stream())
+                .filter(e -> e.type() == com.algoviz.engine.VizEvent.EventType.SWAP).count();
+        assertEquals(5, splits, "4 次叶分裂（15/30/6/22）+ 1 次内部分裂（22）");
+        // 合约自检：终局（所有分裂完成）内部节点 children = keys+1
+        for (var nd : last.nodes()) {
+            if (!nd.leaf()) {
+                assertEquals(nd.keys().size() + 1, nd.childIds().size());
+            }
+        }
+    }
+
+    /** 行为：序列化——往返一致：终局树 7 节点，流 15 token（7 值 + 8 个 #）。 */
+    @org.junit.jupiter.api.Test
+    void treeSerializeRoundTrip() {
+        var steps = new com.algoviz.engine.tree.TreeSerializeDemo().produce().steps();
+        var serDone = steps.stream().filter(s -> s.events().stream()
+                .anyMatch(e -> e.detail() != null && e.detail().startsWith("序列化完成"))).findFirst().orElseThrow();
+        String stream = serDone.events().stream()
+                .filter(e -> e.detail().startsWith("序列化完成")).findFirst().orElseThrow().detail();
+        long hashes = stream.chars().filter(c -> c == '#').count();
+        assertEquals(8, hashes, "8 个 null 指针 → 8 个 '#'");
+
+        var last = steps.get(steps.size() - 1).tree();
+        assertEquals(7, last.nodes().size(), "重建后仍 7 节点");
+        // 重建树的前序 = 原树前序
+        List<Integer> preOrder = new ArrayList<>();
+        java.util.Map<String, com.algoviz.engine.ds.TreeView.TreeNodeBox> byId = new java.util.HashMap<>();
+        last.nodes().forEach(nb -> byId.put(nb.nodeId(), nb));
+        var stack = new java.util.ArrayDeque<com.algoviz.engine.ds.TreeView.TreeNodeBox>();
+        stack.push(byId.get(last.rootId()));
+        while (!stack.isEmpty()) {
+            var n = stack.pop();
+            preOrder.add(n.val());
+            if (n.rightId() != null) stack.push(byId.get(n.rightId()));
+            if (n.leftId() != null) stack.push(byId.get(n.leftId()));
+        }
+        assertEquals(List.of(5, 3, 1, 4, 8, 7, 9), preOrder, "重建树前序应与原树一致");
     }
 }

@@ -6,15 +6,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 /**
- * 渲染层之一：数学函数图像现场（math.plot 图层）。
- * 左半：单位圆 + 动点（橙）+ 半径线；右半：正在生长的 sin/cos 波。
- * 橙点 = 当前角度在圆上的位置，同步映射到右侧波的末端。
+ * 渲染层之一：数学函数图像现场（math.plot 图层，按 kind 分形态）。
+ * unitCircle：左半单位圆 + 动点，右半正在生长的 sin/cos 波。
+ * newton：全幅坐标图——曲线 + 当前切线 + 历代近似根收敛到零点。
+ * cordic：全幅——单位圆上的向量逐次旋转逼近目标角射线。
  */
 public final class PlotRenderer {
 
@@ -28,7 +27,16 @@ public final class PlotRenderer {
         PlotView pv = step.plot();
         double w = canvas.getWidth(), h = canvas.getHeight();
         g.setTextAlign(TextAlignment.CENTER);
+        switch (pv.kind() == null ? PlotView.UNIT_CIRCLE : pv.kind()) {
+            case PlotView.NEWTON -> drawNewton(g, w, h, pv);
+            case PlotView.CORDIC -> drawCordic(g, w, h, pv);
+            default -> drawUnitCircle(g, w, h, pv);
+        }
+    }
 
+    // ==================== kind = unitCircle（原单位圆→正弦波）====================
+
+    private static void drawUnitCircle(GraphicsContext g, double w, double h, PlotView pv) {
         // ===== 左半：单位圆 =====
         double circleCx = w * 0.22;
         double circleCy = h * 0.45;
@@ -121,6 +129,163 @@ public final class PlotRenderer {
             g.setFill(Color.web("#ea580c"));
             g.fillOval(lx - 5, ly - 5, 10, 10);
         }
+    }
+
+    // ==================== kind = newton（牛顿迭代）====================
+
+    private static void drawNewton(GraphicsContext g, double w, double h, PlotView pv) {
+        // 绘图区（留边给轴标签）
+        double x0 = w * 0.08, x1 = w * 0.95;
+        double y0 = h * 0.12, y1 = h * 0.90;
+        double dx = pv.xMax() - pv.xMin();
+        double dy = pv.yMax() - pv.yMin();
+
+        java.util.function.DoubleUnaryOperator sx =
+                x -> x0 + (x - pv.xMin()) / dx * (x1 - x0);
+        java.util.function.DoubleUnaryOperator sy =
+                y -> y1 - (y - pv.yMin()) / dy * (y1 - y0);
+
+        // 坐标轴：y=0 与 x=0（若在域内）
+        g.setStroke(Color.web("#9ca3af"));
+        g.setLineWidth(1);
+        if (pv.yMin() <= 0 && pv.yMax() >= 0) {
+            g.strokeLine(x0, sy.applyAsDouble(0), x1, sy.applyAsDouble(0));
+        }
+        if (pv.xMin() <= 0 && pv.xMax() >= 0) {
+            g.strokeLine(sx.applyAsDouble(0), y0, sx.applyAsDouble(0), y1);
+        }
+        // y 轴刻度
+        g.setFill(Color.web("#9ca3af"));
+        g.setFont(Font.font(10));
+        g.setTextAlign(TextAlignment.RIGHT);
+        g.fillText(fmt(pv.yMin()), x0 - 6, y1 + 4);
+        g.fillText(fmt(pv.yMax()), x0 - 6, y0 + 4);
+        if (pv.yMin() <= 0 && pv.yMax() >= 0) {
+            g.fillText("0", x0 - 6, sy.applyAsDouble(0) + 4);
+        }
+        g.setTextAlign(TextAlignment.CENTER);
+        g.fillText(fmt(pv.xMin()), x0, y1 + 16);
+        g.fillText(fmt(pv.xMax()), x1, y1 + 16);
+
+        // 曲线 y=f(x)（蓝）
+        if (pv.sineTrace().size() >= 2) {
+            g.setStroke(Color.web("#3b82f6"));
+            g.setLineWidth(2.5);
+            var pts = pv.sineTrace();
+            for (int i = 1; i < pts.size(); i++) {
+                g.strokeLine(sx.applyAsDouble(pts.get(i - 1).get(0)), sy.applyAsDouble(pts.get(i - 1).get(1)),
+                        sx.applyAsDouble(pts.get(i).get(0)), sy.applyAsDouble(pts.get(i).get(1)));
+            }
+        }
+
+        // 零点参考线（目标根 √2 附近竖虚线）
+        g.setStroke(Color.web("#d1d5db"));
+        g.setLineDashes(4, 4);
+        g.setLineWidth(1);
+        double root = pv.trace3().isEmpty() ? Double.NaN : pv.trace3().get(pv.trace3().size() - 1).get(0);
+        if (!Double.isNaN(root)) {
+            g.strokeLine(sx.applyAsDouble(root), y0, sx.applyAsDouble(root), y1);
+        }
+        g.setLineDashes();
+
+        // 历代近似根（灰点，画在 x 轴上）
+        g.setFill(Color.web("#9ca3af"));
+        for (List<Double> p : pv.trace3()) {
+            double mx = sx.applyAsDouble(p.get(0));
+            double my = sy.applyAsDouble(0);
+            g.fillOval(mx - 4, my - 4, 8, 8);
+        }
+
+        // 当前切线段（橙）
+        if (pv.cosineTrace().size() >= 2) {
+            g.setStroke(Color.web("#f59e0b"));
+            g.setLineWidth(2);
+            var t = pv.cosineTrace();
+            for (int i = 1; i < t.size(); i++) {
+                g.strokeLine(sx.applyAsDouble(t.get(i - 1).get(0)), sy.applyAsDouble(t.get(i - 1).get(1)),
+                        sx.applyAsDouble(t.get(i).get(0)), sy.applyAsDouble(t.get(i).get(1)));
+            }
+        }
+
+        // 当前切点（红）
+        double cx = sx.applyAsDouble(pv.pointX());
+        double cy = sy.applyAsDouble(pv.pointY());
+        g.setFill(Color.web("#ea580c"));
+        g.fillOval(cx - 6, cy - 6, 12, 12);
+        // 切点 → x 轴投影线
+        g.setStroke(Color.web("#ef4444"));
+        g.setLineWidth(1.2);
+        g.strokeLine(cx, cy, cx, sy.applyAsDouble(0));
+
+        // 注解（左上角逐行）
+        drawLabels(g, pv, x0 + 4, y0 - 4);
+    }
+
+    // ==================== kind = cordic（向量旋转逼近）====================
+
+    private static void drawCordic(GraphicsContext g, double w, double h, PlotView pv) {
+        double cx = w * 0.42, cy = h * 0.52;
+        // 向量长度会随伪旋转增长（最长 ~1.65），半径按 1.7 缩放
+        double r = Math.min(w * 0.36, h * 0.42) / 1.7;
+
+        // 单位圆（参考）
+        g.setStroke(Color.web("#6b7280"));
+        g.setLineWidth(1.5);
+        g.strokeOval(cx - r, cy - r, r * 2, r * 2);
+        // 十字轴
+        g.setStroke(Color.web("#e5e7eb"));
+        g.setLineWidth(1);
+        g.strokeLine(cx - r - 25, cy, cx + r + 25, cy);
+        g.strokeLine(cx, cy - r - 25, cx, cy + r + 25);
+
+        // 目标角射线（绿虚线）
+        double tx = cx + Math.cos(pv.angle()) * r * 1.35;
+        double ty = cy - Math.sin(pv.angle()) * r * 1.35;
+        g.setStroke(Color.web("#22c55e"));
+        g.setLineWidth(2);
+        g.setLineDashes(6, 4);
+        g.strokeLine(cx, cy, tx, ty);
+        g.setLineDashes();
+        g.setFill(Color.web("#16a34a"));
+        g.setFont(Font.font(11));
+        g.fillText(String.format("目标 %.2f°", Math.toDegrees(pv.angle())), tx + 8, ty - 6);
+
+        // 历代向量（灰，渐弱）
+        for (int i = 0; i < pv.trace3().size(); i++) {
+            List<Double> p = pv.trace3().get(i);
+            double alpha = 0.15 + 0.5 * (i + 1.0) / pv.trace3().size();
+            g.setStroke(Color.web("#9ca3af", alpha));
+            g.setLineWidth(1.2);
+            g.strokeLine(cx, cy, cx + p.get(0) * r, cy - p.get(1) * r);
+        }
+
+        // 当前向量（橙加粗）
+        double px = cx + pv.pointX() * r;
+        double py = cy - pv.pointY() * r;
+        g.setStroke(Color.web("#f59e0b"));
+        g.setLineWidth(3);
+        g.strokeLine(cx, cy, px, py);
+
+        // 当前端点（红点）
+        g.setFill(Color.web("#ea580c"));
+        g.fillOval(px - 6, py - 6, 12, 12);
+
+        drawLabels(g, pv, w * 0.80, h * 0.16);
+    }
+
+    // ==================== 公共 ====================
+
+    private static void drawLabels(GraphicsContext g, PlotView pv, double lx, double ly) {
+        g.setTextAlign(TextAlignment.LEFT);
+        g.setFont(Font.font(12));
+        for (int i = 0; i < pv.labels().size(); i++) {
+            g.setFill(i == 0 ? Color.web("#374151") : Color.web("#6b7280"));
+            g.fillText(pv.labels().get(i), lx, ly + i * 18);
+        }
+    }
+
+    private static String fmt(double v) {
+        return Math.abs(v) >= 10 ? String.valueOf((int) v) : String.format("%.1f", v);
     }
 
     private static void drawTrace(GraphicsContext g, List<List<Double>> trace,

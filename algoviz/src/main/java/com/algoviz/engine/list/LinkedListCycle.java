@@ -132,7 +132,7 @@ public final class LinkedListCycle implements Algorithm {
     private ListView snapshotList() {
         List<ListView.NodeBox> nodes = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            nodes.add(new ListView.NodeBox("@" + (i + 1), vals[i],
+            nodes.add(ListView.NodeBox.singly("@" + (i + 1), vals[i],
                     next[i] >= 0 ? "@" + (next[i] + 1) : null));
         }
         return new ListView("带环链表", "@1", Collections.unmodifiableList(nodes));

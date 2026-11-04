@@ -1,0 +1,270 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "refactor.poly",
+    "title": "重构·以多态取代条件",
+    "codeResource": "/code/RefactorPolyDemo.java",
+    "input": "switch×2 → 0",
+    "inputSize": 1
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "反例：会员类型是字符串 + switch——每加一种会员，方法就长一截"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "svc",
+              "label": "PriceService（switch）"
+            },
+            {
+              "id": "poly",
+              "label": "Vip/Svip/Normal.getPrice()"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getPrice(\"vip\") → case VIP: ×0.8",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "PriceService（switch）"
+          ],
+          "detail": "client → PriceService（switch）：getPrice(\"vip\") → case VIP: ×0.8"
+        }
+      ],
+      "intent": {
+        "why": "反例：会员类型是字符串 + switch——每加一种会员，方法就长一截",
+        "invariant": "同一个 switch 出现两次以上 = 类层次在敲门——把分支变子类"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "switch 裂殖 = 变化原因在扩散：类型一加，处处要改"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "svc",
+              "label": "PriceService（switch）"
+            },
+            {
+              "id": "poly",
+              "label": "Vip/Svip/Normal.getPrice()"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getPrice(\"vip\") → case VIP: ×0.8",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "第二个方法 getPoints(type) 又一份 switch——同样的分支在项目里裂殖"
+        }
+      ],
+      "intent": {
+        "why": "switch 裂殖 = 变化原因在扩散：类型一加，处处要改",
+        "invariant": "同一个 switch 出现两次以上 = 类层次在敲门——把分支变子类"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "正例：三种会员 = 三个子类，各自实现 getPrice()——分支逻辑就地安家"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "svc",
+              "label": "PriceService（switch）"
+            },
+            {
+              "id": "poly",
+              "label": "Vip/Svip/Normal.getPrice()"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getPrice(\"vip\") → case VIP: ×0.8",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "user.getPrice()：Vip×0.8 / Svip×0.6 / Normal×1.0（动态分派）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "Vip/Svip/Normal.getPrice()"
+          ],
+          "detail": "client → Vip/Svip/Normal.getPrice()：user.getPrice()：Vip×0.8 / Svip×0.6 / Normal×1.0（动态分派）"
+        }
+      ],
+      "intent": {
+        "why": "正例：三种会员 = 三个子类，各自实现 getPrice()——分支逻辑就地安家",
+        "invariant": "同一个 switch 出现两次以上 = 类层次在敲门——把分支变子类"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "什么时候**不该**重构：只有两三个分支且几乎不会新增——过度设计比 switch 更难受"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "svc",
+              "label": "PriceService（switch）"
+            },
+            {
+              "id": "poly",
+              "label": "Vip/Svip/Normal.getPrice()"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "getPrice(\"vip\") → case VIP: ×0.8",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "user.getPrice()：Vip×0.8 / Svip×0.6 / Normal×1.0（动态分派）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "新增 SVVip = 新增一个类——PriceService 与 getPoints 全部零修改"
+        }
+      ],
+      "intent": {
+        "why": "什么时候**不该**重构：只有两三个分支且几乎不会新增——过度设计比 switch 更难受",
+        "invariant": "同一个 switch 出现两次以上 = 类层次在敲门——把分支变子类"
+      }
+    }
+  ]
+}

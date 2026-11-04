@@ -39,7 +39,7 @@ public final class DiffHighlighter {
         return out;
     }
 
-    /** 链表 diff：哪些节点的 next 箭头变了（返回节点 id，如 "@2"）。 */
+    /** 链表 diff：哪些节点的 next/prev 箭头变了（返回节点 id，如 "@2"）。 */
     public static Set<String> changedArrows(ListView prev, ListView cur) {
         if (prev == null || cur == null || prev.nodes().size() != cur.nodes().size()) {
             return Set.of();
@@ -48,7 +48,9 @@ public final class DiffHighlighter {
         for (int i = 0; i < cur.nodes().size(); i++) {
             String oldNext = prev.nodes().get(i).nextId();
             String newNext = cur.nodes().get(i).nextId();
-            if (!Objects.equals(oldNext, newNext)) {
+            String oldPrev = prev.nodes().get(i).prevId();
+            String newPrev = cur.nodes().get(i).prevId();
+            if (!Objects.equals(oldNext, newNext) || !Objects.equals(oldPrev, newPrev)) {
                 out.add(cur.nodes().get(i).nodeId());
             }
         }

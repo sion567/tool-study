@@ -1,0 +1,14 @@
+# build artifacts (jpackage 镜像 ~160MB，绝不能进库)
+target/
+algoviz/target/
+*.exe
+*.msi
+*.dmg
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# logs
+*.log

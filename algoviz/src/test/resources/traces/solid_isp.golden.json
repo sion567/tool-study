@@ -1,0 +1,371 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "solid.isp",
+    "title": "SOLID·接口隔离 ISP",
+    "codeResource": "/code/SolidIspDemo.java",
+    "input": "1 胖接口 → 2 瘦接口",
+    "inputSize": 2
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "反例：一个接口管所有能力——人类员工和机器人被塞进同一张能力清单"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "worker",
+              "label": "Worker 胖接口"
+            },
+            {
+              "id": "robot",
+              "label": "Robot（被迫实现 eat()）"
+            },
+            {
+              "id": "split",
+              "label": "Workable / Eatable"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "robot.work()（Worker 接口：work + eat）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "Worker 胖接口"
+          ],
+          "detail": "client → Worker 胖接口：robot.work()（Worker 接口：work + eat）"
+        }
+      ],
+      "intent": {
+        "why": "反例：一个接口管所有能力——人类员工和机器人被塞进同一张能力清单",
+        "invariant": "接口 = 客户端视角的能力清单——为「用的人」切，不为「实现的人」合"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "被迫空实现 = 接口在设计上就错了，不是实现者的错"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "worker",
+              "label": "Worker 胖接口"
+            },
+            {
+              "id": "robot",
+              "label": "Robot（被迫实现 eat()）"
+            },
+            {
+              "id": "split",
+              "label": "Workable / Eatable"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "robot.work()（Worker 接口：work + eat）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "Robot 实现 eat() 只能抛异常或空着——接口在逼实现者撒谎"
+        }
+      ],
+      "intent": {
+        "why": "被迫空实现 = 接口在设计上就错了，不是实现者的错",
+        "invariant": "接口 = 客户端视角的能力清单——为「用的人」切，不为「实现的人」合"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "正例：按「谁在用」切接口——用人方只看到自己调的那几个方法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "worker",
+              "label": "Worker 胖接口"
+            },
+            {
+              "id": "robot",
+              "label": "Robot（被迫实现 eat()）"
+            },
+            {
+              "id": "split",
+              "label": "Workable / Eatable"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "robot.work()（Worker 接口：work + eat）",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "robot 只实现 Workable——清单上没有 eat",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "Workable / Eatable"
+          ],
+          "detail": "client → Workable / Eatable：robot 只实现 Workable——清单上没有 eat"
+        }
+      ],
+      "intent": {
+        "why": "正例：按「谁在用」切接口——用人方只看到自己调的那几个方法",
+        "invariant": "接口 = 客户端视角的能力清单——为「用的人」切，不为「实现的人」合"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "人类员工两个都实现，Robot 只实现一个——各取所需，无人被迫"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "worker",
+              "label": "Worker 胖接口"
+            },
+            {
+              "id": "robot",
+              "label": "Robot（被迫实现 eat()）"
+            },
+            {
+              "id": "split",
+              "label": "Workable / Eatable"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "robot.work()（Worker 接口：work + eat）",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "robot 只实现 Workable——清单上没有 eat",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "hiring.eat() 走 Eatable，与 Robot 无关",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "Workable / Eatable"
+          ],
+          "detail": "client → Workable / Eatable：hiring.eat() 走 Eatable，与 Robot 无关"
+        }
+      ],
+      "intent": {
+        "why": "人类员工两个都实现，Robot 只实现一个——各取所需，无人被迫",
+        "invariant": "接口 = 客户端视角的能力清单——为「用的人」切，不为「实现的人」合"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "ISP 与 SRP 的分工：SRP 拆类（实现侧），ISP 拆接口（使用侧）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "worker",
+              "label": "Worker 胖接口"
+            },
+            {
+              "id": "robot",
+              "label": "Robot（被迫实现 eat()）"
+            },
+            {
+              "id": "split",
+              "label": "Workable / Eatable"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "robot.work()（Worker 接口：work + eat）",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "robot 只实现 Workable——清单上没有 eat",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "hiring.eat() 走 Eatable，与 Robot 无关",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "接口从 1 个胖的变 2 个瘦的——依赖面随之瘦身"
+        }
+      ],
+      "intent": {
+        "why": "ISP 与 SRP 的分工：SRP 拆类（实现侧），ISP 拆接口（使用侧）",
+        "invariant": "接口 = 客户端视角的能力清单——为「用的人」切，不为「实现的人」合"
+      }
+    }
+  ]
+}

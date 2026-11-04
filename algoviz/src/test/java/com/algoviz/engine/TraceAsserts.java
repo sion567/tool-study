@@ -36,8 +36,9 @@ final class TraceAsserts {
             assertNotNull(s.intent(), "intent 缺失 @step " + s.index());
             assertFalse(s.intent().invariant().isBlank(), "不变量为空 @step " + s.index());
             assertTrue(s.array() != null || s.list() != null || s.tree() != null
-                            || s.graph() != null || s.seq() != null || s.math() != null
-                            || s.bitmap() != null || s.plot() != null,
+                            || s.graph() != null || s.hash() != null || s.btree() != null
+                            || s.seq() != null || s.math() != null || s.bitmap() != null
+                            || s.plot() != null,
                     "缺少 ds/seq/math 图层 @step " + s.index());
 
             ArrayView av = s.array();
@@ -72,6 +73,14 @@ final class TraceAsserts {
                     String heapNext = o.fields().get("next").display();
                     assertEquals(nb.nextId() == null ? "null" : nb.nextId(), heapNext,
                             "ds.list 与 mem.heap 的 next 不一致 @step " + s.index() + " " + nb.nodeId());
+                    if (nb.prevId() != null) {
+                        assertTrue(ids.contains(nb.prevId()),
+                                "prev 指向不存在的节点 @step " + s.index() + " " + nb.nodeId());
+                        assertTrue(o.fields().containsKey("prev"),
+                                "双链表节点堆里缺 prev 字段 @step " + s.index() + " " + nb.nodeId());
+                        assertEquals(nb.prevId(), o.fields().get("prev").display(),
+                                "ds.list 与 mem.heap 的 prev 不一致 @step " + s.index() + " " + nb.nodeId());
+                    }
                 }
             }
 
@@ -125,6 +134,52 @@ final class TraceAsserts {
                 if (gv.relaxFrom() != null) {
                     assertTrue(ids.contains(gv.relaxFrom()) && ids.contains(gv.relaxTo()),
                             "松弛边指向不存在的顶点 @step " + s.index());
+                }
+            }
+
+            com.algoviz.engine.ds.HashView hv = s.hash();
+            if (hv != null) {
+                assertTrue(hv.bucketCount() > 0, "桶数非法 @step " + s.index());
+                Set<String> hids = new HashSet<>();
+                for (com.algoviz.engine.ds.HashView.HashNode nd : hv.nodes()) {
+                    assertTrue(hids.add(nd.nodeId()), "链节点 id 重复 @step " + s.index());
+                    assertTrue(nd.bucket() >= 0 && nd.bucket() < hv.bucketCount(),
+                            "节点桶号越界 @step " + s.index() + " " + nd.nodeId());
+                }
+                for (com.algoviz.engine.ds.HashView.HashNode nd : hv.nodes()) {
+                    assertTrue(nd.nextId() == null
+                                    || hv.nodes().stream().anyMatch(o -> o.nodeId().equals(nd.nextId())),
+                            "next 指向不存在的链节点 @step " + s.index() + " " + nd.nodeId());
+                }
+            }
+
+            com.algoviz.engine.ds.BTreeView btv = s.btree();
+            if (btv != null) {
+                Set<String> bids = new HashSet<>();
+                for (com.algoviz.engine.ds.BTreeView.BNode nd : btv.nodes()) {
+                    assertTrue(bids.add(nd.nodeId()), "B+ 节点 id 重复 @step " + s.index());
+                    assertTrue(nd.keys().size() >= 0 && nd.keys().size() <= 4,
+                            "键数越界（阶 m=4：稳定 ≤3，插入后分裂前允许 4 的瞬间）@step "
+                                    + s.index() + " " + nd.nodeId());
+                    for (int i = 1; i < nd.keys().size(); i++) {
+                        assertTrue(nd.keys().get(i - 1) < nd.keys().get(i),
+                                "节点内键必须升序 @step " + s.index() + " " + nd.nodeId());
+                    }
+                    if (!nd.leaf()) {
+                        assertTrue(nd.childIds().size() == nd.keys().size()
+                                        || nd.childIds().size() == nd.keys().size() + 1,
+                                "内部节点 children ∈ {keys, keys+1}（分裂中间态）@step "
+                                        + s.index() + " " + nd.nodeId());
+                    } else {
+                        assertTrue(nd.childIds().isEmpty(), "叶子不应有孩子 @step " + s.index());
+                    }
+                }
+                for (com.algoviz.engine.ds.BTreeView.BNode nd : btv.nodes()) {
+                    for (String c : nd.childIds()) {
+                        assertTrue(bids.contains(c), "孩子指向不存在节点 @step " + s.index());
+                    }
+                    assertTrue(nd.nextId() == null || bids.contains(nd.nextId()),
+                            "叶链 next 指向不存在节点 @step " + s.index());
                 }
             }
 

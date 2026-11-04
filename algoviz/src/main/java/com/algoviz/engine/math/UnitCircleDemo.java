@@ -98,7 +98,7 @@ public final class UnitCircleDemo implements Algorithm {
         for (List<Double> p : sineTrace) sineCopy.add(List.copyOf(p));
         List<List<Double>> cosCopy = new ArrayList<>();
         for (List<Double> p : cosTrace) cosCopy.add(List.copyOf(p));
-        return new PlotView("单位圆→正弦波", angle,
+        return PlotView.unitCircle("单位圆→正弦波", angle,
                 Math.cos(angle), Math.sin(angle),
                 Collections.unmodifiableList(sineCopy),
                 Collections.unmodifiableList(cosCopy),

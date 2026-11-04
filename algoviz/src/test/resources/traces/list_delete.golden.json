@@ -1,0 +1,1675 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "list.delete",
+    "title": "删除节点",
+    "codeResource": "/code/ListDeleteDemo.java",
+    "input": "4,9,2,7,5",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "单链表只能向前看——删除要改的是前驱的 next，所以 prev 必须提前一站"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "目标值 7；prev = null，curr = @1"
+        }
+      ],
+      "intent": {
+        "why": "单链表只能向前看——删除要改的是前驱的 next，所以 prev 必须提前一站",
+        "invariant": "删除 = 前驱跳过目标：prev.next ← curr.next——单链表回不去，prev 必须提前站好位"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "没命中——prev 和 curr 各前移一站"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr=@1 val=4 ≠ 7"
+        }
+      ],
+      "intent": {
+        "why": "没命中——prev 和 curr 各前移一站",
+        "invariant": "删除 = 前驱跳过目标：prev.next ← curr.next——单链表回不去，prev 必须提前站好位"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "双指针同步走——这就是单链表删除比双链表多出来的仪式感"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prev",
+            "curr"
+          ],
+          "detail": "prev ← @1，curr ← @2"
+        }
+      ],
+      "intent": {
+        "why": "双指针同步走——这就是单链表删除比双链表多出来的仪式感",
+        "invariant": "删除 = 前驱跳过目标：prev.next ← curr.next——单链表回不去，prev 必须提前站好位"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "没命中——prev 和 curr 各前移一站"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr=@2 val=9 ≠ 7"
+        }
+      ],
+      "intent": {
+        "why": "没命中——prev 和 curr 各前移一站",
+        "invariant": "删除 = 前驱跳过目标：prev.next ← curr.next——单链表回不去，prev 必须提前站好位"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "双指针同步走——这就是单链表删除比双链表多出来的仪式感"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prev",
+            "curr"
+          ],
+          "detail": "prev ← @2，curr ← @3"
+        }
+      ],
+      "intent": {
+        "why": "双指针同步走——这就是单链表删除比双链表多出来的仪式感",
+        "invariant": "删除 = 前驱跳过目标：prev.next ← curr.next——单链表回不去，prev 必须提前站好位"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "没命中——prev 和 curr 各前移一站"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr=@3 val=2 ≠ 7"
+        }
+      ],
+      "intent": {
+        "why": "没命中——prev 和 curr 各前移一站",
+        "invariant": "删除 = 前驱跳过目标：prev.next ← curr.next——单链表回不去，prev 必须提前站好位"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "双指针同步走——这就是单链表删除比双链表多出来的仪式感"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prev",
+            "curr"
+          ],
+          "detail": "prev ← @3，curr ← @4"
+        }
+      ],
+      "intent": {
+        "why": "双指针同步走——这就是单链表删除比双链表多出来的仪式感",
+        "invariant": "删除 = 前驱跳过目标：prev.next ← curr.next——单链表回不去，prev 必须提前站好位"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "找到目标——准备改道"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "curr"
+          ],
+          "detail": "curr=@4 命中 7"
+        }
+      ],
+      "intent": {
+        "why": "找到目标——准备改道",
+        "invariant": "删除 = 前驱跳过目标：prev.next ← curr.next——单链表回不去，prev 必须提前站好位"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "改道这一下就是删除的全部——被删盒子从此不在链上（等 GC）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "prev"
+          ],
+          "detail": "prev.next ← curr.next（@3 跳过 @4 直指 @5）"
+        }
+      ],
+      "intent": {
+        "why": "改道这一下就是删除的全部——被删盒子从此不在链上（等 GC）",
+        "invariant": "删除 = 前驱跳过目标：prev.next ← curr.next——单链表回不去，prev 必须提前站好位"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "链依然完整：删除只是绕过，其余节点的相对顺序纹丝不动"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "delete",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prev": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "curr": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "nextId": "@5"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7
+            },
+            {
+              "nodeId": "@5",
+              "val": 5
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "删除完成：4 → 9 → 2 → 5 → null"
+        }
+      ],
+      "intent": {
+        "why": "链依然完整：删除只是绕过，其余节点的相对顺序纹丝不动",
+        "invariant": "删除 = 前驱跳过目标：prev.next ← curr.next——单链表回不去，prev 必须提前站好位"
+      }
+    }
+  ]
+}

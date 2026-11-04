@@ -22,11 +22,13 @@ public final class DictationPanel extends VBox {
     private final TextArea referenceView = new TextArea();
     private final Label resultLabel = new Label();
     private final Button compareBtn = new Button("📝 对比");
+    private final Button behaviorBtn = new Button("▶ 行为判卷");
     private final Button showRefBtn = new Button("👁 看参考答案");
     private boolean showingRef;
 
     private String referenceCode = "";
     public Runnable onCompare;
+    public Runnable onBehaviorJudge;
 
     public DictationPanel() {
         setSpacing(6);
@@ -48,12 +50,16 @@ public final class DictationPanel extends VBox {
         referenceView.setPrefRowCount(12);
 
         compareBtn.setStyle("-fx-font-size:13px;");
+        behaviorBtn.setStyle("-fx-font-size:13px; -fx-font-weight:bold;");
+        behaviorBtn.setDisable(!JavaRunner.available());
         showRefBtn.setStyle("-fx-font-size:12px;");
+        HBox btns = new HBox(8, compareBtn, behaviorBtn, showRefBtn);
         resultLabel.setWrapText(true);
         resultLabel.setStyle("-fx-text-fill:#374151; -fx-font-size:12px; -fx-background-color:#fef3c7;"
                 + " -fx-padding:6; -fx-background-radius:4;");
 
         compareBtn.setOnAction(e -> { if (onCompare != null) onCompare.run(); });
+        behaviorBtn.setOnAction(e -> { if (onBehaviorJudge != null) onBehaviorJudge.run(); });
         showRefBtn.setOnAction(e -> {
             showingRef = !showingRef;
             referenceView.setVisible(showingRef);
@@ -61,7 +67,7 @@ public final class DictationPanel extends VBox {
             showRefBtn.setText(showingRef ? "🙈 收起参考" : "👁 看参考答案");
         });
 
-        getChildren().addAll(prompt, editor, compareBtn, showRefBtn, resultLabel, referenceView);
+        getChildren().addAll(prompt, editor, btns, resultLabel, referenceView);
     }
 
     public void setReferenceCode(String code) {
@@ -85,6 +91,7 @@ public final class DictationPanel extends VBox {
     }
 
     public Button getCompareBtn() { return compareBtn; }
+    public Button getBehaviorBtn() { return behaviorBtn; }
     public Button getShowRefBtn() { return showRefBtn; }
     public TextArea getEditor() { return editor; }
     public TextArea getReferenceView() { return referenceView; }

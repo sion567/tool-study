@@ -1,0 +1,2310 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.cordic",
+    "title": "CORDIC 算法",
+    "codeResource": "/code/CordicDemo.java",
+    "input": "目标角 37°",
+    "inputSize": 9
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "CORDIC：只有加法和移位——把任意角拆成一串固定微角的加减"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.000000"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.000000"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "+37.000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.0000, 0.0000)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "37.0000°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.0,
+          "pointY": 0.0,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "|残差| = 37.0000°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "目标角 37°，向量从 (1,0) 出发，残差 z = 37°"
+        }
+      ],
+      "intent": {
+        "why": "CORDIC：只有加法和移位——把任意角拆成一串固定微角的加减",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "残差符号决定旋转方向：z>0 就加 atan(2^-0)=45.000° 的反向旋转"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.000000"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.000000"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "+37.000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-0)=45.000°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.0000, 0.0000)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "37.0000°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.0,
+          "pointY": 0.0,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 0 步 ±45.000°",
+            "|残差| = 37.0000°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "z = +37.00° → d = +1 顺时针逼近"
+        }
+      ],
+      "intent": {
+        "why": "残差符号决定旋转方向：z>0 就加 atan(2^-0)=45.000° 的反向旋转",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.000000"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "1.000000"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "-8.000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-0)=45.000°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.0000, 1.0000)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "8.0000°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.0,
+          "pointY": 1.0,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 0 步 ±45.000°",
+            "|残差| = 8.0000°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "旋转后角度 = +45.000°（残差 -8.000°）"
+        }
+      ],
+      "intent": {
+        "why": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "残差符号决定旋转方向：z>0 就加 atan(2^-1)=26.565° 的反向旋转"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.000000"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "1.000000"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "-8.000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-1)=26.565°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.0000, 1.0000)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "8.0000°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.0,
+          "pointY": 1.0,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 1 步 ±26.565°",
+            "|残差| = 8.0000°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "z = -8.00° → d = −1 逆时针回退"
+        }
+      ],
+      "intent": {
+        "why": "残差符号决定旋转方向：z>0 就加 atan(2^-1)=26.565° 的反向旋转",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.500000"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.500000"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "+18.565"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-1)=26.565°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.5000, 0.5000)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "18.5651°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.5,
+          "pointY": 0.5,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 1 步 ±26.565°",
+            "|残差| = 18.5651°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "旋转后角度 = +18.435°（残差 +18.565°）"
+        }
+      ],
+      "intent": {
+        "why": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "残差符号决定旋转方向：z>0 就加 atan(2^-2)=14.036° 的反向旋转"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.500000"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.500000"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "+18.565"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-2)=14.036°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.5000, 0.5000)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "18.5651°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.5,
+          "pointY": 0.5,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 2 步 ±14.036°",
+            "|残差| = 18.5651°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "z = +18.57° → d = +1 顺时针逼近"
+        }
+      ],
+      "intent": {
+        "why": "残差符号决定旋转方向：z>0 就加 atan(2^-2)=14.036° 的反向旋转",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.375000"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.875000"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "+4.529"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-2)=14.036°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3750, 0.8750)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "4.5288°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.375,
+          "pointY": 0.875,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 2 步 ±14.036°",
+            "|残差| = 4.5288°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "旋转后角度 = +32.471°（残差 +4.529°）"
+        }
+      ],
+      "intent": {
+        "why": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "残差符号决定旋转方向：z>0 就加 atan(2^-3)=7.125° 的反向旋转"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.375000"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.875000"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "+4.529"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-3)=7.125°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3750, 0.8750)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "4.5288°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.375,
+          "pointY": 0.875,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 3 步 ±7.125°",
+            "|残差| = 4.5288°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "z = +4.53° → d = +1 顺时针逼近"
+        }
+      ],
+      "intent": {
+        "why": "残差符号决定旋转方向：z>0 就加 atan(2^-3)=7.125° 的反向旋转",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.265625"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "1.046875"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "-2.596"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-3)=7.125°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.2656, 1.0469)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "2.5962°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.265625,
+          "pointY": 1.046875,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 3 步 ±7.125°",
+            "|残差| = 2.5962°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "旋转后角度 = +39.596°（残差 -2.596°）"
+        }
+      ],
+      "intent": {
+        "why": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "残差符号决定旋转方向：z>0 就加 atan(2^-4)=3.576° 的反向旋转"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.265625"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "1.046875"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "-2.596"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-4)=3.576°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.2656, 1.0469)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "2.5962°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.265625,
+          "pointY": 1.046875,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 4 步 ±3.576°",
+            "|残差| = 2.5962°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "z = -2.60° → d = −1 逆时针回退"
+        }
+      ],
+      "intent": {
+        "why": "残差符号决定旋转方向：z>0 就加 atan(2^-4)=3.576° 的反向旋转",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.331055"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.967773"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "+0.980"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-4)=3.576°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3311, 0.9678)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "0.9801°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.3310546875,
+          "pointY": 0.9677734375,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ],
+            [
+              1.3310546875,
+              0.9677734375
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 4 步 ±3.576°",
+            "|残差| = 0.9801°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "旋转后角度 = +36.020°（残差 +0.980°）"
+        }
+      ],
+      "intent": {
+        "why": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "残差符号决定旋转方向：z>0 就加 atan(2^-5)=1.790° 的反向旋转"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.331055"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.967773"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "+0.980"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-5)=1.790°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3311, 0.9678)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "0.9801°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.3310546875,
+          "pointY": 0.9677734375,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ],
+            [
+              1.3310546875,
+              0.9677734375
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 5 步 ±1.790°",
+            "|残差| = 0.9801°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "z = +0.98° → d = +1 顺时针逼近"
+        }
+      ],
+      "intent": {
+        "why": "残差符号决定旋转方向：z>0 就加 atan(2^-5)=1.790° 的反向旋转",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.300812"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "1.009369"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "-0.810"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-5)=1.790°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3008, 1.0094)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "0.8098°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.300811767578125,
+          "pointY": 1.009368896484375,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ],
+            [
+              1.3310546875,
+              0.9677734375
+            ],
+            [
+              1.300811767578125,
+              1.009368896484375
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 5 步 ±1.790°",
+            "|残差| = 0.8098°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "旋转后角度 = +37.810°（残差 -0.810°）"
+        }
+      ],
+      "intent": {
+        "why": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "残差符号决定旋转方向：z>0 就加 atan(2^-6)=0.895° 的反向旋转"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.300812"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "1.009369"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "-0.810"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-6)=0.895°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3008, 1.0094)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "0.8098°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.300811767578125,
+          "pointY": 1.009368896484375,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ],
+            [
+              1.3310546875,
+              0.9677734375
+            ],
+            [
+              1.300811767578125,
+              1.009368896484375
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 6 步 ±0.895°",
+            "|残差| = 0.8098°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "z = -0.81° → d = −1 逆时针回退"
+        }
+      ],
+      "intent": {
+        "why": "残差符号决定旋转方向：z>0 就加 atan(2^-6)=0.895° 的反向旋转",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.316583"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.989044"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "+0.085"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-6)=0.895°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3166, 0.9890)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "0.0854°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.3165831565856934,
+          "pointY": 0.9890437126159668,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ],
+            [
+              1.3310546875,
+              0.9677734375
+            ],
+            [
+              1.300811767578125,
+              1.009368896484375
+            ],
+            [
+              1.3165831565856934,
+              0.9890437126159668
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 6 步 ±0.895°",
+            "|残差| = 0.0854°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "旋转后角度 = +36.915°（残差 +0.085°）"
+        }
+      ],
+      "intent": {
+        "why": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "残差符号决定旋转方向：z>0 就加 atan(2^-7)=0.448° 的反向旋转"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.316583"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.989044"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "+0.085"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-7)=0.448°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3166, 0.9890)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "0.0854°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.3165831565856934,
+          "pointY": 0.9890437126159668,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ],
+            [
+              1.3310546875,
+              0.9677734375
+            ],
+            [
+              1.300811767578125,
+              1.009368896484375
+            ],
+            [
+              1.3165831565856934,
+              0.9890437126159668
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 7 步 ±0.448°",
+            "|残差| = 0.0854°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "z = +0.09° → d = +1 顺时针逼近"
+        }
+      ],
+      "intent": {
+        "why": "残差符号决定旋转方向：z>0 就加 atan(2^-7)=0.448° 的反向旋转",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.308856"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.999330"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "-0.362"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-7)=0.448°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3089, 0.9993)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "0.3622°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.3088562525808811,
+          "pointY": 0.9993295185267925,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ],
+            [
+              1.3310546875,
+              0.9677734375
+            ],
+            [
+              1.300811767578125,
+              1.009368896484375
+            ],
+            [
+              1.3165831565856934,
+              0.9890437126159668
+            ],
+            [
+              1.3088562525808811,
+              0.9993295185267925
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 7 步 ±0.448°",
+            "|残差| = 0.3622°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "旋转后角度 = +37.362°（残差 -0.362°）"
+        }
+      ],
+      "intent": {
+        "why": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "残差符号决定旋转方向：z>0 就加 atan(2^-8)=0.224° 的反向旋转"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.308856"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.999330"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "-0.362"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-8)=0.224°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3089, 0.9993)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "0.3622°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.3088562525808811,
+          "pointY": 0.9993295185267925,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ],
+            [
+              1.3310546875,
+              0.9677734375
+            ],
+            [
+              1.300811767578125,
+              1.009368896484375
+            ],
+            [
+              1.3165831565856934,
+              0.9890437126159668
+            ],
+            [
+              1.3088562525808811,
+              0.9993295185267925
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 8 步 ±0.224°",
+            "|残差| = 0.3622°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "z = -0.36° → d = −1 逆时针回退"
+        }
+      ],
+      "intent": {
+        "why": "残差符号决定旋转方向：z>0 就加 atan(2^-8)=0.224° 的反向旋转",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "1.312760"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.994217"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "-0.138"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-8)=0.224°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(1.3128, 0.9942)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "0.1384°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 1.3127598835126264,
+          "pointY": 0.9942167987901485,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ],
+            [
+              1.3310546875,
+              0.9677734375
+            ],
+            [
+              1.300811767578125,
+              1.009368896484375
+            ],
+            [
+              1.3165831565856934,
+              0.9890437126159668
+            ],
+            [
+              1.3088562525808811,
+              0.9993295185267925
+            ],
+            [
+              1.3127598835126264,
+              0.9942167987901485
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 8 步 ±0.224°",
+            "|残差| = 0.1384°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "旋转后角度 = +37.138°（残差 -0.138°）"
+        }
+      ],
+      "intent": {
+        "why": "x ← x − d·y·2⁻ⁱ，y ← y + d·x·2⁻ⁱ：乘 2⁻ⁱ 就是二进制移位，没有真乘法",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "伪旋转把向量拉长了 1/K 倍——收尾统一乘 K=0.60725 归一，9 次迭代只用了加减和移位"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "cordic",
+              "locals": {
+                "x": {
+                  "kind": "PRIM",
+                  "text": "0.797179"
+                },
+                "y": {
+                  "kind": "PRIM",
+                  "text": "0.603743"
+                },
+                "z(°)": {
+                  "kind": "PRIM",
+                  "text": "-0.138"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "CordicState",
+                "fields": {
+                  "迭代 i": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "本步微角": {
+                    "kind": "PRIM",
+                    "text": "atan(2^-8)=0.224°"
+                  },
+                  "当前向量": {
+                    "kind": "PRIM",
+                    "text": "(0.7972, 0.6037)"
+                  },
+                  "|z|": {
+                    "kind": "PRIM",
+                    "text": "0.1384°"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.plot": {
+          "kind": "cordic",
+          "name": "CORDIC 向量旋转",
+          "angle": 0.6457718232379019,
+          "pointX": 0.7971793195511352,
+          "pointY": 0.6037426044929985,
+          "xMin": -1.0,
+          "xMax": 1.0,
+          "yMin": -1.0,
+          "yMax": 1.0,
+          "sineTrace": [],
+          "cosineTrace": [],
+          "trace3": [
+            [
+              1.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ],
+            [
+              1.5,
+              0.5
+            ],
+            [
+              1.375,
+              0.875
+            ],
+            [
+              1.265625,
+              1.046875
+            ],
+            [
+              1.3310546875,
+              0.9677734375
+            ],
+            [
+              1.300811767578125,
+              1.009368896484375
+            ],
+            [
+              1.3165831565856934,
+              0.9890437126159668
+            ],
+            [
+              1.3088562525808811,
+              0.9993295185267925
+            ],
+            [
+              0.7971793195511352,
+              0.6037426044929985
+            ]
+          ],
+          "labels": [
+            "CORDIC 旋转模式（目标 37°）",
+            "微角表: atan(2⁻ⁱ)",
+            "第 8 步 ±0.224°",
+            "|残差| = 0.1384°"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "×K 后 x=cos(37°)=0.797179（真值 0.798636），y=sin(37°)=0.603743（真值 0.601815）"
+        }
+      ],
+      "intent": {
+        "why": "伪旋转把向量拉长了 1/K 倍——收尾统一乘 K=0.60725 归一，9 次迭代只用了加减和移位",
+        "invariant": "每步 ±atan(2^-i) 微旋转，d = sign(z)：残差 |z| 单调缩到 0 → 向量方向逼近目标角"
+      }
+    }
+  ]
+}

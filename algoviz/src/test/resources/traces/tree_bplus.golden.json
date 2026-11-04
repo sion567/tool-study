@@ -1,0 +1,6134 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "tree.bplus",
+    "title": "B+ 树插入",
+    "codeResource": "/code/BPlusTreeDemo.java",
+    "input": "10,20,5,15,25,30,8,35,6,12,18,22",
+    "inputSize": 12
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "B+ 树满 3 键才分裂——矮胖树 = 磁盘少读几层，这就是它当数据库索引的原因"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [],
+              "childIds": [],
+              "leaf": true,
+              "state": "visited"
+            }
+          ],
+          "leafChainIds": [
+            "@1"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "空树：一个叶子根（阶 m=4，每节点 ≤3 键）"
+        }
+      ],
+      "intent": {
+        "why": "B+ 树满 3 键才分裂——矮胖树 = 磁盘少读几层，这就是它当数据库索引的原因",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[10]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack",
+              "activeKey": 10
+            }
+          ],
+          "leafChainIds": [
+            "@1"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "叶子L1 ← 10（插入后 [10] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[10, 20]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                10,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack",
+              "activeKey": 20
+            }
+          ],
+          "leafChainIds": [
+            "@1"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "叶子L1 ← 20（插入后 [10, 20] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10, 20]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack",
+              "activeKey": 5
+            }
+          ],
+          "leafChainIds": [
+            "@1"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "叶子L1 ← 5（插入后 [5, 10, 20] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10, 15, 20]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10,
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack",
+              "activeKey": 15
+            }
+          ],
+          "leafChainIds": [
+            "@1"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "叶子L1 ← 15（插入后 [5, 10, 15, 20] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "分裂 = 满载才发生——B+ 树永远至少半满，树不会一边倒"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack",
+              "activeKey": 15
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@1"
+          ],
+          "detail": "叶子满 → 分裂：L1 保留 [5, 10]，新叶L2 拿走 [15, 20]"
+        }
+      ],
+      "intent": {
+        "why": "分裂 = 满载才发生——B+ 树永远至少半满，树不会一边倒",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "与 B 树的区别：上浮的是**副本**——数据仍完整躺在叶子，叶链照样扫得到"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack",
+              "activeKey": 15
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [
+            "@2"
+          ],
+          "detail": "复制 15 上浮给父节点（叶子里的真身不走）"
+        }
+      ],
+      "intent": {
+        "why": "与 B 树的区别：上浮的是**副本**——数据仍完整躺在叶子，叶链照样扫得到",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "树高的唯一增长方式：根分裂——所有叶子同步下沉一层，永远等高"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack",
+              "activeKey": 15
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "fresh"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15
+              ],
+              "childIds": [
+                "@1",
+                "@2"
+              ],
+              "leaf": false,
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "没有父节点 → 新根I3 ← 15（树长高一层）"
+        }
+      ],
+      "intent": {
+        "why": "树高的唯一增长方式：根分裂——所有叶子同步下沉一层，永远等高",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15
+              ],
+              "childIds": [
+                "@1",
+                "@2"
+              ],
+              "leaf": false,
+              "state": "onstack"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@3"
+          ],
+          "detail": "25 ≥ 全部路标 [15] → 走最右子树"
+        }
+      ],
+      "intent": {
+        "why": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20, 25]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20,
+                25
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack",
+              "activeKey": 25
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15
+              ],
+              "childIds": [
+                "@1",
+                "@2"
+              ],
+              "leaf": false,
+              "state": "visited"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "叶子L2 ← 25（插入后 [15, 20, 25] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20, 25]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20,
+                25
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15
+              ],
+              "childIds": [
+                "@1",
+                "@2"
+              ],
+              "leaf": false,
+              "state": "onstack"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@3"
+          ],
+          "detail": "30 ≥ 全部路标 [15] → 走最右子树"
+        }
+      ],
+      "intent": {
+        "why": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20, 25, 30]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20,
+                25,
+                30
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack",
+              "activeKey": 30
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15
+              ],
+              "childIds": [
+                "@1",
+                "@2"
+              ],
+              "leaf": false,
+              "state": "visited"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "叶子L2 ← 30（插入后 [15, 20, 25, 30] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "分裂 = 满载才发生——B+ 树永远至少半满，树不会一边倒"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack",
+              "activeKey": 30
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15
+              ],
+              "childIds": [
+                "@1",
+                "@2"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@2"
+          ],
+          "detail": "叶子满 → 分裂：L2 保留 [15, 20]，新叶L4 拿走 [25, 30]"
+        }
+      ],
+      "intent": {
+        "why": "分裂 = 满载才发生——B+ 树永远至少半满，树不会一边倒",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "与 B 树的区别：上浮的是**副本**——数据仍完整躺在叶子，叶链照样扫得到"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack",
+              "activeKey": 30
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15
+              ],
+              "childIds": [
+                "@1",
+                "@2"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [
+            "@4"
+          ],
+          "detail": "复制 25 上浮给父节点（叶子里的真身不走）"
+        }
+      ],
+      "intent": {
+        "why": "与 B 树的区别：上浮的是**副本**——数据仍完整躺在叶子，叶链照样扫得到",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "路标插进父节点——父子指针对齐（children = keys+1）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack",
+              "activeKey": 30
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3"
+          ],
+          "detail": "I3 ← 路标 25（现 [15, 25]）"
+        }
+      ],
+      "intent": {
+        "why": "路标插进父节点——父子指针对齐（children = keys+1）",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "visited"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@3"
+          ],
+          "detail": "8 < 15 → 走第 1 棵子树"
+        }
+      ],
+      "intent": {
+        "why": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 8, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                8,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack",
+              "activeKey": 8
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "visited"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "叶子L1 ← 8（插入后 [5, 8, 10] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 8, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                8,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "visited"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@3"
+          ],
+          "detail": "35 ≥ 全部路标 [15, 25] → 走最右子树"
+        }
+      ],
+      "intent": {
+        "why": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 8, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                8,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack",
+              "activeKey": 35
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "叶子L4 ← 35（插入后 [25, 30, 35] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 8, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                8,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@3"
+          ],
+          "detail": "6 < 15 → 走第 1 棵子树"
+        }
+      ],
+      "intent": {
+        "why": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6, 8, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6,
+                8,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack",
+              "activeKey": 6
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "叶子L1 ← 6（插入后 [5, 6, 8, 10] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "分裂 = 满载才发生——B+ 树永远至少半满，树不会一边倒"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@5",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack",
+              "activeKey": 6
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@1"
+          ],
+          "detail": "叶子满 → 分裂：L1 保留 [5, 6]，新叶L5 拿走 [8, 10]"
+        }
+      ],
+      "intent": {
+        "why": "分裂 = 满载才发生——B+ 树永远至少半满，树不会一边倒",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "与 B 树的区别：上浮的是**副本**——数据仍完整躺在叶子，叶链照样扫得到"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@5",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack",
+              "activeKey": 6
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [
+            "@5"
+          ],
+          "detail": "复制 8 上浮给父节点（叶子里的真身不走）"
+        }
+      ],
+      "intent": {
+        "why": "与 B 树的区别：上浮的是**副本**——数据仍完整躺在叶子，叶链照样扫得到",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "路标插进父节点——父子指针对齐（children = keys+1）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack",
+              "activeKey": 6
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3"
+          ],
+          "detail": "I3 ← 路标 8（现 [8, 15, 25]）"
+        }
+      ],
+      "intent": {
+        "why": "路标插进父节点——父子指针对齐（children = keys+1）",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "visited"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@3"
+          ],
+          "detail": "12 < 15 → 走第 2 棵子树"
+        }
+      ],
+      "intent": {
+        "why": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack",
+              "activeKey": 12
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@5"
+          ],
+          "detail": "叶子L5 ← 12（插入后 [8, 10, 12] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@3"
+          ],
+          "detail": "18 < 25 → 走第 3 棵子树"
+        }
+      ],
+      "intent": {
+        "why": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 27,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 18, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                18,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack",
+              "activeKey": 18
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "叶子L2 ← 18（插入后 [15, 18, 20] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 28,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 18, 20]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                18,
+                20
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "@3"
+          ],
+          "detail": "22 < 25 → 走第 3 棵子树"
+        }
+      ],
+      "intent": {
+        "why": "内部节点 = 路标：k 比路标小就往左拐——二分/线性都比磁盘读便宜",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 29,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "数据只进叶子——插入后键数 <3 就收工"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 18, 20, 22]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                18,
+                20,
+                22
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "onstack",
+              "activeKey": 22
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "叶子L2 ← 22（插入后 [15, 18, 20, 22] 键）"
+        }
+      ],
+      "intent": {
+        "why": "数据只进叶子——插入后键数 <3 就收工",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 30,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "分裂 = 满载才发生——B+ 树永远至少半满，树不会一边倒"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 18]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L6"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "L6",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[20, 22]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@6",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                18
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@6",
+              "state": "onstack",
+              "activeKey": 22
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "keys": [
+                20,
+                22
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@6",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@2"
+          ],
+          "detail": "叶子满 → 分裂：L2 保留 [15, 18]，新叶L6 拿走 [20, 22]"
+        }
+      ],
+      "intent": {
+        "why": "分裂 = 满载才发生——B+ 树永远至少半满，树不会一边倒",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 31,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "与 B 树的区别：上浮的是**副本**——数据仍完整躺在叶子，叶链照样扫得到"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 18]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L6"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "L6",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[20, 22]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@6",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                18
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@6",
+              "state": "onstack",
+              "activeKey": 22
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "keys": [
+                20,
+                22
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@6",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [
+            "@6"
+          ],
+          "detail": "复制 20 上浮给父节点（叶子里的真身不走）"
+        }
+      ],
+      "intent": {
+        "why": "与 B 树的区别：上浮的是**副本**——数据仍完整躺在叶子，叶链照样扫得到",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 32,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "内部也装不下 → 继续向上分裂"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 18]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L6"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15, 20, 25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2, L6, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "L6",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[20, 22]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                18
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@6",
+              "state": "onstack",
+              "activeKey": 22
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15,
+                20,
+                25
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2",
+                "@6",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "keys": [
+                20,
+                22
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@6",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@3"
+          ],
+          "detail": "内部节点满 → 分裂：I3 [8, 15, 20, 25]"
+        }
+      ],
+      "intent": {
+        "why": "内部也装不下 → 继续向上分裂",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 33,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "内部节点只是路标，路标上浮就搬家——和数据无关"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 18]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L6"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "L6",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[20, 22]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "I7",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L6, L4]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@7",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                18
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@6",
+              "state": "onstack",
+              "activeKey": 22
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "keys": [
+                20,
+                22
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "fresh"
+            },
+            {
+              "nodeId": "@7",
+              "keys": [
+                25
+              ],
+              "childIds": [
+                "@6",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@6",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [
+            "@7"
+          ],
+          "detail": "中位 20 **搬**上浮（内部节点不留副本）"
+        }
+      ],
+      "intent": {
+        "why": "内部节点只是路标，路标上浮就搬家——和数据无关",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 34,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "树高的唯一增长方式：根分裂——所有叶子同步下沉一层，永远等高"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 18]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L6"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "L6",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[20, 22]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "I7",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L6, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "I8",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[20]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[I3, I7]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@8",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                18
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@6",
+              "state": "onstack",
+              "activeKey": 22
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "keys": [
+                20,
+                22
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "fresh"
+            },
+            {
+              "nodeId": "@7",
+              "keys": [
+                25
+              ],
+              "childIds": [
+                "@6",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "fresh"
+            },
+            {
+              "nodeId": "@8",
+              "keys": [
+                20
+              ],
+              "childIds": [
+                "@3",
+                "@7"
+              ],
+              "leaf": false,
+              "state": "fresh"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@6",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "没有父节点 → 新根I8 ← 20（树长高一层）"
+        }
+      ],
+      "intent": {
+        "why": "树高的唯一增长方式：根分裂——所有叶子同步下沉一层，永远等高",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    },
+    {
+      "index": 35,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "范围查询 = 根下探一次 + 叶链横扫——SQL 的 WHERE id BETWEEN 走的就是这条"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bplusInsert",
+              "locals": {
+                "树高": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "叶数": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "L1",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[5, 6]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L5"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "L2",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[15, 18]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L6"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "I3",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 15]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L1, L5, L2]"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "L4",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25, 30, 35]"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "L5",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[8, 10, 12]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L2"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "L6",
+                "type": "Leaf",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[20, 22]"
+                  },
+                  "next": {
+                    "kind": "PRIM",
+                    "text": "L4"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "I7",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[25]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[L6, L4]"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "I8",
+                "type": "Internal",
+                "fields": {
+                  "keys": {
+                    "kind": "PRIM",
+                    "text": "[20]"
+                  },
+                  "children": {
+                    "kind": "PRIM",
+                    "text": "[I3, I7]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.btree": {
+          "name": "B+ 树（m=4）",
+          "rootId": "@8",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "keys": [
+                5,
+                6
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "keys": [
+                15,
+                18
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@6",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "keys": [
+                8,
+                15
+              ],
+              "childIds": [
+                "@1",
+                "@5",
+                "@2"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@4",
+              "keys": [
+                25,
+                30,
+                35
+              ],
+              "childIds": [],
+              "leaf": true,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "keys": [
+                8,
+                10,
+                12
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@2",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "keys": [
+                20,
+                22
+              ],
+              "childIds": [],
+              "leaf": true,
+              "nextId": "@4",
+              "state": "visited"
+            },
+            {
+              "nodeId": "@7",
+              "keys": [
+                25
+              ],
+              "childIds": [
+                "@6",
+                "@4"
+              ],
+              "leaf": false,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@8",
+              "keys": [
+                20
+              ],
+              "childIds": [
+                "@3",
+                "@7"
+              ],
+              "leaf": false,
+              "state": "visited"
+            }
+          ],
+          "leafChainIds": [
+            "@1",
+            "@5",
+            "@2",
+            "@6",
+            "@4"
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "12 键就位：5 个叶子串成链，树高 3 层"
+        }
+      ],
+      "intent": {
+        "why": "范围查询 = 根下探一次 + 叶链横扫——SQL 的 WHERE id BETWEEN 走的就是这条",
+        "invariant": "数据全在叶子、叶链有序；内部节点只是路标——查范围 = 根下探 + 叶链横扫，这就是数据库索引"
+      }
+    }
+  ]
+}

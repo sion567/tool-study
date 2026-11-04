@@ -1,0 +1,1385 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "list.build",
+    "title": "头插法 / 尾插法建表",
+    "codeResource": "/code/ListBuildDemo.java",
+    "input": "1,2,3",
+    "inputSize": 3
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "头插法：新节点永远抢 head 的位置——结果正好是逆序"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "头插法",
+              "locals": {
+                "head": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "newNode": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "ds.list": {
+          "name": "头插法",
+          "nodes": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "head = null，准备头插 {1,2,3}"
+        }
+      ],
+      "intent": {
+        "why": "头插法：新节点永远抢 head 的位置——结果正好是逆序",
+        "invariant": "头插两步序：newNode.next ← head，再 head ← newNode——顺序反了链就断"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "第一步：新节点先牵住旧链头——这一步之前旧链完好"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "头插法",
+              "locals": {
+                "head": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "newNode": {
+                  "kind": "PRIM",
+                  "text": "newNode(1) → @1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "头插法",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "newNode.next ← head（null）"
+        }
+      ],
+      "intent": {
+        "why": "第一步：新节点先牵住旧链头——这一步之前旧链完好",
+        "invariant": "头插两步序：newNode.next ← head，再 head ← newNode——顺序反了链就断"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "第二步：head 指向新节点——新节点成为链头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "头插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "newNode": {
+                  "kind": "PRIM",
+                  "text": "newNode(1) → @1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "头插法",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "head ← @1（1 抢占链头）"
+        }
+      ],
+      "intent": {
+        "why": "第二步：head 指向新节点——新节点成为链头",
+        "invariant": "头插两步序：newNode.next ← head，再 head ← newNode——顺序反了链就断"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "第一步：新节点先牵住旧链头——这一步之前旧链完好"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "头插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "newNode": {
+                  "kind": "PRIM",
+                  "text": "newNode(2) → @2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "头插法",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@1",
+              "val": 1
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "newNode.next ← head（@1）"
+        }
+      ],
+      "intent": {
+        "why": "第一步：新节点先牵住旧链头——这一步之前旧链完好",
+        "invariant": "头插两步序：newNode.next ← head，再 head ← newNode——顺序反了链就断"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "第二步：head 指向新节点——新节点成为链头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "头插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "newNode": {
+                  "kind": "PRIM",
+                  "text": "newNode(2) → @2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "头插法",
+          "headId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@1",
+              "val": 1
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "head ← @2（2 抢占链头）"
+        }
+      ],
+      "intent": {
+        "why": "第二步：head 指向新节点——新节点成为链头",
+        "invariant": "头插两步序：newNode.next ← head，再 head ← newNode——顺序反了链就断"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "第一步：新节点先牵住旧链头——这一步之前旧链完好"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "头插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "newNode": {
+                  "kind": "PRIM",
+                  "text": "newNode(3) → @3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "头插法",
+          "headId": "@2",
+          "nodes": [
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@1",
+              "val": 1
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "newNode.next ← head（@2）"
+        }
+      ],
+      "intent": {
+        "why": "第一步：新节点先牵住旧链头——这一步之前旧链完好",
+        "invariant": "头插两步序：newNode.next ← head，再 head ← newNode——顺序反了链就断"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "第二步：head 指向新节点——新节点成为链头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "头插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "newNode": {
+                  "kind": "PRIM",
+                  "text": "newNode(3) → @3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "头插法",
+          "headId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@1",
+              "val": 1
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "head ← @3（3 抢占链头）"
+        }
+      ],
+      "intent": {
+        "why": "第二步：head 指向新节点——新节点成为链头",
+        "invariant": "头插两步序：newNode.next ← head，再 head ← newNode——顺序反了链就断"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "逆序的来源：越晚插的越靠前——头插法天生会反转"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "头插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "newNode": {
+                  "kind": "PRIM",
+                  "text": "newNode(3) → @3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "头插法",
+          "headId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@1",
+              "val": 1
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "头插完成：3 → 2 → 1 → null——与输入顺序相反"
+        }
+      ],
+      "intent": {
+        "why": "逆序的来源：越晚插的越靠前——头插法天生会反转",
+        "invariant": "头插两步序：newNode.next ← head，再 head ← newNode——顺序反了链就断"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "尾插法：新节点接到 tail 后面——结果保持输入顺序"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "尾插法",
+              "locals": {
+                "head": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "tail": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "ds.list": {
+          "name": "尾插法",
+          "nodes": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "推倒重来：head = tail = null，尾插 {1,2,3}"
+        }
+      ],
+      "intent": {
+        "why": "尾插法：新节点接到 tail 后面——结果保持输入顺序",
+        "invariant": "尾插两步序：tail.next ← newNode，再 tail ← newNode——tail 永远指最后一个"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "第一个节点：head 和 tail 都指向它"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "尾插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "tail": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "尾插法",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "空表：head = tail = @1（1）"
+        }
+      ],
+      "intent": {
+        "why": "第一个节点：head 和 tail 都指向它",
+        "invariant": "尾插两步序：tail.next ← newNode，再 tail ← newNode——tail 永远指最后一个"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "第一步：tail 牵住新节点——接在链尾"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "尾插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "tail": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "尾插法",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "tail.next ← @2（2 排队入列）"
+        }
+      ],
+      "intent": {
+        "why": "第一步：tail 牵住新节点——接在链尾",
+        "invariant": "尾插两步序：tail.next ← newNode，再 tail ← newNode——tail 永远指最后一个"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "第二步：tail 前移到新节点——永远指最后一个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "尾插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "tail": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "尾插法",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "tail ← @2（tail 挪到新队尾）"
+        }
+      ],
+      "intent": {
+        "why": "第二步：tail 前移到新节点——永远指最后一个",
+        "invariant": "尾插两步序：tail.next ← newNode，再 tail ← newNode——tail 永远指最后一个"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "第一步：tail 牵住新节点——接在链尾"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "尾插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "tail": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "尾插法",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "tail.next ← @3（3 排队入列）"
+        }
+      ],
+      "intent": {
+        "why": "第一步：tail 牵住新节点——接在链尾",
+        "invariant": "尾插两步序：tail.next ← newNode，再 tail ← newNode——tail 永远指最后一个"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "第二步：tail 前移到新节点——永远指最后一个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "尾插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "tail": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "尾插法",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "tail ← @3（tail 挪到新队尾）"
+        }
+      ],
+      "intent": {
+        "why": "第二步：tail 前移到新节点——永远指最后一个",
+        "invariant": "尾插两步序：tail.next ← newNode，再 tail ← newNode——tail 永远指最后一个"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "保序的来源：排队入列——尾插法 = 建队列，头插法 = 建栈"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "尾插法",
+              "locals": {
+                "head": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "tail": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "尾插法",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "nextId": "@3"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "尾插完成：1 → 2 → 3 → null——与输入同序"
+        }
+      ],
+      "intent": {
+        "why": "保序的来源：排队入列——尾插法 = 建队列，头插法 = 建栈",
+        "invariant": "尾插两步序：tail.next ← newNode，再 tail ← newNode——tail 永远指最后一个"
+      }
+    }
+  ]
+}

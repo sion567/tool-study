@@ -1,0 +1,1223 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "list.doubly",
+    "title": "双链表插入 / 删除",
+    "codeResource": "/code/DoublyListDemo.java",
+    "input": "4,9,2",
+    "inputSize": 3
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "双链表建表 = 单链尾插 + 每步多写一根 prev"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "建表（尾插）",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "ds.list": {
+          "name": "建表（尾插）",
+          "nodes": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "head = tail = null"
+        }
+      ],
+      "intent": {
+        "why": "双链表建表 = 单链尾插 + 每步多写一根 prev",
+        "invariant": "prev 与 next 互为镜像：A.next=B ⟺ B.prev=A——插入改 4 根箭，删除改 2 根，漏一根链就断"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "新节点入列：prev 指旧尾，旧尾的 next 指回来——镜像当场成立"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "建表（尾插）",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "prev": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "建表（尾插）",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "@1(4)：prev ← null，右邻.next ← @1"
+        }
+      ],
+      "intent": {
+        "why": "新节点入列：prev 指旧尾，旧尾的 next 指回来——镜像当场成立",
+        "invariant": "prev 与 next 互为镜像：A.next=B ⟺ B.prev=A——插入改 4 根箭，删除改 2 根，漏一根链就断"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "新节点入列：prev 指旧尾，旧尾的 next 指回来——镜像当场成立"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "建表（尾插）",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "prev": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "建表（尾插）",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "prevId": "@1"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "@2(9)：prev ← @1，右邻.next ← @2"
+        }
+      ],
+      "intent": {
+        "why": "新节点入列：prev 指旧尾，旧尾的 next 指回来——镜像当场成立",
+        "invariant": "prev 与 next 互为镜像：A.next=B ⟺ B.prev=A——插入改 4 根箭，删除改 2 根，漏一根链就断"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "新节点入列：prev 指旧尾，旧尾的 next 指回来——镜像当场成立"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "建表（尾插）",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "prev": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "建表（尾插）",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3",
+              "prevId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "prevId": "@2"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3"
+          ],
+          "detail": "@3(2)：prev ← @2，右邻.next ← @3"
+        }
+      ],
+      "intent": {
+        "why": "新节点入列：prev 指旧尾，旧尾的 next 指回来——镜像当场成立",
+        "invariant": "prev 与 next 互为镜像：A.next=B ⟺ B.prev=A——插入改 4 根箭，删除改 2 根，漏一根链就断"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "插入前两步只动新节点自己的两根箭——此刻链还是原样"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "插入 7",
+              "locals": {
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "prev": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "插入 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3",
+              "prevId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@3",
+              "prevId": "@2"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "prevId": "@2"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [
+            "@2"
+          ],
+          "detail": "newNode=7：new.prev ← @2，new.next ← @3"
+        }
+      ],
+      "intent": {
+        "why": "插入前两步只动新节点自己的两根箭——此刻链还是原样",
+        "invariant": "prev 与 next 互为镜像：A.next=B ⟺ B.prev=A——插入改 4 根箭，删除改 2 根，漏一根链就断"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "右邻居回头指新节点——漏了这根，反向遍历就会跳过 7"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "插入 7",
+              "locals": {
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "prev": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "插入 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@3",
+              "prevId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@3",
+              "prevId": "@2"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "prevId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@3"
+          ],
+          "detail": "右邻.prev ← @4（镜像补齐 ①）"
+        }
+      ],
+      "intent": {
+        "why": "右邻居回头指新节点——漏了这根，反向遍历就会跳过 7",
+        "invariant": "prev 与 next 互为镜像：A.next=B ⟺ B.prev=A——插入改 4 根箭，删除改 2 根，漏一根链就断"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "四根箭齐：prev/next 镜像恢复——双链表插入的固定成本"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "插入 7",
+              "locals": {
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "prev": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "插入 7",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@4",
+              "prevId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@3",
+              "prevId": "@2"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "prevId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "左邻.next ← @4（镜像补齐 ②）——插入完成"
+        }
+      ],
+      "intent": {
+        "why": "四根箭齐：prev/next 镜像恢复——双链表插入的固定成本",
+        "invariant": "prev 与 next 互为镜像：A.next=B ⟺ B.prev=A——插入改 4 根箭，删除改 2 根，漏一根链就断"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "双链表删已知节点不用找前驱——del.prev 现成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "删除 9",
+              "locals": {
+                "curr": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "del": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "prev": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 9",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@2",
+              "val": 9,
+              "nextId": "@4",
+              "prevId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@3",
+              "prevId": "@2"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "prevId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "命中 @2(9)：prev=@@1 next=@4"
+        }
+      ],
+      "intent": {
+        "why": "双链表删已知节点不用找前驱——del.prev 现成",
+        "invariant": "prev 与 next 互为镜像：A.next=B ⟺ B.prev=A——插入改 4 根箭，删除改 2 根，漏一根链就断"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "对比单链表：不用从头找 prev——这正是双向链表存在的意义"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "删除 9",
+              "locals": {
+                "curr": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "del": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "prev": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "删除 9",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@3",
+              "prevId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "prevId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [],
+          "detail": "p.next ← n，n.prev ← p——两根箭同时改道，9 出链"
+        }
+      ],
+      "intent": {
+        "why": "对比单链表：不用从头找 prev——这正是双向链表存在的意义",
+        "invariant": "prev 与 next 互为镜像：A.next=B ⟺ B.prev=A——插入改 4 根箭，删除改 2 根，漏一根链就断"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "检验镜像：从 head 正着走、从尾倒着走，序列必须一致"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "完成",
+              "locals": {
+                "curr": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "prev": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "dnode",
+                "type": "DNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "prev": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.list": {
+          "name": "完成",
+          "headId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 4,
+              "nextId": "@4"
+            },
+            {
+              "nodeId": "@4",
+              "val": 7,
+              "nextId": "@3",
+              "prevId": "@1"
+            },
+            {
+              "nodeId": "@3",
+              "val": 2,
+              "prevId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "终态：4 ↔ 7 ↔ 2（双向可遍历）"
+        }
+      ],
+      "intent": {
+        "why": "检验镜像：从 head 正着走、从尾倒着走，序列必须一致",
+        "invariant": "prev 与 next 互为镜像：A.next=B ⟺ B.prev=A——插入改 4 根箭，删除改 2 根，漏一根链就断"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2743 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "tree.pathsum",
+    "title": "路径总和",
+    "codeResource": "/code/PathSumDemo.java",
+    "input": "5,3,8,1,4,7,9",
+    "inputSize": 7
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "下传 sum+val——栈帧链就是根到这里的路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "pathSum(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {
+            "sum=5": "@1"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 @1(val=5)，sum ← 5"
+        }
+      ],
+      "intent": {
+        "why": "下传 sum+val——栈帧链就是根到这里的路径",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "下传 sum+val——栈帧链就是根到这里的路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "pathSum(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {
+            "sum=8": "@2"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 @2(val=3)，sum ← 8"
+        }
+      ],
+      "intent": {
+        "why": "下传 sum+val——栈帧链就是根到这里的路径",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "下传 sum+val——栈帧链就是根到这里的路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "pathSum(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@4)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "varTags": {
+            "sum=9": "@4"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 @4(val=1)，sum ← 9"
+        }
+      ],
+      "intent": {
+        "why": "下传 sum+val——栈帧链就是根到这里的路径",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "只有叶子才是完整路径——中途节点不判"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "pathSum(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@4)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "varTags": {
+            "sum=9": "@4"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "叶子 1：sum = 9 ≠ 12，此路不通"
+        }
+      ],
+      "intent": {
+        "why": "只有叶子才是完整路径——中途节点不判",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：弹出本节点，sum 减回父层值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "pathSum(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {
+            "sum=8": "@2"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return false —— 弹栈，sum 回退到 8"
+        }
+      ],
+      "intent": {
+        "why": "回溯：弹出本节点，sum 减回父层值",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "下传 sum+val——栈帧链就是根到这里的路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "pathSum(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@5)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@5"
+          ],
+          "varTags": {
+            "sum=12": "@5"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 @5(val=4)，sum ← 12"
+        }
+      ],
+      "intent": {
+        "why": "下传 sum+val——栈帧链就是根到这里的路径",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "根→叶路径和恰为目标——栈里那条链就是答案"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "pathSum(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@5)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@5"
+          ],
+          "varTags": {
+            "sum=12": "@5"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "叶子 4：sum = 12 = target ✓ 命中！"
+        }
+      ],
+      "intent": {
+        "why": "根→叶路径和恰为目标——栈里那条链就是答案",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：弹出本节点，sum 减回父层值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "pathSum(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "pathSum(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {
+            "sum=8": "@2"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return true —— 弹栈，sum 回退到 8"
+        }
+      ],
+      "intent": {
+        "why": "回溯：弹出本节点，sum 减回父层值",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "孩子命中则本节点也在路径上（keepVisited）——否则灰显回父层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "pathSum(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {
+            "sum=5": "@1"
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return true —— 左右都试完，弹栈"
+        }
+      ],
+      "intent": {
+        "why": "孩子命中则本节点也在路径上（keepVisited）——否则灰显回父层",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "孩子命中则本节点也在路径上（keepVisited）——否则灰显回父层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return true —— 左右都试完，弹栈"
+        }
+      ],
+      "intent": {
+        "why": "孩子命中则本节点也在路径上（keepVisited）——否则灰显回父层",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "所有分支试完——递归把整棵树走了一遍"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "pathSum",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "visited"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "visited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "visited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "存在根→叶路径和 = 12（栈里那条链就是路径）"
+        }
+      ],
+      "intent": {
+        "why": "所有分支试完——递归把整棵树走了一遍",
+        "invariant": "sum 恒等于根到当前节点的路径和——递归下传 sum+node.val，叶子处一比即知"
+      }
+    }
+  ]
+}

@@ -32,6 +32,8 @@ final class TreeEmitter {
     final List<Integer> callStack = new ArrayList<>();    // bottom→top，-1 = null 调用
     final Map<String, Integer> pointerTags = new LinkedHashMap<>(); // 画布指针标签：min/root…（-1 = 不画）
     final Map<Integer, String> perCallVals = new LinkedHashMap<>(); // 调用深度 → 该层的 val（如 delete 的目标值）
+    /** 注入栈顶 locals 的额外变量（如序列化流文本），每次 emit 前由生产者更新。 */
+    final Map<String, Value> injectLocals = new LinkedHashMap<>();
     final List<Step> steps = new ArrayList<>();
 
     private final String methodBase;
@@ -47,6 +49,18 @@ final class TreeEmitter {
         }
         this.state = new int[nodes.size()];
         this.visitOrder = new int[nodes.size()];
+    }
+
+    /** 清空树（序列化→反序列化的阶段切换）：节点、状态、栈、标签全部归零，steps 保留续用。 */
+    void resetForRebuild() {
+        nodes.clear();
+        state = new int[0];
+        visitOrder = new int[0];
+        callStack.clear();
+        pointerTags.clear();
+        perCallVals.clear();
+        rbMap.clear();
+        visitCounter = 0;
     }
 
     int newNode(int val) {
@@ -123,8 +137,17 @@ final class TreeEmitter {
                     locals.put(e.getKey(), Value.prim(e.getValue()));
                 }
             }
+            // 栈顶帧注入额外变量（序列化流等跨层状态）
+            if (d == callStack.size() - 1) {
+                locals.putAll(injectLocals);
+            }
             frames.add(new StackFrame(methodBase + "(" + refText(idx) + ")",
                     Collections.unmodifiableMap(locals), null));
+        }
+        // 空栈时也要有帧承载注入变量（如重建完成的收尾步）
+        if (frames.isEmpty() && !injectLocals.isEmpty()) {
+            frames.add(new StackFrame(methodBase + "()",
+                    Collections.unmodifiableMap(new LinkedHashMap<>(injectLocals)), null));
         }
         Map<String, Layer> layers = new LinkedHashMap<>();
         layers.put("mem.stack", new StackLayer(Collections.unmodifiableList(frames)));

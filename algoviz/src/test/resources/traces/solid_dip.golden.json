@@ -1,0 +1,371 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "solid.dip",
+    "title": "SOLID·依赖倒置 DIP",
+    "codeResource": "/code/SolidDipDemo.java",
+    "input": "new 1 处 → 注入 0 处",
+    "inputSize": 2
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "反例：高层业务亲手 new 低层细节——依赖箭头指向实现类"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "UserService（高层）"
+            },
+            {
+              "id": "mysql",
+              "label": "new MysqlConn()（反例）"
+            },
+            {
+              "id": "iface",
+              "label": "UserDao 接口"
+            },
+            {
+              "id": "pg",
+              "label": "PgConn / FakeConn（可注入）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save() → 内部 new MysqlConn()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "UserService（高层）",
+            "new MysqlConn()（反例）"
+          ],
+          "detail": "UserService（高层） → new MysqlConn()（反例）：save() → 内部 new MysqlConn()"
+        }
+      ],
+      "intent": {
+        "why": "反例：高层业务亲手 new 低层细节——依赖箭头指向实现类",
+        "invariant": "高层不碰低层，两头都碰接口——「策略」和「细节」谁也不焊死谁"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "业务代码焊死在 MySQL 上——测试都连真库"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "UserService（高层）"
+            },
+            {
+              "id": "mysql",
+              "label": "new MysqlConn()（反例）"
+            },
+            {
+              "id": "iface",
+              "label": "UserDao 接口"
+            },
+            {
+              "id": "pg",
+              "label": "PgConn / FakeConn（可注入）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save() → 内部 new MysqlConn()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "换 PostgreSQL / 上测试桩 → 都要改 UserService 本体"
+        }
+      ],
+      "intent": {
+        "why": "业务代码焊死在 MySQL 上——测试都连真库",
+        "invariant": "高层不碰低层，两头都碰接口——「策略」和「细节」谁也不焊死谁"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "正例：依赖箭头指向接口——UserService 的源码里再无 Mysql 字样"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "UserService（高层）"
+            },
+            {
+              "id": "mysql",
+              "label": "new MysqlConn()（反例）"
+            },
+            {
+              "id": "iface",
+              "label": "UserDao 接口"
+            },
+            {
+              "id": "pg",
+              "label": "PgConn / FakeConn（可注入）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save() → 内部 new MysqlConn()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "UserService 依赖 UserDao 接口（编译期）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "UserService（高层）",
+            "UserDao 接口"
+          ],
+          "detail": "UserService（高层） → UserDao 接口：UserService 依赖 UserDao 接口（编译期）"
+        }
+      ],
+      "intent": {
+        "why": "正例：依赖箭头指向接口——UserService 的源码里再无 Mysql 字样",
+        "invariant": "高层不碰低层，两头都碰接口——「策略」和「细节」谁也不焊死谁"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "细节从外面塞进来：生产注 PG、测试注内存桩——同一份业务代码"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "UserService（高层）"
+            },
+            {
+              "id": "mysql",
+              "label": "new MysqlConn()（反例）"
+            },
+            {
+              "id": "iface",
+              "label": "UserDao 接口"
+            },
+            {
+              "id": "pg",
+              "label": "PgConn / FakeConn（可注入）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save() → 内部 new MysqlConn()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "UserService 依赖 UserDao 接口（编译期）",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "构造器注入 PgConn / 测试桩 FakeConn（运行期）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "UserService（高层）",
+            "PgConn / FakeConn（可注入）"
+          ],
+          "detail": "UserService（高层） → PgConn / FakeConn（可注入）：构造器注入 PgConn / 测试桩 FakeConn（运行期）"
+        }
+      ],
+      "intent": {
+        "why": "细节从外面塞进来：生产注 PG、测试注内存桩——同一份业务代码",
+        "invariant": "高层不碰低层，两头都碰接口——「策略」和「细节」谁也不焊死谁"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "DIP 是 Spring 依赖注入的全部理论根基——先懂 DIP 再看框架都是明牌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "UserService（高层）"
+            },
+            {
+              "id": "mysql",
+              "label": "new MysqlConn()（反例）"
+            },
+            {
+              "id": "iface",
+              "label": "UserDao 接口"
+            },
+            {
+              "id": "pg",
+              "label": "PgConn / FakeConn（可注入）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "save() → 内部 new MysqlConn()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "UserService 依赖 UserDao 接口（编译期）",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "构造器注入 PgConn / 测试桩 FakeConn（运行期）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "依赖方向「倒置」了：细节反过来依赖抽象，而不是抽象依赖细节"
+        }
+      ],
+      "intent": {
+        "why": "DIP 是 Spring 依赖注入的全部理论根基——先懂 DIP 再看框架都是明牌",
+        "invariant": "高层不碰低层，两头都碰接口——「策略」和「细节」谁也不焊死谁"
+      }
+    }
+  ]
+}

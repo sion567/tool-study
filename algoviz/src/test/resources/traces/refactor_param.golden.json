@@ -1,0 +1,270 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "refactor.param",
+    "title": "重构·引入参数对象",
+    "codeResource": "/code/RefactorParamDemo.java",
+    "input": "5 参 → 1 对象",
+    "inputSize": 1
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "反例：五个参数结伴出行——调用方要背顺序，容易把 phone 和 age 传反（都是数字）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "svc",
+              "label": "UserService（5 参签名）"
+            },
+            {
+              "id": "obj",
+              "label": "UserInfo 参数对象"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "register(name, age, addr, phone, email)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "UserService（5 参签名）"
+          ],
+          "detail": "client → UserService（5 参签名）：register(name, age, addr, phone, email)"
+        }
+      ],
+      "intent": {
+        "why": "反例：五个参数结伴出行——调用方要背顺序，容易把 phone 和 age 传反（都是数字）",
+        "invariant": "总是一起传的参数 = 概念上是一个东西——打包它，签名就稳定了"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "签名是 API 契约：参数越多，契约越脆"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "svc",
+              "label": "UserService（5 参签名）"
+            },
+            {
+              "id": "obj",
+              "label": "UserInfo 参数对象"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "register(name, age, addr, phone, email)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "新增「微信号」字段 → 签名变 6 参 → 全项目调用点逐个改"
+        }
+      ],
+      "intent": {
+        "why": "签名是 API 契约：参数越多，契约越脆",
+        "invariant": "总是一起传的参数 = 概念上是一个东西——打包它，签名就稳定了"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "正例：结伴参数打包成 UserInfo——加字段只动对象内部，调用点不动"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "svc",
+              "label": "UserService（5 参签名）"
+            },
+            {
+              "id": "obj",
+              "label": "UserInfo 参数对象"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "register(name, age, addr, phone, email)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(UserInfo u)——签名从此不变",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "UserInfo 参数对象"
+          ],
+          "detail": "client → UserInfo 参数对象：register(UserInfo u)——签名从此不变"
+        }
+      ],
+      "intent": {
+        "why": "正例：结伴参数打包成 UserInfo——加字段只动对象内部，调用点不动",
+        "invariant": "总是一起传的参数 = 概念上是一个东西——打包它，签名就稳定了"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "延伸：参数超 3 个就闻一闻——里面是不是藏着一个没被命名的概念"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "svc",
+              "label": "UserService（5 参签名）"
+            },
+            {
+              "id": "obj",
+              "label": "UserInfo 参数对象"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "register(name, age, addr, phone, email)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(UserInfo u)——签名从此不变",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "编译器还顺带管住了「name 和 phone 传反」这类错——类型不对直接不过"
+        }
+      ],
+      "intent": {
+        "why": "延伸：参数超 3 个就闻一闻——里面是不是藏着一个没被命名的概念",
+        "invariant": "总是一起传的参数 = 概念上是一个东西——打包它，签名就稳定了"
+      }
+    }
+  ]
+}

@@ -11,6 +11,7 @@ import com.algoviz.ui.BitmapRenderer;
 import com.algoviz.ui.CodePanel;
 import com.algoviz.ui.ComplexityPanel;
 import com.algoviz.ui.DictationDiff;
+import com.algoviz.ui.DictationJudge;
 import com.algoviz.ui.DiffHighlighter;
 import com.algoviz.ui.NotesStore;
 import com.algoviz.ui.DictationPanel;
@@ -18,6 +19,8 @@ import com.algoviz.ui.DictationPanel;
 
 import com.algoviz.ui.GraphRenderer;
 import com.algoviz.ui.IntentBar;
+import com.algoviz.ui.BTreeRenderer;
+import com.algoviz.ui.HashRenderer;
 import com.algoviz.ui.ListRenderer;
 import com.algoviz.ui.MarkdownView;
 import com.algoviz.ui.MatrixRenderer;
@@ -83,10 +86,12 @@ public class MainApp extends Application {
     private PredictionPanel predictPanel;
     private DictationPanel dictationPanel;
     private Tab complexityTab;
+    private Tab compareTab;
     private VarsPanel varsPanel;
     private IntentBar intentBar;
     private Canvas canvas;
     private Slider slider;
+    private Slider dataNSlider;
     private Label stepLabel;
     private Button playBtn;
 
@@ -145,6 +150,7 @@ public class MainApp extends Application {
         predictTab.setClosable(false);
         dictationPanel = new DictationPanel();
         dictationPanel.onCompare = this::onDictationCompare;
+        dictationPanel.onBehaviorJudge = this::onDictationBehavior;
         Tab dictationTab = new Tab("📝 默写", dictationPanel);
         dictationTab.setClosable(false);
 
@@ -157,7 +163,15 @@ public class MainApp extends Application {
                 ComplexityPanel.draw(canvas, 50);
             }
         });
-        TabPane tabs = new TabPane(codeTab, docTab, predictTab, dictationTab, complexityTab);
+        compareTab = new Tab("⚖ 对比", buildCompareContent());
+        compareTab.setClosable(false);
+        compareTab.setOnSelectionChanged(e -> {
+            if (compareTab.isSelected()) {
+                stopPlayback();
+                ComplexityPanel.drawEmpirical(canvas, 50);
+            }
+        });
+        TabPane tabs = new TabPane(codeTab, docTab, predictTab, dictationTab, complexityTab, compareTab);
         tabs.setPrefWidth(500);
 
         // 底：意图栏 + 控制栏 + 现场面板
@@ -267,6 +281,24 @@ public class MainApp extends Application {
             }
         });
 
+        // 数据量滑杆：n = 5..12，松手才触发（valueChanging 防止连发）
+        Label nLabel = new Label("n=8");
+        nLabel.setStyle("-fx-font-size:11px; -fx-text-fill:#6b7280;");
+        Slider nSlider = new Slider(5, 12, 8);
+        nSlider.setPrefWidth(120);
+        nSlider.setMajorTickUnit(1);
+        nSlider.setSnapToTicks(true);
+        nSlider.setShowTickMarks(true);
+        nSlider.valueChangingProperty().addListener((o, ov, nv) -> {
+            if (!nv) {
+                regenerateWithN((int) nSlider.getValue());
+            }
+        });
+        nSlider.valueProperty().addListener((o, ov, nv) -> nLabel.setText("n=" + nv.intValue()));
+        nLabel.setGraphic(nSlider);
+        nLabel.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
+        dataNSlider = nSlider;
+
         first.setOnAction(e -> playback.go(0));
         prev.setOnAction(e -> playback.prev());
         next.setOnAction(e -> playback.next());
@@ -278,7 +310,7 @@ public class MainApp extends Application {
         slider.valueProperty().addListener((o, ov, nv) -> playback.go((int) Math.round(nv.doubleValue())));
 
         stepLabel = new Label("0 / 0");
-        HBox bar = new HBox(8, first, prev, playBtn, next, last, randBtn, themeBtn, slider, stepLabel);
+        HBox bar = new HBox(8, first, prev, playBtn, next, last, randBtn, nLabel, themeBtn, slider, stepLabel);
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setPadding(new Insets(4, 0, 4, 0));
         return bar;
@@ -350,6 +382,10 @@ public class MainApp extends Application {
                     prev == null ? null : prev.tree(), cur == null ? null : cur.tree());
             Set<String> changedGraphNodes = DiffHighlighter.changedGraphNodes(
                     prev == null ? null : prev.graph(), cur == null ? null : cur.graph());
+            Set<String> changedHashArrows = HashRenderer.changedArrows(
+                    prev == null ? null : prev.hash(), cur == null ? null : cur.hash());
+            Set<String> changedBTree = BTreeRenderer.changedNodes(
+                    prev == null ? null : prev.btree(), cur == null ? null : cur.btree());
             Set<String> changedSeq = DiffHighlighter.changedSeqParticipants(
                     prev == null ? null : prev.seq(), cur == null ? null : cur.seq());
             Set<String> changedMatrix = DiffHighlighter.changedMatrixCells(
@@ -365,8 +401,12 @@ public class MainApp extends Application {
                 ListRenderer.draw(canvas, cur, pickedNow, changedArrows);
             } else if (cur != null && cur.tree() != null) {
                 TreeRenderer.draw(canvas, cur, pickedNow, changedTreeNodes, changedTreeEdges);
+            } else if (cur != null && cur.btree() != null) {
+                BTreeRenderer.draw(canvas, cur, pickedNow, changedBTree);
             } else if (cur != null && cur.graph() != null) {
                 GraphRenderer.draw(canvas, cur, pickedNow, changedGraphNodes);
+            } else if (cur != null && cur.hash() != null) {
+                HashRenderer.draw(canvas, cur, pickedNow, changedHashArrows);
             } else if (cur != null && cur.seq() != null) {
                 SequenceRenderer.draw(canvas, cur, pickedNow, changedSeq);
             } else if (cur != null && cur.math() != null && cur.bitmap() == null) {
@@ -393,6 +433,19 @@ public class MainApp extends Application {
         }
     }
 
+    /** ⚖ 对比 Tab：六种排序在同一批数据上的实测步数曲线。 */
+    private javafx.scene.layout.VBox buildCompareContent() {
+        Label title = new Label("实测对比：同一批数据，六种排序各跑一遍");
+        title.setStyle("-fx-font-size:15px; -fx-font-weight:bold; -fx-text-fill:#111;");
+        Label desc = new Label("纵轴 = 步数（trace 长度），横轴 = n。固定种子随机数据，六个算法吃完全相同的输入。"
+                + "看冒泡（红）与快排（绿）的裂口随 n 拉大——公式里的 O(n²) vs O(n log n) 落到实数上就是这样。");
+        desc.setWrapText(true);
+        desc.setStyle("-fx-text-fill:#374151; -fx-font-size:12px;");
+        var box = new javafx.scene.layout.VBox(8, title, desc);
+        box.setPadding(new Insets(10));
+        return box;
+    }
+
     /** 复杂度 Tab 内容：说明文本 + 体感表。 */
     private javafx.scene.layout.VBox buildComplexityContent() {
         Label title = new Label("复杂度可视化");
@@ -407,6 +460,17 @@ public class MainApp extends Application {
         var box = new javafx.scene.layout.VBox(8, title, desc, table);
         box.setPadding(new Insets(10));
         return box;
+    }
+
+    /** 数据量滑杆：按 n 重新生成当前算法（支持随机变体的才生效）。 */
+    private void regenerateWithN(int n) {
+        if (currentAlgorithm == null) {
+            return;
+        }
+        Algorithm fresh = AlgorithmRegistry.randomVariant(currentAlgorithm, n);
+        if (fresh != null) {
+            load(fresh);
+        }
     }
 
     private void load(Algorithm alg) {
@@ -450,6 +514,10 @@ public class MainApp extends Application {
             idx = TreeRenderer.hitIndex(canvas, cur, x, y);
         } else if (cur.graph() != null) {
             idx = GraphRenderer.hitIndex(canvas, cur, x, y);
+        } else if (cur.hash() != null) {
+            idx = HashRenderer.hitIndex(canvas, cur, x, y);
+        } else if (cur.btree() != null) {
+            idx = BTreeRenderer.hitIndex(canvas, cur, x, y);
         } else if (cur.seq() != null) {
             idx = SequenceRenderer.hitIndex(canvas, cur, x, y);
         } else if (cur.math() != null) {
@@ -490,19 +558,22 @@ public class MainApp extends Application {
                 boolean listMode = cur != null && cur.list() != null;
                 boolean treeMode = cur != null && cur.tree() != null;
                 boolean graphMode = cur != null && cur.graph() != null;
+                boolean hashMode = cur != null && cur.hash() != null;
+                boolean btreeMode = cur != null && cur.btree() != null;
                 boolean seqMode = cur != null && cur.seq() != null;
                 boolean mathMode = cur != null && cur.math() != null && cur.bitmap() == null;
                 boolean bitmapMode = cur != null && cur.bitmap() != null;
                 String target = bitmapMode ? "BitSet 上哪些格子会翻转？（点格子）"
                         : mathMode ? "C 的哪个格子会写数？（点 C 矩阵的格子）"
                         : seqMode ? "下一条消息会经过哪些泳道？（点泳道头选择）"
-                        : graphMode || treeMode ? "哪些节点会变？（点节点选择）"
+                        : graphMode || treeMode || hashMode || btreeMode ? "哪些节点会变？（点节点选择）"
                         : listMode ? "哪些节点的 next 箭头会变？（点盒子选择）"
                         : "哪些数组格子会变？（点柱子选择）";
                 String noneCase = bitmapMode ? "没有格子翻转"
                         : mathMode ? "本步没有格子写数"
                         : seqMode ? "没有消息要发"
                         : graphMode ? "没有节点变化" : treeMode ? "没有任何节点变化"
+                        : hashMode ? "链没动" : btreeMode ? "树纹丝不动" 
                         : listMode ? "一根箭头都不断" : "数组不变";
                 predictPanel.setQuestion("第 " + (idx + 1) + " 步 → 第 " + (idx + 2) + " 步：" + target
                         + "\n全不选 = 预测「" + noneCase + "」");
@@ -522,6 +593,18 @@ public class MainApp extends Application {
     }
 
     /** 默写对比：用户代码 vs 参考答案，逐行 LCS diff。 */
+    /** 行为级判卷：用户代码真的编译跑一遍，与参考代码的输出比对。 */
+    private void onDictationBehavior() {
+        var verdict = DictationJudge.judge(dictationPanel.getReferenceCode(), dictationPanel.getUserCode());
+        dictationPanel.setResultText(verdict.text());
+        if (currentAlgorithm != null) {
+            var entry = NotesStore.get(currentAlgorithm.id());
+            entry.lastDictation = dictationPanel.getUserCode();
+            entry.behaviorVerdict = verdict.grade();
+            NotesStore.save(currentAlgorithm.id(), entry);
+        }
+    }
+
     private void onDictationCompare() {
         var lines = DictationDiff.diff(dictationPanel.getUserCode(), dictationPanel.getReferenceCode());
         dictationPanel.setResultText(DictationDiff.report(lines));
@@ -568,6 +651,8 @@ public class MainApp extends Application {
                 ? (bitmapMode ? "没有格子翻转（只是读了一下）"
                 : mathMode ? "本步没有格子写数（只是移动了读取的行列）"
                         : treeMode || graphMode ? "没有节点变化（只动了栈/表）"
+                        : cur.hash() != null ? "链一条都没变（变的是桶高亮/变量）"
+                        : cur.btree() != null ? "树没变（只动了下探路径）"
                         : listMode ? "一根箭头都没断（变的是栈里的指针变量！）"
                         : "数组一个格子都没变（变的是栈里的变量！）")
                 : fmtIdx(truth, cur);
@@ -647,6 +732,32 @@ public class MainApp extends Application {
             }
             return out;
         }
+        if (cur.btree() != null) {
+            Set<Integer> out = new LinkedHashSet<>();
+            var nodes = cur.btree().nodes();
+            for (String nodeId : BTreeRenderer.changedNodes(cur.btree(), next.btree())) {
+                for (int i = 0; i < nodes.size(); i++) {
+                    if (nodes.get(i).nodeId().equals(nodeId)) {
+                        out.add(i);
+                        break;
+                    }
+                }
+            }
+            return out;
+        }
+        if (cur.hash() != null) {
+            Set<Integer> out = new LinkedHashSet<>();
+            var nodes = cur.hash().nodes();
+            for (String nodeId : HashRenderer.changedArrows(cur.hash(), next.hash())) {
+                for (int i = 0; i < nodes.size(); i++) {
+                    if (nodes.get(i).nodeId().equals(nodeId)) {
+                        out.add(i);
+                        break;
+                    }
+                }
+            }
+            return out;
+        }
         if (cur.graph() != null) {
             Set<Integer> out = new LinkedHashSet<>();
             var vertices = cur.graph().vertices();
@@ -702,6 +813,8 @@ public class MainApp extends Application {
         boolean listMode = refStep != null && refStep.list() != null;
         boolean treeMode = refStep != null && refStep.tree() != null;
         boolean graphMode = refStep != null && refStep.graph() != null;
+        boolean hashMode = refStep != null && refStep.hash() != null;
+        boolean btreeMode = refStep != null && refStep.btree() != null;
         boolean seqMode = refStep != null && refStep.seq() != null;
         boolean mathMode = refStep != null && refStep.math() != null && refStep.bitmap() == null;
         boolean bitmapMode = refStep != null && refStep.bitmap() != null;
@@ -725,6 +838,14 @@ public class MainApp extends Application {
                     if (graphMode) {
                         var vertices = refStep.graph().vertices();
                         return i >= 0 && i < vertices.size() ? vertices.get(i).label() : "?" + i;
+                    }
+                    if (hashMode) {
+                        var nodes = refStep.hash().nodes();
+                        return i >= 0 && i < nodes.size() ? "node[" + nodes.get(i).val() + "]" : "?" + i;
+                    }
+                    if (btreeMode) {
+                        var nodes = refStep.btree().nodes();
+                        return i >= 0 && i < nodes.size() ? "节点" + nodes.get(i).keys() : "?" + i;
                     }
                     if (treeMode) {
                         var nodes = refStep.tree().nodes();

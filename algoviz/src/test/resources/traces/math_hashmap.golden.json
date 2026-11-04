@@ -1,0 +1,1473 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.hashmap",
+    "title": "哈希表（冲突链）",
+    "codeResource": "/code/HashMapDemo.java",
+    "input": "12,7,20,3,15",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "桶数组是骨架，链是撞车后的容身之所"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "put",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "桶数 = 4，h(k) = k % 4，依次 put [12, 7, 20, 3, 15]"
+        }
+      ],
+      "intent": {
+        "why": "桶数组是骨架，链是撞车后的容身之所",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "桶空 → 一步到位，这就是 O(1) 的理想情况"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "put",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 12,
+              "bucket": 0
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@1"
+          ],
+          "detail": "put(12)：h=12%4=0 → 桶0 空闲 → 直接落位"
+        }
+      ],
+      "intent": {
+        "why": "桶空 → 一步到位，这就是 O(1) 的理想情况",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "桶空 → 一步到位，这就是 O(1) 的理想情况"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "put",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 12,
+              "bucket": 0
+            },
+            {
+              "nodeId": "@2",
+              "val": 7,
+              "bucket": 3
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "put(7)：h=7%4=3 → 桶3 空闲 → 直接落位"
+        }
+      ],
+      "intent": {
+        "why": "桶空 → 一步到位，这就是 O(1) 的理想情况",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "冲突链生长：同桶键串成链——哈希函数不完美，链表来兜底"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "put",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 12,
+              "bucket": 0
+            },
+            {
+              "nodeId": "@2",
+              "val": 7,
+              "bucket": 3
+            },
+            {
+              "nodeId": "@3",
+              "val": 20,
+              "bucket": 0,
+              "nextId": "@1"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@3"
+          ],
+          "detail": "put(20)：h=20%4=0 → 桶0 已有键 → 撞车！新节点头插进链"
+        }
+      ],
+      "intent": {
+        "why": "冲突链生长：同桶键串成链——哈希函数不完美，链表来兜底",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "冲突链生长：同桶键串成链——哈希函数不完美，链表来兜底"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "put",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 12,
+              "bucket": 0
+            },
+            {
+              "nodeId": "@2",
+              "val": 7,
+              "bucket": 3
+            },
+            {
+              "nodeId": "@3",
+              "val": 20,
+              "bucket": 0,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 3,
+              "bucket": 3,
+              "nextId": "@2"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@4"
+          ],
+          "detail": "put(3)：h=3%4=3 → 桶3 已有键 → 撞车！新节点头插进链"
+        }
+      ],
+      "intent": {
+        "why": "冲突链生长：同桶键串成链——哈希函数不完美，链表来兜底",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "冲突链生长：同桶键串成链——哈希函数不完美，链表来兜底"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "put",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 12,
+              "bucket": 0
+            },
+            {
+              "nodeId": "@2",
+              "val": 7,
+              "bucket": 3
+            },
+            {
+              "nodeId": "@3",
+              "val": 20,
+              "bucket": 0,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 3,
+              "bucket": 3,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@5",
+              "val": 15,
+              "bucket": 3,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@5"
+          ],
+          "detail": "put(15)：h=15%4=3 → 桶3 已有键 → 撞车！新节点头插进链"
+        }
+      ],
+      "intent": {
+        "why": "冲突链生长：同桶键串成链——哈希函数不完美，链表来兜底",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "定位 O(1)：数组下标直接跳桶——不用扫全表"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "get",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 12,
+              "bucket": 0
+            },
+            {
+              "nodeId": "@2",
+              "val": 7,
+              "bucket": 3
+            },
+            {
+              "nodeId": "@3",
+              "val": 20,
+              "bucket": 0,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 3,
+              "bucket": 3,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@5",
+              "val": 15,
+              "bucket": 3,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [],
+          "detail": "get(7)：h=7%4=3 → 直奔桶3"
+        }
+      ],
+      "intent": {
+        "why": "定位 O(1)：数组下标直接跳桶——不用扫全表",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "比对失败沿 next 继续——链表遍历，这就是冲突的代价"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "get",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "cur": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 12,
+              "bucket": 0
+            },
+            {
+              "nodeId": "@2",
+              "val": 7,
+              "bucket": 3
+            },
+            {
+              "nodeId": "@3",
+              "val": 20,
+              "bucket": 0,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 3,
+              "bucket": 3,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@5",
+              "val": 15,
+              "bucket": 3,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@5"
+          ],
+          "detail": "走链第 1 步：@5 val=15 ≠ 7 → next"
+        }
+      ],
+      "intent": {
+        "why": "比对失败沿 next 继续——链表遍历，这就是冲突的代价",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "比对失败沿 next 继续——链表遍历，这就是冲突的代价"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "get",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "cur": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 12,
+              "bucket": 0
+            },
+            {
+              "nodeId": "@2",
+              "val": 7,
+              "bucket": 3
+            },
+            {
+              "nodeId": "@3",
+              "val": 20,
+              "bucket": 0,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 3,
+              "bucket": 3,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@5",
+              "val": 15,
+              "bucket": 3,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@4"
+          ],
+          "detail": "走链第 2 步：@4 val=3 ≠ 7 → next"
+        }
+      ],
+      "intent": {
+        "why": "比对失败沿 next 继续——链表遍历，这就是冲突的代价",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "链比较 O(链长)——哈希越均匀、负载越低，链越短，越接近真 O(1)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "get",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "cur": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 12,
+              "bucket": 0
+            },
+            {
+              "nodeId": "@2",
+              "val": 7,
+              "bucket": 3
+            },
+            {
+              "nodeId": "@3",
+              "val": 20,
+              "bucket": 0,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 3,
+              "bucket": 3,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@5",
+              "val": 15,
+              "bucket": 3,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "@2"
+          ],
+          "detail": "走链第 3 步：@2 命中 7！"
+        }
+      ],
+      "intent": {
+        "why": "链比较 O(链长)——哈希越均匀、负载越低，链越短，越接近真 O(1)",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "平均链长 = 负载因子 n/桶数——扩容（rehash）就是在压这个值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "完成",
+              "locals": {
+                "bucket": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "h(k)": {
+                  "kind": "PRIM",
+                  "text": "k % 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "next": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "entry",
+                "type": "Entry",
+                "fields": {
+                  "key": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "next": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.hash": {
+          "name": "HashMap（4 桶）",
+          "bucketCount": 4,
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 12,
+              "bucket": 0
+            },
+            {
+              "nodeId": "@2",
+              "val": 7,
+              "bucket": 3
+            },
+            {
+              "nodeId": "@3",
+              "val": 20,
+              "bucket": 0,
+              "nextId": "@1"
+            },
+            {
+              "nodeId": "@4",
+              "val": 3,
+              "bucket": 3,
+              "nextId": "@2"
+            },
+            {
+              "nodeId": "@5",
+              "val": 15,
+              "bucket": 3,
+              "nextId": "@4"
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "put 5 个键撞车 3 次；get(15) 走链 3 步"
+        }
+      ],
+      "intent": {
+        "why": "平均链长 = 负载因子 n/桶数——扩容（rehash）就是在压这个值",
+        "invariant": "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对"
+      }
+    }
+  ]
+}

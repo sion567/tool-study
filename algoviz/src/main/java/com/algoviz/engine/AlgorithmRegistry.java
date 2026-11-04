@@ -120,6 +120,27 @@ public final class AlgorithmRegistry {
             new Entry("数学", null, new com.algoviz.engine.math.BloomFilterDemo()),
             new Entry("数学", null, new com.algoviz.engine.math.BitOpsDemo()),
             new Entry("数学", null, new com.algoviz.engine.math.SieveDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.NewtonDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.CordicDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.BucketDemo()),
+            new Entry("算法", "回溯", new com.algoviz.engine.backtracking.SudokuDemo()),
+            new Entry("算法", "图", new com.algoviz.engine.graph.AStarDemo()),
+            new Entry("算法", "树", new com.algoviz.engine.tree.PathSumDemo()),
+            new Entry("算法", "链表", new com.algoviz.engine.list.ListBuildDemo()),
+            new Entry("算法", "链表", new com.algoviz.engine.list.ListDeleteDemo()),
+            new Entry("算法", "链表", new com.algoviz.engine.list.DoublyListDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.HashMapDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.KaratsubaDemo()),
+            new Entry("算法", "树", new com.algoviz.engine.tree.TreeSerializeDemo()),
+            new Entry("算法", "树", new com.algoviz.engine.tree.BPlusTreeDemo()),
+            new Entry("SOLID 原则", null, new com.algoviz.engine.pattern.SolidSrpDemo()),
+            new Entry("SOLID 原则", null, new com.algoviz.engine.pattern.SolidOcpDemo()),
+            new Entry("SOLID 原则", null, new com.algoviz.engine.pattern.SolidLspDemo()),
+            new Entry("SOLID 原则", null, new com.algoviz.engine.pattern.SolidIspDemo()),
+            new Entry("SOLID 原则", null, new com.algoviz.engine.pattern.SolidDipDemo()),
+            new Entry("重构手法", null, new com.algoviz.engine.pattern.RefactorExtractDemo()),
+            new Entry("重构手法", null, new com.algoviz.engine.pattern.RefactorParamDemo()),
+            new Entry("重构手法", null, new com.algoviz.engine.pattern.RefactorPolyDemo()),
             new Entry("算法", "前缀和", new com.algoviz.engine.array.PrefixSum(new int[]{3, 7, 2, 5, 1})),
             new Entry("算法", "查找", new com.algoviz.engine.array.SlidingWindow()),
             new Entry("算法", "双指针", new com.algoviz.engine.array.TwoPointers(new int[]{1, 2, 5, 5, 9, 12, 15}, 14)),
@@ -165,8 +186,12 @@ public final class AlgorithmRegistry {
 
     /** 🎲 换一批随机数据：按 id 返回换了输入的新实例；不支持的演示返回 null（按钮置灰）。 */
     public static Algorithm randomVariant(Algorithm current) {
+        return randomVariant(current, 5 + new java.util.Random().nextInt(4));
+    }
+
+    /** 数据量滑杆入口：n = 期望元素个数（算法内部再微调，如二分固定 7、双指针需 7+）。 */
+    public static Algorithm randomVariant(Algorithm current, int n) {
         java.util.Random r = new java.util.Random();
-        int n = 5 + r.nextInt(4);   // 5~8 个元素
         return switch (current.id()) {
             case "sort.bubble" -> new BubbleSort(randArray(r, n));
             case "sort.selection" -> new SelectionSort(randArray(r, n));
@@ -197,6 +222,16 @@ public final class AlgorithmRegistry {
             case "graph.dijkstra" -> new Dijkstra(randomWeights(r));
             case "graph.bfs" -> new BfsDemo(r.nextLong());
             case "graph.dfs" -> new DfsDemo(r.nextLong());
+            case "sort.merge" -> new MergeSort(randArray(r, n));
+            case "sort.heap" -> new HeapSort(randArray(r, n));
+            case "array.prefixsum" -> new PrefixSum(randArray(r, Math.min(n, 8)));
+            case "array.twopointers" -> {
+                int m = Math.max(n, 7);
+                int[] a = randArray(r, m);
+                java.util.Arrays.sort(a);
+                yield new com.algoviz.engine.array.TwoPointers(a, a[r.nextInt(a.length)] + a[r.nextInt(a.length)]);
+            }
+            case "tree.bplus" -> new com.algoviz.engine.tree.BPlusTreeDemo(randomKeys(r, Math.min(n + 4, 16)));
             default -> null;
         };
     }
@@ -215,6 +250,10 @@ public final class AlgorithmRegistry {
             s.add(lo + r.nextInt(hi - lo + 1));
         }
         return s.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    private static int[] randomKeys(java.util.Random r, int n) {
+        return randDistinct(r, n, 1, 99);
     }
 
     private static int[] randomWeights(java.util.Random r) {

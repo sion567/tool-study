@@ -60,10 +60,15 @@
           }
         },
         "math.plot": {
+          "kind": "unitCircle",
           "name": "泰勒展开逼近 sin(x)",
           "angle": 0.0,
           "pointX": 0.0,
           "pointY": 0.0,
+          "xMin": 0.0,
+          "xMax": 6.283185307179586,
+          "yMin": -1.4,
+          "yMax": 1.4,
           "sineTrace": [
             [
               0.0,
@@ -396,6 +401,7 @@
               0.0
             ]
           ],
+          "trace3": [],
           "labels": [
             "真实 sin(x)",
             "0 项近似"
@@ -466,10 +472,15 @@
           }
         },
         "math.plot": {
+          "kind": "unitCircle",
           "name": "泰勒展开逼近 sin(x)",
           "angle": 1.0,
           "pointX": 1.0,
           "pointY": 6.283185307179586,
+          "xMin": 0.0,
+          "xMax": 6.283185307179586,
+          "yMin": -1.4,
+          "yMax": 1.4,
           "sineTrace": [
             [
               0.0,
@@ -802,6 +813,7 @@
               6.283185307179586
             ]
           ],
+          "trace3": [],
           "labels": [
             "真实 sin(x)",
             "1 项近似"
@@ -872,10 +884,15 @@
           }
         },
         "math.plot": {
+          "kind": "unitCircle",
           "name": "泰勒展开逼近 sin(x)",
           "angle": 3.0,
           "pointX": 3.0,
           "pointY": 35.05851693322017,
+          "xMin": 0.0,
+          "xMax": 6.283185307179586,
+          "yMin": -1.4,
+          "yMax": 1.4,
           "sineTrace": [
             [
               0.0,
@@ -1208,6 +1225,7 @@
               -35.05851693322017
             ]
           ],
+          "trace3": [],
           "labels": [
             "真实 sin(x)",
             "3 项近似"
@@ -1278,10 +1296,15 @@
           }
         },
         "math.plot": {
+          "kind": "unitCircle",
           "name": "泰勒展开逼近 sin(x)",
           "angle": 5.0,
           "pointX": 5.0,
           "pointY": 46.546732342854874,
+          "xMin": 0.0,
+          "xMax": 6.283185307179586,
+          "yMin": -1.4,
+          "yMax": 1.4,
           "sineTrace": [
             [
               0.0,
@@ -1614,6 +1637,7 @@
               46.546732342854874
             ]
           ],
+          "trace3": [],
           "labels": [
             "真实 sin(x)",
             "5 项近似"
@@ -1684,10 +1708,15 @@
           }
         },
         "math.plot": {
+          "kind": "unitCircle",
           "name": "泰勒展开逼近 sin(x)",
           "angle": 7.0,
           "pointX": 7.0,
           "pointY": 30.159127410206487,
+          "xMin": 0.0,
+          "xMax": 6.283185307179586,
+          "yMin": -1.4,
+          "yMax": 1.4,
           "sineTrace": [
             [
               0.0,
@@ -2020,6 +2049,7 @@
               -30.159127410206487
             ]
           ],
+          "trace3": [],
           "labels": [
             "真实 sin(x)",
             "7 项近似"
@@ -2090,10 +2120,15 @@
           }
         },
         "math.plot": {
+          "kind": "unitCircle",
           "name": "泰勒展开逼近 sin(x)",
           "angle": 9.0,
           "pointX": 9.0,
           "pointY": 11.899566534691154,
+          "xMin": 0.0,
+          "xMax": 6.283185307179586,
+          "yMin": -1.4,
+          "yMax": 1.4,
           "sineTrace": [
             [
               0.0,
@@ -2426,6 +2461,7 @@
               11.899566534691154
             ]
           ],
+          "trace3": [],
           "labels": [
             "真实 sin(x)",
             "9 项近似"
@@ -2496,10 +2532,15 @@
           }
         },
         "math.plot": {
+          "kind": "unitCircle",
           "name": "泰勒展开逼近 sin(x)",
           "angle": 11.0,
           "pointX": 11.0,
           "pointY": 3.195076042131832,
+          "xMin": 0.0,
+          "xMax": 6.283185307179586,
+          "yMin": -1.4,
+          "yMax": 1.4,
           "sineTrace": [
             [
               0.0,
@@ -2832,6 +2873,7 @@
               -3.1950760421318325
             ]
           ],
+          "trace3": [],
           "labels": [
             "真实 sin(x)",
             "11 项近似"

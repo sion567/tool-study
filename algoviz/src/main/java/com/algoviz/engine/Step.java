@@ -1,7 +1,9 @@
 package com.algoviz.engine;
 
 import com.algoviz.engine.ds.ArrayView;
+import com.algoviz.engine.ds.BTreeView;
 import com.algoviz.engine.ds.GraphView;
+import com.algoviz.engine.ds.HashView;
 import com.algoviz.engine.ds.ListView;
 import com.algoviz.engine.ds.SeqView;
 import com.algoviz.engine.ds.TreeView;
@@ -41,6 +43,14 @@ public record Step(int index, Loc loc, Map<String, Layer> layers, List<VizEvent>
 
     public GraphView graph() {
         return (GraphView) layers.get("ds.graph");
+    }
+
+    public HashView hash() {
+        return (HashView) layers.get("ds.hash");
+    }
+
+    public BTreeView btree() {
+        return (BTreeView) layers.get("ds.btree");
     }
 
     public SeqView seq() {

@@ -194,7 +194,7 @@ public final class ReverseList implements Algorithm {
         private ListView snapshotList() {
             List<ListView.NodeBox> nodes = new ArrayList<>(n);
             for (int i = 0; i < n; i++) {
-                nodes.add(new ListView.NodeBox("@" + (i + 1), vals[i],
+                nodes.add(ListView.NodeBox.singly("@" + (i + 1), vals[i],
                         nextIdx[i] >= 0 ? "@" + (nextIdx[i] + 1) : null));
             }
             return new ListView("反转链表", headIdx >= 0 ? "@" + (headIdx + 1) : null,

@@ -1,0 +1,418 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "solid.ocp",
+    "title": "SOLID·开闭 OCP",
+    "codeResource": "/code/SolidOcpDemo.java",
+    "input": "switch 3 分支 → 0 分支",
+    "inputSize": 2
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "反例：类型判断写死在计算器里——每种图形一个 case"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "calc",
+              "label": "AreaCalculator（switch 版）"
+            },
+            {
+              "id": "circle",
+              "label": "Circle"
+            },
+            {
+              "id": "tri",
+              "label": "Triangle（新增）"
+            },
+            {
+              "id": "poly",
+              "label": "Shape.area() 多态"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "area(circle) → case CIRCLE: πr²",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "AreaCalculator（switch 版）"
+          ],
+          "detail": "client → AreaCalculator（switch 版）：area(circle) → case CIRCLE: πr²"
+        }
+      ],
+      "intent": {
+        "why": "反例：类型判断写死在计算器里——每种图形一个 case",
+        "invariant": "新增行为 = 新增类，不改已测试的老代码——扩展点留在抽象上"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "痛感：加三角形 = 修改已上线的 AreaCalculator——已测试的逻辑重新暴露在风险里"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "calc",
+              "label": "AreaCalculator（switch 版）"
+            },
+            {
+              "id": "circle",
+              "label": "Circle"
+            },
+            {
+              "id": "tri",
+              "label": "Triangle（新增）"
+            },
+            {
+              "id": "poly",
+              "label": "Shape.area() 多态"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "area(circle) → case CIRCLE: πr²",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "area(triangle) → 必须回去改 switch！新增 case TRIANGLE",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "AreaCalculator（switch 版）"
+          ],
+          "detail": "client → AreaCalculator（switch 版）：area(triangle) → 必须回去改 switch！新增 case TRIANGLE"
+        }
+      ],
+      "intent": {
+        "why": "痛感：加三角形 = 修改已上线的 AreaCalculator——已测试的逻辑重新暴露在风险里",
+        "invariant": "新增行为 = 新增类，不改已测试的老代码——扩展点留在抽象上"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "正例：计算器只认 Shape 抽象——它对具体图形永远关闭修改"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "calc",
+              "label": "AreaCalculator（switch 版）"
+            },
+            {
+              "id": "circle",
+              "label": "Circle"
+            },
+            {
+              "id": "tri",
+              "label": "Triangle（新增）"
+            },
+            {
+              "id": "poly",
+              "label": "Shape.area() 多态"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "area(circle) → case CIRCLE: πr²",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "area(triangle) → 必须回去改 switch！新增 case TRIANGLE",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 4,
+              "label": "area(shape) → shape.area()（动态分派）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "Shape.area() 多态"
+          ],
+          "detail": "client → Shape.area() 多态：area(shape) → shape.area()（动态分派）"
+        }
+      ],
+      "intent": {
+        "why": "正例：计算器只认 Shape 抽象——它对具体图形永远关闭修改",
+        "invariant": "新增行为 = 新增类，不改已测试的老代码——扩展点留在抽象上"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "新图形 = 新增一个类实现 area()——AreaCalculator 一行不动，OCP 达成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "calc",
+              "label": "AreaCalculator（switch 版）"
+            },
+            {
+              "id": "circle",
+              "label": "Circle"
+            },
+            {
+              "id": "tri",
+              "label": "Triangle（新增）"
+            },
+            {
+              "id": "poly",
+              "label": "Shape.area() 多态"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "area(circle) → case CIRCLE: πr²",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "area(triangle) → 必须回去改 switch！新增 case TRIANGLE",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 4,
+              "label": "area(shape) → shape.area()（动态分派）",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "Circle.area()，Triangle.area()（新类自己接上）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "Circle"
+          ],
+          "detail": "client → Circle：Circle.area()，Triangle.area()（新类自己接上）"
+        }
+      ],
+      "intent": {
+        "why": "新图形 = 新增一个类实现 area()——AreaCalculator 一行不动，OCP 达成",
+        "invariant": "新增行为 = 新增类，不改已测试的老代码——扩展点留在抽象上"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "OCP 不是不许改代码，是把「必然发生的变化」赶到新增文件里去"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {}
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "calc",
+              "label": "AreaCalculator（switch 版）"
+            },
+            {
+              "id": "circle",
+              "label": "Circle"
+            },
+            {
+              "id": "tri",
+              "label": "Triangle（新增）"
+            },
+            {
+              "id": "poly",
+              "label": "Shape.area() 多态"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "area(circle) → case CIRCLE: πr²",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "area(triangle) → 必须回去改 switch！新增 case TRIANGLE",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 4,
+              "label": "area(shape) → shape.area()（动态分派）",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "Circle.area()，Triangle.area()（新类自己接上）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "扩展点从「if/switch 链」挪到「抽象方法」——变化被新类吸收"
+        }
+      ],
+      "intent": {
+        "why": "OCP 不是不许改代码，是把「必然发生的变化」赶到新增文件里去",
+        "invariant": "新增行为 = 新增类，不改已测试的老代码——扩展点留在抽象上"
+      }
+    }
+  ]
+}

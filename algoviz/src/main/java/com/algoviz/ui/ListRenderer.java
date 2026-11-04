@@ -126,6 +126,34 @@ public final class ListRenderer {
             }
         }
 
+        // 3.5 双链表背向箭（prevId 非空才画）：盒子下方的短反向箭 prev ↔
+        boolean anyPrev = lv.nodes().stream().anyMatch(nb -> nb.prevId() != null);
+        if (anyPrev) {
+            double yb = boxTop + BOX_H + 16;
+            g.setFont(Font.font(10));
+            for (int i = 0; i < n; i++) {
+                ListView.NodeBox nb = lv.nodes().get(i);
+                double xL = cx0 + i * (bw + GAP);
+                if (nb.prevId() == null) {
+                    continue;   // 头节点无 prev
+                }
+                int p = indexOf(lv, nb.prevId());
+                double xFrom = xL;                          // 从本节点左缘出发向左
+                double xTo = (p == i - 1)
+                        ? cx0 + p * (bw + GAP) + bw         // 相邻：指向前一盒右缘
+                        : cx0 + p * (bw + GAP) + bw / 2;    // 跨接：指向前盒中心（配合弧线更清楚）
+                boolean changed = isChanged(changedArrows, nb.nodeId());
+                g.setStroke(changed ? CHANGED : Color.web("#16a34a"));
+                g.setLineWidth(changed ? 3 : 1.6);
+                g.strokeLine(xFrom, yb, xTo, yb);
+                arrowHead(g, xTo, yb, xTo - (xFrom - xTo) * 0.2, yb);
+            }
+            g.setFill(Color.web("#16a34a"));
+            g.setTextAlign(TextAlignment.LEFT);
+            g.fillText("prev", cx0 - 34, yb + 4);
+            g.setTextAlign(TextAlignment.CENTER);
+        }
+
         // 4. 变量标签（head/prev/curr/next → 彩色小牌挂在盒子正上方）
         if (step.stack() != null && !step.stack().frames().isEmpty()) {
             var locals = step.stack().frames().get(step.stack().frames().size() - 1).locals();
