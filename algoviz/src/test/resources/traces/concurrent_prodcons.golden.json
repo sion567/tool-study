@@ -1,0 +1,2063 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "concurrent.prodcons",
+    "title": "并发·生产者-消费者",
+    "codeResource": "/code/ProdConsDemo.java",
+    "input": "容量2 A/B/C/D",
+    "inputSize": 4
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "生产者消费者解耦的本质：双方不认识对方，只认识队列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@q"
+          ],
+          "detail": "队列容量 2，当前 []——两个线程只通过它握手"
+        }
+      ],
+      "intent": {
+        "why": "生产者消费者解耦的本质：双方不认识对方，只认识队列",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "生产节奏快：A 入队"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "生产者线程",
+            "BoundedQueue(2)"
+          ],
+          "detail": "生产者线程 → BoundedQueue(2)：put(A)"
+        }
+      ],
+      "intent": {
+        "why": "生产节奏快：A 入队",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "B 入队——队列到容量上限"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[A]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "生产者线程",
+            "BoundedQueue(2)"
+          ],
+          "detail": "生产者线程 → BoundedQueue(2)：put(B)"
+        }
+      ],
+      "intent": {
+        "why": "B 入队——队列到容量上限",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "C 到达——但队列已满"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[A, B]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "生产者线程",
+            "BoundedQueue(2)"
+          ],
+          "detail": "生产者线程 → BoundedQueue(2)：put(C)"
+        }
+      ],
+      "intent": {
+        "why": "C 到达——但队列已满",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "背压：生产者被迫等消费者——有界队列防止内存被撑爆"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[A, B]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@q"
+          ],
+          "detail": "队列满 [A,B] → put(C) 阻塞（挂起，等待 notFull）"
+        }
+      ],
+      "intent": {
+        "why": "背压：生产者被迫等消费者——有界队列防止内存被撑爆",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "消费者来取"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[A, B]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "消费者线程",
+            "BoundedQueue(2)"
+          ],
+          "detail": "消费者线程 → BoundedQueue(2)：take()"
+        }
+      ],
+      "intent": {
+        "why": "消费者来取",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "A 出队 → 消费者拿到；队列 [B]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[A, B]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "BoundedQueue(2)",
+            "消费者线程"
+          ],
+          "detail": "BoundedQueue(2) → 消费者线程：return A"
+        }
+      ],
+      "intent": {
+        "why": "A 出队 → 消费者拿到；队列 [B]",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "条件队列：take 释放名额时顺带唤醒等待的生产者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[B]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@q"
+          ],
+          "detail": "队列有空位 → 唤醒被阻塞的 put(C)"
+        }
+      ],
+      "intent": {
+        "why": "条件队列：take 释放名额时顺带唤醒等待的生产者",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "C 补位入队 → 队列 [B,C]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[B]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C) 恢复",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "生产者线程",
+            "BoundedQueue(2)"
+          ],
+          "detail": "生产者线程 → BoundedQueue(2)：put(C) 恢复"
+        }
+      ],
+      "intent": {
+        "why": "C 补位入队 → 队列 [B,C]",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "消费加速：取 B"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[B, C]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C) 恢复",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "消费者线程",
+            "BoundedQueue(2)"
+          ],
+          "detail": "消费者线程 → BoundedQueue(2)：take()"
+        }
+      ],
+      "intent": {
+        "why": "消费加速：取 B",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "B 出队，队列 [C]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[B, C]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C) 恢复",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return B",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "BoundedQueue(2)",
+            "消费者线程"
+          ],
+          "detail": "BoundedQueue(2) → 消费者线程：return B"
+        }
+      ],
+      "intent": {
+        "why": "B 出队，队列 [C]",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "取 C"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[C]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C) 恢复",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return B",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 8
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "消费者线程",
+            "BoundedQueue(2)"
+          ],
+          "detail": "消费者线程 → BoundedQueue(2)：take()"
+        }
+      ],
+      "intent": {
+        "why": "取 C",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "C 出队，队列 []"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[C]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C) 恢复",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return B",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return C",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "BoundedQueue(2)",
+            "消费者线程"
+          ],
+          "detail": "BoundedQueue(2) → 消费者线程：return C"
+        }
+      ],
+      "intent": {
+        "why": "C 出队，队列 []",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "还想取——但队列空了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C) 恢复",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return B",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return C",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 10
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "消费者线程",
+            "BoundedQueue(2)"
+          ],
+          "detail": "消费者线程 → BoundedQueue(2)：take()"
+        }
+      ],
+      "intent": {
+        "why": "还想取——但队列空了",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "对称的另一半：消费者也会被空队列挂起"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C) 恢复",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return B",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return C",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 10
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@q"
+          ],
+          "detail": "队列空 → take() 阻塞（等待 notEmpty）"
+        }
+      ],
+      "intent": {
+        "why": "对称的另一半：消费者也会被空队列挂起",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "生产者送来 D，队列 [D]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C) 恢复",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return B",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return C",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(D)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 11
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "生产者线程",
+            "BoundedQueue(2)"
+          ],
+          "detail": "生产者线程 → BoundedQueue(2)：put(D)"
+        }
+      ],
+      "intent": {
+        "why": "生产者送来 D，队列 [D]",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "put/take 互为对方的唤醒条件——阻塞 + 唤醒就是全部协作协议"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[D]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C) 恢复",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return B",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return C",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(D)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 11
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@q"
+          ],
+          "detail": "put 唤醒 take → 消费者拿到 D，双双收工"
+        }
+      ],
+      "intent": {
+        "why": "put/take 互为对方的唤醒条件——阻塞 + 唤醒就是全部协作协议",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": "Java 直接用 ArrayBlockingQueue/LinkedBlockingQueue；理解了这张图，消息队列（Kafka/RabbitMQ）也是同一张图放大"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "BoundedQueue",
+                "fields": {
+                  "items": {
+                    "kind": "PRIM",
+                    "text": "[D]"
+                  },
+                  "capacity": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "p",
+              "label": "生产者线程"
+            },
+            {
+              "id": "q",
+              "label": "BoundedQueue(2)"
+            },
+            {
+              "id": "c",
+              "label": "消费者线程"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(A)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(B)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return A",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(C) 恢复",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return B",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return C",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "put(D)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 11
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@q"
+          ],
+          "detail": "全程无一处「共享变量轮询」——阻塞队列把同步细节封装干净"
+        }
+      ],
+      "intent": {
+        "why": "Java 直接用 ArrayBlockingQueue/LinkedBlockingQueue；理解了这张图，消息队列（Kafka/RabbitMQ）也是同一张图放大",
+        "invariant": "队列满则生产者等、空则消费者等——有界队列用「阻塞」把两个快慢不同的线程解耦"
+      }
+    }
+  ]
+}

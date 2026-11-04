@@ -98,7 +98,15 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"solid_dip", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.SolidDipDemo::new},
                 new Object[]{"refactor_extract", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.RefactorExtractDemo::new},
                 new Object[]{"refactor_param", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.RefactorParamDemo::new},
-                new Object[]{"refactor_poly", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.RefactorPolyDemo::new}
+                new Object[]{"refactor_poly", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.RefactorPolyDemo::new},
+                // ---- 第九批：并发模式三连（脚本化交错，确定性）----
+                new Object[]{"concurrent_prodcons", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentProdConsDemo::new},
+                new Object[]{"concurrent_rwlock", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentRwLockDemo::new},
+                new Object[]{"concurrent_pool", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentPoolDemo::new},
+                // ---- 第十批：分布式模式三连（断路器/服务发现/CQRS）----
+                new Object[]{"dist_breaker", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.DistBreakerDemo::new},
+                new Object[]{"dist_discovery", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.DistDiscoveryDemo::new},
+                new Object[]{"dist_cqrs", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.DistCqrsDemo::new}
         );
     }
 
@@ -506,6 +514,49 @@ class AlgorithmBatchTraceTest {
         String detail = last.events().get(last.events().size() - 1).detail();
         assertTrue2(detail.contains("7006652"), "1234×5678 = 7006652，实际：" + detail);
         assertTrue2(detail.contains("7006652") && detail.contains("验算"), "应含验算对照");
+    }
+
+    /** 行为：分布式三连——断路器三态流转 / 服务发现故障摘除 / CQRS 双库同步。 */
+    @org.junit.jupiter.api.Test
+    void distributedNarrativesHitKeyMoments() throws Exception {
+        // 断路器：必须有 OPEN 与 HALF_OPEN
+        var breaker = new com.algoviz.engine.pattern.DistBreakerDemo().produce().steps();
+        String breakerText = breaker.stream()
+                .flatMap(s -> java.util.stream.Stream.concat(s.events().stream().map(e -> e.detail()), java.util.stream.Stream.of(s.intent().why())))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining("; "));
+        assertTrue2(breakerText.contains("OPEN"), "断路器必须有 OPEN 态");
+        assertTrue2(breakerText.contains("HALF_OPEN"), "断路器必须有半开试探");
+        // 服务发现：必须有摘除与恢复注册
+        var disc = new com.algoviz.engine.pattern.DistDiscoveryDemo().produce().steps();
+        String discText = disc.stream()
+                .flatMap(s -> java.util.stream.Stream.concat(s.events().stream().map(e -> e.detail()), java.util.stream.Stream.of(s.intent().why())))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining("; "));
+        assertTrue2(discText.contains("摘除"), "服务发现必须有故障摘除");
+        assertTrue2(discText.contains("重新注册"), "必须有恢复注册");
+        // CQRS：写模型与读模型都在堆里
+        var cqrs = new com.algoviz.engine.pattern.DistCqrsDemo().produce().steps();
+        var lastHeap = cqrs.get(cqrs.size() - 1).heap().heap().objects();
+        assertTrue2(lastHeap.containsKey("@w") && lastHeap.containsKey("@r"), "CQRS 必须双库同屏");
+    }
+
+    /** 行为：并发三连——脚本化交错必含「阻塞/等待」时刻与收尾总结。 */
+    @org.junit.jupiter.api.Test
+    void concurrentNarrativesContainBlocking() throws Exception {
+        Class<?>[] demos = {
+                com.algoviz.engine.pattern.ConcurrentProdConsDemo.class,
+                com.algoviz.engine.pattern.ConcurrentRwLockDemo.class,
+                com.algoviz.engine.pattern.ConcurrentPoolDemo.class};
+        for (Class<?> c : demos) {
+            var alg = (com.algoviz.engine.Algorithm) c.getDeclaredConstructor().newInstance();
+            var steps = alg.produce().steps();
+            boolean blocking = steps.stream().flatMap(s -> s.events().stream())
+                    .anyMatch(e -> e.detail() != null
+                            && (e.detail().contains("阻塞") || e.detail().contains("挂起")));
+            boolean summary = steps.get(steps.size() - 1).events().stream()
+                    .anyMatch(e -> e.type() == com.algoviz.engine.VizEvent.EventType.RETURN);
+            assertTrue2(blocking, c.getSimpleName() + " 缺阻塞/挂起时刻（并发教学的核心）");
+            assertTrue2(summary, c.getSimpleName() + " 收尾应是总结 RETURN");
+        }
     }
 
     /** 行为：SOLID/重构八连——每个 demo 都有「反例痛点」+「正例收益」两幕。 */

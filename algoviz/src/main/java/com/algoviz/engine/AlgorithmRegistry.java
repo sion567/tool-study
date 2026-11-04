@@ -141,6 +141,12 @@ public final class AlgorithmRegistry {
             new Entry("重构手法", null, new com.algoviz.engine.pattern.RefactorExtractDemo()),
             new Entry("重构手法", null, new com.algoviz.engine.pattern.RefactorParamDemo()),
             new Entry("重构手法", null, new com.algoviz.engine.pattern.RefactorPolyDemo()),
+            new Entry("并发模式", null, new com.algoviz.engine.pattern.ConcurrentProdConsDemo()),
+            new Entry("并发模式", null, new com.algoviz.engine.pattern.ConcurrentRwLockDemo()),
+            new Entry("并发模式", null, new com.algoviz.engine.pattern.ConcurrentPoolDemo()),
+            new Entry("分布式模式", null, new com.algoviz.engine.pattern.DistBreakerDemo()),
+            new Entry("分布式模式", null, new com.algoviz.engine.pattern.DistDiscoveryDemo()),
+            new Entry("分布式模式", null, new com.algoviz.engine.pattern.DistCqrsDemo()),
             new Entry("算法", "前缀和", new com.algoviz.engine.array.PrefixSum(new int[]{3, 7, 2, 5, 1})),
             new Entry("算法", "查找", new com.algoviz.engine.array.SlidingWindow()),
             new Entry("算法", "双指针", new com.algoviz.engine.array.TwoPointers(new int[]{1, 2, 5, 5, 9, 12, 15}, 14)),
@@ -189,8 +195,17 @@ public final class AlgorithmRegistry {
         return randomVariant(current, 5 + new java.util.Random().nextInt(4));
     }
 
+    /** 该演示是否支持随机变体（不支持则 🎲/滑杆置灰——固定剧本类没有「换一批数据」）。 */
+    public static boolean hasVariant(Algorithm current) {
+        return variantOf(current, 8) != null;
+    }
+
     /** 数据量滑杆入口：n = 期望元素个数（算法内部再微调，如二分固定 7、双指针需 7+）。 */
     public static Algorithm randomVariant(Algorithm current, int n) {
+        return variantOf(current, n);
+    }
+
+    private static Algorithm variantOf(Algorithm current, int n) {
         java.util.Random r = new java.util.Random();
         return switch (current.id()) {
             case "sort.bubble" -> new BubbleSort(randArray(r, n));
@@ -232,6 +247,49 @@ public final class AlgorithmRegistry {
                 yield new com.algoviz.engine.array.TwoPointers(a, a[r.nextInt(a.length)] + a[r.nextInt(a.length)]);
             }
             case "tree.bplus" -> new com.algoviz.engine.tree.BPlusTreeDemo(randomKeys(r, Math.min(n + 4, 16)));
+            // ---- 打磨批：数据型 demo 变体扩充 ----
+            case "dp.knapsack" -> {
+                int items = Math.max(3, Math.min(n - 2, 5));
+                int[] w = new int[items], v = new int[items];
+                for (int i = 0; i < items; i++) {
+                    w[i] = 1 + r.nextInt(5);
+                    v[i] = 5 + r.nextInt(30);
+                }
+                yield new KnapsackDemo(w, v, 4 + r.nextInt(5));
+            }
+            case "dp.lcs" -> {
+                String abc = "ABCD";
+                StringBuilder a = new StringBuilder(), b = new StringBuilder();
+                for (int i = 0; i < 5 + r.nextInt(3); i++) a.append(abc.charAt(r.nextInt(4)));
+                for (int i = 0; i < 5 + r.nextInt(3); i++) b.append(abc.charAt(r.nextInt(4)));
+                yield new LcsDemo(a.toString(), b.toString());
+            }
+            case "dp.lis" -> new LisDemo(randArray(r, Math.max(6, Math.min(n + 1, 10))));
+            case "dp.climbing" -> new ClimbingStairsDemo(5 + r.nextInt(11));
+            case "array.slidingwindow" -> new com.algoviz.engine.array.SlidingWindow(randArray(r, Math.max(6, Math.min(n + 1, 10))));
+            case "string.kmp" -> {
+                String abc = "AB";
+                StringBuilder text = new StringBuilder();
+                for (int i = 0; i < 14 + r.nextInt(5); i++) text.append(abc.charAt(r.nextInt(2)));
+                String pattern = text.substring(4 + r.nextInt(3), 8 + r.nextInt(3));   // 必在文本中
+                yield new KmpDemo(text.toString(), pattern);
+            }
+            case "math.gcd" -> new GcdDemo(12 + r.nextInt(988), 12 + r.nextInt(988));
+            case "math.fastpower" -> new FastPowerDemo(2 + r.nextInt(8), 10 + r.nextInt(21));
+            case "math.sieve" -> new SieveDemo(20 + r.nextInt(41));
+            case "backtracking.nqueens" -> new com.algoviz.engine.backtracking.NQueensDemo(4 + r.nextInt(3));
+            case "backtracking.permutation" -> new com.algoviz.engine.backtracking.PermutationDemo(randDistinct(r, 3 + r.nextInt(3), 1, 99));
+            case "math.hashmap" -> {
+                int[] keys = new int[5 + r.nextInt(4)];
+                for (int i = 0; i < keys.length; i++) keys[i] = 1 + r.nextInt(99);
+                yield new com.algoviz.engine.math.HashMapDemo(keys, keys[keys.length - 1]);   // 查询最后一个：走链有戏
+            }
+            case "math.bucket" -> {
+                int[] data = new int[6 + r.nextInt(4)];
+                for (int i = 0; i < data.length; i++) data[i] = r.nextInt(1024);
+                data[data.length - 1] = data[0];                      // 保证有一个重复
+                yield new com.algoviz.engine.math.BucketDemo(data);
+            }
             default -> null;
         };
     }

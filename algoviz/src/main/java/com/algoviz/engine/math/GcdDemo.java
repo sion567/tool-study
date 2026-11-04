@@ -33,7 +33,16 @@ public final class GcdDemo implements Algorithm {
     private static final String INVARIANT =
             "gcd(a,b) = gcd(b, a%b)——余数逐步缩小，最终归零时 a 就是答案";
 
-    private static final int A = 48, B = 18;
+    private final int A, B;
+
+    public GcdDemo() {
+        this(48, 18);
+    }
+
+    public GcdDemo(int a, int b) {
+        this.A = a;
+        this.B = b;
+    }
 
     private final List<Step> steps = new ArrayList<>();
     private int a, b;

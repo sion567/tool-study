@@ -33,8 +33,16 @@ public final class FastPowerDemo implements Algorithm {
     private static final String INVARIANT =
             "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘";
 
-    private static final int BASE = 3;
-    private static final int EXP = 13;
+    private final int BASE, EXP;
+
+    public FastPowerDemo() {
+        this(3, 13);
+    }
+
+    public FastPowerDemo(int base, int exp) {
+        this.BASE = base;
+        this.EXP = exp;
+    }
 
     private final List<Step> steps = new ArrayList<>();
     private long result;

@@ -1,0 +1,1281 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dist.cqrs",
+    "title": "分布式·CQRS 读写分离",
+    "codeResource": "/code/CqrsDemo.java",
+    "input": "1 命令 1 查询",
+    "inputSize": 2
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "一个库扛读写时：写要锁行、读要 join 两头为难——CQRS 干脆分成两个世界"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 0"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: []"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@w",
+            "@r"
+          ],
+          "detail": "写模型 = 规范化订单库；读模型 = 反规范化的宽表"
+        }
+      ],
+      "intent": {
+        "why": "一个库扛读写时：写要锁行、读要 join 两头为难——CQRS 干脆分成两个世界",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "命令 = 有业务意图的写"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 0"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: []"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "command: 创建订单(张三, ¥199)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "命令侧（写模型）"
+          ],
+          "detail": "client → 命令侧（写模型）：command: 创建订单(张三, ¥199)"
+        }
+      ],
+      "intent": {
+        "why": "命令 = 有业务意图的写",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "写模型：事务、约束、不变量全在这一侧"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 0"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: []"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "command: 创建订单(张三, ¥199)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "校验 ✓ 落库 ✓",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "命令侧（写模型）",
+            "client"
+          ],
+          "detail": "命令侧（写模型） → client：校验 ✓ 落库 ✓"
+        }
+      ],
+      "intent": {
+        "why": "写模型：事务、约束、不变量全在这一侧",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "落库后发事件——不直接改读库（解耦）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 0"
+                  },
+                  "orders": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: []"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "command: 创建订单(张三, ¥199)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "校验 ✓ 落库 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "publish OrderCreated",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "命令侧（写模型）",
+            "事件流"
+          ],
+          "detail": "命令侧（写模型） → 事件流：publish OrderCreated"
+        }
+      ],
+      "intent": {
+        "why": "落库后发事件——不直接改读库（解耦）",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "读模型按查询的形状存数据（已拼好名字、金额、状态）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 0"
+                  },
+                  "orders": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: []"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "command: 创建订单(张三, ¥199)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "校验 ✓ 落库 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "publish OrderCreated",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "投影：订单摘要入宽表",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "事件流",
+            "查询侧（读模型宽表）"
+          ],
+          "detail": "事件流 → 查询侧（读模型宽表）：投影：订单摘要入宽表"
+        }
+      ],
+      "intent": {
+        "why": "读模型按查询的形状存数据（已拼好名字、金额、状态）",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "同步完成——通常有毫秒级延迟"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 0"
+                  },
+                  "orders": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: []"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "command: 创建订单(张三, ¥199)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "校验 ✓ 落库 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "publish OrderCreated",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "投影：订单摘要入宽表",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "宽表 +1 行",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "查询侧（读模型宽表）",
+            "事件流"
+          ],
+          "detail": "查询侧（读模型宽表） → 事件流：宽表 +1 行"
+        }
+      ],
+      "intent": {
+        "why": "同步完成——通常有毫秒级延迟",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "查询全走读模型"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  },
+                  "orders": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: [张三 ¥199 待发货]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "command: 创建订单(张三, ¥199)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "校验 ✓ 落库 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "publish OrderCreated",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "投影：订单摘要入宽表",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "宽表 +1 行",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "query: 我的订单",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "查询侧（读模型宽表）"
+          ],
+          "detail": "client → 查询侧（读模型宽表）：query: 我的订单"
+        }
+      ],
+      "intent": {
+        "why": "查询全走读模型",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "宽表即答案：读侧可以任意复制、加缓存、上搜索引擎"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  },
+                  "orders": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: [张三 ¥199 待发货]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "command: 创建订单(张三, ¥199)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "校验 ✓ 落库 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "publish OrderCreated",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "投影：订单摘要入宽表",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "宽表 +1 行",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "query: 我的订单",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "return 订单列表（0 join，可缓存）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "查询侧（读模型宽表）",
+            "client"
+          ],
+          "detail": "查询侧（读模型宽表） → client：return 订单列表（0 join，可缓存）"
+        }
+      ],
+      "intent": {
+        "why": "宽表即答案：读侧可以任意复制、加缓存、上搜索引擎",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "读侧多副本扛流量；写侧单点保一致——各干各的"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  },
+                  "orders": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: [张三 ¥199 待发货]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "command: 创建订单(张三, ¥199)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "校验 ✓ 落库 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "publish OrderCreated",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "投影：订单摘要入宽表",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "宽表 +1 行",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "query: 我的订单",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "return 订单列表（0 join，可缓存）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@r"
+          ],
+          "detail": "读写比 99:1 的系统：99% 流量在宽表上横行"
+        }
+      ],
+      "intent": {
+        "why": "读侧多副本扛流量；写侧单点保一致——各干各的",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "CQRS 的唯一代价：读到几毫秒~几秒前的旧数据——多数业务（订单列表）完全可接受"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  },
+                  "orders": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: [张三 ¥199 待发货]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "command: 创建订单(张三, ¥199)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "校验 ✓ 落库 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "publish OrderCreated",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "投影：订单摘要入宽表",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "宽表 +1 行",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "query: 我的订单",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "return 订单列表（0 join，可缓存）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@r"
+          ],
+          "detail": "下单后立刻查，读侧可能还差一拍（最终一致）"
+        }
+      ],
+      "intent": {
+        "why": "CQRS 的唯一代价：读到几毫秒~几秒前的旧数据——多数业务（订单列表）完全可接受",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "延伸：事件溯源（Event Sourcing）把写模型也变成事件流——CQRS 常与它成对出现"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "WriteDb",
+                "fields": {
+                  "写模型": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  },
+                  "orders": {
+                    "kind": "PRIM",
+                    "text": "orders: 1"
+                  }
+                },
+                "elements": []
+              },
+              "@r": {
+                "id": "@r",
+                "label": "@r",
+                "type": "ReadDb",
+                "fields": {
+                  "读模型宽表": {
+                    "kind": "PRIM",
+                    "text": "order_list: [张三 ¥199 待发货]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "cmd",
+              "label": "命令侧（写模型）"
+            },
+            {
+              "id": "evt",
+              "label": "事件流"
+            },
+            {
+              "id": "qry",
+              "label": "查询侧（读模型宽表）"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "command: 创建订单(张三, ¥199)",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 0,
+              "label": "校验 ✓ 落库 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "publish OrderCreated",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "投影：订单摘要入宽表",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "宽表 +1 行",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "query: 我的订单",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "return 订单列表（0 join，可缓存）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@w",
+            "@r"
+          ],
+          "detail": "命令/查询分离 + 事件同步 = 各自伸缩"
+        }
+      ],
+      "intent": {
+        "why": "延伸：事件溯源（Event Sourcing）把写模型也变成事件流——CQRS 常与它成对出现",
+        "invariant": "写侧保一致（规范化库），读侧保速度（反规范化宽表）——中间用事件同步，接受短暂不一致"
+      }
+    }
+  ]
+}

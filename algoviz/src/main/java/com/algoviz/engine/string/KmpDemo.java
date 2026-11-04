@@ -30,11 +30,21 @@ public final class KmpDemo implements Algorithm {
     private static final String INVARIANT =
             "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退";
 
-    private static final String TEXT = "ABABDABACDABABCABAB";
-    private static final String PATTERN = "ABABCABAB";
+    private final String TEXT;
+    private final String PATTERN;
+
+    public KmpDemo() {
+        this("ABABDABACDABABCABAB", "ABABCABAB");
+    }
+
+    public KmpDemo(String text, String pattern) {
+        this.TEXT = text;
+        this.PATTERN = pattern;
+        this.next = new int[PATTERN.length()];
+    }
 
     private final List<Step> steps = new ArrayList<>();
-    private final int[] next = new int[PATTERN.length()];
+    private final int[] next;
     private int ti, pi;
 
     @Override public String id() { return "string.kmp"; }

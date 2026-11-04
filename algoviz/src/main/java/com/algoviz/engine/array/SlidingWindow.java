@@ -42,7 +42,15 @@ public final class SlidingWindow implements Algorithm {
     private static final int L_RECORD = 8;
     private static final int L_END = 10;
 
-    private static final int[] DATA = {2, 1, 3, 1, 4, 4, 2, 5};
+    private final int[] DATA;
+
+    public SlidingWindow() {
+        this(new int[]{2, 1, 3, 1, 4, 4, 2, 5});
+    }
+
+    public SlidingWindow(int[] data) {
+        this.DATA = data.clone();
+    }
     private final List<Step> steps = new ArrayList<>();
     private int lo, hi;
     private int bestLen, bestLo, bestHi;

@@ -1,0 +1,1808 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dist.breaker",
+    "title": "分布式·断路器",
+    "codeResource": "/code/CircuitBreakerDemo.java",
+    "input": "阈值3 冷却5s",
+    "inputSize": 6
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "断路器 = 电路保险丝：正常时它是透明的一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@cb"
+          ],
+          "detail": "CLOSED：放行一切，同时统计连续失败数"
+        }
+      ],
+      "intent": {
+        "why": "断路器 = 电路保险丝：正常时它是透明的一层",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "请求穿过断路器打到服务"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "支付服务"
+          ],
+          "detail": "client → 支付服务：req#1 支付"
+        }
+      ],
+      "intent": {
+        "why": "请求穿过断路器打到服务",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "正常——计数不动"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "支付服务",
+            "client"
+          ],
+          "detail": "支付服务 → client：200 ✓"
+        }
+      ],
+      "intent": {
+        "why": "正常——计数不动",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "服务开始抖动"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "支付服务"
+          ],
+          "detail": "client → 支付服务：req#2"
+        }
+      ],
+      "intent": {
+        "why": "服务开始抖动",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "连续失败 +1"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "支付服务",
+            "client"
+          ],
+          "detail": "支付服务 → client：500 ✗（失败 1）"
+        }
+      ],
+      "intent": {
+        "why": "连续失败 +1",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "继续打"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "支付服务"
+          ],
+          "detail": "client → 支付服务：req#3"
+        }
+      ],
+      "intent": {
+        "why": "继续打",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "失败 2——还没到阈值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 2）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "支付服务",
+            "client"
+          ],
+          "detail": "支付服务 → client：500 ✗（失败 2）"
+        }
+      ],
+      "intent": {
+        "why": "失败 2——还没到阈值",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "第 4 发"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 2）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#4",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "支付服务"
+          ],
+          "detail": "client → 支付服务：req#4"
+        }
+      ],
+      "intent": {
+        "why": "第 4 发",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "三连败 → 触发熔断"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 2）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#4",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 3 = 阈值）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "支付服务",
+            "client"
+          ],
+          "detail": "支付服务 → client：500 ✗（失败 3 = 阈值）"
+        }
+      ],
+      "intent": {
+        "why": "三连败 → 触发熔断",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "这时服务可能已经崩了——继续打只会把它按在地上，还拖住调用方的线程"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 2）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#4",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 3 = 阈值）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "@cb"
+          ],
+          "detail": "阈值到 → 熔断 OPEN：后续请求不再打服务"
+        }
+      ],
+      "intent": {
+        "why": "这时服务可能已经崩了——继续打只会把它按在地上，还拖住调用方的线程",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "又来一个请求"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 2）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#4",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 3 = 阈值）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "req#5",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 8
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "断路器"
+          ],
+          "detail": "client → 断路器：req#5"
+        }
+      ],
+      "intent": {
+        "why": "又来一个请求",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "调用方 1ms 拿到失败，马上走降级——比 30s 超时好一万倍"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 2）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#4",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 3 = 阈值）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "req#5",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 8
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@cb"
+          ],
+          "detail": "OPEN → 直接拒绝（fail fast），服务端零压力"
+        }
+      ],
+      "intent": {
+        "why": "调用方 1ms 拿到失败，马上走降级——比 30s 超时好一万倍",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "半开 = 谨慎乐观：给服务一次自愈的机会，但不放任流量冲击"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 2）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#4",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 3 = 阈值）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "req#5",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 8
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@cb"
+          ],
+          "detail": "冷却期（如 5s）过 → HALF_OPEN：只放行一个试探请求"
+        }
+      ],
+      "intent": {
+        "why": "半开 = 谨慎乐观：给服务一次自愈的机会，但不放任流量冲击",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "唯一放行的探测请求"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 2）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#4",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 3 = 阈值）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "req#5",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#6（试探）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "client",
+            "支付服务"
+          ],
+          "detail": "client → 支付服务：req#6（试探）"
+        }
+      ],
+      "intent": {
+        "why": "唯一放行的探测请求",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "试探成功 → 服务缓过来了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 2）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#4",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 3 = 阈值）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "req#5",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#6（试探）",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 10
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "支付服务",
+            "client"
+          ],
+          "detail": "支付服务 → client：200 ✓"
+        }
+      ],
+      "intent": {
+        "why": "试探成功 → 服务缓过来了",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "若试探失败则直接回 OPEN 继续等——三态机让故障代价从「拖死全网」变成「快速拒绝」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@cb": {
+                "id": "@cb",
+                "label": "@cb",
+                "type": "CircuitBreaker",
+                "fields": {
+                  "state": {
+                    "kind": "PRIM",
+                    "text": "CLOSED"
+                  },
+                  "连续失败": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "client",
+              "label": "client"
+            },
+            {
+              "id": "breaker",
+              "label": "断路器"
+            },
+            {
+              "id": "svc",
+              "label": "支付服务"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#1 支付",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#2",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 1）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#3",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 2）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#4",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "500 ✗（失败 3 = 阈值）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "req#5",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "req#6（试探）",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 10
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@cb"
+          ],
+          "detail": "试探成功 → 回 CLOSED，失败计数清零——全链路恢复"
+        }
+      ],
+      "intent": {
+        "why": "若试探失败则直接回 OPEN 继续等——三态机让故障代价从「拖死全网」变成「快速拒绝」",
+        "invariant": "CLOSED 放行、OPEN 快速失败、HALF_OPEN 试探——三态机让故障的代价从「拖死全网」变成「快速拒绝」"
+      }
+    }
+  ]
+}

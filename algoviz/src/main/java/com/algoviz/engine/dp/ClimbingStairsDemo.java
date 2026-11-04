@@ -32,10 +32,19 @@ public final class ClimbingStairsDemo implements Algorithm {
     private static final String INVARIANT =
             "ways[i] = ways[i-1] + ways[i-2]——最后一步只能跨 1 或 2 阶，所以走到 i 的方法数 = 走到 i-1 的 + 走到 i-2 的";
 
-    private static final int N = 6;
+    private final int N;
+
+    public ClimbingStairsDemo() {
+        this(6);
+    }
+
+    public ClimbingStairsDemo(int n) {
+        this.N = n;
+        this.ways = new int[N + 1];
+    }
 
     private final List<Step> steps = new ArrayList<>();
-    private final int[] ways = new int[N + 1];
+    private final int[] ways;
     private int curIdx = -1;
 
     @Override public String id() { return "dp.climbingstairs"; }

@@ -32,8 +32,18 @@ public final class PermutationDemo implements Algorithm {
     private static final String INVARIANT =
             "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个";
 
-    private static final int[] INPUT = {1, 2, 3};
-    private static final int N = INPUT.length;
+    private final int[] INPUT;
+    private final int N;
+
+    public PermutationDemo() {
+        this(new int[]{1, 2, 3});
+    }
+
+    public PermutationDemo(int[] input) {
+        this.INPUT = input.clone();
+        this.N = INPUT.length;
+        this.used = new boolean[N];
+    }
 
     private static final int L_CALL = 3;
     private static final int L_DONE = 5;
@@ -44,7 +54,7 @@ public final class PermutationDemo implements Algorithm {
     private final List<Step> steps = new ArrayList<>();
     private final List<StackFrame> frames = new ArrayList<>();
     private final List<Integer> current = new ArrayList<>();
-    private final boolean[] used = new boolean[N];
+    private final boolean[] used;
     private final List<List<Integer>> allResults = new ArrayList<>();
 
     @Override public String id() { return "backtracking.permutation"; }

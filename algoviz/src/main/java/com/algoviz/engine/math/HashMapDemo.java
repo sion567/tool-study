@@ -37,8 +37,17 @@ public final class HashMapDemo implements Algorithm {
             "键 k 只能落在 h(k)=k%4 号桶——撞车不慌，桶内链排开；查 = 定位桶 + 走链比对";
 
     private static final int BUCKETS = 4;
-    private static final int[] PUT_KEYS = {12, 7, 20, 3, 15};
-    private static final int QUERY_KEY = 7;   // 桶3 链尾 → 走 3 步，展示冲突链的真实代价
+    private final int[] PUT_KEYS;
+    private final int QUERY_KEY;
+
+    public HashMapDemo() {
+        this(new int[]{12, 7, 20, 3, 15}, 7);
+    }
+
+    public HashMapDemo(int[] keys, int query) {
+        this.PUT_KEYS = keys.clone();
+        this.QUERY_KEY = query;
+    }
 
     /** 与 /code/HashMapDemo.java 的行号对齐 */
     private static final int L_PUT = 5;

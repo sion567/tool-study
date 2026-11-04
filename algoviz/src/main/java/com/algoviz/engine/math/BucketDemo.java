@@ -39,7 +39,15 @@ public final class BucketDemo implements Algorithm {
 
     private static final int BUCKETS = 4;
     private static final int BUCKET_BITS = 256;          // 每桶 256 位（16×16）
-    private static final int[] DATA = {700, 300, 50, 999, 700, 100, 512, 260};
+    private final int[] DATA;
+
+    public BucketDemo() {
+        this(new int[]{700, 300, 50, 999, 700, 100, 512, 260});
+    }
+
+    public BucketDemo(int[] data) {
+        this.DATA = data.clone();
+    }
 
     private final List<Step> steps = new ArrayList<>();
     private final boolean[][] bits = new boolean[BUCKETS][BUCKET_BITS];

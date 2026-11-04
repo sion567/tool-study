@@ -41,6 +41,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -92,6 +93,7 @@ public class MainApp extends Application {
     private Canvas canvas;
     private Slider slider;
     private Slider dataNSlider;
+    private Button randBtn;
     private Label stepLabel;
     private Button playBtn;
 
@@ -270,7 +272,8 @@ public class MainApp extends Application {
             themeBtn.setText(dark ? "☀" : "🌙");
             applyTheme();
         });
-        Button randBtn = new Button("🎲");
+        randBtn = new Button("🎲");
+        Tooltip.install(randBtn, new Tooltip("换一批随机数据（灰=该演示是固定剧本）"));
         randBtn.setOnAction(e -> {
             if (currentAlgorithm == null) {
                 return;
@@ -494,6 +497,11 @@ public class MainApp extends Application {
         phase = null;
         picked.clear();
         playback.load(trace);
+        // 🎲/滑杆：固定剧本类没有「换一批数据」——置灰 + 提示，不再静默无反应
+        boolean canRoll = AlgorithmRegistry.hasVariant(alg);
+        randBtn.setDisable(!canRoll);
+        randBtn.setText(canRoll ? "🎲" : "🎲🚫");
+        dataNSlider.setDisable(!canRoll);
     }
 
     // ---------- 预测模式（蓝图 §2.5-A） ----------

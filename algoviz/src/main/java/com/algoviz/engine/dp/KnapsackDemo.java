@@ -34,13 +34,25 @@ public final class KnapsackDemo implements Algorithm {
     private static final String INVARIANT =
             "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减";
 
-    private static final int[] WEIGHTS = {1, 3, 4};
-    private static final int[] VALUES = {15, 20, 30};
-    private static final int CAPACITY = 4;
-    private static final int N = WEIGHTS.length;
+    private final int[] WEIGHTS;
+    private final int[] VALUES;
+    private final int CAPACITY;
+    private final int N;
+
+    public KnapsackDemo() {
+        this(new int[]{1, 3, 4}, new int[]{15, 20, 30}, 4);
+    }
+
+    public KnapsackDemo(int[] weights, int[] values, int capacity) {
+        this.WEIGHTS = weights.clone();
+        this.VALUES = values.clone();
+        this.CAPACITY = capacity;
+        this.N = WEIGHTS.length;
+        this.dp = new int[N + 1][CAPACITY + 1];
+    }
 
     private final List<Step> steps = new ArrayList<>();
-    private final int[][] dp = new int[N + 1][CAPACITY + 1];
+    private final int[][] dp;
     private int curI = -1, curW = -1;
 
     @Override public String id() { return "dp.knapsack"; }
@@ -127,7 +139,7 @@ public final class KnapsackDemo implements Algorithm {
     }
 
     private Trace.TraceMeta meta() {
-        return new Trace.TraceMeta(id(), title(), codeResource(), "3 物品 容量4", N + 1);
+        return new Trace.TraceMeta(id(), title(), codeResource(), WEIGHTS.length + " 物品 容量" + CAPACITY, N + 1);
     }
 
     @Override

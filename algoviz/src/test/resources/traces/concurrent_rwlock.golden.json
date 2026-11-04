@@ -1,0 +1,1567 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "concurrent.rwlock",
+    "title": "并发·读写锁",
+    "codeResource": "/code/RwLockDemo.java",
+    "input": "2 读 + 1 写",
+    "inputSize": 3
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "普通互斥锁一视同仁；读写锁按「谁真的会冲突」分派并发权"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "空闲"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@lock"
+          ],
+          "detail": "锁空闲——读多写少场景：配置表 99% 读 1% 写"
+        }
+      ],
+      "intent": {
+        "why": "普通互斥锁一视同仁；读写锁按「谁真的会冲突」分派并发权",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "读者 A 进入"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "空闲"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Reader A",
+            "ReadWriteLock"
+          ],
+          "detail": "Reader A → ReadWriteLock：acquireRead()"
+        }
+      ],
+      "intent": {
+        "why": "读者 A 进入",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "读锁可共享——A 不挡别人"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "空闲"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "ReadWriteLock",
+            "Reader A"
+          ],
+          "detail": "ReadWriteLock → Reader A：OK mode=读(1)"
+        }
+      ],
+      "intent": {
+        "why": "读锁可共享——A 不挡别人",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "读者 B 同时进入"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "读"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Reader B",
+            "ReadWriteLock"
+          ],
+          "detail": "Reader B → ReadWriteLock：acquireRead()"
+        }
+      ],
+      "intent": {
+        "why": "读者 B 同时进入",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "读-读共享：A、B 并行读，互不阻塞"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "读"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "OK mode=读(2)",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "ReadWriteLock",
+            "Reader B"
+          ],
+          "detail": "ReadWriteLock → Reader B：OK mode=读(2)"
+        }
+      ],
+      "intent": {
+        "why": "读-读共享：A、B 并行读，互不阻塞",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "写者请求——有人在读"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "读"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "OK mode=读(2)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "acquireWrite()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Writer",
+            "ReadWriteLock"
+          ],
+          "detail": "Writer → ReadWriteLock：acquireWrite()"
+        }
+      ],
+      "intent": {
+        "why": "写者请求——有人在读",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "写者必须等所有读者退场——它改的数据不能被人正在读"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "读"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "OK mode=读(2)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "acquireWrite()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@lock"
+          ],
+          "detail": "读在进行 → 写者挂起等待（读写互斥）"
+        }
+      ],
+      "intent": {
+        "why": "写者必须等所有读者退场——它改的数据不能被人正在读",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "A 读完退出（读计数 2→1）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "读"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "OK mode=读(2)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "acquireWrite()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Reader A",
+            "ReadWriteLock"
+          ],
+          "detail": "Reader A → ReadWriteLock：releaseRead()"
+        }
+      ],
+      "intent": {
+        "why": "A 读完退出（读计数 2→1）",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "B 退出（读计数归零）→ 唤醒写者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "空闲"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "OK mode=读(2)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "acquireWrite()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Reader B",
+            "ReadWriteLock"
+          ],
+          "detail": "Reader B → ReadWriteLock：releaseRead()"
+        }
+      ],
+      "intent": {
+        "why": "B 退出（读计数归零）→ 唤醒写者",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "mode=写：现在数据只属于写者一个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "空闲"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "OK mode=读(2)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "acquireWrite()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "获得写锁",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Writer",
+            "ReadWriteLock"
+          ],
+          "detail": "Writer → ReadWriteLock：获得写锁"
+        }
+      ],
+      "intent": {
+        "why": "mode=写：现在数据只属于写者一个",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "写-写、写-读全互斥：一致性靠这一步保住"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "空闲"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "OK mode=读(2)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "acquireWrite()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "获得写锁",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@lock"
+          ],
+          "detail": "写者独占——期间任何读/写请求都要等"
+        }
+      ],
+      "intent": {
+        "why": "写-写、写-读全互斥：一致性靠这一步保住",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "写完释放"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "空闲"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "OK mode=读(2)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "acquireWrite()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "获得写锁",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "releaseWrite()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 8
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "Writer",
+            "ReadWriteLock"
+          ],
+          "detail": "Writer → ReadWriteLock：releaseWrite()"
+        }
+      ],
+      "intent": {
+        "why": "写完释放",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "锁回到空闲——被挡的读者们可以进来了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "空闲"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "OK mode=读(2)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "acquireWrite()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "获得写锁",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "releaseWrite()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "OK mode=空闲",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "ReadWriteLock",
+            "Writer"
+          ],
+          "detail": "ReadWriteLock → Writer：OK mode=空闲"
+        }
+      ],
+      "intent": {
+        "why": "锁回到空闲——被挡的读者们可以进来了",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "红利算术：99 读 1 写，读锁并行 = 吞吐近似 ×核数；写太多反而不如普通锁（还要维护读计数）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@lock": {
+                "id": "@lock",
+                "label": "@lock",
+                "type": "RwLock",
+                "fields": {
+                  "mode": {
+                    "kind": "PRIM",
+                    "text": "空闲"
+                  },
+                  "readers": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "ra",
+              "label": "Reader A"
+            },
+            {
+              "id": "rb",
+              "label": "Reader B"
+            },
+            {
+              "id": "w",
+              "label": "Writer"
+            },
+            {
+              "id": "lock",
+              "label": "ReadWriteLock"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 0,
+              "label": "OK mode=读(1)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "acquireRead()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "OK mode=读(2)",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "acquireWrite()",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "releaseRead()",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "获得写锁",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "releaseWrite()",
+              "kind": "CALL"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "OK mode=空闲",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@lock"
+          ],
+          "detail": "一张状态机：空闲→读(n)→空→写→空——Java 用 ReentrantReadWriteLock"
+        }
+      ],
+      "intent": {
+        "why": "红利算术：99 读 1 写，读锁并行 = 吞吐近似 ×核数；写太多反而不如普通锁（还要维护读计数）",
+        "invariant": "读读共享、读写互斥、写写互斥——锁状态只有三态：空闲 / 读(n) / 写(1)"
+      }
+    }
+  ]
+}

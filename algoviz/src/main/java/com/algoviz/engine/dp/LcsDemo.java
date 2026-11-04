@@ -34,16 +34,23 @@ public final class LcsDemo implements Algorithm {
     private static final String INVARIANT =
             "dp[i][j] = LCS(s1[0..i), s2[0..j))——字符相等取↖+1，不等取 max(←,↑)";
 
-    private static final String S1 = "ABCBDAB";
-    private static final String S2 = "BDCABA";
+    private final String S1;
+    private final String S2;
+
+    public LcsDemo() {
+        this("ABCBDAB", "BDCABA");
+    }
+
+    public LcsDemo(String s1, String s2) {
+        this.S1 = s1;
+        this.S2 = s2;
+        this.dp = new int[S1.length() + 1][S2.length() + 1];
+    }
 
     private final List<Step> steps = new ArrayList<>();
     private final int[][] dp;
     private int curI = -1, curJ = -1;
 
-    public LcsDemo() {
-        dp = new int[S1.length() + 1][S2.length() + 1];
-    }
 
     @Override public String id() { return "dp.lcs"; }
     @Override public String title() { return "LCS"; }

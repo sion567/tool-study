@@ -30,10 +30,19 @@ public final class LisDemo implements Algorithm {
     private static final String INVARIANT =
             "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1";
 
-    private static final int[] A = {3, 1, 4, 1, 5, 9, 2, 6};
+    private final int[] A;
+
+    public LisDemo() {
+        this(new int[]{3, 1, 4, 1, 5, 9, 2, 6});
+    }
+
+    public LisDemo(int[] a) {
+        this.A = a.clone();
+        this.dp = new int[A.length];
+    }
 
     private final List<Step> steps = new ArrayList<>();
-    private final int[] dp = new int[A.length];
+    private final int[] dp;
     private int curI = -1, curJ = -1;
 
     @Override public String id() { return "dp.lis"; }

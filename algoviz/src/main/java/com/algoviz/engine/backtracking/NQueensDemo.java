@@ -32,12 +32,20 @@ public final class NQueensDemo implements Algorithm {
     private static final String INVARIANT =
             "已放置的皇后互相不攻击：不同列、不同对角线——冲突就回溯换列";
 
-    private static final int N = 4;
-    private static final int[] EXPECTED = {1, 3, 0, 2};   // 第一个解
+    private final int N;
+
+    public NQueensDemo() {
+        this(4);
+    }
+
+    public NQueensDemo(int n) {
+        this.N = n;
+        this.queens = new int[N];
+    }
 
     private final List<Step> steps = new ArrayList<>();
     private final List<StackFrame> frames = new ArrayList<>();
-    private final int[] queens = new int[N];   // queens[row] = col（-1 = 未放）
+    private final int[] queens;   // queens[row] = col（-1 = 未放）
     private int curRow = -1, curCol = -1;
 
     @Override public String id() { return "backtracking.nqueens"; }

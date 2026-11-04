@@ -33,10 +33,19 @@ public final class SieveDemo implements Algorithm {
     private static final String INVARIANT =
             "每个素数 p 的倍数都不是素数——从 p² 开始逐个划掉（小于 p² 的已被更小素数划过）";
 
-    private static final int LIMIT = 20;
+    private final int LIMIT;
+
+    public SieveDemo() {
+        this(20);
+    }
+
+    public SieveDemo(int limit) {
+        this.LIMIT = limit;
+        this.isComposite = new boolean[LIMIT + 1];
+    }
 
     private final List<Step> steps = new ArrayList<>();
-    private final boolean[] isComposite = new boolean[LIMIT + 1];
+    private final boolean[] isComposite;
     private int curPrime = -1;
     private int curMultiple = -1;
 

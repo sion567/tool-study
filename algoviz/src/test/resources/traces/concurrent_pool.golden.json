@@ -1,0 +1,2015 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "concurrent.pool",
+    "title": "并发·线程池",
+    "codeResource": "/code/ThreadPoolDemo.java",
+    "input": "2 worker 3 任务",
+    "inputSize": 3
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "线程池 = 线程复用 + 任务排队。对比裸 new Thread：每次任务都付一次创建/销毁的开销"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@w"
+          ],
+          "detail": "池启动：2 个 worker 常驻循环 take→执行→再 take"
+        }
+      ],
+      "intent": {
+        "why": "线程池 = 线程复用 + 任务排队。对比裸 new Thread：每次任务都付一次创建/销毁的开销",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "T1 进队列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "submitter",
+            "任务队列"
+          ],
+          "detail": "submitter → 任务队列：submit(T1)"
+        }
+      ],
+      "intent": {
+        "why": "T1 进队列",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "T2 进队列（worker 们正忙/待命，队列缓冲）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T1]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "submitter",
+            "任务队列"
+          ],
+          "detail": "submitter → 任务队列：submit(T2)"
+        }
+      ],
+      "intent": {
+        "why": "T2 进队列（worker 们正忙/待命，队列缓冲）",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "T3 进队列——峰值被队列削平"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T1, T2]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "submitter",
+            "任务队列"
+          ],
+          "detail": "submitter → 任务队列：submit(T3)"
+        }
+      ],
+      "intent": {
+        "why": "T3 进队列——峰值被队列削平",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "异步的本质：提交与执行解耦——Future 拿回去等结果"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T1, T2, T3]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@q"
+          ],
+          "detail": "队列 [T1,T2,T3]——提交方永远只管扔进队列，毫秒级返回"
+        }
+      ],
+      "intent": {
+        "why": "异步的本质：提交与执行解耦——Future 拿回去等结果",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "worker-1 空闲 → 认领"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T1, T2, T3]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "worker-1",
+            "任务队列"
+          ],
+          "detail": "worker-1 → 任务队列：take()"
+        }
+      ],
+      "intent": {
+        "why": "worker-1 空闲 → 认领",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "T1 出队交给 worker-1"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T1, T2, T3]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T1",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "任务队列",
+            "worker-1"
+          ],
+          "detail": "任务队列 → worker-1：return T1"
+        }
+      ],
+      "intent": {
+        "why": "T1 出队交给 worker-1",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "worker-2 也来认领"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T2, T3]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "worker-2",
+            "任务队列"
+          ],
+          "detail": "worker-2 → 任务队列：take()"
+        }
+      ],
+      "intent": {
+        "why": "worker-2 也来认领",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "T2 出队交给 worker-2"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T2, T3]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "return T2",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "任务队列",
+            "worker-2"
+          ],
+          "detail": "任务队列 → worker-2：return T2"
+        }
+      ],
+      "intent": {
+        "why": "T2 出队交给 worker-2",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "并行度 = worker 数；队列里的任务是「还没轮到的峰值」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T3]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "return T2",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@q"
+          ],
+          "detail": "队列只剩 [T3]——两个 worker 并行执行 T1/T2"
+        }
+      ],
+      "intent": {
+        "why": "并行度 = worker 数；队列里的任务是「还没轮到的峰值」",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "worker-1 干完活——不放回系统，转身再 take"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T3]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "return T2",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "T1 完成（回调/结果）",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "worker-1",
+            "worker-2"
+          ],
+          "detail": "worker-1 → worker-2：T1 完成（回调/结果）"
+        }
+      ],
+      "intent": {
+        "why": "worker-1 干完活——不放回系统，转身再 take",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "worker-1 继续认领 T3"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T3]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "return T2",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "T1 完成（回调/结果）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 8
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "worker-1",
+            "任务队列"
+          ],
+          "detail": "worker-1 → 任务队列：take()"
+        }
+      ],
+      "intent": {
+        "why": "worker-1 继续认领 T3",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "T3 出队——队列清空"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[T3]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "return T2",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "T1 完成（回调/结果）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T3",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "任务队列",
+            "worker-1"
+          ],
+          "detail": "任务队列 → worker-1：return T3"
+        }
+      ],
+      "intent": {
+        "why": "T3 出队——队列清空",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "这就是「池」：线程是资产，任务是消耗品"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "T3"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "return T2",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "T1 完成（回调/结果）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T3",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@w"
+          ],
+          "detail": "2 个线程消化了 3 个任务——线程从未重建"
+        }
+      ],
+      "intent": {
+        "why": "这就是「池」：线程是资产，任务是消耗品",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "空闲线程不是在轮询，是挂在队列的 notEmpty 条件上——零 CPU，来活即醒"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "T3"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "return T2",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "T1 完成（回调/结果）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T3",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@w"
+          ],
+          "detail": "队列空 → 两个 worker 阻塞在 take()——池待命"
+        }
+      ],
+      "intent": {
+        "why": "空闲线程不是在轮询，是挂在队列的 notEmpty 条件上——零 CPU，来活即醒",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "ThreadPoolExecutor 的本质：一堆 worker 死循环 take 队列——懂这张图，七个参数就不再是咒语"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@q": {
+                "id": "@q",
+                "label": "@q",
+                "type": "TaskQueue",
+                "fields": {
+                  "队列": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              },
+              "@w": {
+                "id": "@w",
+                "label": "@w",
+                "type": "Workers",
+                "fields": {
+                  "worker-1": {
+                    "kind": "PRIM",
+                    "text": "T3"
+                  },
+                  "worker-2": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "sub",
+              "label": "submitter"
+            },
+            {
+              "id": "q",
+              "label": "任务队列"
+            },
+            {
+              "id": "w1",
+              "label": "worker-1"
+            },
+            {
+              "id": "w2",
+              "label": "worker-2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "submit(T3)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T1",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "return T2",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "T1 完成（回调/结果）",
+              "kind": "RETURN"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "take()",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "return T3",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@w"
+          ],
+          "detail": "七个参数对应画面：corePoolSize=2（worker 数）、workQueue=队列、maximum/reject=队列满后的扩容与拒绝策略"
+        }
+      ],
+      "intent": {
+        "why": "ThreadPoolExecutor 的本质：一堆 worker 死循环 take 队列——懂这张图，七个参数就不再是咒语",
+        "invariant": "worker 循环 = take → 执行 → 再 take；任务排队，线程复用——池的三个参数都在这张图上"
+      }
+    }
+  ]
+}

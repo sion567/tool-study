@@ -1,0 +1,1706 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dist.discovery",
+    "title": "分布式·服务发现",
+    "codeResource": "/code/ServiceDiscoveryDemo.java",
+    "input": "2 实例 1 故障",
+    "inputSize": 2
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "云上实例随扩缩容随时生灭——IP 不可靠，名字才可靠"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [],
+          "activeIndex": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@reg"
+          ],
+          "detail": "注册表空——写死 IP 的时代：一台挂了全网报错"
+        }
+      ],
+      "intent": {
+        "why": "云上实例随扩缩容随时生灭——IP 不可靠，名字才可靠",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "实例 1 启动 → 上报自己的地址"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "user-svc@10.0.0.1",
+            "注册表"
+          ],
+          "detail": "user-svc@10.0.0.1 → 注册表：register(user-svc @.1)"
+        }
+      ],
+      "intent": {
+        "why": "实例 1 启动 → 上报自己的地址",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "注册表 [10.0.0.1]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "注册表",
+            "user-svc@10.0.0.1"
+          ],
+          "detail": "注册表 → user-svc@10.0.0.1：OK"
+        }
+      ],
+      "intent": {
+        "why": "注册表 [10.0.0.1]",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "实例 2 也上线"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "user-svc@10.0.0.2",
+            "注册表"
+          ],
+          "detail": "user-svc@10.0.0.2 → 注册表：register(user-svc @.2)"
+        }
+      ],
+      "intent": {
+        "why": "实例 2 也上线",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "注册表 [@.1, @.2]——每 10s 心跳续约"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "注册表",
+            "user-svc@10.0.0.1"
+          ],
+          "detail": "注册表 → user-svc@10.0.0.1：OK"
+        }
+      ],
+      "intent": {
+        "why": "注册表 [@.1, @.2]——每 10s 心跳续约",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "客户端按名字查——不关心几台、在哪"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.1, @10.0.0.2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "客户端",
+            "注册表"
+          ],
+          "detail": "客户端 → 注册表：lookup(user-svc)"
+        }
+      ],
+      "intent": {
+        "why": "客户端按名字查——不关心几台、在哪",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "拿到存活列表 → 负载均衡挑一个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.1, @10.0.0.2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.1, @.2]",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "注册表",
+            "客户端"
+          ],
+          "detail": "注册表 → 客户端：return [@.1, @.2]"
+        }
+      ],
+      "intent": {
+        "why": "拿到存活列表 → 负载均衡挑一个",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "轮询选中实例 2"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.1, @10.0.0.2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.1, @.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "call @.2",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "客户端",
+            "user-svc@10.0.0.2"
+          ],
+          "detail": "客户端 → user-svc@10.0.0.2：call @.2"
+        }
+      ],
+      "intent": {
+        "why": "轮询选中实例 2",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "调用成功"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.1, @10.0.0.2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.1, @.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "call @.2",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "user-svc@10.0.0.2",
+            "客户端"
+          ],
+          "detail": "user-svc@10.0.0.2 → 客户端：200 ✓"
+        }
+      ],
+      "intent": {
+        "why": "调用成功",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "摘除靠心跳，不靠谁上报死亡——宕机方自己是不报丧的"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.1, @10.0.0.2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.1, @.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "call @.2",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 7
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@reg"
+          ],
+          "detail": "@.1 心跳超时（90s 没续约）→ 注册表摘除它"
+        }
+      ],
+      "intent": {
+        "why": "摘除靠心跳，不靠谁上报死亡——宕机方自己是不报丧的",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "客户端再查"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.1, @.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "call @.2",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 8
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "客户端",
+            "注册表"
+          ],
+          "detail": "客户端 → 注册表：lookup(user-svc)"
+        }
+      ],
+      "intent": {
+        "why": "客户端再查",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "只剩 @.2——流量自动全切，客户端代码零改动"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.1, @.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "call @.2",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.2]",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 9
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "注册表",
+            "客户端"
+          ],
+          "detail": "注册表 → 客户端：return [@.2]"
+        }
+      ],
+      "intent": {
+        "why": "只剩 @.2——流量自动全切，客户端代码零改动",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "实例 1 恢复 → 重新注册"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.1, @.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "call @.2",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "re-register @.1（进程被守护拉起）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 10
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "user-svc@10.0.0.1",
+            "注册表"
+          ],
+          "detail": "user-svc@10.0.0.1 → 注册表：re-register @.1（进程被守护拉起）"
+        }
+      ],
+      "intent": {
+        "why": "实例 1 恢复 → 重新注册",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "回到池子——下一轮查询就能分到流量"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.1, @.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "call @.2",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "re-register @.1（进程被守护拉起）",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 11
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "注册表",
+            "user-svc@10.0.0.1"
+          ],
+          "detail": "注册表 → user-svc@10.0.0.1：OK"
+        }
+      ],
+      "intent": {
+        "why": "回到池子——下一轮查询就能分到流量",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "服务发现 + 健康检查 = 自愈系统的电话簿；Kubernetes 的 Service/DNS 就是这套机制的平台化"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@reg": {
+                "id": "@reg",
+                "label": "@reg",
+                "type": "Registry",
+                "fields": {
+                  "user-svc 实例": {
+                    "kind": "PRIM",
+                    "text": "[@10.0.0.2, @10.0.0.1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "i1",
+              "label": "user-svc@10.0.0.1"
+            },
+            {
+              "id": "i2",
+              "label": "user-svc@10.0.0.2"
+            },
+            {
+              "id": "reg",
+              "label": "注册表"
+            },
+            {
+              "id": "client",
+              "label": "客户端"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 2,
+              "label": "register(user-svc @.1)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 1,
+              "to": 2,
+              "label": "register(user-svc @.2)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.1, @.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 1,
+              "label": "call @.2",
+              "kind": "CALL"
+            },
+            {
+              "from": 1,
+              "to": 3,
+              "label": "200 ✓",
+              "kind": "RETURN"
+            },
+            {
+              "from": 3,
+              "to": 2,
+              "label": "lookup(user-svc)",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 3,
+              "label": "return [@.2]",
+              "kind": "RETURN"
+            },
+            {
+              "from": 0,
+              "to": 2,
+              "label": "re-register @.1（进程被守护拉起）",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 0,
+              "label": "OK",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 11
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@reg"
+          ],
+          "detail": "全程客户端无感知：挂、切、愈全自动"
+        }
+      ],
+      "intent": {
+        "why": "服务发现 + 健康检查 = 自愈系统的电话簿；Kubernetes 的 Service/DNS 就是这套机制的平台化",
+        "invariant": "注册表 = 电话簿：注册/心跳/摘除/回归四个动作——调用方只认名字，永远不写死 IP"
+      }
+    }
+  ]
+}
