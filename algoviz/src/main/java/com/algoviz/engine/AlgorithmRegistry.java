@@ -1,17 +1,39 @@
 package com.algoviz.engine;
 
 import com.algoviz.engine.graph.BfsDemo;
+import com.algoviz.engine.graph.BellmanFordDemo;
 import com.algoviz.engine.graph.Dijkstra;
+import com.algoviz.engine.graph.TopoSort;
+import com.algoviz.engine.graph.UnionFindDemo;
 import com.algoviz.engine.graph.DfsDemo;
+import com.algoviz.engine.list.IntersectionDemo;
 import com.algoviz.engine.list.LinkedListCycle;
+import com.algoviz.engine.list.LruCacheDemo;
+import com.algoviz.engine.list.MergeLists;
 import com.algoviz.engine.list.ReverseList;
 import com.algoviz.engine.array.PrefixSum;
 import com.algoviz.engine.array.TwoPointers;
 import com.algoviz.engine.tree.RedBlackDemo;
 import com.algoviz.engine.math.BitmapDemo;
+import com.algoviz.engine.math.FastPowerDemo;
+import com.algoviz.engine.dp.ClimbingStairsDemo;
+import com.algoviz.engine.dp.KnapsackDemo;
+import com.algoviz.engine.dp.LcsDemo;
+import com.algoviz.engine.dp.FibonacciDemo;
+import com.algoviz.engine.dp.LisDemo;
+import com.algoviz.engine.backtracking.PermutationDemo;
+import com.algoviz.engine.math.BloomFilterDemo;
+import com.algoviz.engine.math.GcdDemo;
+import com.algoviz.engine.math.SieveDemo;
+import com.algoviz.engine.math.BitmapDemo;
 import com.algoviz.engine.math.MatrixMultiply;
 import com.algoviz.engine.search.BinarySearch;
+import com.algoviz.engine.sort.MergeSort;
+import com.algoviz.engine.sort.HeapSort;
 import com.algoviz.engine.sort.QuickSort;
+import com.algoviz.engine.tree.InvertTree;
+import com.algoviz.engine.tree.LcaDemo;
+import com.algoviz.engine.tree.SymmetricTree;
 import com.algoviz.engine.tree.LevelOrderTraversal;
 import com.algoviz.engine.pattern.AbstractFactoryDemo;
 import com.algoviz.engine.pattern.AdapterDemo;
@@ -37,8 +59,10 @@ import com.algoviz.engine.pattern.StrategyDemo;
 import com.algoviz.engine.pattern.TemplateMethodDemo;
 import com.algoviz.engine.pattern.VisitorDemo;
 import com.algoviz.engine.sort.BubbleSort;
+import com.algoviz.engine.string.KmpDemo;
 import com.algoviz.engine.sort.InsertionSort;
 import com.algoviz.engine.sort.SelectionSort;
+import com.algoviz.engine.tree.AvlDemo;
 import com.algoviz.engine.tree.BstDelete;
 import com.algoviz.engine.tree.BstInsert;
 import com.algoviz.engine.tree.TreeTraversal;
@@ -72,9 +96,39 @@ public final class AlgorithmRegistry {
             new Entry("算法", "图", new Dijkstra()),
             new Entry("算法", "图", new BfsDemo()),
             new Entry("算法", "图", new DfsDemo()),
+            new Entry("字符串", null, new com.algoviz.engine.string.KmpDemo()),
+            new Entry("算法", "图", new TopoSort()),
+            new Entry("算法", "图", new UnionFindDemo()),
+            new Entry("算法", "图", new BellmanFordDemo()),
+            new Entry("算法", "图", new com.algoviz.engine.graph.PrimDemo()),
+            new Entry("算法", "图", new com.algoviz.engine.graph.KruskalDemo()),
+            new Entry("贪心", null, new com.algoviz.engine.graph.IntervalSchedulingDemo()),
+            new Entry("算法", "链表", new MergeLists()),
+            new Entry("算法", "链表", new IntersectionDemo()),
+            new Entry("算法", "链表", new LruCacheDemo()),
+            new Entry("算法", "动态规划", new FibonacciDemo()),
+            new Entry("算法", "动态规划", new ClimbingStairsDemo()),
+            new Entry("算法", "动态规划", new KnapsackDemo()),
+            new Entry("算法", "动态规划", new LcsDemo()),
+            new Entry("算法", "动态规划", new LisDemo()),
+            new Entry("算法", "回溯", new PermutationDemo()),
+            new Entry("算法", "回溯", new com.algoviz.engine.backtracking.NQueensDemo()),
             new Entry("数学", null, new com.algoviz.engine.math.UnitCircleDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.TaylorDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.FastPowerDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.GcdDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.BloomFilterDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.BitOpsDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.SieveDemo()),
             new Entry("算法", "前缀和", new com.algoviz.engine.array.PrefixSum(new int[]{3, 7, 2, 5, 1})),
+            new Entry("算法", "查找", new com.algoviz.engine.array.SlidingWindow()),
             new Entry("算法", "双指针", new com.algoviz.engine.array.TwoPointers(new int[]{1, 2, 5, 5, 9, 12, 15}, 14)),
+            new Entry("算法", "排序", new MergeSort(new int[]{5, 2, 9, 1, 5})),
+            new Entry("算法", "排序", new HeapSort(new int[]{5, 2, 9, 1, 5})),
+            new Entry("算法", "树", new InvertTree()),
+            new Entry("算法", "树", new SymmetricTree()),
+            new Entry("算法", "树", new LcaDemo()),
+            new Entry("算法", "树", new AvlDemo()),
             new Entry("设计模式", "创建型", new SingletonDemo()),
             new Entry("设计模式", "创建型", new FactoryMethodDemo()),
             new Entry("设计模式", "创建型", new AbstractFactoryDemo()),

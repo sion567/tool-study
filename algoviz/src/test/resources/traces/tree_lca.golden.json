@@ -1,0 +1,7331 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "tree.lca",
+    "title": "最近公共祖先",
+    "codeResource": "/code/LcaDemo.java",
+    "input": "5,3,8,1,4,7,9",
+    "inputSize": 7
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 @1：找 p=1 或 q=4"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 lca(@1) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 @1：找 p=1 或 q=4",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 @2：找 p=1 或 q=4"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 lca(@2) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 @2：找 p=1 或 q=4",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 @4：找 p=1 或 q=4"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@4)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 lca(@4) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 @4：找 p=1 或 q=4",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "命中 p 或 q：这个节点就是答案（或答案的祖先）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@4)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "@4"
+          ],
+          "detail": "找到目标节点 @4（val=1）"
+        }
+      ],
+      "intent": {
+        "why": "命中 p 或 q：这个节点就是答案（或答案的祖先）",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "把发现报告给父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@4)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return @4 —— 向上传递"
+        }
+      ],
+      "intent": {
+        "why": "把发现报告给父调用",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 @5：找 p=1 或 q=4"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@5)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@5"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 lca(@5) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 @5：找 p=1 或 q=4",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "命中 p 或 q：这个节点就是答案（或答案的祖先）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@5)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@5"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "@5"
+          ],
+          "detail": "找到目标节点 @5（val=4）"
+        }
+      ],
+      "intent": {
+        "why": "命中 p 或 q：这个节点就是答案（或答案的祖先）",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "把发现报告给父调用"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@5)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@5"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return @5 —— 向上传递"
+        }
+      ],
+      "intent": {
+        "why": "把发现报告给父调用",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "一边找到一个 → 当前节点是它们最后相聚的地方"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "@2"
+          ],
+          "detail": "p 和 q 分居两侧 → @2 就是 LCA！"
+        }
+      ],
+      "intent": {
+        "why": "一边找到一个 → 当前节点是它们最后相聚的地方",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "LCA 确定"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return @2（LCA）"
+        }
+      ],
+      "intent": {
+        "why": "LCA 确定",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 @3：找 p=1 或 q=4"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 lca(@3) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 @3：找 p=1 或 q=4",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 @6：找 p=1 或 q=4"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@6)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@6",
+                  "refId": "@6"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@6"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 lca(@6) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 @6：找 p=1 或 q=4",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "null：这条路上没有 p 也没有 q"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@6)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@6",
+                  "refId": "@6"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@6"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "root = null → 没找到（基线）"
+        }
+      ],
+      "intent": {
+        "why": "null：这条路上没有 p 也没有 q",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "空手而归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@6)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@6",
+                  "refId": "@6"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@6"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return null —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "空手而归",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "null：这条路上没有 p 也没有 q"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@6)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@6",
+                  "refId": "@6"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@6"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "root = null → 没找到（基线）"
+        }
+      ],
+      "intent": {
+        "why": "null：这条路上没有 p 也没有 q",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "空手而归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@6)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@6",
+                  "refId": "@6"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@6"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return null —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "空手而归",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "这棵子树里没有 p 也没有 q"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@6)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@6",
+                  "refId": "@6"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@6"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "两边都没找到 → return null"
+        }
+      ],
+      "intent": {
+        "why": "这棵子树里没有 p 也没有 q",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "进入 @7：找 p=1 或 q=4"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@7)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@7",
+                  "refId": "@7"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "onstack"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@7"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "调用 lca(@7) —— 压栈"
+        }
+      ],
+      "intent": {
+        "why": "进入 @7：找 p=1 或 q=4",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "null：这条路上没有 p 也没有 q"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@7)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@7",
+                  "refId": "@7"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "onstack"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@7"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "root = null → 没找到（基线）"
+        }
+      ],
+      "intent": {
+        "why": "null：这条路上没有 p 也没有 q",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "空手而归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@7)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@7",
+                  "refId": "@7"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "onstack"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@7"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return null —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "空手而归",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "null：这条路上没有 p 也没有 q"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@7)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@7",
+                  "refId": "@7"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "onstack"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@7"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "root = null → 没找到（基线）"
+        }
+      ],
+      "intent": {
+        "why": "null：这条路上没有 p 也没有 q",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "空手而归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@7)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@7",
+                  "refId": "@7"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "onstack"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@7"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return null —— 弹栈"
+        }
+      ],
+      "intent": {
+        "why": "空手而归",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "这棵子树里没有 p 也没有 q"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@7)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@7",
+                  "refId": "@7"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "onstack"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3",
+            "@7"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "两边都没找到 → return null"
+        }
+      ],
+      "intent": {
+        "why": "这棵子树里没有 p 也没有 q",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "这棵子树里没有 p 也没有 q"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            },
+            {
+              "method": "lca(@3)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@3",
+                  "refId": "@3"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@3"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "两边都没找到 → return null"
+        }
+      ],
+      "intent": {
+        "why": "这棵子树里没有 p 也没有 q",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "答案在左子树，原样上传"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "左边找到 @2 → 向上传递"
+        }
+      ],
+      "intent": {
+        "why": "答案在左子树，原样上传",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "上传"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lca(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "p": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "q": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "lca",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 7,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "return @2"
+        }
+      ],
+      "intent": {
+        "why": "上传",
+        "invariant": "p 和 q 分别在左右子树 → 当前节点就是 LCA；都在同一边 → LCA 在那边"
+      }
+    }
+  ]
+}

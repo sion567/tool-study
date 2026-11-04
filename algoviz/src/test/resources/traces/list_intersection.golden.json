@@ -1,0 +1,794 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "list.intersection",
+    "title": "相交链表",
+    "codeResource": "/code/IntersectionDemo.java",
+    "input": "1,2,3,7,8,9,4,5,7,8,9,",
+    "inputSize": 11
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "A 有 6 个，B 有 5 个——长度不同，但总步数会相同"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "intersection",
+              "locals": {
+                "pA": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "pB": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "phase": {
+                  "kind": "PRIM",
+                  "text": "各自走"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A|B",
+          "values": [
+            1,
+            2,
+            3,
+            7,
+            8,
+            9,
+            4,
+            5,
+            7,
+            8,
+            9
+          ],
+          "compareA": 0,
+          "compareB": 6,
+          "sortedFrom": 11,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "双指针起跑：pA → A 头，pB → B 头"
+        }
+      ],
+      "intent": {
+        "why": "A 有 6 个，B 有 5 个——长度不同，但总步数会相同",
+        "invariant": "双指针各走 a+c 和 b+c 步（c = 公共段），总步数相等 → 同步到达交点"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "同理：pB 切到 A 的头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "intersection",
+              "locals": {
+                "pA": {
+                  "kind": "PRIM",
+                  "text": "9"
+                },
+                "pB": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                },
+                "phase": {
+                  "kind": "PRIM",
+                  "text": "pB 切到 A"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A|B",
+          "values": [
+            1,
+            2,
+            3,
+            7,
+            8,
+            9,
+            4,
+            5,
+            7,
+            8,
+            9
+          ],
+          "compareA": 5,
+          "sortedFrom": 11,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "pB 走完 B → 切到 A 头"
+        }
+      ],
+      "intent": {
+        "why": "同理：pB 切到 A 的头",
+        "invariant": "双指针各走 a+c 和 b+c 步（c = 公共段），总步数相等 → 同步到达交点"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "长链先走完差值，然后双指针同一起跑线同步前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "intersection",
+              "locals": {
+                "pA": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "pB": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "phase": {
+                  "kind": "PRIM",
+                  "text": "pB 切到 A"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A|B",
+          "values": [
+            1,
+            2,
+            3,
+            7,
+            8,
+            9,
+            4,
+            5,
+            7,
+            8,
+            9
+          ],
+          "compareA": 1,
+          "compareB": 6,
+          "sortedFrom": 11,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "对齐后同步走：pA=A[1], pB=B[0]"
+        }
+      ],
+      "intent": {
+        "why": "长链先走完差值，然后双指针同一起跑线同步前进",
+        "invariant": "双指针各走 a+c 和 b+c 步（c = 公共段），总步数相等 → 同步到达交点"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "不相等 → 双指针同步前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "intersection",
+              "locals": {
+                "pA": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "pB": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "phase": {
+                  "kind": "PRIM",
+                  "text": "pB 切到 A"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A|B",
+          "values": [
+            1,
+            2,
+            3,
+            7,
+            8,
+            9,
+            4,
+            5,
+            7,
+            8,
+            9
+          ],
+          "compareA": 1,
+          "compareB": 6,
+          "sortedFrom": 11,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:1",
+            "b:0"
+          ],
+          "detail": "A[1]=2 vs B[0]=4 → 未相交，继续"
+        }
+      ],
+      "intent": {
+        "why": "不相等 → 双指针同步前进",
+        "invariant": "双指针各走 a+c 和 b+c 步（c = 公共段），总步数相等 → 同步到达交点"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "不相等 → 双指针同步前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "intersection",
+              "locals": {
+                "pA": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "pB": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "phase": {
+                  "kind": "PRIM",
+                  "text": "pB 切到 A"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A|B",
+          "values": [
+            1,
+            2,
+            3,
+            7,
+            8,
+            9,
+            4,
+            5,
+            7,
+            8,
+            9
+          ],
+          "compareA": 2,
+          "compareB": 7,
+          "sortedFrom": 11,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:2",
+            "b:1"
+          ],
+          "detail": "A[2]=3 vs B[1]=5 → 未相交，继续"
+        }
+      ],
+      "intent": {
+        "why": "不相等 → 双指针同步前进",
+        "invariant": "双指针各走 a+c 和 b+c 步（c = 公共段），总步数相等 → 同步到达交点"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "两个指针同时到达同一节点 → 这就是交点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "intersection",
+              "locals": {
+                "pA": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "pB": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "phase": {
+                  "kind": "PRIM",
+                  "text": "pB 切到 A"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A|B",
+          "values": [
+            1,
+            2,
+            3,
+            7,
+            8,
+            9,
+            4,
+            5,
+            7,
+            8,
+            9
+          ],
+          "compareA": 3,
+          "compareB": 8,
+          "sortedFrom": 11,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a:3",
+            "b:2"
+          ],
+          "detail": "相交！a[3] = b[2] = 7"
+        }
+      ],
+      "intent": {
+        "why": "两个指针同时到达同一节点 → 这就是交点",
+        "invariant": "双指针各走 a+c 和 b+c 步（c = 公共段），总步数相等 → 同步到达交点"
+      }
+    }
+  ]
+}

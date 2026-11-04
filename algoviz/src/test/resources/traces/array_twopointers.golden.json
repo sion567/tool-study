@@ -1,0 +1,738 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "array.twopointers",
+    "title": "双指针夹逼",
+    "codeResource": "/code/TwoPointers.java",
+    "input": "1,2,5,5,9,12,15",
+    "inputSize": 7
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "左右指针从两端出发——有序数组是前提"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "twoPointers(target=14)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[7]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "15"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9,
+            12,
+            15
+          ],
+          "compareA": 0,
+          "compareB": 6,
+          "sortedFrom": 7,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "lo = 0, hi = 6（两端起跑，target = 14）"
+        }
+      ],
+      "intent": {
+        "why": "左右指针从两端出发——有序数组是前提",
+        "invariant": "lo 左边全太小（已排除），hi 右边全太大（已排除）——答案若存在必在 [lo,hi] 内"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "太大 → hi 左移（更小的数才可能凑够）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "twoPointers(target=14)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[7]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "15"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9,
+            12,
+            15
+          ],
+          "compareA": 0,
+          "compareB": 6,
+          "sortedFrom": 7,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[0]",
+            "a[6]"
+          ],
+          "detail": "a[0]+a[6] = 1+15 = 16 > 14"
+        }
+      ],
+      "intent": {
+        "why": "太大 → hi 左移（更小的数才可能凑够）",
+        "invariant": "lo 左边全太小（已排除），hi 右边全太大（已排除）——答案若存在必在 [lo,hi] 内"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "hi 左移"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "twoPointers(target=14)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[7]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "15"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9,
+            12,
+            15
+          ],
+          "compareA": 0,
+          "compareB": 5,
+          "sortedFrom": 7,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "hi → 5（太大，左移找更小的）"
+        }
+      ],
+      "intent": {
+        "why": "hi 左移",
+        "invariant": "lo 左边全太小（已排除），hi 右边全太大（已排除）——答案若存在必在 [lo,hi] 内"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "太小 → lo 右移（更大的数才可能凑够）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "twoPointers(target=14)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[7]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "15"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9,
+            12,
+            15
+          ],
+          "compareA": 0,
+          "compareB": 5,
+          "sortedFrom": 7,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[0]",
+            "a[5]"
+          ],
+          "detail": "a[0]+a[5] = 1+12 = 13 < 14"
+        }
+      ],
+      "intent": {
+        "why": "太小 → lo 右移（更大的数才可能凑够）",
+        "invariant": "lo 左边全太小（已排除），hi 右边全太大（已排除）——答案若存在必在 [lo,hi] 内"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "lo 右移"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "twoPointers(target=14)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[7]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "15"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9,
+            12,
+            15
+          ],
+          "compareA": 1,
+          "compareB": 5,
+          "sortedFrom": 7,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "lo → 1（太小，右移找更大的）"
+        }
+      ],
+      "intent": {
+        "why": "lo 右移",
+        "invariant": "lo 左边全太小（已排除），hi 右边全太大（已排除）——答案若存在必在 [lo,hi] 内"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "命中！"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "twoPointers(target=14)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[7]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "15"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9,
+            12,
+            15
+          ],
+          "compareA": 1,
+          "compareB": 5,
+          "sortedFrom": 7,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a[1]",
+            "a[5]"
+          ],
+          "detail": "a[1]+a[5] = 2+12 = 14 = target ✓"
+        }
+      ],
+      "intent": {
+        "why": "命中！",
+        "invariant": "lo 左边全太小（已排除），hi 右边全太大（已排除）——答案若存在必在 [lo,hi] 内"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "双指针相遇——夹逼完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "twoPointers(target=14)",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[7]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "15"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            1,
+            2,
+            5,
+            5,
+            9,
+            12,
+            15
+          ],
+          "compareA": 1,
+          "compareB": 5,
+          "sortedFrom": 7,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a[1]",
+            "a[5]"
+          ],
+          "detail": "找到！a[1] + a[5] = 14"
+        }
+      ],
+      "intent": {
+        "why": "双指针相遇——夹逼完成",
+        "invariant": "lo 左边全太小（已排除），hi 右边全太大（已排除）——答案若存在必在 [lo,hi] 内"
+      }
+    }
+  ]
+}

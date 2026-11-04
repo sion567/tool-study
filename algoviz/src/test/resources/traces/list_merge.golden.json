@@ -1,0 +1,1440 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "list.merge",
+    "title": "合并有序链表",
+    "codeResource": "/code/MergeLists.java",
+    "input": "1,3,5,2,4,6,",
+    "inputSize": 6
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "合并 = 双指针比小：谁的头小谁先接，直到一条耗尽"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 0,
+          "compareB": 3,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "两条有序链就位：A=[1, 3, 5]  B=[2, 4, 6]"
+        }
+      ],
+      "intent": {
+        "why": "合并 = 双指针比小：谁的头小谁先接，直到一条耗尽",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "A 的头更小：接到 result 尾部，A 头指针后移"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 0,
+          "compareB": 3,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:0",
+            "b:0"
+          ],
+          "detail": "A[0]=1 ≤ B[0]=2 → 接 A 的"
+        }
+      ],
+      "intent": {
+        "why": "A 的头更小：接到 result 尾部，A 头指针后移",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "A 的头已接走——A 指针前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 0,
+          "compareB": 3,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:0"
+          ],
+          "detail": "result ← 1（来自 A），A 头后移"
+        }
+      ],
+      "intent": {
+        "why": "A 的头已接走——A 指针前进",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "B 的头更小：接到 result 尾部，B 头指针后移"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 1,
+          "compareB": 3,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:1",
+            "b:0"
+          ],
+          "detail": "A[1]=3 > B[0]=2 → 接 B 的"
+        }
+      ],
+      "intent": {
+        "why": "B 的头更小：接到 result 尾部，B 头指针后移",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "B 的头已接走——B 指针前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 1,
+          "compareB": 3,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "b:0"
+          ],
+          "detail": "result ← 2（来自 B），B 头后移"
+        }
+      ],
+      "intent": {
+        "why": "B 的头已接走——B 指针前进",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "A 的头更小：接到 result 尾部，A 头指针后移"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 1,
+          "compareB": 4,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:1",
+            "b:1"
+          ],
+          "detail": "A[1]=3 ≤ B[1]=4 → 接 A 的"
+        }
+      ],
+      "intent": {
+        "why": "A 的头更小：接到 result 尾部，A 头指针后移",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "A 的头已接走——A 指针前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 1,
+          "compareB": 4,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:1"
+          ],
+          "detail": "result ← 3（来自 A），A 头后移"
+        }
+      ],
+      "intent": {
+        "why": "A 的头已接走——A 指针前进",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "B 的头更小：接到 result 尾部，B 头指针后移"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 2,
+          "compareB": 4,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:2",
+            "b:1"
+          ],
+          "detail": "A[2]=5 > B[1]=4 → 接 B 的"
+        }
+      ],
+      "intent": {
+        "why": "B 的头更小：接到 result 尾部，B 头指针后移",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "B 的头已接走——B 指针前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 2,
+          "compareB": 4,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "b:1"
+          ],
+          "detail": "result ← 4（来自 B），B 头后移"
+        }
+      ],
+      "intent": {
+        "why": "B 的头已接走——B 指针前进",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "A 的头更小：接到 result 尾部，A 头指针后移"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 2,
+          "compareB": 5,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:2",
+            "b:2"
+          ],
+          "detail": "A[2]=5 ≤ B[2]=6 → 接 A 的"
+        }
+      ],
+      "intent": {
+        "why": "A 的头更小：接到 result 尾部，A 头指针后移",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "A 的头已接走——A 指针前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareA": 2,
+          "compareB": 5,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:2"
+          ],
+          "detail": "result ← 5（来自 A），A 头后移"
+        }
+      ],
+      "intent": {
+        "why": "A 的头已接走——A 指针前进",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "B 的剩余直接接到尾部"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "compareB": 5,
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "b:2"
+          ],
+          "detail": "B 剩余 → result ← 6"
+        }
+      ],
+      "intent": {
+        "why": "B 的剩余直接接到尾部",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "合并 = 双指针单趟扫，O(n+m)——没有嵌套循环"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "mergeLists",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 5]"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "[2, 4, 6]"
+                },
+                "ia": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "ib": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "A",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "B",
+                "type": "ListNode[]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A+B",
+          "values": [
+            1,
+            3,
+            5,
+            2,
+            4,
+            6
+          ],
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "合并完成：两条链合成一条有序链——O(n+m) 单趟"
+        }
+      ],
+      "intent": {
+        "why": "合并 = 双指针单趟扫，O(n+m)——没有嵌套循环",
+        "invariant": "result 链始终有序——每步从两个源链头中选较小的接到结果尾部，直到一条源链耗尽"
+      }
+    }
+  ]
+}

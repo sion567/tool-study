@@ -1,0 +1,3111 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "tree.symmetric",
+    "title": "对称二叉树",
+    "codeResource": "/code/SymmetricTree.java",
+    "input": "对称 7 节点",
+    "inputSize": 7
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "对称 ⟺ 左子树与右子树互为镜像——双指针同步走"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "isMirror(root.left, root.right)：两根指针从 3 和 3 出发"
+        }
+      ],
+      "intent": {
+        "why": "对称 ⟺ 左子树与右子树互为镜像——双指针同步走",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "镜像位置的值必须相等"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@2",
+            "@3"
+          ],
+          "detail": "@2.val=3 vs @3.val=3 ✓ 相等"
+        }
+      ],
+      "intent": {
+        "why": "镜像位置的值必须相等",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "镜像递归：left.left 对 right.right，left.right 对 right.left"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "递归：外外侧 (@4, @7) + 内内侧 (@5, @6)"
+        }
+      ],
+      "intent": {
+        "why": "镜像递归：left.left 对 right.right，left.right 对 right.left",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "镜像位置的值必须相等"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@4)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@4",
+            "@7"
+          ],
+          "detail": "@4.val=1 vs @7.val=1 ✓ 相等"
+        }
+      ],
+      "intent": {
+        "why": "镜像位置的值必须相等",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "镜像递归：left.left 对 right.right，left.right 对 right.left"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@4)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "递归：外外侧 (null, null) + 内内侧 (null, null)"
+        }
+      ],
+      "intent": {
+        "why": "镜像递归：left.left 对 right.right，left.right 对 right.left",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "null 对 null = 对称"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@4)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            },
+            {
+              "method": "symmetric(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "两个都 null → 对称（基线）"
+        }
+      ],
+      "intent": {
+        "why": "null 对 null = 对称",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "null 对 null = 对称"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@4)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@4",
+                  "refId": "@4"
+                }
+              }
+            },
+            {
+              "method": "symmetric(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@4"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "两个都 null → 对称（基线）"
+        }
+      ],
+      "intent": {
+        "why": "null 对 null = 对称",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "镜像位置的值必须相等"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@5)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@5"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@5",
+            "@6"
+          ],
+          "detail": "@5.val=4 vs @6.val=4 ✓ 相等"
+        }
+      ],
+      "intent": {
+        "why": "镜像位置的值必须相等",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "镜像递归：left.left 对 right.right，left.right 对 right.left"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@5)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@5"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "递归：外外侧 (null, null) + 内内侧 (null, null)"
+        }
+      ],
+      "intent": {
+        "why": "镜像递归：left.left 对 right.right，left.right 对 right.left",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "null 对 null = 对称"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@5)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            },
+            {
+              "method": "symmetric(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@5"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "两个都 null → 对称（基线）"
+        }
+      ],
+      "intent": {
+        "why": "null 对 null = 对称",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "null 对 null = 对称"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@2)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            },
+            {
+              "method": "symmetric(@5)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@5",
+                  "refId": "@5"
+                }
+              }
+            },
+            {
+              "method": "symmetric(null)",
+              "locals": {
+                "node": {
+                  "kind": "NULL",
+                  "text": "null"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1",
+            "@2",
+            "@5"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "两个都 null → 对称（基线）"
+        }
+      ],
+      "intent": {
+        "why": "null 对 null = 对称",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "每一对镜像位置都相等 → 对称"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "symmetric(@1)",
+              "locals": {
+                "node": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "symmetric",
+          "rootId": "@1",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 5,
+              "leftId": "@2",
+              "rightId": "@3",
+              "state": "onstack"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@4",
+              "rightId": "@5",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "leftId": "@6",
+              "rightId": "@7",
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@4",
+              "val": 1,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@5",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@6",
+              "val": 4,
+              "state": "unvisited"
+            },
+            {
+              "nodeId": "@7",
+              "val": 1,
+              "state": "unvisited"
+            }
+          ],
+          "callStackIds": [
+            "@1"
+          ],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "结果：对称 ✓"
+        }
+      ],
+      "intent": {
+        "why": "每一对镜像位置都相等 → 对称",
+        "invariant": "对称 ⟺ 每对镜像位置的值相等，且 left.left = right.right、left.right = right.left"
+      }
+    }
+  ]
+}

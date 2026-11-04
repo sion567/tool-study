@@ -1,0 +1,3696 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "tree.avl",
+    "title": "AVL 旋转",
+    "codeResource": "/code/AvlDemo.java",
+    "input": "10,20,30,40,50,25",
+    "inputSize": 6
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "BST 插入：找到空位挂上去"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10
+          ],
+          "sortedFrom": 1,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 10 = @1（新叶子）"
+        }
+      ],
+      "intent": {
+        "why": "BST 插入：找到空位挂上去",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "插入 10 后整棵树重新平衡"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10
+          ],
+          "sortedFrom": 1,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 10 完成"
+        }
+      ],
+      "intent": {
+        "why": "插入 10 后整棵树重新平衡",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前大 → 去右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10
+          ],
+          "sortedFrom": 1,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "20 > 10 → 往右"
+        }
+      ],
+      "intent": {
+        "why": "比当前大 → 去右子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "BST 插入：找到空位挂上去"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20
+          ],
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 20 = @2（新叶子）"
+        }
+      ],
+      "intent": {
+        "why": "BST 插入：找到空位挂上去",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "插入 20 后整棵树重新平衡"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20
+          ],
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 20 完成"
+        }
+      ],
+      "intent": {
+        "why": "插入 20 后整棵树重新平衡",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前大 → 去右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20
+          ],
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "30 > 10 → 往右"
+        }
+      ],
+      "intent": {
+        "why": "比当前大 → 去右子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前大 → 去右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20
+          ],
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "30 > 20 → 往右"
+        }
+      ],
+      "intent": {
+        "why": "比当前大 → 去右子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "BST 插入：找到空位挂上去"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 30 = @3（新叶子）"
+        }
+      ],
+      "intent": {
+        "why": "BST 插入：找到空位挂上去",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "RR：右子树的右侧过重 → 左旋恢复"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-2"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "RR 失衡 → 左旋 @1"
+        }
+      ],
+      "intent": {
+        "why": "RR：右子树的右侧过重 → 左旋恢复",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "左旋：右孩子上升为根，原根变成左孩子"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "左旋完成 → 新根 @2"
+        }
+      ],
+      "intent": {
+        "why": "左旋：右孩子上升为根，原根变成左孩子",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "插入 30 后整棵树重新平衡"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 30 完成"
+        }
+      ],
+      "intent": {
+        "why": "插入 30 后整棵树重新平衡",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前大 → 去右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "40 > 20 → 往右"
+        }
+      ],
+      "intent": {
+        "why": "比当前大 → 去右子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前大 → 去右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "40 > 30 → 往右"
+        }
+      ],
+      "intent": {
+        "why": "比当前大 → 去右子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "BST 插入：找到空位挂上去"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 40 = @4（新叶子）"
+        }
+      ],
+      "intent": {
+        "why": "BST 插入：找到空位挂上去",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "插入 40 后整棵树重新平衡"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 40 完成"
+        }
+      ],
+      "intent": {
+        "why": "插入 40 后整棵树重新平衡",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前大 → 去右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "50 > 20 → 往右"
+        }
+      ],
+      "intent": {
+        "why": "比当前大 → 去右子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前大 → 去右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "50 > 30 → 往右"
+        }
+      ],
+      "intent": {
+        "why": "比当前大 → 去右子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前大 → 去右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "50 > 40 → 往右"
+        }
+      ],
+      "intent": {
+        "why": "比当前大 → 去右子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "BST 插入：找到空位挂上去"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 50 = @5（新叶子）"
+        }
+      ],
+      "intent": {
+        "why": "BST 插入：找到空位挂上去",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "RR：右子树的右侧过重 → 左旋恢复"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-2"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-2"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "RR 失衡 → 左旋 @3"
+        }
+      ],
+      "intent": {
+        "why": "RR：右子树的右侧过重 → 左旋恢复",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "左旋：右孩子上升为根，原根变成左孩子"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "左旋完成 → 新根 @4"
+        }
+      ],
+      "intent": {
+        "why": "左旋：右孩子上升为根，原根变成左孩子",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "插入 50 后整棵树重新平衡"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 50 完成"
+        }
+      ],
+      "intent": {
+        "why": "插入 50 后整棵树重新平衡",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前大 → 去右子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "25 > 20 → 往右"
+        }
+      ],
+      "intent": {
+        "why": "比当前大 → 去右子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前小 → 去左子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "25 < 40 → 往左"
+        }
+      ],
+      "intent": {
+        "why": "比当前小 → 去左子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "比当前小 → 去左子树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "25 < 30 → 往左"
+        }
+      ],
+      "intent": {
+        "why": "比当前小 → 去左子树",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "BST 插入：找到空位挂上去"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "n6",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "25"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            25
+          ],
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 25 = @6（新叶子）"
+        }
+      ],
+      "intent": {
+        "why": "BST 插入：找到空位挂上去",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "RL：先对右子树右旋转为 RR，再左旋当前节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-2"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "n6",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "25"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            25
+          ],
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "RL 失衡 → 先右旋右子树，再左旋"
+        }
+      ],
+      "intent": {
+        "why": "RL：先对右子树右旋转为 RR，再左旋当前节点",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 27,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "RL 转为 RR"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-2"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "n6",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "25"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            25
+          ],
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "右旋右子树完成 → 现在是 RR"
+        }
+      ],
+      "intent": {
+        "why": "RL 转为 RR",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 28,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "最后左旋当前节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-2"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "n6",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "25"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            25
+          ],
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "左旋 @2"
+        }
+      ],
+      "intent": {
+        "why": "最后左旋当前节点",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    },
+    {
+      "index": 29,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "插入 25 后整棵树重新平衡"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "avl",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "n1",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "n2",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "n3",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "30"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "n4",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "40"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "-1"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "n5",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "50"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "n6",
+                "type": "AVLNode",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "25"
+                  },
+                  "height": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "balance": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "nodes",
+          "values": [
+            10,
+            20,
+            30,
+            40,
+            50,
+            25
+          ],
+          "sortedFrom": 6,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入 25 完成"
+        }
+      ],
+      "intent": {
+        "why": "插入 25 后整棵树重新平衡",
+        "invariant": "AVL 性质：每个节点左右子树高度差 ≤ 1——插入后从底向上检查，旋转恢复平衡"
+      }
+    }
+  ]
+}

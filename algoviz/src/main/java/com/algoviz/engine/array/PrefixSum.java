@@ -1,5 +1,6 @@
 package com.algoviz.engine.array;
 
+import com.algoviz.engine.OrderedMaps;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Intent;
@@ -81,7 +82,7 @@ public final class PrefixSum implements Algorithm {
 
     private void emit(int line, List<VizEvent> events, String why) {
         StackFrame frame = new StackFrame("prefixSum",
-                Map.of("a", Value.ref("@1"), "prefix", Value.ref("@2")), null);
+                OrderedMaps.of("a", Value.ref("@1"), "prefix", Value.ref("@2")), null);
         Map<String, Layer> layers = new LinkedHashMap<>();
         layers.put("mem.stack", new StackLayer(List.of(frame)));
         layers.put("mem.heap", new HeapLayer(snapshotHeap()));

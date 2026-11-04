@@ -1,0 +1,557 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "graph.prim",
+    "title": "Prim MST",
+    "codeResource": "/code/PrimDemo.java",
+    "input": "6n 9e",
+    "inputSize": 9
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "从 A 开始逐步扩展——每次选最小权边连接新节点"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prim",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": ""
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "prim",
+                "type": "PrimState",
+                "fields": {
+                  "MST 边数": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "curEdge": {
+                    "kind": "PRIM",
+                    "text": ""
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "edges",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "A 入 MST"
+        }
+      ],
+      "intent": {
+        "why": "从 A 开始逐步扩展——每次选最小权边连接新节点",
+        "invariant": "每次选最小权边连接已选/未选集合——MST 性质保证全局最优"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：已选/未选集合间最小权边——MST 性质保证全局最优"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prim",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "A-C w=2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "prim",
+                "type": "PrimState",
+                "fields": {
+                  "MST 边数": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "curEdge": {
+                    "kind": "PRIM",
+                    "text": "A-C w=2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "edges",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "e:1"
+          ],
+          "detail": "A-C w=2 → MST 边"
+        }
+      ],
+      "intent": {
+        "why": "贪心：已选/未选集合间最小权边——MST 性质保证全局最优",
+        "invariant": "每次选最小权边连接已选/未选集合——MST 性质保证全局最优"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：已选/未选集合间最小权边——MST 性质保证全局最优"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prim",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "B-C w=1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "prim",
+                "type": "PrimState",
+                "fields": {
+                  "MST 边数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "curEdge": {
+                    "kind": "PRIM",
+                    "text": "B-C w=1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "edges",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "e:2"
+          ],
+          "detail": "B-C w=1 → MST 边"
+        }
+      ],
+      "intent": {
+        "why": "贪心：已选/未选集合间最小权边——MST 性质保证全局最优",
+        "invariant": "每次选最小权边连接已选/未选集合——MST 性质保证全局最优"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：已选/未选集合间最小权边——MST 性质保证全局最优"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prim",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "B-D w=5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "prim",
+                "type": "PrimState",
+                "fields": {
+                  "MST 边数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "curEdge": {
+                    "kind": "PRIM",
+                    "text": "B-D w=5"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "edges",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "e:3"
+          ],
+          "detail": "B-D w=5 → MST 边"
+        }
+      ],
+      "intent": {
+        "why": "贪心：已选/未选集合间最小权边——MST 性质保证全局最优",
+        "invariant": "每次选最小权边连接已选/未选集合——MST 性质保证全局最优"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：已选/未选集合间最小权边——MST 性质保证全局最优"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prim",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "D-E w=2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "prim",
+                "type": "PrimState",
+                "fields": {
+                  "MST 边数": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "curEdge": {
+                    "kind": "PRIM",
+                    "text": "D-E w=2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "edges",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "e:6"
+          ],
+          "detail": "D-E w=2 → MST 边"
+        }
+      ],
+      "intent": {
+        "why": "贪心：已选/未选集合间最小权边——MST 性质保证全局最优",
+        "invariant": "每次选最小权边连接已选/未选集合——MST 性质保证全局最优"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：已选/未选集合间最小权边——MST 性质保证全局最优"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prim",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "E-F w=3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "prim",
+                "type": "PrimState",
+                "fields": {
+                  "MST 边数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "curEdge": {
+                    "kind": "PRIM",
+                    "text": "E-F w=3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "edges",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "e:8"
+          ],
+          "detail": "E-F w=3 → MST 边"
+        }
+      ],
+      "intent": {
+        "why": "贪心：已选/未选集合间最小权边——MST 性质保证全局最优",
+        "invariant": "每次选最小权边连接已选/未选集合——MST 性质保证全局最优"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "最小生成树 = V-1 条边"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prim",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "prim",
+                "type": "PrimState",
+                "fields": {
+                  "MST 边数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "edges",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "MST 完成：5 条边"
+        }
+      ],
+      "intent": {
+        "why": "最小生成树 = V-1 条边",
+        "invariant": "每次选最小权边连接已选/未选集合——MST 性质保证全局最优"
+      }
+    }
+  ]
+}

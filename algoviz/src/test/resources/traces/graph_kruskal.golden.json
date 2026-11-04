@@ -1,0 +1,773 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "graph.kruskal",
+    "title": "Kruskal MST",
+    "codeResource": "/code/KruskalDemo.java",
+    "input": "6n 9e",
+    "inputSize": 9
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "Kruskal：先按权重排序所有边——逐个尝试，用并查集判环"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kruskal",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "uf",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "weights",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "按权重排序：B-C w=1 ≤ A-C w=2 ≤ …"
+        }
+      ],
+      "intent": {
+        "why": "Kruskal：先按权重排序所有边——逐个尝试，用并查集判环",
+        "invariant": "按权重排序 + 并查集判环——不闭环才加边，加完 V-1 条就是 MST"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "两端不同根 → 不闭环 → 安全加入 MST"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kruskal",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "B-C w=1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "uf",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "weights",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "compareA": 2,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "e:2"
+          ],
+          "detail": "不同集合 → 加入 MST（B-C w=1）"
+        }
+      ],
+      "intent": {
+        "why": "两端不同根 → 不闭环 → 安全加入 MST",
+        "invariant": "按权重排序 + 并查集判环——不闭环才加边，加完 V-1 条就是 MST"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "两端不同根 → 不闭环 → 安全加入 MST"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kruskal",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "A-C w=2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "uf",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "weights",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "compareA": 1,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "e:1"
+          ],
+          "detail": "不同集合 → 加入 MST（A-C w=2）"
+        }
+      ],
+      "intent": {
+        "why": "两端不同根 → 不闭环 → 安全加入 MST",
+        "invariant": "按权重排序 + 并查集判环——不闭环才加边，加完 V-1 条就是 MST"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "两端不同根 → 不闭环 → 安全加入 MST"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kruskal",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "D-E w=2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "uf",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "weights",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "compareA": 6,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "e:6"
+          ],
+          "detail": "不同集合 → 加入 MST（D-E w=2）"
+        }
+      ],
+      "intent": {
+        "why": "两端不同根 → 不闭环 → 安全加入 MST",
+        "invariant": "按权重排序 + 并查集判环——不闭环才加边，加完 V-1 条就是 MST"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "两端不同根 → 不闭环 → 安全加入 MST"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kruskal",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "E-F w=3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "uf",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "weights",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "compareA": 8,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "e:8"
+          ],
+          "detail": "不同集合 → 加入 MST（E-F w=3）"
+        }
+      ],
+      "intent": {
+        "why": "两端不同根 → 不闭环 → 安全加入 MST",
+        "invariant": "按权重排序 + 并查集判环——不闭环才加边，加完 V-1 条就是 MST"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "两端同根 → 加这条边会形成环 → 跳过"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kruskal",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "A-B w=4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "uf",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "weights",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "A-B w=4 → 同一集合，跳过（会闭环！）"
+        }
+      ],
+      "intent": {
+        "why": "两端同根 → 加这条边会形成环 → 跳过",
+        "invariant": "按权重排序 + 并查集判环——不闭环才加边，加完 V-1 条就是 MST"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "两端不同根 → 不闭环 → 安全加入 MST"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kruskal",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "B-D w=5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "uf",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "weights",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "compareA": 3,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "e:3"
+          ],
+          "detail": "不同集合 → 加入 MST（B-D w=5）"
+        }
+      ],
+      "intent": {
+        "why": "两端不同根 → 不闭环 → 安全加入 MST",
+        "invariant": "按权重排序 + 并查集判环——不闭环才加边，加完 V-1 条就是 MST"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "V-1 条边 = 生成树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kruskal",
+              "locals": {
+                "mstEdges": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "curEdge": {
+                  "kind": "PRIM",
+                  "text": "B-D w=5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "uf",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "weights",
+          "values": [
+            4,
+            2,
+            1,
+            5,
+            8,
+            10,
+            2,
+            6,
+            3
+          ],
+          "compareA": 3,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "MST 完成：5 条边"
+        }
+      ],
+      "intent": {
+        "why": "V-1 条边 = 生成树",
+        "invariant": "按权重排序 + 并查集判环——不闭环才加边，加完 V-1 条就是 MST"
+      }
+    }
+  ]
+}

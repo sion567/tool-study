@@ -1,5 +1,6 @@
 package com.algoviz.engine.array;
 
+import com.algoviz.engine.OrderedMaps;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.Complexity;
 import com.algoviz.engine.Intent;
@@ -96,7 +97,7 @@ public final class TwoPointers implements Algorithm {
 
     private void emit(int line, List<VizEvent> events, String why) {
         StackFrame frame = new StackFrame("twoPointers(target=" + target + ")",
-                Map.of("a", Value.ref("@1"), "lo", Value.prim(lo), "hi", Value.prim(hi)), null);
+                OrderedMaps.of("a", Value.ref("@1"), "lo", Value.prim(lo), "hi", Value.prim(hi)), null);
         Map<String, Layer> layers = new LinkedHashMap<>();
         layers.put("mem.stack", new StackLayer(List.of(frame)));
         layers.put("mem.heap", new HeapLayer(snapshotHeap()));

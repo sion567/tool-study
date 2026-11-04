@@ -1,0 +1,522 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.bitops",
+    "title": "位运算技巧",
+    "codeResource": "/code/BitOpsDemo.java",
+    "input": "12,10",
+    "inputSize": 2
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "先把两个数转成二进制——位运算就是逐位操作"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bitOps",
+              "locals": {
+                "A": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "B": {
+                  "kind": "PRIM",
+                  "text": "10"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitOps",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "A&B": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "A|B": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  },
+                  "A^B": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A_bits",
+          "values": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "A = 1100 (12),  B = 1010 (10)"
+        }
+      ],
+      "intent": {
+        "why": "先把两个数转成二进制——位运算就是逐位操作",
+        "invariant": "位运算 = 对二进制每一位独立操作—— & 同1才1，| 有1就1，^ 不同才1"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "同 1 才 1（用来提取/掩码）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bitOps",
+              "locals": {
+                "A": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "B": {
+                  "kind": "PRIM",
+                  "text": "10"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitOps",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "A&B": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "A|B": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  },
+                  "A^B": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A_bits",
+          "values": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "1000"
+          ],
+          "detail": "AND & → 1000 (8)"
+        }
+      ],
+      "intent": {
+        "why": "同 1 才 1（用来提取/掩码）",
+        "invariant": "位运算 = 对二进制每一位独立操作—— & 同1才1，| 有1就1，^ 不同才1"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "有 1 就 1（用来合并/设位）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bitOps",
+              "locals": {
+                "A": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "B": {
+                  "kind": "PRIM",
+                  "text": "10"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitOps",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "A&B": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "A|B": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  },
+                  "A^B": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A_bits",
+          "values": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "1110"
+          ],
+          "detail": "OR | → 1110 (14)"
+        }
+      ],
+      "intent": {
+        "why": "有 1 就 1（用来合并/设位）",
+        "invariant": "位运算 = 对二进制每一位独立操作—— & 同1才1，| 有1就1，^ 不同才1"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "不同才 1（用来翻转/找不同）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bitOps",
+              "locals": {
+                "A": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "B": {
+                  "kind": "PRIM",
+                  "text": "10"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitOps",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "A&B": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "A|B": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  },
+                  "A^B": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A_bits",
+          "values": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "0110"
+          ],
+          "detail": "XOR ^ → 0110 (6)"
+        }
+      ],
+      "intent": {
+        "why": "不同才 1（用来翻转/找不同）",
+        "invariant": "位运算 = 对二进制每一位独立操作—— & 同1才1，| 有1就1，^ 不同才1"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "左移 = ×2，右移 = ÷2——比乘除法快（CPU 原生指令）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bitOps",
+              "locals": {
+                "A": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "B": {
+                  "kind": "PRIM",
+                  "text": "10"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitOps",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "A&B": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "A|B": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  },
+                  "A^B": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A_bits",
+          "values": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "<< 1: 12 << 1 = 24（×2）\n>> 1: 12 >> 1 = 6（÷2）"
+        }
+      ],
+      "intent": {
+        "why": "左移 = ×2，右移 = ÷2——比乘除法快（CPU 原生指令）",
+        "invariant": "位运算 = 对二进制每一位独立操作—— & 同1才1，| 有1就1，^ 不同才1"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "位运算的本质：把布尔逻辑并行应用到每一位"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "bitOps",
+              "locals": {
+                "A": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "B": {
+                  "kind": "PRIM",
+                  "text": "10"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "bits",
+                "type": "BitOps",
+                "fields": {
+                  "A": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "B": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "A&B": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "A|B": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  },
+                  "A^B": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "A_bits",
+          "values": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "技巧：n & (n-1) 消最低位 1 → 判断 2 的幂；n ^ n = 0 → 找只出现一次的数"
+        }
+      ],
+      "intent": {
+        "why": "位运算的本质：把布尔逻辑并行应用到每一位",
+        "invariant": "位运算 = 对二进制每一位独立操作—— & 同1才1，| 有1就1，^ 不同才1"
+      }
+    }
+  ]
+}

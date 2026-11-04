@@ -1,5 +1,6 @@
 package com.algoviz.engine.math;
 
+import com.algoviz.engine.OrderedMaps;
 import com.algoviz.engine.Algorithm;
 import com.algoviz.engine.Intent;
 import com.algoviz.engine.Layer;
@@ -68,7 +69,7 @@ public final class UnitCircleDemo implements Algorithm {
 
     private void emit(int frame, List<VizEvent> events, String why) {
         StackFrame frame0 = new StackFrame("unitCircle",
-                Map.of("θ", Value.prim(String.format("%.2f", angle)),
+                OrderedMaps.of("θ", Value.prim(String.format("%.2f", angle)),
                        "sin", Value.prim(String.format("%.3f", Math.sin(angle))),
                        "cos", Value.prim(String.format("%.3f", Math.cos(angle)))), null);
         Map<String, Layer> layers = new LinkedHashMap<>();

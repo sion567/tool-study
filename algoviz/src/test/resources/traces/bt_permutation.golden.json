@@ -1,0 +1,6672 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "backtracking.permutation",
+    "title": "全排列",
+    "codeResource": "/code/PermutationDemo.java",
+    "input": "1,2,3",
+    "inputSize": 3
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 0 层：选择排列中的第 0 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=0)，当前排列 []"
+        }
+      ],
+      "intent": {
+        "why": "第 0 层：选择排列中的第 0 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[0]=1 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 1 → 排列变为 [1]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[0]=1 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 1 层：选择排列中的第 1 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=1)，当前排列 [1]"
+        }
+      ],
+      "intent": {
+        "why": "第 1 层：选择排列中的第 1 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[1]=2 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 2 → 排列变为 [1, 2]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[1]=2 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 2 层：选择排列中的第 2 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=2)，当前排列 [1, 2]"
+        }
+      ],
+      "intent": {
+        "why": "第 2 层：选择排列中的第 2 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[2]=3 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 3 → 排列变为 [1, 2, 3]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[2]=3 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 3 层：选择排列中的第 3 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 2, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=3)，当前排列 [1, 2, 3]"
+        }
+      ],
+      "intent": {
+        "why": "第 3 层：选择排列中的第 3 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "填满 N 个位置 → 一个完整排列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 2, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "找到排列: [1, 2, 3] ← 第 1 个"
+        }
+      ],
+      "intent": {
+        "why": "填满 N 个位置 → 一个完整排列",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "排列已收集，撤销最后选择，回到上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 2, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "排列已收集，撤销最后选择，回到上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 3 → 排列回到 [1, 2]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "所有候选都试完了，返回上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "所有候选都试完了，返回上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 2 → 排列回到 [1]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[2]=3 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 3 → 排列变为 [1, 3]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[2]=3 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 2 层：选择排列中的第 2 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=2)，当前排列 [1, 3]"
+        }
+      ],
+      "intent": {
+        "why": "第 2 层：选择排列中的第 2 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[1]=2 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 2 → 排列变为 [1, 3, 2]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[1]=2 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 3 层：选择排列中的第 3 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=3)，当前排列 [1, 3, 2]"
+        }
+      ],
+      "intent": {
+        "why": "第 3 层：选择排列中的第 3 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "填满 N 个位置 → 一个完整排列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "找到排列: [1, 3, 2] ← 第 2 个"
+        }
+      ],
+      "intent": {
+        "why": "填满 N 个位置 → 一个完整排列",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "排列已收集，撤销最后选择，回到上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 3, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "排列已收集，撤销最后选择，回到上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 2 → 排列回到 [1, 3]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "所有候选都试完了，返回上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "所有候选都试完了，返回上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 3 → 排列回到 [1]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "所有候选都试完了，返回上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "所有候选都试完了，返回上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 1 → 排列回到 []"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[1]=2 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 2 → 排列变为 [2]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[1]=2 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 1 层：选择排列中的第 1 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=1)，当前排列 [2]"
+        }
+      ],
+      "intent": {
+        "why": "第 1 层：选择排列中的第 1 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[0]=1 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 1 → 排列变为 [2, 1]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[0]=1 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 2 层：选择排列中的第 2 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=2)，当前排列 [2, 1]"
+        }
+      ],
+      "intent": {
+        "why": "第 2 层：选择排列中的第 2 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 27,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[2]=3 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 3 → 排列变为 [2, 1, 3]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[2]=3 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 28,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 3 层：选择排列中的第 3 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 1, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=3)，当前排列 [2, 1, 3]"
+        }
+      ],
+      "intent": {
+        "why": "第 3 层：选择排列中的第 3 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 29,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "填满 N 个位置 → 一个完整排列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 1, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "找到排列: [2, 1, 3] ← 第 3 个"
+        }
+      ],
+      "intent": {
+        "why": "填满 N 个位置 → 一个完整排列",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 30,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "排列已收集，撤销最后选择，回到上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 1, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "排列已收集，撤销最后选择，回到上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 31,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 3 → 排列回到 [2, 1]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 32,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "所有候选都试完了，返回上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "所有候选都试完了，返回上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 33,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 1 → 排列回到 [2]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 34,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[2]=3 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 3 → 排列变为 [2, 3]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[2]=3 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 35,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 2 层：选择排列中的第 2 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=2)，当前排列 [2, 3]"
+        }
+      ],
+      "intent": {
+        "why": "第 2 层：选择排列中的第 2 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 36,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[0]=1 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 1 → 排列变为 [2, 3, 1]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[0]=1 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 37,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 3 层：选择排列中的第 3 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 3, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=3)，当前排列 [2, 3, 1]"
+        }
+      ],
+      "intent": {
+        "why": "第 3 层：选择排列中的第 3 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 38,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "填满 N 个位置 → 一个完整排列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 3, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "找到排列: [2, 3, 1] ← 第 4 个"
+        }
+      ],
+      "intent": {
+        "why": "填满 N 个位置 → 一个完整排列",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 39,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "排列已收集，撤销最后选择，回到上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 3, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "排列已收集，撤销最后选择，回到上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 40,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 1 → 排列回到 [2, 3]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 41,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "所有候选都试完了，返回上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2, 3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "所有候选都试完了，返回上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 42,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 3 → 排列回到 [2]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 43,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "所有候选都试完了，返回上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "所有候选都试完了，返回上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 44,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 2 → 排列回到 []"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 45,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[2]=3 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 3 → 排列变为 [3]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[2]=3 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 46,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 1 层：选择排列中的第 1 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=1)，当前排列 [3]"
+        }
+      ],
+      "intent": {
+        "why": "第 1 层：选择排列中的第 1 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 47,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[0]=1 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 1 → 排列变为 [3, 1]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[0]=1 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 48,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 2 层：选择排列中的第 2 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=2)，当前排列 [3, 1]"
+        }
+      ],
+      "intent": {
+        "why": "第 2 层：选择排列中的第 2 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 49,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[1]=2 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 2 → 排列变为 [3, 1, 2]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[1]=2 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 50,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 3 层：选择排列中的第 3 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 1, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=3)，当前排列 [3, 1, 2]"
+        }
+      ],
+      "intent": {
+        "why": "第 3 层：选择排列中的第 3 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 51,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "填满 N 个位置 → 一个完整排列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 1, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "找到排列: [3, 1, 2] ← 第 5 个"
+        }
+      ],
+      "intent": {
+        "why": "填满 N 个位置 → 一个完整排列",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 52,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "排列已收集，撤销最后选择，回到上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 1]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 1, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "排列已收集，撤销最后选择，回到上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 53,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 2 → 排列回到 [3, 1]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 54,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "所有候选都试完了，返回上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "所有候选都试完了，返回上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 55,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 1 → 排列回到 [3]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 56,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[1]=2 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 2 → 排列变为 [3, 2]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[1]=2 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 57,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 2 层：选择排列中的第 2 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=2)，当前排列 [3, 2]"
+        }
+      ],
+      "intent": {
+        "why": "第 2 层：选择排列中的第 2 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 58,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "选择 INPUT[0]=1 放入当前位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "选择 1 → 排列变为 [3, 2, 1]"
+        }
+      ],
+      "intent": {
+        "why": "选择 INPUT[0]=1 放入当前位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 59,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 3 层：选择排列中的第 3 个位置"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 2, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "进入 backtrack(depth=3)，当前排列 [3, 2, 1]"
+        }
+      ],
+      "intent": {
+        "why": "第 3 层：选择排列中的第 3 个位置",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 60,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "填满 N 个位置 → 一个完整排列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 2, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "找到排列: [3, 2, 1] ← 第 6 个"
+        }
+      ],
+      "intent": {
+        "why": "填满 N 个位置 → 一个完整排列",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 61,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "排列已收集，撤销最后选择，回到上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 2]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(3)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 2, 1]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "排列已收集，撤销最后选择，回到上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 62,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 1 → 排列回到 [3, 2]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 63,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "所有候选都试完了，返回上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(2)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3, 2]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "所有候选都试完了，返回上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 64,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 2 → 排列回到 [3]"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 65,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "所有候选都试完了，返回上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            },
+            {
+              "method": "backtrack(1)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[3]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "所有候选都试完了，返回上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 66,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "回溯：撤销本层选择，让同层试下一个候选"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "撤销 3 → 排列回到 []"
+        }
+      ],
+      "intent": {
+        "why": "回溯：撤销本层选择，让同层试下一个候选",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    },
+    {
+      "index": 67,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "所有候选都试完了，返回上一层"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backtrack(0)",
+              "locals": {
+                "depth": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "current": {
+                  "kind": "PRIM",
+                  "text": "[]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "input",
+                "type": "int[3]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "input",
+          "values": [
+            1,
+            2,
+            3
+          ],
+          "sortedFrom": 3,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "回溯（弹栈）"
+        }
+      ],
+      "intent": {
+        "why": "所有候选都试完了，返回上一层",
+        "invariant": "每一层选一个没用过的元素——递归完撤回（回溯），让同层试下一个"
+      }
+    }
+  ]
+}

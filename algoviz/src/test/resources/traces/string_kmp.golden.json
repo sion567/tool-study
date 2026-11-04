@@ -1,0 +1,2195 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "string.kmp",
+    "title": "KMP",
+    "codeResource": "/code/KmpDemo.java",
+    "input": "ABABDABACDABABCABAB/ABABCABAB",
+    "inputSize": 9
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "无公共前缀 → 长度归零"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next:1"
+          ],
+          "detail": "next[1] = 0"
+        }
+      ],
+      "intent": {
+        "why": "无公共前缀 → 长度归零",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "前缀表构建：P[2] 与 P[1] 相等 → 继续延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next:2"
+          ],
+          "detail": "next[2] = 1（前缀匹配）"
+        }
+      ],
+      "intent": {
+        "why": "前缀表构建：P[2] 与 P[1] 相等 → 继续延伸",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "前缀表构建：P[3] 与 P[2] 相等 → 继续延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next:3"
+          ],
+          "detail": "next[3] = 2（前缀匹配）"
+        }
+      ],
+      "intent": {
+        "why": "前缀表构建：P[3] 与 P[2] 相等 → 继续延伸",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "失配 → 回退到更短的前缀"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "next:4"
+          ],
+          "detail": "失配 → len = next[1] = 0"
+        }
+      ],
+      "intent": {
+        "why": "失配 → 回退到更短的前缀",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "无公共前缀 → 长度归零"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next:4"
+          ],
+          "detail": "next[4] = 0"
+        }
+      ],
+      "intent": {
+        "why": "无公共前缀 → 长度归零",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "前缀表构建：P[5] 与 P[1] 相等 → 继续延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next:5"
+          ],
+          "detail": "next[5] = 1（前缀匹配）"
+        }
+      ],
+      "intent": {
+        "why": "前缀表构建：P[5] 与 P[1] 相等 → 继续延伸",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "前缀表构建：P[6] 与 P[2] 相等 → 继续延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            0,
+            0
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next:6"
+          ],
+          "detail": "next[6] = 2（前缀匹配）"
+        }
+      ],
+      "intent": {
+        "why": "前缀表构建：P[6] 与 P[2] 相等 → 继续延伸",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "前缀表构建：P[7] 与 P[3] 相等 → 继续延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            0
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next:7"
+          ],
+          "detail": "next[7] = 3（前缀匹配）"
+        }
+      ],
+      "intent": {
+        "why": "前缀表构建：P[7] 与 P[3] 相等 → 继续延伸",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "前缀表构建：P[8] 与 P[4] 相等 → 继续延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "next:8"
+          ],
+          "detail": "next[8] = 4（前缀匹配）"
+        }
+      ],
+      "intent": {
+        "why": "前缀表构建：P[8] 与 P[4] 相等 → 继续延伸",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "失配 → 利用前缀表跳过已知的匹配部分——主串指针 ti 永不回退"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "compareA": 4,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "失配 → j = next[3] = 2（主串不回退！）"
+        }
+      ],
+      "intent": {
+        "why": "失配 → 利用前缀表跳过已知的匹配部分——主串指针 ti 永不回退",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "失配 → 利用前缀表跳过已知的匹配部分——主串指针 ti 永不回退"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "compareA": 2,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "失配 → j = next[1] = 0（主串不回退！）"
+        }
+      ],
+      "intent": {
+        "why": "失配 → 利用前缀表跳过已知的匹配部分——主串指针 ti 永不回退",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "模式串首字符就不匹配 → 主串前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "pi = 0 → 主串前进"
+        }
+      ],
+      "intent": {
+        "why": "模式串首字符就不匹配 → 主串前进",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "失配 → 利用前缀表跳过已知的匹配部分——主串指针 ti 永不回退"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "8"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "compareA": 3,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "失配 → j = next[2] = 1（主串不回退！）"
+        }
+      ],
+      "intent": {
+        "why": "失配 → 利用前缀表跳过已知的匹配部分——主串指针 ti 永不回退",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "失配 → 利用前缀表跳过已知的匹配部分——主串指针 ti 永不回退"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "8"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "compareA": 1,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "失配 → j = next[0] = 0（主串不回退！）"
+        }
+      ],
+      "intent": {
+        "why": "失配 → 利用前缀表跳过已知的匹配部分——主串指针 ti 永不回退",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "模式串首字符就不匹配 → 主串前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "8"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "pi = 0 → 主串前进"
+        }
+      ],
+      "intent": {
+        "why": "模式串首字符就不匹配 → 主串前进",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "模式串首字符就不匹配 → 主串前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "9"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "compareA": 0,
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "pi = 0 → 主串前进"
+        }
+      ],
+      "intent": {
+        "why": "模式串首字符就不匹配 → 主串前进",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "完整匹配 → 返回起始下标"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "19"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "match"
+          ],
+          "detail": "匹配！起始位置 10"
+        }
+      ],
+      "intent": {
+        "why": "完整匹配 → 返回起始下标",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "匹配完成"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "19"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "匹配位置 10"
+        }
+      ],
+      "intent": {
+        "why": "匹配完成",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "KMP 完成：主串 n 步 + 模式串 m 步 → 线性时间"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "kmp",
+              "locals": {
+                "text": {
+                  "kind": "PRIM",
+                  "text": "ABABDABACDABABCABAB"
+                },
+                "pattern": {
+                  "kind": "PRIM",
+                  "text": "ABABCABAB"
+                },
+                "ti": {
+                  "kind": "PRIM",
+                  "text": "19"
+                },
+                "pi": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "next",
+                "type": "int[9]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "next",
+          "values": [
+            0,
+            0,
+            1,
+            2,
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "sortedFrom": 9,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "搜索完成 → O(n+m)"
+        }
+      ],
+      "intent": {
+        "why": "KMP 完成：主串 n 步 + 模式串 m 步 → 线性时间",
+        "invariant": "失配时 j = next[j]——利用已匹配的前缀信息跳过不必要的比较，主串指针永不回退"
+      }
+    }
+  ]
+}

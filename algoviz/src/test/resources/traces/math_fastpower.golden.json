@@ -1,0 +1,908 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.fastpower",
+    "title": "快速幂",
+    "codeResource": "/code/FastPowerDemo.java",
+    "input": "3^13",
+    "inputSize": 13
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "目标：3^13——逐个乘要 13 次，快速幂只要 log₂13 ≈ 3 次"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fastPower",
+              "locals": {
+                "result": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "base": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "exp": {
+                  "kind": "PRIM",
+                  "text": "13"
+                },
+                "二进制": {
+                  "kind": "PRIM",
+                  "text": "1101"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "FastPowerState",
+                "fields": {
+                  "result": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "base": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "exp": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  },
+                  "exp_binary": {
+                    "kind": "PRIM",
+                    "text": "1101"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "exp_bits",
+          "values": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "3^13：result=1, base=3, exp=13"
+        }
+      ],
+      "intent": {
+        "why": "目标：3^13——逐个乘要 13 次，快速幂只要 log₂13 ≈ 3 次",
+        "invariant": "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "最低位是 1：把当前 base 的贡献累入 result"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fastPower",
+              "locals": {
+                "result": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "base": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "exp": {
+                  "kind": "PRIM",
+                  "text": "13"
+                },
+                "二进制": {
+                  "kind": "PRIM",
+                  "text": "1101"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "FastPowerState",
+                "fields": {
+                  "result": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "base": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "exp": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  },
+                  "exp_binary": {
+                    "kind": "PRIM",
+                    "text": "1101"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "exp_bits",
+          "values": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "result"
+          ],
+          "detail": "二进制末位 = 1 → result ×= 3 → 3"
+        }
+      ],
+      "intent": {
+        "why": "最低位是 1：把当前 base 的贡献累入 result",
+        "invariant": "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "base 逐帧平方：1→3→9→…（指数折半）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fastPower",
+              "locals": {
+                "result": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "base": {
+                  "kind": "PRIM",
+                  "text": "9"
+                },
+                "exp": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "二进制": {
+                  "kind": "PRIM",
+                  "text": "110"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "FastPowerState",
+                "fields": {
+                  "result": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "base": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "exp": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "exp_binary": {
+                    "kind": "PRIM",
+                    "text": "110"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "exp_bits",
+          "values": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "base"
+          ],
+          "detail": "base² = 9, exp → 6（右移一位）"
+        }
+      ],
+      "intent": {
+        "why": "base 逐帧平方：1→3→9→…（指数折半）",
+        "invariant": "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "最低位是 0：跳过，只平方 base"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fastPower",
+              "locals": {
+                "result": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "base": {
+                  "kind": "PRIM",
+                  "text": "9"
+                },
+                "exp": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "二进制": {
+                  "kind": "PRIM",
+                  "text": "110"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "FastPowerState",
+                "fields": {
+                  "result": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "base": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "exp": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "exp_binary": {
+                    "kind": "PRIM",
+                    "text": "110"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "exp_bits",
+          "values": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "result"
+          ],
+          "detail": "二进制末位 = 0 → 跳过"
+        }
+      ],
+      "intent": {
+        "why": "最低位是 0：跳过，只平方 base",
+        "invariant": "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "base 逐帧平方：1→3→9→…（指数折半）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fastPower",
+              "locals": {
+                "result": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "base": {
+                  "kind": "PRIM",
+                  "text": "81"
+                },
+                "exp": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "二进制": {
+                  "kind": "PRIM",
+                  "text": "11"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "FastPowerState",
+                "fields": {
+                  "result": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "base": {
+                    "kind": "PRIM",
+                    "text": "81"
+                  },
+                  "exp": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "exp_binary": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "exp_bits",
+          "values": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "base"
+          ],
+          "detail": "base² = 81, exp → 3（右移一位）"
+        }
+      ],
+      "intent": {
+        "why": "base 逐帧平方：1→3→9→…（指数折半）",
+        "invariant": "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "最低位是 1：把当前 base 的贡献累入 result"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fastPower",
+              "locals": {
+                "result": {
+                  "kind": "PRIM",
+                  "text": "243"
+                },
+                "base": {
+                  "kind": "PRIM",
+                  "text": "81"
+                },
+                "exp": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "二进制": {
+                  "kind": "PRIM",
+                  "text": "11"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "FastPowerState",
+                "fields": {
+                  "result": {
+                    "kind": "PRIM",
+                    "text": "243"
+                  },
+                  "base": {
+                    "kind": "PRIM",
+                    "text": "81"
+                  },
+                  "exp": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "exp_binary": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "exp_bits",
+          "values": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "result"
+          ],
+          "detail": "二进制末位 = 1 → result ×= 81 → 243"
+        }
+      ],
+      "intent": {
+        "why": "最低位是 1：把当前 base 的贡献累入 result",
+        "invariant": "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "base 逐帧平方：1→3→9→…（指数折半）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fastPower",
+              "locals": {
+                "result": {
+                  "kind": "PRIM",
+                  "text": "243"
+                },
+                "base": {
+                  "kind": "PRIM",
+                  "text": "6561"
+                },
+                "exp": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "二进制": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "FastPowerState",
+                "fields": {
+                  "result": {
+                    "kind": "PRIM",
+                    "text": "243"
+                  },
+                  "base": {
+                    "kind": "PRIM",
+                    "text": "6561"
+                  },
+                  "exp": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "exp_binary": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "exp_bits",
+          "values": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "base"
+          ],
+          "detail": "base² = 6561, exp → 1（右移一位）"
+        }
+      ],
+      "intent": {
+        "why": "base 逐帧平方：1→3→9→…（指数折半）",
+        "invariant": "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "最低位是 1：把当前 base 的贡献累入 result"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fastPower",
+              "locals": {
+                "result": {
+                  "kind": "PRIM",
+                  "text": "1594323"
+                },
+                "base": {
+                  "kind": "PRIM",
+                  "text": "6561"
+                },
+                "exp": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "二进制": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "FastPowerState",
+                "fields": {
+                  "result": {
+                    "kind": "PRIM",
+                    "text": "1594323"
+                  },
+                  "base": {
+                    "kind": "PRIM",
+                    "text": "6561"
+                  },
+                  "exp": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "exp_binary": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "exp_bits",
+          "values": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "result"
+          ],
+          "detail": "二进制末位 = 1 → result ×= 6561 → 1594323"
+        }
+      ],
+      "intent": {
+        "why": "最低位是 1：把当前 base 的贡献累入 result",
+        "invariant": "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "base 逐帧平方：1→3→9→…（指数折半）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fastPower",
+              "locals": {
+                "result": {
+                  "kind": "PRIM",
+                  "text": "1594323"
+                },
+                "base": {
+                  "kind": "PRIM",
+                  "text": "43046721"
+                },
+                "exp": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "二进制": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "FastPowerState",
+                "fields": {
+                  "result": {
+                    "kind": "PRIM",
+                    "text": "1594323"
+                  },
+                  "base": {
+                    "kind": "PRIM",
+                    "text": "43046721"
+                  },
+                  "exp": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "exp_binary": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "exp_bits",
+          "values": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "base"
+          ],
+          "detail": "base² = 43046721, exp → 0（右移一位）"
+        }
+      ],
+      "intent": {
+        "why": "base 逐帧平方：1→3→9→…（指数折半）",
+        "invariant": "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "log₂13 = 4 次乘法——对比逐乘 13 次，快了 3 倍"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fastPower",
+              "locals": {
+                "result": {
+                  "kind": "PRIM",
+                  "text": "1594323"
+                },
+                "base": {
+                  "kind": "PRIM",
+                  "text": "43046721"
+                },
+                "exp": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "二进制": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "FastPowerState",
+                "fields": {
+                  "result": {
+                    "kind": "PRIM",
+                    "text": "1594323"
+                  },
+                  "base": {
+                    "kind": "PRIM",
+                    "text": "43046721"
+                  },
+                  "exp": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "exp_binary": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "exp_bits",
+          "values": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "sortedFrom": 4,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "完成：3^13 = 1594323（只用了 4 次乘法而非 13 次）"
+        }
+      ],
+      "intent": {
+        "why": "log₂13 = 4 次乘法——对比逐乘 13 次，快了 3 倍",
+        "invariant": "指数每次折半，base 逐帧平方——log n 次乘法替代 n 次逐乘"
+      }
+    }
+  ]
+}

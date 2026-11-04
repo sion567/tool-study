@@ -1,0 +1,2743 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dp.lis",
+    "title": "最长递增子序列",
+    "codeResource": "/code/LisDemo.java",
+    "input": "3,1,4,1,5,9,2,6",
+    "inputSize": 8
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "基线：每个元素自身构成长度 1 的 LIS"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "dp 全初始化为 1（每个元素自身是长度 1 的 LIS）"
+        }
+      ],
+      "intent": {
+        "why": "基线：每个元素自身构成长度 1 的 LIS",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "a[1] 的 LIS 长度确定"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareB": 1,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a:1"
+          ],
+          "detail": "dp[1] = 1（确定）"
+        }
+      ],
+      "intent": {
+        "why": "a[1] 的 LIS 长度确定",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[i]：可以接在 j 的 LIS 后面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareA": 0,
+          "compareB": 2,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:0",
+            "a:2"
+          ],
+          "detail": "a[0]=3 < a[2]=4 → dp[2] = dp[0]+1 = 2"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[i]：可以接在 j 的 LIS 后面",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "a[2] 的 LIS 长度确定"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareB": 2,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a:2"
+          ],
+          "detail": "dp[2] = 2（确定）"
+        }
+      ],
+      "intent": {
+        "why": "a[2] 的 LIS 长度确定",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "a[3] 的 LIS 长度确定"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareB": 3,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a:3"
+          ],
+          "detail": "dp[3] = 1（确定）"
+        }
+      ],
+      "intent": {
+        "why": "a[3] 的 LIS 长度确定",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[i]：可以接在 j 的 LIS 后面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareA": 0,
+          "compareB": 4,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:0",
+            "a:4"
+          ],
+          "detail": "a[0]=3 < a[4]=5 → dp[4] = dp[0]+1 = 2"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[i]：可以接在 j 的 LIS 后面",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[i]：可以接在 j 的 LIS 后面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareA": 2,
+          "compareB": 4,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:2",
+            "a:4"
+          ],
+          "detail": "a[2]=4 < a[4]=5 → dp[4] = dp[2]+1 = 3"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[i]：可以接在 j 的 LIS 后面",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "a[4] 的 LIS 长度确定"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareB": 4,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a:4"
+          ],
+          "detail": "dp[4] = 3（确定）"
+        }
+      ],
+      "intent": {
+        "why": "a[4] 的 LIS 长度确定",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[i]：可以接在 j 的 LIS 后面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareA": 0,
+          "compareB": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:0",
+            "a:5"
+          ],
+          "detail": "a[0]=3 < a[5]=9 → dp[5] = dp[0]+1 = 2"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[i]：可以接在 j 的 LIS 后面",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[i]：可以接在 j 的 LIS 后面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareA": 2,
+          "compareB": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:2",
+            "a:5"
+          ],
+          "detail": "a[2]=4 < a[5]=9 → dp[5] = dp[2]+1 = 3"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[i]：可以接在 j 的 LIS 后面",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[i]：可以接在 j 的 LIS 后面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareA": 4,
+          "compareB": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:4",
+            "a:5"
+          ],
+          "detail": "a[4]=5 < a[5]=9 → dp[5] = dp[4]+1 = 4"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[i]：可以接在 j 的 LIS 后面",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "a[5] 的 LIS 长度确定"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareB": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a:5"
+          ],
+          "detail": "dp[5] = 4（确定）"
+        }
+      ],
+      "intent": {
+        "why": "a[5] 的 LIS 长度确定",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[i]：可以接在 j 的 LIS 后面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareA": 1,
+          "compareB": 6,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:1",
+            "a:6"
+          ],
+          "detail": "a[1]=1 < a[6]=2 → dp[6] = dp[1]+1 = 2"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[i]：可以接在 j 的 LIS 后面",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "a[6] 的 LIS 长度确定"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareB": 6,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a:6"
+          ],
+          "detail": "dp[6] = 2（确定）"
+        }
+      ],
+      "intent": {
+        "why": "a[6] 的 LIS 长度确定",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[i]：可以接在 j 的 LIS 后面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareA": 0,
+          "compareB": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:0",
+            "a:7"
+          ],
+          "detail": "a[0]=3 < a[7]=6 → dp[7] = dp[0]+1 = 2"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[i]：可以接在 j 的 LIS 后面",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[i]：可以接在 j 的 LIS 后面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareA": 2,
+          "compareB": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:2",
+            "a:7"
+          ],
+          "detail": "a[2]=4 < a[7]=6 → dp[7] = dp[2]+1 = 3"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[i]：可以接在 j 的 LIS 后面",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "a[j] < a[i]：可以接在 j 的 LIS 后面"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareA": 4,
+          "compareB": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:4",
+            "a:7"
+          ],
+          "detail": "a[4]=5 < a[7]=6 → dp[7] = dp[4]+1 = 4"
+        }
+      ],
+      "intent": {
+        "why": "a[j] < a[i]：可以接在 j 的 LIS 后面",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "a[7] 的 LIS 长度确定"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "compareB": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "a:7"
+          ],
+          "detail": "dp[7] = 4（确定）"
+        }
+      ],
+      "intent": {
+        "why": "a[7] 的 LIS 长度确定",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "全局最大 dp 值 = LIS 长度"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lis",
+              "locals": {
+                "curI": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                },
+                "curJ": {
+                  "kind": "PRIM",
+                  "text": "-1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "dp",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            1,
+            4,
+            1,
+            5,
+            9,
+            2,
+            6
+          ],
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "LIS 长度 = 4"
+        }
+      ],
+      "intent": {
+        "why": "全局最大 dp 值 = LIS 长度",
+        "invariant": "dp[i] = 以 a[i] 结尾的 LIS 长度——对每个 j < i 且 a[j] < a[i]，dp[i] = max(dp[j]) + 1"
+      }
+    }
+  ]
+}

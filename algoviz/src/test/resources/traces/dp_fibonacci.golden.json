@@ -1,0 +1,2781 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dp.fibonacci",
+    "title": "斐波那契三版对比",
+    "codeResource": "/code/FibonacciDemo.java",
+    "input": "fib(0..7)",
+    "inputSize": 8
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "递归版：fib(5) 算了 2 次、fib(4) 算了 3 次、fib(3) 算了 5 次——大量浪费"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "递归 O(2ⁿ)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "递归 O(2ⁿ)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(7)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "递归版：fib(7)——注意重复子问题（红圈标出）"
+        }
+      ],
+      "intent": {
+        "why": "递归版：fib(5) 算了 2 次、fib(4) 算了 3 次、fib(3) 算了 5 次——大量浪费",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "指数爆炸：fib(n) 的调用次数 ≈ 2 × fib(n-1) 的调用次数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "递归 O(2ⁿ)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "递归 O(2ⁿ)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(7)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "递归完成：总共 100 次函数调用（O(2ⁿ)）"
+        }
+      ],
+      "intent": {
+        "why": "指数爆炸：fib(n) 的调用次数 ≈ 2 × fib(n-1) 的调用次数",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "递归调用统计",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "递归调用统计"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(0)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 0,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:0"
+          ],
+          "detail": "fib(0) 被调用 0 次"
+        }
+      ],
+      "intent": {
+        "why": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "递归调用统计",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "递归调用统计"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(1)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 1,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:1"
+          ],
+          "detail": "fib(1) 被调用 0 次"
+        }
+      ],
+      "intent": {
+        "why": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "递归调用统计",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "递归调用统计"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(2)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 2,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:2"
+          ],
+          "detail": "fib(2) 被调用 0 次"
+        }
+      ],
+      "intent": {
+        "why": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "递归调用统计",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "递归调用统计"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(3)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 3,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:3"
+          ],
+          "detail": "fib(3) 被调用 0 次"
+        }
+      ],
+      "intent": {
+        "why": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "递归调用统计",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "递归调用统计"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(4)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 4,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:4"
+          ],
+          "detail": "fib(4) 被调用 0 次"
+        }
+      ],
+      "intent": {
+        "why": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "递归调用统计",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "递归调用统计"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(5)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:5"
+          ],
+          "detail": "fib(5) 被调用 0 次"
+        }
+      ],
+      "intent": {
+        "why": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "递归调用统计",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "递归调用统计"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(6)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 6,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:6"
+          ],
+          "detail": "fib(6) 被调用 0 次"
+        }
+      ],
+      "intent": {
+        "why": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "递归调用统计",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "递归调用统计"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(7)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:7"
+          ],
+          "detail": "fib(7) 被调用 0 次"
+        }
+      ],
+      "intent": {
+        "why": "递归版调用统计：小下标被重复调用多次——这就是 O(2ⁿ) 的来源",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "备忘录 = 缓存已算过的子问题——重复调用直接查表"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "备忘录 O(n)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "备忘录 O(n)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "备忘录版：memo 数组缓存已算过的结果"
+        }
+      ],
+      "intent": {
+        "why": "备忘录 = 缓存已算过的子问题——重复调用直接查表",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "备忘录版：每个子问题只算一次 → O(n)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "备忘录 O(n)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "备忘录 O(n)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(0)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 0,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:0"
+          ],
+          "detail": "fib(0) = 0（缓存命中或首次计算）"
+        }
+      ],
+      "intent": {
+        "why": "备忘录版：每个子问题只算一次 → O(n)",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "备忘录版：每个子问题只算一次 → O(n)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "备忘录 O(n)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "备忘录 O(n)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(1)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 1,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:1"
+          ],
+          "detail": "fib(1) = 1（缓存命中或首次计算）"
+        }
+      ],
+      "intent": {
+        "why": "备忘录版：每个子问题只算一次 → O(n)",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "备忘录版：每个子问题只算一次 → O(n)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "备忘录 O(n)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "备忘录 O(n)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(2)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 2,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:2"
+          ],
+          "detail": "fib(2) = 1（缓存命中或首次计算）"
+        }
+      ],
+      "intent": {
+        "why": "备忘录版：每个子问题只算一次 → O(n)",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "备忘录版：每个子问题只算一次 → O(n)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "备忘录 O(n)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "备忘录 O(n)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(3)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 3,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:3"
+          ],
+          "detail": "fib(3) = 2（缓存命中或首次计算）"
+        }
+      ],
+      "intent": {
+        "why": "备忘录版：每个子问题只算一次 → O(n)",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "备忘录版：每个子问题只算一次 → O(n)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "备忘录 O(n)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "备忘录 O(n)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(4)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            3,
+            0,
+            0,
+            0
+          ],
+          "compareA": 4,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:4"
+          ],
+          "detail": "fib(4) = 3（缓存命中或首次计算）"
+        }
+      ],
+      "intent": {
+        "why": "备忘录版：每个子问题只算一次 → O(n)",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "备忘录版：每个子问题只算一次 → O(n)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "备忘录 O(n)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "备忘录 O(n)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(5)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            3,
+            5,
+            0,
+            0
+          ],
+          "compareA": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:5"
+          ],
+          "detail": "fib(5) = 5（缓存命中或首次计算）"
+        }
+      ],
+      "intent": {
+        "why": "备忘录版：每个子问题只算一次 → O(n)",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "备忘录版：每个子问题只算一次 → O(n)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "备忘录 O(n)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "备忘录 O(n)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(6)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            3,
+            5,
+            8,
+            0
+          ],
+          "compareA": 6,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:6"
+          ],
+          "detail": "fib(6) = 8（缓存命中或首次计算）"
+        }
+      ],
+      "intent": {
+        "why": "备忘录版：每个子问题只算一次 → O(n)",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "备忘录版：每个子问题只算一次 → O(n)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "备忘录 O(n)",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "备忘录 O(n)"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(7)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "13"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            3,
+            5,
+            8,
+            13
+          ],
+          "compareA": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:7"
+          ],
+          "detail": "fib(7) = 13（缓存命中或首次计算）"
+        }
+      ],
+      "intent": {
+        "why": "备忘录版：每个子问题只算一次 → O(n)",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "DP 版：不递归、不缓存全部——只保留前两个值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "DP O(1) 空间",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "DP O(1) 空间"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "DP 版：从底向上填表，只保留前两个值 → O(1) 空间"
+        }
+      ],
+      "intent": {
+        "why": "DP 版：不递归、不缓存全部——只保留前两个值",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "DP 填表：从底向上，每个格子只依赖前两个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "DP O(1) 空间",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "DP O(1) 空间"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(2)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 2,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:2"
+          ],
+          "detail": "dp[2] = dp[1] + dp[0] = 1 + 0 = 1"
+        }
+      ],
+      "intent": {
+        "why": "DP 填表：从底向上，每个格子只依赖前两个",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "DP 填表：从底向上，每个格子只依赖前两个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "DP O(1) 空间",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "DP O(1) 空间"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(3)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          "compareA": 3,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:3"
+          ],
+          "detail": "dp[3] = dp[2] + dp[1] = 1 + 1 = 2"
+        }
+      ],
+      "intent": {
+        "why": "DP 填表：从底向上，每个格子只依赖前两个",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "DP 填表：从底向上，每个格子只依赖前两个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "DP O(1) 空间",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "DP O(1) 空间"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(4)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            3,
+            0,
+            0,
+            0
+          ],
+          "compareA": 4,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:4"
+          ],
+          "detail": "dp[4] = dp[3] + dp[2] = 2 + 1 = 3"
+        }
+      ],
+      "intent": {
+        "why": "DP 填表：从底向上，每个格子只依赖前两个",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "DP 填表：从底向上，每个格子只依赖前两个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "DP O(1) 空间",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "DP O(1) 空间"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(5)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            3,
+            5,
+            0,
+            0
+          ],
+          "compareA": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:5"
+          ],
+          "detail": "dp[5] = dp[4] + dp[3] = 3 + 2 = 5"
+        }
+      ],
+      "intent": {
+        "why": "DP 填表：从底向上，每个格子只依赖前两个",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "DP 填表：从底向上，每个格子只依赖前两个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "DP O(1) 空间",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "DP O(1) 空间"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(6)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            3,
+            5,
+            8,
+            0
+          ],
+          "compareA": 6,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:6"
+          ],
+          "detail": "dp[6] = dp[5] + dp[4] = 5 + 3 = 8"
+        }
+      ],
+      "intent": {
+        "why": "DP 填表：从底向上，每个格子只依赖前两个",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "DP 填表：从底向上，每个格子只依赖前两个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "DP O(1) 空间",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "DP O(1) 空间"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(7)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "13"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            3,
+            5,
+            8,
+            13
+          ],
+          "compareA": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "dp:7"
+          ],
+          "detail": "dp[7] = dp[6] + dp[5] = 8 + 5 = 13"
+        }
+      ],
+      "intent": {
+        "why": "DP 填表：从底向上，每个格子只依赖前两个",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "DP = 递归 + 备忘录 + 空间优化——同一问题的三种「记忆策略」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "DP O(1) 空间",
+              "locals": {
+                "version": {
+                  "kind": "PRIM",
+                  "text": "DP O(1) 空间"
+                },
+                "cur": {
+                  "kind": "PRIM",
+                  "text": "fib(7)"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp/memo",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "13"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "dp",
+          "values": [
+            0,
+            1,
+            1,
+            2,
+            3,
+            5,
+            8,
+            13
+          ],
+          "compareA": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "三版对比：递归 O(2ⁿ) → 备忘录 O(n)/O(n) → DP O(n)/O(1)"
+        }
+      ],
+      "intent": {
+        "why": "DP = 递归 + 备忘录 + 空间优化——同一问题的三种「记忆策略」",
+        "invariant": "fib(n) = fib(n-1) + fib(n-2)——备忘录消除重复子问题；DP 从底向上填表；空间从 O(n) 降到 O(1)"
+      }
+    }
+  ]
+}

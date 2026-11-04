@@ -1,0 +1,1531 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "graph.unionfind",
+    "title": "并查集",
+    "codeResource": "/code/UnionFindDemo.java",
+    "input": "6 节点 4 次 union",
+    "inputSize": 6
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 2,
+        "endLine": 2,
+        "note": "初始：每个元素自己是一个集合"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "初始化：6 个节点各自为根（6 个独立集合）"
+        }
+      ],
+      "intent": {
+        "why": "初始：每个元素自己是一个集合",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "Find 两根——相同 = 已在同一集合，不同 = 合并"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "B"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "find(A) = A, find(B) = B"
+        }
+      ],
+      "intent": {
+        "why": "Find 两根——相同 = 已在同一集合，不同 = 合并",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "合并集合：一棵树的根挂到另一棵树的根上——森林少一棵树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@2",
+              "toId": "@1",
+              "weight": 0
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@1",
+            "@2"
+          ],
+          "detail": "union(A,B)：B 的根指向 A"
+        }
+      ],
+      "intent": {
+        "why": "合并集合：一棵树的根挂到另一棵树的根上——森林少一棵树",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "Find 两根——相同 = 已在同一集合，不同 = 合并"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "D"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@2",
+              "toId": "@1",
+              "weight": 0
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "find(C) = C, find(D) = D"
+        }
+      ],
+      "intent": {
+        "why": "Find 两根——相同 = 已在同一集合，不同 = 合并",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "合并集合：一棵树的根挂到另一棵树的根上——森林少一棵树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@2",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@4",
+              "toId": "@3",
+              "weight": 0
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@3",
+            "@4"
+          ],
+          "detail": "union(C,D)：D 的根指向 C"
+        }
+      ],
+      "intent": {
+        "why": "合并集合：一棵树的根挂到另一棵树的根上——森林少一棵树",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "Find 两根——相同 = 已在同一集合，不同 = 合并"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@2",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@4",
+              "toId": "@3",
+              "weight": 0
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "find(B) = A, find(D) = C"
+        }
+      ],
+      "intent": {
+        "why": "Find 两根——相同 = 已在同一集合，不同 = 合并",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "合并集合：一棵树的根挂到另一棵树的根上——森林少一棵树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@2",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@3",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@4",
+              "toId": "@3",
+              "weight": 0
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@1",
+            "@3"
+          ],
+          "detail": "union(B,D)：C 的根指向 A"
+        }
+      ],
+      "intent": {
+        "why": "合并集合：一棵树的根挂到另一棵树的根上——森林少一棵树",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "Find 两根——相同 = 已在同一集合，不同 = 合并"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "F"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@2",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@3",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@4",
+              "toId": "@3",
+              "weight": 0
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "find(E) = E, find(F) = F"
+        }
+      ],
+      "intent": {
+        "why": "Find 两根——相同 = 已在同一集合，不同 = 合并",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "合并集合：一棵树的根挂到另一棵树的根上——森林少一棵树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@2",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@3",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@4",
+              "toId": "@3",
+              "weight": 0
+            },
+            {
+              "fromId": "@6",
+              "toId": "@5",
+              "weight": 0
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@5",
+            "@6"
+          ],
+          "detail": "union(E,F)：F 的根指向 E"
+        }
+      ],
+      "intent": {
+        "why": "合并集合：一棵树的根挂到另一棵树的根上——森林少一棵树",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "Find 两根——相同 = 已在同一集合，不同 = 合并"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@2",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@3",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@4",
+              "toId": "@3",
+              "weight": 0
+            },
+            {
+              "fromId": "@6",
+              "toId": "@5",
+              "weight": 0
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "find(A) = A, find(E) = E"
+        }
+      ],
+      "intent": {
+        "why": "Find 两根——相同 = 已在同一集合，不同 = 合并",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "合并集合：一棵树的根挂到另一棵树的根上——森林少一棵树"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@2",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@3",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@4",
+              "toId": "@3",
+              "weight": 0
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@6",
+              "toId": "@5",
+              "weight": 0
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@1",
+            "@5"
+          ],
+          "detail": "union(A,E)：E 的根指向 A"
+        }
+      ],
+      "intent": {
+        "why": "合并集合：一棵树的根挂到另一棵树的根上——森林少一棵树",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "并查集 = 用一棵树表示一个集合；森林的形状决定查找效率"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "unionFind",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "parent",
+                "type": "UnionFind",
+                "fields": {
+                  "A.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "B.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "C.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "D.parent": {
+                    "kind": "PRIM",
+                    "text": "C"
+                  },
+                  "E.parent": {
+                    "kind": "PRIM",
+                    "text": "A"
+                  },
+                  "F.parent": {
+                    "kind": "PRIM",
+                    "text": "E"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "并查集",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@3",
+              "label": "C",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@4",
+              "label": "D",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@5",
+              "label": "E",
+              "x": 0.5,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@6",
+              "label": "F",
+              "x": 0.5,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@2",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@3",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@4",
+              "toId": "@3",
+              "weight": 0
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 0
+            },
+            {
+              "fromId": "@6",
+              "toId": "@5",
+              "weight": 0
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "最终：所有节点指向同一个根 → 只剩 1 个集合"
+        }
+      ],
+      "intent": {
+        "why": "并查集 = 用一棵树表示一个集合；森林的形状决定查找效率",
+        "invariant": "Find 返回同一个根 → 同一集合；路径压缩让树越走越扁平 → 查找接近 O(1)"
+      }
+    }
+  ]
+}

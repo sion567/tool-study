@@ -9,6 +9,7 @@ import com.algoviz.engine.trace.Trace;
 import com.algoviz.ui.BarRenderer;
 import com.algoviz.ui.BitmapRenderer;
 import com.algoviz.ui.CodePanel;
+import com.algoviz.ui.ComplexityPanel;
 import com.algoviz.ui.DictationDiff;
 import com.algoviz.ui.DiffHighlighter;
 import com.algoviz.ui.NotesStore;
@@ -81,6 +82,7 @@ public class MainApp extends Application {
     private MarkdownView markdownView;
     private PredictionPanel predictPanel;
     private DictationPanel dictationPanel;
+    private Tab complexityTab;
     private VarsPanel varsPanel;
     private IntentBar intentBar;
     private Canvas canvas;
@@ -145,7 +147,17 @@ public class MainApp extends Application {
         dictationPanel.onCompare = this::onDictationCompare;
         Tab dictationTab = new Tab("📝 默写", dictationPanel);
         dictationTab.setClosable(false);
-        TabPane tabs = new TabPane(codeTab, docTab, predictTab, dictationTab);
+
+        // M7 复杂度 Tab：增长曲线 + 体感表（画布复用中间区域）
+        complexityTab = new Tab("📈 复杂度", buildComplexityContent());
+        complexityTab.setClosable(false);
+        complexityTab.setOnSelectionChanged(e -> {
+            if (complexityTab.isSelected()) {
+                stopPlayback();
+                ComplexityPanel.draw(canvas, 50);
+            }
+        });
+        TabPane tabs = new TabPane(codeTab, docTab, predictTab, dictationTab, complexityTab);
         tabs.setPrefWidth(500);
 
         // 底：意图栏 + 控制栏 + 现场面板
@@ -379,6 +391,22 @@ public class MainApp extends Application {
             System.err.println(">>> render 失败 @step " + playback.index() + "：");
             e.printStackTrace();
         }
+    }
+
+    /** 复杂度 Tab 内容：说明文本 + 体感表。 */
+    private javafx.scene.layout.VBox buildComplexityContent() {
+        Label title = new Label("复杂度可视化");
+        title.setStyle("-fx-font-size:15px; -fx-font-weight:bold; -fx-text-fill:#111;");
+        Label desc = new Label("中间画布显示 O(1)~O(n²) 增长曲线（切到此 Tab 即绘制）。"
+                + "曲线在 n=50 内对比；不同算法可切过去按 🎲 换 n 看步数变化。");
+        desc.setWrapText(true);
+        desc.setStyle("-fx-text-fill:#374151; -fx-font-size:12px;");
+        Label table = new Label(ComplexityPanel.feelTable());
+        table.setStyle("-fx-font-family:monospace; -fx-font-size:12px; -fx-text-fill:#111827;"
+                + " -fx-background-color:#f6f8fa; -fx-padding:10; -fx-background-radius:4;");
+        var box = new javafx.scene.layout.VBox(8, title, desc, table);
+        box.setPadding(new Insets(10));
+        return box;
     }
 
     private void load(Algorithm alg) {

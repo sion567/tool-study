@@ -116,7 +116,8 @@ final class TraceAsserts {
                 for (GraphView.GraphEdge e : gv.edges()) {
                     assertTrue(ids.contains(e.fromId()) && ids.contains(e.toId()),
                             "边指向不存在的顶点 @step " + s.index());
-                    assertTrue(e.weight() >= 0, "负权边：Dijkstra 不适用 @step " + s.index());
+                    assertTrue(e.weight() >= 0 || t.meta().algorithmId().contains("bellmanford"),
+                            "负权边：仅 Bellman-Ford 允许 @step " + s.index());
                 }
                 for (String settled : gv.settledIds()) {
                     assertTrue(ids.contains(settled), "出圈集含未知顶点 @step " + s.index());

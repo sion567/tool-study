@@ -1,0 +1,4016 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dp.knapsack",
+    "title": "0/1 背包",
+    "codeResource": "/code/KnapsackDemo.java",
+    "input": "3 物品 容量4",
+    "inputSize": 4
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "第 0 行：没有物品，价值全 0"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "初始化"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "dp[0][*] = 0（没有物品可放）"
+        }
+      ],
+      "intent": {
+        "why": "第 0 行：没有物品，价值全 0",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "第 1 件物品：放或不放，取最大值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第1件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "考虑物品 1（重量=1, 价值=15）"
+        }
+      ],
+      "intent": {
+        "why": "第 1 件物品：放或不放，取最大值",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "装不下：dp[i][cap] = dp[i-1][cap]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第1件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:5"
+          ],
+          "detail": "重 1 > 容量 0 → 放不下，继承上一行"
+        }
+      ],
+      "intent": {
+        "why": "装不下：dp[i][cap] = dp[i-1][cap]",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "max(不放=0, 放=15) → 取较大者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第1件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                1
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:6"
+          ],
+          "detail": "不放=0 vs 放=15 → dp[1][1]=15"
+        }
+      ],
+      "intent": {
+        "why": "max(不放=0, 放=15) → 取较大者",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "max(不放=0, 放=15) → 取较大者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第1件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:7"
+          ],
+          "detail": "不放=0 vs 放=15 → dp[1][2]=15"
+        }
+      ],
+      "intent": {
+        "why": "max(不放=0, 放=15) → 取较大者",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "max(不放=0, 放=15) → 取较大者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第1件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "0"
+              ],
+              "activeCells": [
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:8"
+          ],
+          "detail": "不放=0 vs 放=15 → dp[1][3]=15"
+        }
+      ],
+      "intent": {
+        "why": "max(不放=0, 放=15) → 取较大者",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "max(不放=0, 放=15) → 取较大者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第1件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:9"
+          ],
+          "detail": "不放=0 vs 放=15 → dp[1][4]=15"
+        }
+      ],
+      "intent": {
+        "why": "max(不放=0, 放=15) → 取较大者",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "第 2 件物品：放或不放，取最大值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第2件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "考虑物品 2（重量=3, 价值=20）"
+        }
+      ],
+      "intent": {
+        "why": "第 2 件物品：放或不放，取最大值",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "装不下：dp[i][cap] = dp[i-1][cap]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第2件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:10"
+          ],
+          "detail": "重 3 > 容量 0 → 放不下，继承上一行"
+        }
+      ],
+      "intent": {
+        "why": "装不下：dp[i][cap] = dp[i-1][cap]",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "装不下：dp[i][cap] = dp[i-1][cap]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第2件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                1
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:11"
+          ],
+          "detail": "重 3 > 容量 1 → 放不下，继承上一行"
+        }
+      ],
+      "intent": {
+        "why": "装不下：dp[i][cap] = dp[i-1][cap]",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "装不下：dp[i][cap] = dp[i-1][cap]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第2件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:12"
+          ],
+          "detail": "重 3 > 容量 2 → 放不下，继承上一行"
+        }
+      ],
+      "intent": {
+        "why": "装不下：dp[i][cap] = dp[i-1][cap]",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "max(不放=15, 放=20) → 取较大者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第2件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "0"
+              ],
+              "activeCells": [
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:13"
+          ],
+          "detail": "不放=15 vs 放=20 → dp[2][3]=20"
+        }
+      ],
+      "intent": {
+        "why": "max(不放=15, 放=20) → 取较大者",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "max(不放=15, 放=35) → 取较大者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第2件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "35"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "35"
+              ],
+              "activeCells": [
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:14"
+          ],
+          "detail": "不放=15 vs 放=35 → dp[2][4]=35"
+        }
+      ],
+      "intent": {
+        "why": "max(不放=15, 放=35) → 取较大者",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "第 3 件物品：放或不放，取最大值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第3件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "35"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "35"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                4
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "考虑物品 3（重量=4, 价值=30）"
+        }
+      ],
+      "intent": {
+        "why": "第 3 件物品：放或不放，取最大值",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "装不下：dp[i][cap] = dp[i-1][cap]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第3件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "35"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "35"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:15"
+          ],
+          "detail": "重 4 > 容量 0 → 放不下，继承上一行"
+        }
+      ],
+      "intent": {
+        "why": "装不下：dp[i][cap] = dp[i-1][cap]",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "装不下：dp[i][cap] = dp[i-1][cap]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第3件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "35"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "35"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:16"
+          ],
+          "detail": "重 4 > 容量 1 → 放不下，继承上一行"
+        }
+      ],
+      "intent": {
+        "why": "装不下：dp[i][cap] = dp[i-1][cap]",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "装不下：dp[i][cap] = dp[i-1][cap]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第3件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "35"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "35"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:17"
+          ],
+          "detail": "重 4 > 容量 2 → 放不下，继承上一行"
+        }
+      ],
+      "intent": {
+        "why": "装不下：dp[i][cap] = dp[i-1][cap]",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "装不下：dp[i][cap] = dp[i-1][cap]"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第3件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "35"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "35"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "0"
+              ],
+              "activeCells": [
+                3
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:18"
+          ],
+          "detail": "重 4 > 容量 3 → 放不下，继承上一行"
+        }
+      ],
+      "intent": {
+        "why": "装不下：dp[i][cap] = dp[i-1][cap]",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "max(不放=35, 放=30) → 取较大者"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "第3件"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "35"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "35"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "35"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "35"
+              ],
+              "activeCells": [
+                4
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "dp:19"
+          ],
+          "detail": "不放=35 vs 放=30 → dp[3][4]=35"
+        }
+      ],
+      "intent": {
+        "why": "max(不放=35, 放=30) → 取较大者",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "右下角就是答案：前 N 件在最大容量下的最大价值"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "knapsack",
+              "locals": {
+                "物品": {
+                  "kind": "PRIM",
+                  "text": "初始化"
+                },
+                "容量": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "dp",
+                "type": "DP_TABLE",
+                "fields": {
+                  "dp0_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_1": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_2": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_3": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp0_4": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp1_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_3": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp1_4": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp2_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp2_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp2_4": {
+                    "kind": "PRIM",
+                    "text": "35"
+                  },
+                  "dp3_0": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "dp3_1": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp3_2": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "dp3_3": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "dp3_4": {
+                    "kind": "PRIM",
+                    "text": "35"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "0/1 背包 DP 表",
+          "grids": [
+            {
+              "id": "dp0",
+              "label": "物品0",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp1",
+              "label": "物品1",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "15",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp2",
+              "label": "物品2",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "35"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "dp3",
+              "label": "物品3",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "0",
+                "15",
+                "15",
+                "20",
+                "35"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "最优解 = dp[3][4] = 35"
+        }
+      ],
+      "intent": {
+        "why": "右下角就是答案：前 N 件在最大容量下的最大价值",
+        "invariant": "dp[i][w] = 前 i 件在容量 w 下的最大价值——每行多考虑一件，价值只增不减"
+      }
+    }
+  ]
+}

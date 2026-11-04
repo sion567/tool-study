@@ -1,0 +1,2817 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "array.slidingwindow",
+    "title": "滑动窗口",
+    "codeResource": "/code/SlidingWindow.java",
+    "input": "2,1,3,1,4,4,2,5",
+    "inputSize": 8
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "lo 是窗口左边界——hi 扩张，lo 负责收缩"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 0,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "lo = 0，窗口起点"
+        }
+      ],
+      "intent": {
+        "why": "lo 是窗口左边界——hi 扩张，lo 负责收缩",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "右指针扩张：把 a[hi] 尝试纳入窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 0,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:0"
+          ],
+          "detail": "hi 扩张到 0，读入 a[0]=2"
+        }
+      ],
+      "intent": {
+        "why": "右指针扩张：把 a[hi] 尝试纳入窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "窗口合法：记录当前长度，与最佳对比"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 0,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "窗口 [0,0] 长度 1 ← 新纪录！"
+        }
+      ],
+      "intent": {
+        "why": "窗口合法：记录当前长度，与最佳对比",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "右指针扩张：把 a[hi] 尝试纳入窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:1"
+          ],
+          "detail": "hi 扩张到 1，读入 a[1]=1"
+        }
+      ],
+      "intent": {
+        "why": "右指针扩张：把 a[hi] 尝试纳入窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "窗口合法：记录当前长度，与最佳对比"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "窗口 [0,1] 长度 2 ← 新纪录！"
+        }
+      ],
+      "intent": {
+        "why": "窗口合法：记录当前长度，与最佳对比",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "右指针扩张：把 a[hi] 尝试纳入窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 2,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:2"
+          ],
+          "detail": "hi 扩张到 2，读入 a[2]=3"
+        }
+      ],
+      "intent": {
+        "why": "右指针扩张：把 a[hi] 尝试纳入窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "窗口合法：记录当前长度，与最佳对比"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 2,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "窗口 [0,2] 长度 3 ← 新纪录！"
+        }
+      ],
+      "intent": {
+        "why": "窗口合法：记录当前长度，与最佳对比",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "右指针扩张：把 a[hi] 尝试纳入窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 3,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:3"
+          ],
+          "detail": "hi 扩张到 3，读入 a[3]=1"
+        }
+      ],
+      "intent": {
+        "why": "右指针扩张：把 a[hi] 尝试纳入窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "重复出现：窗口不合法，lo 必须越过上一个 1"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 3,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:3"
+          ],
+          "detail": "1 已在窗口内 → 冲突！lo 开始收缩"
+        }
+      ],
+      "intent": {
+        "why": "重复出现：窗口不合法，lo 必须越过上一个 1",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "收缩：把左边的元素逐个移出窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 0,
+          "compareB": 3,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:0"
+          ],
+          "detail": "移出 a[0]=2，lo → 1"
+        }
+      ],
+      "intent": {
+        "why": "收缩：把左边的元素逐个移出窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "lo 停在冲突元素的下一位"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 2,
+          "compareB": 3,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:2"
+          ],
+          "detail": "lo 越过冲突位 → 2"
+        }
+      ],
+      "intent": {
+        "why": "lo 停在冲突元素的下一位",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "窗口合法：记录当前长度，与最佳对比"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 2,
+          "compareB": 3,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "窗口 [2,3] 长度 2"
+        }
+      ],
+      "intent": {
+        "why": "窗口合法：记录当前长度，与最佳对比",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "右指针扩张：把 a[hi] 尝试纳入窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 2,
+          "compareB": 4,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:4"
+          ],
+          "detail": "hi 扩张到 4，读入 a[4]=4"
+        }
+      ],
+      "intent": {
+        "why": "右指针扩张：把 a[hi] 尝试纳入窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "窗口合法：记录当前长度，与最佳对比"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 2,
+          "compareB": 4,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "窗口 [2,4] 长度 3 ← 新纪录！"
+        }
+      ],
+      "intent": {
+        "why": "窗口合法：记录当前长度，与最佳对比",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "右指针扩张：把 a[hi] 尝试纳入窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 2,
+          "compareB": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:5"
+          ],
+          "detail": "hi 扩张到 5，读入 a[5]=4"
+        }
+      ],
+      "intent": {
+        "why": "右指针扩张：把 a[hi] 尝试纳入窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "重复出现：窗口不合法，lo 必须越过上一个 4"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 2,
+          "compareB": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:5"
+          ],
+          "detail": "4 已在窗口内 → 冲突！lo 开始收缩"
+        }
+      ],
+      "intent": {
+        "why": "重复出现：窗口不合法，lo 必须越过上一个 4",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "收缩：把左边的元素逐个移出窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 2,
+          "compareB": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:2"
+          ],
+          "detail": "移出 a[2]=3，lo → 3"
+        }
+      ],
+      "intent": {
+        "why": "收缩：把左边的元素逐个移出窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "收缩：把左边的元素逐个移出窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 3,
+          "compareB": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:3"
+          ],
+          "detail": "移出 a[3]=1，lo → 4"
+        }
+      ],
+      "intent": {
+        "why": "收缩：把左边的元素逐个移出窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "lo 停在冲突元素的下一位"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 5,
+          "compareB": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a:5"
+          ],
+          "detail": "lo 越过冲突位 → 5"
+        }
+      ],
+      "intent": {
+        "why": "lo 停在冲突元素的下一位",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "窗口合法：记录当前长度，与最佳对比"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 5,
+          "compareB": 5,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "窗口 [5,5] 长度 1"
+        }
+      ],
+      "intent": {
+        "why": "窗口合法：记录当前长度，与最佳对比",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "右指针扩张：把 a[hi] 尝试纳入窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 5,
+          "compareB": 6,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:6"
+          ],
+          "detail": "hi 扩张到 6，读入 a[6]=2"
+        }
+      ],
+      "intent": {
+        "why": "右指针扩张：把 a[hi] 尝试纳入窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "窗口合法：记录当前长度，与最佳对比"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 5,
+          "compareB": 6,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "窗口 [5,6] 长度 2"
+        }
+      ],
+      "intent": {
+        "why": "窗口合法：记录当前长度，与最佳对比",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "右指针扩张：把 a[hi] 尝试纳入窗口"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 5,
+          "compareB": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a:7"
+          ],
+          "detail": "hi 扩张到 7，读入 a[7]=5"
+        }
+      ],
+      "intent": {
+        "why": "右指针扩张：把 a[hi] 尝试纳入窗口",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "窗口合法：记录当前长度，与最佳对比"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 5,
+          "compareB": 7,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "窗口 [5,7] 长度 3 ← 新纪录！"
+        }
+      ],
+      "intent": {
+        "why": "窗口合法：记录当前长度，与最佳对比",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "O(n)：lo 和 hi 各最多走 n 步——两根指针从不回头"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "window",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "lo": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "hi": {
+                  "kind": "PRIM",
+                  "text": "8"
+                },
+                "best": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[8]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            2,
+            1,
+            3,
+            1,
+            4,
+            4,
+            2,
+            5
+          ],
+          "compareA": 5,
+          "compareB": 8,
+          "sortedFrom": 8,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "最长无重复窗口 = [0,2]，长度 3"
+        }
+      ],
+      "intent": {
+        "why": "O(n)：lo 和 hi 各最多走 n 步——两根指针从不回头",
+        "invariant": "窗口 [lo,hi] 内永远无重复——hi 扩张遇冲突时 lo 收缩到冲突位之后"
+      }
+    }
+  ]
+}

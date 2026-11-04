@@ -1,0 +1,638 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.gcd",
+    "title": "最大公约数",
+    "codeResource": "/code/GcdDemo.java",
+    "input": "48,18",
+    "inputSize": 2
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "辗转相除 = 用余数代替除数，直到余数为零"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gcd",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "48"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "18"
+                },
+                "round": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "GcdState",
+                "fields": {
+                  "a": {
+                    "kind": "PRIM",
+                    "text": "48"
+                  },
+                  "b": {
+                    "kind": "PRIM",
+                    "text": "18"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "(a,b)",
+          "values": [
+            48,
+            18
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "gcd(48, 18) —— 开始辗转相除"
+        }
+      ],
+      "intent": {
+        "why": "辗转相除 = 用余数代替除数，直到余数为零",
+        "invariant": "gcd(a,b) = gcd(b, a%b)——余数逐步缩小，最终归零时 a 就是答案"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "用余数代替：gcd(48,18) = gcd(18,12)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gcd",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "48"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "18"
+                },
+                "round": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "GcdState",
+                "fields": {
+                  "a": {
+                    "kind": "PRIM",
+                    "text": "48"
+                  },
+                  "b": {
+                    "kind": "PRIM",
+                    "text": "18"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "(a,b)",
+          "values": [
+            48,
+            18
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a",
+            "b"
+          ],
+          "detail": "round 1: gcd(48, 18) → a%b = 12"
+        }
+      ],
+      "intent": {
+        "why": "用余数代替：gcd(48,18) = gcd(18,12)",
+        "invariant": "gcd(a,b) = gcd(b, a%b)——余数逐步缩小，最终归零时 a 就是答案"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "参数替换：新的 a = 旧 b，新的 b = 旧余数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gcd",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "18"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "round": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "GcdState",
+                "fields": {
+                  "a": {
+                    "kind": "PRIM",
+                    "text": "18"
+                  },
+                  "b": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "(a,b)",
+          "values": [
+            18,
+            12
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a",
+            "b"
+          ],
+          "detail": "→ gcd(18, 12)"
+        }
+      ],
+      "intent": {
+        "why": "参数替换：新的 a = 旧 b，新的 b = 旧余数",
+        "invariant": "gcd(a,b) = gcd(b, a%b)——余数逐步缩小，最终归零时 a 就是答案"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "用余数代替：gcd(18,12) = gcd(12,6)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gcd",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "18"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "round": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "GcdState",
+                "fields": {
+                  "a": {
+                    "kind": "PRIM",
+                    "text": "18"
+                  },
+                  "b": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "(a,b)",
+          "values": [
+            18,
+            12
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a",
+            "b"
+          ],
+          "detail": "round 2: gcd(18, 12) → a%b = 6"
+        }
+      ],
+      "intent": {
+        "why": "用余数代替：gcd(18,12) = gcd(12,6)",
+        "invariant": "gcd(a,b) = gcd(b, a%b)——余数逐步缩小，最终归零时 a 就是答案"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "参数替换：新的 a = 旧 b，新的 b = 旧余数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gcd",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "round": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "GcdState",
+                "fields": {
+                  "a": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "b": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "(a,b)",
+          "values": [
+            12,
+            6
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a",
+            "b"
+          ],
+          "detail": "→ gcd(12, 6)"
+        }
+      ],
+      "intent": {
+        "why": "参数替换：新的 a = 旧 b，新的 b = 旧余数",
+        "invariant": "gcd(a,b) = gcd(b, a%b)——余数逐步缩小，最终归零时 a 就是答案"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "用余数代替：gcd(12,6) = gcd(6,0)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gcd",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "round": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "GcdState",
+                "fields": {
+                  "a": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "b": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "(a,b)",
+          "values": [
+            12,
+            6
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "a",
+            "b"
+          ],
+          "detail": "round 3: gcd(12, 6) → a%b = 0"
+        }
+      ],
+      "intent": {
+        "why": "用余数代替：gcd(12,6) = gcd(6,0)",
+        "invariant": "gcd(a,b) = gcd(b, a%b)——余数逐步缩小，最终归零时 a 就是答案"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "参数替换：新的 a = 旧 b，新的 b = 旧余数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gcd",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "round": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "GcdState",
+                "fields": {
+                  "a": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "b": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "(a,b)",
+          "values": [
+            6,
+            0
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a",
+            "b"
+          ],
+          "detail": "→ gcd(6, 0)"
+        }
+      ],
+      "intent": {
+        "why": "参数替换：新的 a = 旧 b，新的 b = 旧余数",
+        "invariant": "gcd(a,b) = gcd(b, a%b)——余数逐步缩小，最终归零时 a 就是答案"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "余数为零：a 就是最大公约数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gcd",
+              "locals": {
+                "a": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "b": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "round": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "state",
+                "type": "GcdState",
+                "fields": {
+                  "a": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "b": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "(a,b)",
+          "values": [
+            6,
+            0
+          ],
+          "compareA": 0,
+          "compareB": 1,
+          "sortedFrom": 2,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "b = 0 → gcd = 6"
+        }
+      ],
+      "intent": {
+        "why": "余数为零：a 就是最大公约数",
+        "invariant": "gcd(a,b) = gcd(b, a%b)——余数逐步缩小，最终归零时 a 就是答案"
+      }
+    }
+  ]
+}

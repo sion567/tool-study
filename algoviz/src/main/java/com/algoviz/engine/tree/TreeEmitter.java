@@ -143,6 +143,20 @@ final class TreeEmitter {
         return idx >= 0 ? "@" + (idx + 1) : "null";
     }
 
+    int weightOf(int idx) {
+        return nodes.get(idx)[0];
+    }
+
+    String weightText(int idx) {
+        return LABELS_PREFIX + (idx + 1) + "(" + weightOf(idx) + ")";
+    }
+
+    void setLeafWeight(int idx, int w) {
+        nodes.get(idx)[0] = w;
+    }
+
+    private static final String LABELS_PREFIX = "n";
+
     private Heap snapshotHeap() {
         Map<String, HeapObject> objs = new LinkedHashMap<>();
         for (int i = 0; i < nodes.size(); i++) {

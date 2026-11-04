@@ -1,0 +1,836 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "array.prefixsum",
+    "title": "前缀和",
+    "codeResource": "/code/PrefixSum.java",
+    "input": "3,7,2,5,1",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "原始数据在上方，前缀和在下方逐格生长"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prefixSum",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prefix": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "prefix",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            7,
+            2,
+            5,
+            1
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "原始数组就位，prefix 全 0"
+        }
+      ],
+      "intent": {
+        "why": "原始数据在上方，前缀和在下方逐格生长",
+        "invariant": "prefix[i] = a[0]+…+a[i]——每一个格子都是从头到当前的累计和"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "第一个元素的前缀和就是它自己"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prefixSum",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prefix": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "prefix",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            7,
+            2,
+            5,
+            1
+          ],
+          "compareA": 0,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prefix:0"
+          ],
+          "detail": "prefix[0] ← a[0] = 3"
+        }
+      ],
+      "intent": {
+        "why": "第一个元素的前缀和就是它自己",
+        "invariant": "prefix[i] = a[0]+…+a[i]——每一个格子都是从头到当前的累计和"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "每个前缀和 = 前一个前缀和 + 当前元素——只看一眼邻居，不回头重算"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prefixSum",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prefix": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "prefix",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            7,
+            2,
+            5,
+            1
+          ],
+          "compareA": 1,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prefix:1",
+            "a:1"
+          ],
+          "detail": "prefix[1] ← prefix[0] + a[1] = 3 + 7 = 10"
+        }
+      ],
+      "intent": {
+        "why": "每个前缀和 = 前一个前缀和 + 当前元素——只看一眼邻居，不回头重算",
+        "invariant": "prefix[i] = a[0]+…+a[i]——每一个格子都是从头到当前的累计和"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "每个前缀和 = 前一个前缀和 + 当前元素——只看一眼邻居，不回头重算"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prefixSum",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prefix": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "prefix",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            7,
+            2,
+            5,
+            1
+          ],
+          "compareA": 2,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prefix:2",
+            "a:2"
+          ],
+          "detail": "prefix[2] ← prefix[1] + a[2] = 10 + 2 = 12"
+        }
+      ],
+      "intent": {
+        "why": "每个前缀和 = 前一个前缀和 + 当前元素——只看一眼邻居，不回头重算",
+        "invariant": "prefix[i] = a[0]+…+a[i]——每一个格子都是从头到当前的累计和"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "每个前缀和 = 前一个前缀和 + 当前元素——只看一眼邻居，不回头重算"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prefixSum",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prefix": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "prefix",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "17"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            7,
+            2,
+            5,
+            1
+          ],
+          "compareA": 3,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prefix:3",
+            "a:3"
+          ],
+          "detail": "prefix[3] ← prefix[2] + a[3] = 12 + 5 = 17"
+        }
+      ],
+      "intent": {
+        "why": "每个前缀和 = 前一个前缀和 + 当前元素——只看一眼邻居，不回头重算",
+        "invariant": "prefix[i] = a[0]+…+a[i]——每一个格子都是从头到当前的累计和"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "每个前缀和 = 前一个前缀和 + 当前元素——只看一眼邻居，不回头重算"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prefixSum",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prefix": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "prefix",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "17"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "18"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            7,
+            2,
+            5,
+            1
+          ],
+          "compareA": 4,
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "prefix:4",
+            "a:4"
+          ],
+          "detail": "prefix[4] ← prefix[3] + a[4] = 17 + 1 = 18"
+        }
+      ],
+      "intent": {
+        "why": "每个前缀和 = 前一个前缀和 + 当前元素——只看一眼邻居，不回头重算",
+        "invariant": "prefix[i] = a[0]+…+a[i]——每一个格子都是从头到当前的累计和"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "预处理 O(n) 一次，之后任意区间和都是 O(1)——用空间换时间"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "prefixSum",
+              "locals": {
+                "a": {
+                  "kind": "REF",
+                  "text": "@1",
+                  "refId": "@1"
+                },
+                "prefix": {
+                  "kind": "REF",
+                  "text": "@2",
+                  "refId": "@2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "a",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                ]
+              },
+              "@2": {
+                "id": "@2",
+                "label": "prefix",
+                "type": "int[5]",
+                "fields": {},
+                "elements": [
+                  {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "17"
+                  },
+                  {
+                    "kind": "PRIM",
+                    "text": "18"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "a",
+          "values": [
+            3,
+            7,
+            2,
+            5,
+            1
+          ],
+          "sortedFrom": 5,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "前缀和完成：区间和 [l,r] = prefix[r] - prefix[l-1]，查询 O(1)"
+        }
+      ],
+      "intent": {
+        "why": "预处理 O(n) 一次，之后任意区间和都是 O(1)——用空间换时间",
+        "invariant": "prefix[i] = a[0]+…+a[i]——每一个格子都是从头到当前的累计和"
+      }
+    }
+  ]
+}
