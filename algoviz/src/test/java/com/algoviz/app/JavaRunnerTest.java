@@ -1,4 +1,4 @@
-package com.algoviz.ui;
+package com.algoviz.app;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIf;
@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** 行为级判卷引擎：内存编译 + 运行 + 输出捕获 + 超时兜底。 */
-@EnabledIf("com.algoviz.ui.JavaRunnerTest#compilerAvailable")
+@EnabledIf("com.algoviz.app.JavaRunnerTest#compilerAvailable")
 class JavaRunnerTest {
 
     static boolean compilerAvailable() {

@@ -87,12 +87,14 @@
 | 数独 trace 瘦身 | 剪枝按格聚合 + 提示数 51→36 空 | 41,811 步/180MB golden 教训：**演示的步数预算也是设计约束** |
 | JavaRunner | JDK 内置 `javax.tools` 内存编译 | 行为级判卷不用外部进程；jpackage runtime 自带 `jdk.compiler` |
 
-## 七、已知债务（下次动工的入口）
+## 七、已知债务（2026-11-05 清理后）
 
-1. **MainApp 拆分**：渲染分发 → `RendererDispatch`，预测状态机 → `PredictionController`，对比/复杂度 Tab → 独立类（每处 ~200 行）
-2. **预测模式的点击命中**：`hash`/`btree` 图层的 `hitIndex` 已实现，但预测面板对这两层的"点节点选题"未接入 truthIndices 的 picker（静态文案兜底）
-3. **引擎与 UI 的边界微漏**：`JavaRunner`/`NotesStore`/`DictationJudge` 放在 `ui/`，按职责应属 `app/` 或 `runner/`（纯逻辑，仅被 UI 调用）
-4. **strategy 模式的误用成本**：`MainApp.render()` 的 if/else 链可换成 `Map<Class<? extends Layer>, Renderer>`——目前 10 层尚可维护，第 11 层时再做
+1. **MainApp 拆分（仅剩这一项）**：预测状态机（ARMED/REVEALED + 判卷计数）仍在 MainApp，约 250 行——
+   提取需引入 listener 回调（状态变更后要触发 render/NotesStore），无 UI 测试兜底，暂缓。
+   已完成的部分：Tab 内容 → `ui/TabContents`；渲染分发 → `ui/CanvasDispatch`；MainApp 937 → 843 行。
+2. ~~预测模式 hash/btree 点击~~ ✅ **核实为误记**：问题文案/truthIndices/fmtIdx/hitIndex 四层早已接通（CanvasDispatch.pick 统一入口）。
+3. ~~引擎与 UI 边界微漏~~ ✅ `JavaRunner`/`DictationJudge`/`DictationDiff`/`NotesStore` 已迁至 `com.algoviz.app`（纯逻辑包，测试同步迁移）。
+4. ~~if/else 渲染分发链~~ ✅ `ui/CanvasDispatch` 有序数组分发：每个条目自算 diff、自绘制，新增图层 = 加一个条目。
 
 ## 八、一句话总结
 

@@ -1,4 +1,4 @@
-package com.algoviz.ui;
+package com.algoviz.app;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIf;
@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** 默写判卷五档：行为一致 / 行为不同 / 编译失败 / 运行异常 / 空白纸。 */
-@EnabledIf("com.algoviz.ui.JavaRunnerTest#compilerAvailable")
+@EnabledIf("com.algoviz.app.JavaRunnerTest#compilerAvailable")
 class DictationJudgeTest {
 
     /** 参考答案：冒泡排序（打印最终数组）。 */

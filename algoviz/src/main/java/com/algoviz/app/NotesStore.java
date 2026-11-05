@@ -1,4 +1,4 @@
-package com.algoviz.ui;
+package com.algoviz.app;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

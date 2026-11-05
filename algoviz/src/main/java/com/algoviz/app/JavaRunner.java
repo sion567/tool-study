@@ -1,4 +1,4 @@
-package com.algoviz.ui;
+package com.algoviz.app;
 
 import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;

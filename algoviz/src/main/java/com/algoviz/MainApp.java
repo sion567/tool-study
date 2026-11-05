@@ -10,16 +10,18 @@ import com.algoviz.ui.BarRenderer;
 import com.algoviz.ui.BitmapRenderer;
 import com.algoviz.ui.CodePanel;
 import com.algoviz.ui.ComplexityPanel;
-import com.algoviz.ui.DictationDiff;
-import com.algoviz.ui.DictationJudge;
+import com.algoviz.app.DictationDiff;
+import com.algoviz.app.DictationJudge;
 import com.algoviz.ui.DiffHighlighter;
-import com.algoviz.ui.NotesStore;
+import com.algoviz.app.NotesStore;
 import com.algoviz.ui.DictationPanel;
 
 
 import com.algoviz.ui.GraphRenderer;
 import com.algoviz.ui.IntentBar;
 import com.algoviz.ui.BTreeRenderer;
+import com.algoviz.ui.TabContents;
+import com.algoviz.ui.CanvasDispatch;
 import com.algoviz.ui.HashRenderer;
 import com.algoviz.ui.ListRenderer;
 import com.algoviz.ui.MarkdownView;
@@ -157,7 +159,7 @@ public class MainApp extends Application {
         dictationTab.setClosable(false);
 
         // M7 复杂度 Tab：增长曲线 + 体感表（画布复用中间区域）
-        complexityTab = new Tab("📈 复杂度", buildComplexityContent());
+        complexityTab = new Tab("📈 复杂度", TabContents.complexity());
         complexityTab.setClosable(false);
         complexityTab.setOnSelectionChanged(e -> {
             if (complexityTab.isSelected()) {
@@ -165,7 +167,7 @@ public class MainApp extends Application {
                 ComplexityPanel.draw(canvas, 50);
             }
         });
-        compareTab = new Tab("⚖ 对比", buildCompareContent());
+        compareTab = new Tab("⚖ 对比", TabContents.compare());
         compareTab.setClosable(false);
         compareTab.setOnSelectionChanged(e -> {
             if (compareTab.isSelected()) {
@@ -375,52 +377,8 @@ public class MainApp extends Application {
             }
             Step cur = playback.current();
             Step prev = playback.index() > 0 ? playback.trace().steps().get(playback.index() - 1) : null;
-            Set<Integer> changed = DiffHighlighter.changedIndices(
-                    prev == null ? null : prev.array(), cur == null ? null : cur.array());
-            Set<String> changedArrows = DiffHighlighter.changedArrows(
-                    prev == null ? null : prev.list(), cur == null ? null : cur.list());
-            Set<String> changedTreeNodes = DiffHighlighter.changedTreeNodes(
-                    prev == null ? null : prev.tree(), cur == null ? null : cur.tree());
-            Set<String> changedTreeEdges = DiffHighlighter.changedTreeEdges(
-                    prev == null ? null : prev.tree(), cur == null ? null : cur.tree());
-            Set<String> changedGraphNodes = DiffHighlighter.changedGraphNodes(
-                    prev == null ? null : prev.graph(), cur == null ? null : cur.graph());
-            Set<String> changedHashArrows = HashRenderer.changedArrows(
-                    prev == null ? null : prev.hash(), cur == null ? null : cur.hash());
-            Set<String> changedBTree = BTreeRenderer.changedNodes(
-                    prev == null ? null : prev.btree(), cur == null ? null : cur.btree());
-            Set<String> changedSeq = DiffHighlighter.changedSeqParticipants(
-                    prev == null ? null : prev.seq(), cur == null ? null : cur.seq());
-            Set<String> changedMatrix = DiffHighlighter.changedMatrixCells(
-                    prev == null ? null : prev.math(), cur == null ? null : cur.math());
-            Set<Integer> changedBits = new java.util.LinkedHashSet<>();
-            for (String k : changedMatrix) {
-                if (k.startsWith("bits:")) {
-                    changedBits.add(Integer.parseInt(k.substring(5)));
-                }
-            }
             Set<Integer> pickedNow = phase == PredictPhase.ARMED ? picked : null;
-            if (cur != null && cur.list() != null) {
-                ListRenderer.draw(canvas, cur, pickedNow, changedArrows);
-            } else if (cur != null && cur.tree() != null) {
-                TreeRenderer.draw(canvas, cur, pickedNow, changedTreeNodes, changedTreeEdges);
-            } else if (cur != null && cur.btree() != null) {
-                BTreeRenderer.draw(canvas, cur, pickedNow, changedBTree);
-            } else if (cur != null && cur.graph() != null) {
-                GraphRenderer.draw(canvas, cur, pickedNow, changedGraphNodes);
-            } else if (cur != null && cur.hash() != null) {
-                HashRenderer.draw(canvas, cur, pickedNow, changedHashArrows);
-            } else if (cur != null && cur.seq() != null) {
-                SequenceRenderer.draw(canvas, cur, pickedNow, changedSeq);
-            } else if (cur != null && cur.math() != null && cur.bitmap() == null) {
-                MatrixRenderer.draw(canvas, cur, pickedNow, changedMatrix);
-            } else if (cur != null && cur.plot() != null) {
-                PlotRenderer.draw(canvas, cur);
-            } else if (cur != null && cur.bitmap() != null) {
-                BitmapRenderer.draw(canvas, cur, pickedNow, changedBits);
-            } else {
-                BarRenderer.draw(canvas, cur, pickedNow, changed);
-            }
+            CanvasDispatch.paint(canvas, prev, cur, pickedNow);
             if (cur != null) {
                 codePanel.highlight(cur.loc().startLine());
             }
@@ -434,35 +392,6 @@ public class MainApp extends Application {
             System.err.println(">>> render 失败 @step " + playback.index() + "：");
             e.printStackTrace();
         }
-    }
-
-    /** ⚖ 对比 Tab：六种排序在同一批数据上的实测步数曲线。 */
-    private javafx.scene.layout.VBox buildCompareContent() {
-        Label title = new Label("实测对比：同一批数据，六种排序各跑一遍");
-        title.setStyle("-fx-font-size:15px; -fx-font-weight:bold; -fx-text-fill:#111;");
-        Label desc = new Label("纵轴 = 步数（trace 长度），横轴 = n。固定种子随机数据，六个算法吃完全相同的输入。"
-                + "看冒泡（红）与快排（绿）的裂口随 n 拉大——公式里的 O(n²) vs O(n log n) 落到实数上就是这样。");
-        desc.setWrapText(true);
-        desc.setStyle("-fx-text-fill:#374151; -fx-font-size:12px;");
-        var box = new javafx.scene.layout.VBox(8, title, desc);
-        box.setPadding(new Insets(10));
-        return box;
-    }
-
-    /** 复杂度 Tab 内容：说明文本 + 体感表。 */
-    private javafx.scene.layout.VBox buildComplexityContent() {
-        Label title = new Label("复杂度可视化");
-        title.setStyle("-fx-font-size:15px; -fx-font-weight:bold; -fx-text-fill:#111;");
-        Label desc = new Label("中间画布显示 O(1)~O(n²) 增长曲线（切到此 Tab 即绘制）。"
-                + "曲线在 n=50 内对比；不同算法可切过去按 🎲 换 n 看步数变化。");
-        desc.setWrapText(true);
-        desc.setStyle("-fx-text-fill:#374151; -fx-font-size:12px;");
-        Label table = new Label(ComplexityPanel.feelTable());
-        table.setStyle("-fx-font-family:monospace; -fx-font-size:12px; -fx-text-fill:#111827;"
-                + " -fx-background-color:#f6f8fa; -fx-padding:10; -fx-background-radius:4;");
-        var box = new javafx.scene.layout.VBox(8, title, desc, table);
-        box.setPadding(new Insets(10));
-        return box;
     }
 
     /** 数据量滑杆：按 n 重新生成当前算法（支持随机变体的才生效）。 */
@@ -514,30 +443,7 @@ public class MainApp extends Application {
         if (cur == null) {
             return;
         }
-        int idx;
-        if (cur.list() != null) {
-            idx = ListRenderer.hitIndex(canvas.getWidth(), canvas.getHeight(),
-                    cur.list().nodes().size(), x, y);
-        } else if (cur.tree() != null) {
-            idx = TreeRenderer.hitIndex(canvas, cur, x, y);
-        } else if (cur.graph() != null) {
-            idx = GraphRenderer.hitIndex(canvas, cur, x, y);
-        } else if (cur.hash() != null) {
-            idx = HashRenderer.hitIndex(canvas, cur, x, y);
-        } else if (cur.btree() != null) {
-            idx = BTreeRenderer.hitIndex(canvas, cur, x, y);
-        } else if (cur.seq() != null) {
-            idx = SequenceRenderer.hitIndex(canvas, cur, x, y);
-        } else if (cur.math() != null) {
-            idx = MatrixRenderer.hitIndex(canvas, cur, x, y);
-        } else if (cur.bitmap() != null) {
-            idx = BitmapRenderer.hitIndex(canvas, cur, x, y);
-        } else if (cur.array() != null) {
-            idx = BarRenderer.hitIndex(canvas.getWidth(), canvas.getHeight(),
-                    cur.array().values().size(), x, y);
-        } else {
-            return;
-        }
+        int idx = CanvasDispatch.pick(canvas, cur, x, y);
         if (idx >= 0) {
             if (!picked.add(idx)) {
                 picked.remove(idx);

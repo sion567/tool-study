@@ -1,5 +1,7 @@
 package com.algoviz.ui;
 
+import com.algoviz.app.JavaRunner;
+
 import com.algoviz.engine.Algorithm;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
