@@ -115,6 +115,7 @@ public final class AlgorithmRegistry {
             new Entry("算法", "回溯", new com.algoviz.engine.backtracking.NQueensDemo()),
             new Entry("数学", null, new com.algoviz.engine.math.UnitCircleDemo()),
             new Entry("数学", null, new com.algoviz.engine.math.TaylorDemo()),
+            new Entry("数学", null, new com.algoviz.engine.math.TaylorDemo(true)),   // cos 版
             new Entry("数学", null, new com.algoviz.engine.math.FastPowerDemo()),
             new Entry("数学", null, new com.algoviz.engine.math.GcdDemo()),
             new Entry("数学", null, new com.algoviz.engine.math.BloomFilterDemo()),

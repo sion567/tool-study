@@ -70,6 +70,7 @@ class AlgorithmBatchTraceTest {
                 // ---- 数学补齐 ----
                 new Object[]{"math_unitcircle", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.UnitCircleDemo::new},
                 new Object[]{"math_taylor", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.TaylorDemo::new},
+                new Object[]{"math_taylor_cos", (java.util.function.Supplier<Algorithm>) () -> new com.algoviz.engine.math.TaylorDemo(true)},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -415,6 +416,20 @@ class AlgorithmBatchTraceTest {
         assertTrue2(dup, "应检测到 700 重复");
         // 终局：4 桶 + 数据条 共 5 个网格
         assertEquals(5, steps.get(steps.size() - 1).math().grids().size(), "data + 4 桶");
+    }
+
+    /** 行为：泰勒 cos 版——终局（10 次幂）在 [0,2π] 逼近 cos，且 heap 公式为偶次幂形式。 */
+    @org.junit.jupiter.api.Test
+    void taylorCosConvergesToCos() throws Exception {
+        var steps = new com.algoviz.engine.math.TaylorDemo(true).produce().steps();
+        var last = steps.get(steps.size() - 1);
+        String formula = last.heap().heap().objects().get("@1").fields().get("公式").text();
+        assertEquals("1 - x²/2! + x⁴/4! - …", formula, "cos 公式应为偶次幂形式");
+        // 终局近似 vs 真值：抽样对比（x=1 处 10 次幂近似应极接近 cos(1)）
+        double approx = com.algoviz.engine.math.TaylorDemo.taylorCos(1.0, 10);
+        assertEquals(Math.cos(1.0), approx, 1e-8, "taylorCos(1,10) 应收敛到 cos(1)（理论误差 x¹²/12!≈2e-9）");
+        // sin 版不受影响
+        assertEquals(Math.sin(1.0), com.algoviz.engine.math.TaylorDemo.taylorSin(1.0, 11), 1e-9);
     }
 
     /** 行为：路径总和——5→3→4 = 12 命中，且三个节点保持 visited。 */

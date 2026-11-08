@@ -22,3 +22,15 @@ public class TaylorDemo {
         return f;
     }
 }
+
+    // ===== cos 版：偶次幂，常数项起步 =====
+    // cos(x) = 1 - x²/2! + x⁴/4! - x⁶/6! + …
+    static double taylorCos(double x, int maxPower) {
+        double sum = 1, power = 1, sign = -1;
+        for (int k = 2; k <= maxPower; k += 2) {
+            power *= x * x;
+            sum += sign * power / factorial(k);
+            sign = -sign;
+        }
+        return sum;
+    }
