@@ -105,11 +105,22 @@ public final class PlotRenderer {
         g.fillText("sin", waveX1 + 6, waveMidY - waveAmp + 4);
         g.fillText("cos", waveX1 + 6, waveMidY + 4);
 
+        // y 域：取图层声明的 yMin/yMax（泰勒 ±1.4；单位圆 ±1）——超出部分钳在边缘，不让线飞出画面
+        double visible = Math.max(Math.abs(pv.yMin()), Math.abs(pv.yMax()));
+        if (visible <= 0) {
+            visible = 1;
+        }
+        double xSpan = pv.xMax() - pv.xMin();
+        if (xSpan <= 0) {
+            xSpan = 2 * Math.PI;
+        }
+
         // 画 sin 波（蓝色）
         if (!pv.sineTrace().isEmpty()) {
             g.setStroke(Color.web("#3b82f6"));
             g.setLineWidth(2.5);
-            drawTrace(g, pv.sineTrace(), waveX0, waveX1, waveMidY, waveAmp, false);
+            drawTrace(g, pv.sineTrace(), waveX0, waveX1, waveMidY, waveAmp,
+                    pv.xMin(), xSpan, pv.yMin(), pv.yMax(), visible);
         }
 
         // 画 cos 波（绿色虚线）
@@ -117,15 +128,17 @@ public final class PlotRenderer {
             g.setStroke(Color.web("#22c55e"));
             g.setLineWidth(1.5);
             g.setLineDashes(5, 4);
-            drawTrace(g, pv.cosineTrace(), waveX0, waveX1, waveMidY, waveAmp, false);
+            drawTrace(g, pv.cosineTrace(), waveX0, waveX1, waveMidY, waveAmp,
+                    pv.xMin(), xSpan, pv.yMin(), pv.yMax(), visible);
             g.setLineDashes();
         }
 
         // 波末端动点
         if (!pv.sineTrace().isEmpty()) {
             var lastPt = pv.sineTrace().get(pv.sineTrace().size() - 1);
-            double lx = waveX0 + lastPt.get(0) / (2 * Math.PI) * (waveX1 - waveX0);
-            double ly = waveMidY - lastPt.get(1) * waveAmp;
+            double lx = waveX0 + (lastPt.get(0) - pv.xMin()) / xSpan * (waveX1 - waveX0);
+            double cy = Math.max(pv.yMin(), Math.min(pv.yMax(), lastPt.get(1)));
+            double ly = waveMidY - (cy / visible) * waveAmp;
             g.setFill(Color.web("#ea580c"));
             g.fillOval(lx - 5, ly - 5, 10, 10);
         }
@@ -288,20 +301,25 @@ public final class PlotRenderer {
         return Math.abs(v) >= 10 ? String.valueOf((int) v) : String.format("%.1f", v);
     }
 
+    /** 波形折线：x 按图层 x 域映射，y 钳制在 [yMin,yMax]——低阶泰勒近似在远端会爆到 ±6，不钳就飞出画面。 */
     private static void drawTrace(GraphicsContext g, List<List<Double>> trace,
-                                  double wx0, double wx1, double midY, double amp, boolean dummy) {
+                                  double wx0, double wx1, double midY, double amp,
+                                  double xMin, double xSpan, double yMin, double yMax, double visible) {
         if (trace.size() < 2) return;
-        double maxAngle = 2 * Math.PI;
         var it = trace.iterator();
         var prev = it.next();
         while (it.hasNext()) {
             var curr = it.next();
-            double px1 = wx0 + prev.get(0) / maxAngle * (wx1 - wx0);
-            double py1 = midY - prev.get(1) * amp;
-            double px2 = wx0 + curr.get(0) / maxAngle * (wx1 - wx0);
-            double py2 = midY - curr.get(1) * amp;
+            double px1 = wx0 + (prev.get(0) - xMin) / xSpan * (wx1 - wx0);
+            double py1 = midY - (clamp(prev.get(1), yMin, yMax) / visible) * amp;
+            double px2 = wx0 + (curr.get(0) - xMin) / xSpan * (wx1 - wx0);
+            double py2 = midY - (clamp(curr.get(1), yMin, yMax) / visible) * amp;
             g.strokeLine(px1, py1, px2, py2);
             prev = curr;
         }
+    }
+
+    private static double clamp(double v, double lo, double hi) {
+        return Math.max(lo, Math.min(hi, v));
     }
 }
