@@ -63,6 +63,8 @@
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.4.1</version>
         <configuration>
+          <!-- 主 jar 直接打进 deploy/（jpackage 的 input 目录），与 libs/ 布局对齐 -->
+          <outputDirectory>${project.build.directory}/deploy</outputDirectory>
           <archive>
             <manifest>
               <mainClass>com.algoviz.Main</mainClass>

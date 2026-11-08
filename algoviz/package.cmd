@@ -26,6 +26,11 @@ echo [2/3] Maven package: jar + dependency collection...
 call mvn -q package -DskipTests || goto :fail
 
 echo [3/3] jpackage: building self-contained app image...
+if not exist target\deploy\algoviz-0.1.0-SNAPSHOT.jar (
+    echo ERROR: main jar missing in target\deploy - run "mvn package" first
+    dir /b target\deploy
+    goto :fail
+)
 if exist target\jpackage\AlgoViz rmdir /s /q target\jpackage\AlgoViz
 jpackage --type app-image ^
   --name AlgoViz ^
