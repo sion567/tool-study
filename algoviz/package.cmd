@@ -10,7 +10,7 @@ rem  (bundled JRE included, target machine needs no Java)
 rem ============================================================
 setlocal
 set JAVA_HOME=D:\sdk\Java\jdk-21.0.10
-set PATH=%JAVA_HOME%\bin;%PATH%
+set PATH=%JAVA_HOME%in;%PATH%
 set APP_VERSION=1.0.0
 
 cd /d "%~dp0"
