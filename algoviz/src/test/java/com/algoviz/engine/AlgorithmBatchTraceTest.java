@@ -75,6 +75,13 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"math_derivative", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.DerivativeDemo::new},
                 new Object[]{"math_integral", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.RiemannSumDemo::new},
                 new Object[]{"math_cardioid", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.CardioidDemo::new},
+                // ---- 第十二批：杨辉/高斯/汉诺塔/蒙特卡洛/七桥/RSA ----
+                new Object[]{"math_yanghui", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.YangHuiDemo::new},
+                new Object[]{"math_gauss", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GaussianElimDemo::new},
+                new Object[]{"math_hanoi", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.HanoiDemo::new},
+                new Object[]{"math_montecarlo", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.MonteCarloPiDemo::new},
+                new Object[]{"math_sevenbridges", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.SevenBridgesDemo::new},
+                new Object[]{"math_rsa", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.RsaMiniDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -420,6 +427,47 @@ class AlgorithmBatchTraceTest {
         assertTrue2(dup, "应检测到 700 重复");
         // 终局：4 桶 + 数据条 共 5 个网格
         assertEquals(5, steps.get(steps.size() - 1).math().grids().size(), "data + 4 桶");
+    }
+
+    /** 行为：数学新六连——杨辉末行/高斯解/汉诺塔步数/π估计/七桥奇点/RSA往返。 */
+    @org.junit.jupiter.api.Test
+    void mathSixBehave() throws Exception {
+        // 杨辉三角第 8 行 = 1,8,28,56,70,56,28,8,1
+        var y = new com.algoviz.engine.math.YangHuiDemo().produce().steps();
+        var yGrid = y.get(y.size() - 2).math().grids().get(0);
+        List<Integer> row8 = new ArrayList<>();
+        for (int c = 0; c < 9; c++) {
+            row8.add(Integer.parseInt(yGrid.value(8, c)));
+        }
+        assertEquals(List.of(1, 8, 28, 56, 70, 56, 28, 8, 1), row8, "第 8 行 = 二项式系数");
+        // 高斯消元解 x=1, y=2, z=3（终局堆）
+        var g = new com.algoviz.engine.math.GaussianElimDemo().produce().steps();
+        var sol = g.get(g.size() - 1).heap().heap().objects().get("@1").fields();
+        assertEquals("3", sol.get("z").text());
+        assertEquals("2", sol.get("y").text());
+        assertEquals("1", sol.get("x").text());
+        // 汉诺塔 5 盘 = 31 步，终局 C 柱满
+        var h = new com.algoviz.engine.math.HanoiDemo().produce().steps();
+        var hFields = h.get(h.size() - 2).heap().heap().objects().get("@1").fields();
+        assertEquals("[5, 4, 3, 2, 1]", hFields.get("C 柱").text(), "终局 C 柱自底向上 5..1（盘 1 在顶）");
+        assertTrue2(h.get(h.size() - 1).events().get(0).detail().contains("31"), "5 盘 = 2⁵−1 = 31 步");
+        // 蒙特卡洛 π：终局估计与真值差 < 0.1
+        var mc = new com.algoviz.engine.math.MonteCarloPiDemo().produce().steps();
+        var mcFields = mc.get(mc.size() - 2).heap().heap().objects().get("@1").fields();
+        double pi = Double.parseDouble(mcFields.get("π 估计").text());
+        assertEquals(Math.PI, pi, 0.1, "n=6300 固定种子 π 估计应在 ±0.1 内");
+        // 七桥：原局 4 奇点无解，拆桥后走出 6 桥欧拉路径
+        var sb = new com.algoviz.engine.math.SevenBridgesDemo().produce().steps();
+        String sbText = sb.stream().flatMap(s -> java.util.stream.Stream.concat(
+                s.events().stream().map(e -> e.detail()), java.util.stream.Stream.of(s.intent().why())))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        assertTrue2(sbText.contains("四个奇顶点"), "应出现奇点判定");
+        assertTrue2(sbText.contains("最后一座"), "应走完欧拉路径");
+        // RSA：密文 31 → 解回 4
+        var rsa = new com.algoviz.engine.math.RsaMiniDemo().produce().steps();
+        var msg = rsa.get(rsa.size() - 1).heap().heap().objects().get("@3").fields();
+        assertEquals(31, Integer.parseInt(msg.get("密文 c").text()), "4³ mod 33 = 31");
+        assertEquals(4, Integer.parseInt(msg.get("解出").text()), "31⁷ mod 33 = 4");
     }
 
     /** 行为：微积分三连——割线收敛到 3、黎曼和收敛到 1/3、心形线 49 点对称。 */

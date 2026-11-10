@@ -1,0 +1,3376 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.hanoi",
+    "title": "汉诺塔",
+    "codeResource": "/code/HanoiDemo.java",
+    "input": "5 盘 A→C",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "直接想 5 个盘会头晕——递归把它翻译成 3 个更小的同款问题"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "0 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 3, 2, 1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "1",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "3",
+                "",
+                "",
+                "4",
+                "",
+                "",
+                "5",
+                "",
+                ""
+              ],
+              "activeCells": [],
+              "doneCells": [
+                0,
+                3,
+                6,
+                9,
+                12
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "5 个盘在 A 柱（上小下大），目标全挪到 C——大盘永远不能压小盘"
+        }
+      ],
+      "intent": {
+        "why": "直接想 5 个盘会头晕——递归把它翻译成 3 个更小的同款问题",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "1 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 3, 2]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "3",
+                "",
+                "",
+                "4",
+                "",
+                "",
+                "5",
+                "",
+                "1"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": [
+                3,
+                6,
+                9,
+                12,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 1 步：盘 1 A → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "2 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 3]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[2]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "3",
+                "",
+                "",
+                "4",
+                "",
+                "",
+                "5",
+                "2",
+                "1"
+              ],
+              "activeCells": [
+                13
+              ],
+              "doneCells": [
+                6,
+                9,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 2 步：盘 2 A → B"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "3 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 3]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[2, 1]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "3",
+                "",
+                "",
+                "4",
+                "1",
+                "",
+                "5",
+                "2",
+                ""
+              ],
+              "activeCells": [
+                10
+              ],
+              "doneCells": [
+                6,
+                9,
+                10,
+                12,
+                13
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 3 步：盘 1 C → B"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "4 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[2, 1]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[3]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "4",
+                "1",
+                "",
+                "5",
+                "2",
+                "3"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": [
+                9,
+                10,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 4 步：盘 3 A → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "5 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[2]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[3]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "4",
+                "",
+                "",
+                "5",
+                "2",
+                "3"
+              ],
+              "activeCells": [
+                6
+              ],
+              "doneCells": [
+                6,
+                9,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 5 步：盘 1 B → A"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "6 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[3, 2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "4",
+                "",
+                "2",
+                "5",
+                "",
+                "3"
+              ],
+              "activeCells": [
+                11
+              ],
+              "doneCells": [
+                6,
+                9,
+                11,
+                12,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 6 步：盘 2 B → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "7 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[3, 2, 1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "4",
+                "",
+                "2",
+                "5",
+                "",
+                "3"
+              ],
+              "activeCells": [
+                8
+              ],
+              "doneCells": [
+                8,
+                9,
+                11,
+                12,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 7 步：盘 1 A → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "8 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[3, 2, 1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "2",
+                "5",
+                "4",
+                "3"
+              ],
+              "activeCells": [
+                13
+              ],
+              "doneCells": [
+                8,
+                11,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 8 步：盘 4 A → B"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "9 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 1]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[3, 2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "2",
+                "5",
+                "4",
+                "3"
+              ],
+              "activeCells": [
+                10
+              ],
+              "doneCells": [
+                10,
+                11,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 9 步：盘 1 C → B"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "10 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 2]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 1]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[3]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "2",
+                "1",
+                "",
+                "5",
+                "4",
+                "3"
+              ],
+              "activeCells": [
+                9
+              ],
+              "doneCells": [
+                9,
+                10,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 10 步：盘 2 C → A"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "11 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 2, 1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[3]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "5",
+                "4",
+                "3"
+              ],
+              "activeCells": [
+                6
+              ],
+              "doneCells": [
+                6,
+                9,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 11 步：盘 1 B → A"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "12 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 2, 1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 3]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "2",
+                "3",
+                "",
+                "5",
+                "4",
+                ""
+              ],
+              "activeCells": [
+                10
+              ],
+              "doneCells": [
+                6,
+                9,
+                10,
+                12,
+                13
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 12 步：盘 3 C → B"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "13 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 2]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 3]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "2",
+                "3",
+                "",
+                "5",
+                "4",
+                "1"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": [
+                9,
+                10,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 13 步：盘 1 A → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "14 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 3, 2]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "3",
+                "",
+                "5",
+                "4",
+                "1"
+              ],
+              "activeCells": [
+                7
+              ],
+              "doneCells": [
+                7,
+                10,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 14 步：盘 2 A → B"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "15 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[5]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 3, 2, 1]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "3",
+                "",
+                "5",
+                "4",
+                ""
+              ],
+              "activeCells": [
+                4
+              ],
+              "doneCells": [
+                4,
+                7,
+                10,
+                12,
+                13
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 15 步：盘 1 C → B"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "16 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 3, 2, 1]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "3",
+                "",
+                "",
+                "4",
+                "5"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": [
+                4,
+                7,
+                10,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 16 步：盘 5 A → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "17 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 3, 2]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "3",
+                "",
+                "1",
+                "4",
+                "5"
+              ],
+              "activeCells": [
+                12
+              ],
+              "doneCells": [
+                7,
+                10,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 17 步：盘 1 B → A"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "18 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 3]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "3",
+                "2",
+                "1",
+                "4",
+                "5"
+              ],
+              "activeCells": [
+                11
+              ],
+              "doneCells": [
+                10,
+                11,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 18 步：盘 2 B → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "19 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 3]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 2, 1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "3",
+                "2",
+                "",
+                "4",
+                "5"
+              ],
+              "activeCells": [
+                8
+              ],
+              "doneCells": [
+                8,
+                10,
+                11,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 19 步：盘 1 A → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "20 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[3]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 2, 1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "2",
+                "3",
+                "4",
+                "5"
+              ],
+              "activeCells": [
+                12
+              ],
+              "doneCells": [
+                8,
+                11,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 20 步：盘 3 B → A"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "21 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[3]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 1]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "2",
+                "3",
+                "4",
+                "5"
+              ],
+              "activeCells": [
+                10
+              ],
+              "doneCells": [
+                10,
+                11,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 21 步：盘 1 C → B"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "22 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[3, 2]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4, 1]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "2",
+                "1",
+                "",
+                "3",
+                "4",
+                "5"
+              ],
+              "activeCells": [
+                9
+              ],
+              "doneCells": [
+                9,
+                10,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 22 步：盘 2 C → A"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "23 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[3, 2, 1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[4]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "3",
+                "4",
+                "5"
+              ],
+              "activeCells": [
+                6
+              ],
+              "doneCells": [
+                6,
+                9,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 23 步：盘 1 B → A"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "24 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 4"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[3, 2, 1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "2",
+                "",
+                "4",
+                "3",
+                "",
+                "5"
+              ],
+              "activeCells": [
+                11
+              ],
+              "doneCells": [
+                6,
+                9,
+                11,
+                12,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 24 步：盘 4 B → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "25 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[3, 2]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "2",
+                "",
+                "4",
+                "3",
+                "",
+                "5"
+              ],
+              "activeCells": [
+                8
+              ],
+              "doneCells": [
+                8,
+                9,
+                11,
+                12,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 25 步：盘 1 A → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "26 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[3]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[2]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "4",
+                "3",
+                "2",
+                "5"
+              ],
+              "activeCells": [
+                13
+              ],
+              "doneCells": [
+                8,
+                11,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 26 步：盘 2 A → B"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 27,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "27 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[3]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[2, 1]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "1",
+                "4",
+                "3",
+                "2",
+                "5"
+              ],
+              "activeCells": [
+                10
+              ],
+              "doneCells": [
+                10,
+                11,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 27 步：盘 1 C → B"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 28,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "28 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[2, 1]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 3]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "3",
+                "",
+                "1",
+                "4",
+                "",
+                "2",
+                "5"
+              ],
+              "activeCells": [
+                8
+              ],
+              "doneCells": [
+                8,
+                10,
+                11,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 28 步：盘 3 A → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 29,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "29 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[2]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 3]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "3",
+                "",
+                "",
+                "4",
+                "1",
+                "2",
+                "5"
+              ],
+              "activeCells": [
+                12
+              ],
+              "doneCells": [
+                8,
+                11,
+                12,
+                13,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 29 步：盘 1 B → A"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 30,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "30 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[1]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 3, 2]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "3",
+                "",
+                "",
+                "4",
+                "1",
+                "",
+                "5"
+              ],
+              "activeCells": [
+                5
+              ],
+              "doneCells": [
+                5,
+                8,
+                11,
+                12,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 30 步：盘 2 B → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 31,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "31 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 3, 2, 1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "3",
+                "",
+                "",
+                "4",
+                "",
+                "",
+                "5"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": [
+                2,
+                5,
+                8,
+                11,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 31 步：盘 1 A → C"
+        }
+      ],
+      "intent": {
+        "why": "递归每层只负责一个动作：挪自己这一层的盘——让开与盖上交给递归",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    },
+    {
+      "index": 32,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "递归三问：①子问题同构（挪 n−1 个盘）②出口（n=0 什么都不做）③步数递推 T(n)=2T(n−1)+1 → 2ⁿ−1"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "hanoi",
+              "locals": {
+                "步数": {
+                  "kind": "PRIM",
+                  "text": "31 / 31"
+                },
+                "本步": {
+                  "kind": "PRIM",
+                  "text": "盘 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "pegs",
+                "type": "HanoiState",
+                "fields": {
+                  "A 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "B 柱": {
+                    "kind": "PRIM",
+                    "text": "[]"
+                  },
+                  "C 柱": {
+                    "kind": "PRIM",
+                    "text": "[5, 4, 3, 2, 1]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "汉诺塔",
+          "grids": [
+            {
+              "id": "hanoi",
+              "label": "三柱（数字=盘大小，上小下大）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "",
+                "",
+                "1",
+                "",
+                "",
+                "2",
+                "",
+                "",
+                "3",
+                "",
+                "",
+                "4",
+                "",
+                "",
+                "5"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": [
+                2,
+                5,
+                8,
+                11,
+                14
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "完成：31 步 = 2⁵−1（任何 n 个盘恰好 2ⁿ−1 步，多一步少一步都不可能）"
+        }
+      ],
+      "intent": {
+        "why": "递归三问：①子问题同构（挪 n−1 个盘）②出口（n=0 什么都不做）③步数递推 T(n)=2T(n−1)+1 → 2ⁿ−1",
+        "invariant": "大盘永不上小盘——递归式：把 n−1 个盘让开、挪最大盘、再把 n−1 个盘盖上；步数恒为 2ⁿ−1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,976 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.rsa",
+    "title": "RSA 迷你版",
+    "codeResource": "/code/RsaMiniDemo.java",
+    "input": "p=3,q=11,m=4",
+    "inputSize": 6
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "n 公开、φ 保密——而 φ 只能由 p·q 算出：这就是'非对称'的钥匙孔"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "密钥生成",
+              "locals": {
+                "当前值": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "公钥/私钥": {
+                  "kind": "PRIM",
+                  "text": "(33,3) / d=7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "公钥",
+                "type": "PublicKey",
+                "fields": {
+                  "n": {
+                    "kind": "PRIM",
+                    "text": "33"
+                  },
+                  "e": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "私钥",
+                "type": "PrivateKey",
+                "fields": {
+                  "p,q": {
+                    "kind": "PRIM",
+                    "text": "3 × 11"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "φ": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "消息",
+                "type": "Message",
+                "fields": {
+                  "明文 m": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "密文 c": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "解出": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RSA",
+          "grids": [
+            {
+              "id": "pipe",
+              "label": "RSA 流水线",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "m=4",
+                "e=3",
+                "d=7",
+                "c=?"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "选质数 p=3, q=11 → n=pq=33, φ(n)=(p−1)(q−1)=20"
+        }
+      ],
+      "intent": {
+        "why": "n 公开、φ 保密——而 φ 只能由 p·q 算出：这就是'非对称'的钥匙孔",
+        "invariant": "c = m^e mod n，m = c^d mod n——e·d ≡ 1 (mod φ(n)) 让加解密互为逆运算；n=pq 是公开的，p·q 是私藏的"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "公钥=(n,e)=(33,3) 随便发；私钥 d=7 自己藏好——d 由 φ 倒推，外人算不出"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "密钥生成",
+              "locals": {
+                "当前值": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "公钥/私钥": {
+                  "kind": "PRIM",
+                  "text": "(33,3) / d=7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "公钥",
+                "type": "PublicKey",
+                "fields": {
+                  "n": {
+                    "kind": "PRIM",
+                    "text": "33"
+                  },
+                  "e": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "私钥",
+                "type": "PrivateKey",
+                "fields": {
+                  "p,q": {
+                    "kind": "PRIM",
+                    "text": "3 × 11"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "φ": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "消息",
+                "type": "Message",
+                "fields": {
+                  "明文 m": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "密文 c": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "解出": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RSA",
+          "grids": [
+            {
+              "id": "pipe",
+              "label": "RSA 流水线",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "m=4",
+                "e=3",
+                "d=7",
+                "c=?"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "e=3（与 φ=20 互质），d=7（e·d=21 ≡ 1 mod 20）"
+        }
+      ],
+      "intent": {
+        "why": "公钥=(n,e)=(33,3) 随便发；私钥 d=7 自己藏好——d 由 φ 倒推，外人算不出",
+        "invariant": "c = m^e mod n，m = c^d mod n——e·d ≡ 1 (mod φ(n)) 让加解密互为逆运算；n=pq 是公开的，p·q 是私藏的"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "快速幂上场：3 次乘法 + 每步取模——数字才不会爆炸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "加密（Alice）",
+              "locals": {
+                "当前值": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "公钥/私钥": {
+                  "kind": "PRIM",
+                  "text": "(33,3) / d=7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "公钥",
+                "type": "PublicKey",
+                "fields": {
+                  "n": {
+                    "kind": "PRIM",
+                    "text": "33"
+                  },
+                  "e": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "私钥",
+                "type": "PrivateKey",
+                "fields": {
+                  "p,q": {
+                    "kind": "PRIM",
+                    "text": "3 × 11"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "φ": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "消息",
+                "type": "Message",
+                "fields": {
+                  "明文 m": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "密文 c": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "解出": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RSA",
+          "grids": [
+            {
+              "id": "pipe",
+              "label": "RSA 流水线",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "m=4",
+                "e=3",
+                "d=7",
+                "c=?"
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "明文 m=4 → c = m^e mod n = 4³ mod 33"
+        }
+      ],
+      "intent": {
+        "why": "快速幂上场：3 次乘法 + 每步取模——数字才不会爆炸",
+        "invariant": "c = m^e mod n，m = c^d mod n——e·d ≡ 1 (mod φ(n)) 让加解密互为逆运算；n=pq 是公开的，p·q 是私藏的"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "窃听者看到 31——没有 d 就读不回 4"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "加密（Alice）",
+              "locals": {
+                "当前值": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "公钥/私钥": {
+                  "kind": "PRIM",
+                  "text": "(33,3) / d=7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "公钥",
+                "type": "PublicKey",
+                "fields": {
+                  "n": {
+                    "kind": "PRIM",
+                    "text": "33"
+                  },
+                  "e": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "私钥",
+                "type": "PrivateKey",
+                "fields": {
+                  "p,q": {
+                    "kind": "PRIM",
+                    "text": "3 × 11"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "φ": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "消息",
+                "type": "Message",
+                "fields": {
+                  "明文 m": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "密文 c": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "解出": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RSA",
+          "grids": [
+            {
+              "id": "pipe",
+              "label": "RSA 流水线",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "m=4",
+                "e=3",
+                "d=7",
+                "c=?"
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "4³ = 64 → 64 − 33 = 31 → **密文 c = 31**"
+        }
+      ],
+      "intent": {
+        "why": "窃听者看到 31——没有 d 就读不回 4",
+        "invariant": "c = m^e mod n，m = c^d mod n——e·d ≡ 1 (mod φ(n)) 让加解密互为逆运算；n=pq 是公开的，p·q 是私藏的"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "7 = 二进制 111 → 三次平方三次乘：31²≡4, 31⁴≡16, 31⁷ = 16·4·31"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "解密（Bob）",
+              "locals": {
+                "当前值": {
+                  "kind": "PRIM",
+                  "text": "31"
+                },
+                "公钥/私钥": {
+                  "kind": "PRIM",
+                  "text": "(33,3) / d=7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "公钥",
+                "type": "PublicKey",
+                "fields": {
+                  "n": {
+                    "kind": "PRIM",
+                    "text": "33"
+                  },
+                  "e": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "私钥",
+                "type": "PrivateKey",
+                "fields": {
+                  "p,q": {
+                    "kind": "PRIM",
+                    "text": "3 × 11"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "φ": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "消息",
+                "type": "Message",
+                "fields": {
+                  "明文 m": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "密文 c": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "解出": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RSA",
+          "grids": [
+            {
+              "id": "pipe",
+              "label": "RSA 流水线",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "m=4",
+                "e=3",
+                "d=7",
+                "c=31"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "CALL",
+          "targets": [],
+          "detail": "m = c^d mod n = 31⁷ mod 33——快速幂平方-相乘"
+        }
+      ],
+      "intent": {
+        "why": "7 = 二进制 111 → 三次平方三次乘：31²≡4, 31⁴≡16, 31⁷ = 16·4·31",
+        "invariant": "c = m^e mod n，m = c^d mod n——e·d ≡ 1 (mod φ(n)) 让加解密互为逆运算；n=pq 是公开的，p·q 是私藏的"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "模幂的中间值始终 < n²——这就是快速幂对 RSA 生死攸关的原因"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "解密（Bob）",
+              "locals": {
+                "当前值": {
+                  "kind": "PRIM",
+                  "text": "31"
+                },
+                "公钥/私钥": {
+                  "kind": "PRIM",
+                  "text": "(33,3) / d=7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "公钥",
+                "type": "PublicKey",
+                "fields": {
+                  "n": {
+                    "kind": "PRIM",
+                    "text": "33"
+                  },
+                  "e": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "私钥",
+                "type": "PrivateKey",
+                "fields": {
+                  "p,q": {
+                    "kind": "PRIM",
+                    "text": "3 × 11"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "φ": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "消息",
+                "type": "Message",
+                "fields": {
+                  "明文 m": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "密文 c": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "解出": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RSA",
+          "grids": [
+            {
+              "id": "pipe",
+              "label": "RSA 流水线",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "m=4",
+                "e=3",
+                "d=7",
+                "c=31"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "31² = 961 → 961 mod 33 = 4；31⁴ ≡ 16；31⁷ = 16×4×31 = 1984 → 1984 mod 33 = 4"
+        }
+      ],
+      "intent": {
+        "why": "模幂的中间值始终 < n²——这就是快速幂对 RSA 生死攸关的原因",
+        "invariant": "c = m^e mod n，m = c^d mod n——e·d ≡ 1 (mod φ(n)) 让加解密互为逆运算；n=pq 是公开的，p·q 是私藏的"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "欧拉定理：m^(e·d) = m^(1+kφ) ≡ m (mod n)——数论在为每一次 HTTPS 握手背书"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "解密（Bob）",
+              "locals": {
+                "当前值": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "公钥/私钥": {
+                  "kind": "PRIM",
+                  "text": "(33,3) / d=7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "公钥",
+                "type": "PublicKey",
+                "fields": {
+                  "n": {
+                    "kind": "PRIM",
+                    "text": "33"
+                  },
+                  "e": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "私钥",
+                "type": "PrivateKey",
+                "fields": {
+                  "p,q": {
+                    "kind": "PRIM",
+                    "text": "3 × 11"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "φ": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "消息",
+                "type": "Message",
+                "fields": {
+                  "明文 m": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "密文 c": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "解出": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RSA",
+          "grids": [
+            {
+              "id": "pipe",
+              "label": "RSA 流水线",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "m=4",
+                "e=3",
+                "d=7",
+                "c=31"
+              ],
+              "activeCells": [
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "解出 m = 4——和明文一模一样！加解密互为逆运算（欧拉定理保证）"
+        }
+      ],
+      "intent": {
+        "why": "欧拉定理：m^(e·d) = m^(1+kφ) ≡ m (mod n)——数论在为每一次 HTTPS 握手背书",
+        "invariant": "c = m^e mod n，m = c^d mod n——e·d ≡ 1 (mod φ(n)) 让加解密互为逆运算；n=pq 是公开的，p·q 是私藏的"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "量子计算机的 Shor 算法专杀大数分解——RSA 的末日钟由此开始计时"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "完成",
+              "locals": {
+                "当前值": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "公钥/私钥": {
+                  "kind": "PRIM",
+                  "text": "(33,3) / d=7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "公钥",
+                "type": "PublicKey",
+                "fields": {
+                  "n": {
+                    "kind": "PRIM",
+                    "text": "33"
+                  },
+                  "e": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "私钥",
+                "type": "PrivateKey",
+                "fields": {
+                  "p,q": {
+                    "kind": "PRIM",
+                    "text": "3 × 11"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "φ": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "消息",
+                "type": "Message",
+                "fields": {
+                  "明文 m": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "密文 c": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "解出": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RSA",
+          "grids": [
+            {
+              "id": "pipe",
+              "label": "RSA 流水线",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "m=4",
+                "e=3",
+                "d=7",
+                "c=31"
+              ],
+              "activeCells": [
+                3
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "玩具版 n=33 秒破；真实 RSA n=2048 位——'乘起来容易拆开来难'撑起整个互联网的信任"
+        }
+      ],
+      "intent": {
+        "why": "量子计算机的 Shor 算法专杀大数分解——RSA 的末日钟由此开始计时",
+        "invariant": "c = m^e mod n，m = c^d mod n——e·d ≡ 1 (mod φ(n)) 让加解密互为逆运算；n=pq 是公开的，p·q 是私藏的"
+      }
+    }
+  ]
+}

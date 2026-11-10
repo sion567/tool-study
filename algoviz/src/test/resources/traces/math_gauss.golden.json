@@ -1,0 +1,832 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.gauss",
+    "title": "高斯消元",
+    "codeResource": "/code/GaussianElimDemo.java",
+    "input": "3 元 1 组",
+    "inputSize": 3
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "目标：消成上三角（每行首非零元素逐行右移），再回代"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gauss",
+              "locals": {
+                "阶段": {
+                  "kind": "PRIM",
+                  "text": "消元"
+                },
+                "已解未知数": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "solution",
+                "type": "GaussSolution",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "高斯消元",
+          "grids": [
+            {
+              "id": "aug",
+              "label": "增广矩阵 [A|b]（末列=b）",
+              "rows": 3,
+              "cols": 4,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "6",
+                "1",
+                "2",
+                "3",
+                "14",
+                "1",
+                "4",
+                "9",
+                "36"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "增广矩阵 [A|b]——三行分别是三个方程"
+        }
+      ],
+      "intent": {
+        "why": "目标：消成上三角（每行首非零元素逐行右移），再回代",
+        "invariant": "初等行变换不改变方程组的解——消元把矩阵化成上三角，回代自底向上解出每个未知数"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "倍加变换：让第 1 列在 R2 中归零——未知数逐个被消掉"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gauss",
+              "locals": {
+                "阶段": {
+                  "kind": "PRIM",
+                  "text": "消元"
+                },
+                "已解未知数": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "solution",
+                "type": "GaussSolution",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "高斯消元",
+          "grids": [
+            {
+              "id": "aug",
+              "label": "增广矩阵 [A|b]（末列=b）",
+              "rows": 3,
+              "cols": 4,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "6",
+                "0",
+                "1",
+                "2",
+                "8",
+                "1",
+                "4",
+                "9",
+                "36"
+              ],
+              "hlRow": 1,
+              "activeCells": [
+                4,
+                5,
+                6,
+                7
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "R2"
+          ],
+          "detail": "R2 ← R2 − R1 → [0, 1, 2 | 8]"
+        }
+      ],
+      "intent": {
+        "why": "倍加变换：让第 1 列在 R2 中归零——未知数逐个被消掉",
+        "invariant": "初等行变换不改变方程组的解——消元把矩阵化成上三角，回代自底向上解出每个未知数"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "倍加变换：让第 1 列在 R3 中归零——未知数逐个被消掉"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gauss",
+              "locals": {
+                "阶段": {
+                  "kind": "PRIM",
+                  "text": "消元"
+                },
+                "已解未知数": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "solution",
+                "type": "GaussSolution",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "高斯消元",
+          "grids": [
+            {
+              "id": "aug",
+              "label": "增广矩阵 [A|b]（末列=b）",
+              "rows": 3,
+              "cols": 4,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "6",
+                "0",
+                "1",
+                "2",
+                "8",
+                "0",
+                "3",
+                "8",
+                "30"
+              ],
+              "hlRow": 2,
+              "activeCells": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "R3"
+          ],
+          "detail": "R3 ← R3 − R1 → [0, 3, 8 | 30]"
+        }
+      ],
+      "intent": {
+        "why": "倍加变换：让第 1 列在 R3 中归零——未知数逐个被消掉",
+        "invariant": "初等行变换不改变方程组的解——消元把矩阵化成上三角，回代自底向上解出每个未知数"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "倍加变换：让第 2 列在 R3 中归零——未知数逐个被消掉"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gauss",
+              "locals": {
+                "阶段": {
+                  "kind": "PRIM",
+                  "text": "消元"
+                },
+                "已解未知数": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "solution",
+                "type": "GaussSolution",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "高斯消元",
+          "grids": [
+            {
+              "id": "aug",
+              "label": "增广矩阵 [A|b]（末列=b）",
+              "rows": 3,
+              "cols": 4,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "6",
+                "0",
+                "1",
+                "2",
+                "8",
+                "0",
+                "0",
+                "2",
+                "6"
+              ],
+              "hlRow": 2,
+              "activeCells": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "R3"
+          ],
+          "detail": "R3 ← R3 − 3·R2 → [0, 0, 2 | 6]"
+        }
+      ],
+      "intent": {
+        "why": "倍加变换：让第 2 列在 R3 中归零——未知数逐个被消掉",
+        "invariant": "初等行变换不改变方程组的解——消元把矩阵化成上三角，回代自底向上解出每个未知数"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "回代自底向上：一次解一个未知数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gauss",
+              "locals": {
+                "阶段": {
+                  "kind": "PRIM",
+                  "text": "消元"
+                },
+                "已解未知数": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "solution",
+                "type": "GaussSolution",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "高斯消元",
+          "grids": [
+            {
+              "id": "aug",
+              "label": "增广矩阵 [A|b]（末列=b）",
+              "rows": 3,
+              "cols": 4,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "6",
+                "0",
+                "1",
+                "2",
+                "8",
+                "0",
+                "0",
+                "2",
+                "6"
+              ],
+              "hlRow": 2,
+              "activeCells": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "上三角完成：z 只属于第三行 → z = 6/2 = 3"
+        }
+      ],
+      "intent": {
+        "why": "回代自底向上：一次解一个未知数",
+        "invariant": "初等行变换不改变方程组的解——消元把矩阵化成上三角，回代自底向上解出每个未知数"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "回代：把已知未知数代入上一行——自底向上一次解一个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gauss",
+              "locals": {
+                "阶段": {
+                  "kind": "PRIM",
+                  "text": "回代"
+                },
+                "已解未知数": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "solution",
+                "type": "GaussSolution",
+                "fields": {
+                  "z": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "高斯消元",
+          "grids": [
+            {
+              "id": "aug",
+              "label": "增广矩阵 [A|b]（末列=b）",
+              "rows": 3,
+              "cols": 4,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "6",
+                "0",
+                "1",
+                "2",
+                "8",
+                "0",
+                "0",
+                "2",
+                "6"
+              ],
+              "hlRow": 2,
+              "activeCells": [
+                8,
+                9,
+                10,
+                11
+              ],
+              "doneCells": [
+                0,
+                1,
+                2,
+                3
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 3 行 → z = 3"
+        }
+      ],
+      "intent": {
+        "why": "回代：把已知未知数代入上一行——自底向上一次解一个",
+        "invariant": "初等行变换不改变方程组的解——消元把矩阵化成上三角，回代自底向上解出每个未知数"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "回代：把已知未知数代入上一行——自底向上一次解一个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gauss",
+              "locals": {
+                "阶段": {
+                  "kind": "PRIM",
+                  "text": "回代"
+                },
+                "已解未知数": {
+                  "kind": "PRIM",
+                  "text": "2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "solution",
+                "type": "GaussSolution",
+                "fields": {
+                  "z": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "y": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "高斯消元",
+          "grids": [
+            {
+              "id": "aug",
+              "label": "增广矩阵 [A|b]（末列=b）",
+              "rows": 3,
+              "cols": 4,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "6",
+                "0",
+                "1",
+                "2",
+                "8",
+                "0",
+                "0",
+                "2",
+                "6"
+              ],
+              "hlRow": 1,
+              "activeCells": [],
+              "doneCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 2 行 → y = 2"
+        }
+      ],
+      "intent": {
+        "why": "回代：把已知未知数代入上一行——自底向上一次解一个",
+        "invariant": "初等行变换不改变方程组的解——消元把矩阵化成上三角，回代自底向上解出每个未知数"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "回代：把已知未知数代入上一行——自底向上一次解一个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gauss",
+              "locals": {
+                "阶段": {
+                  "kind": "PRIM",
+                  "text": "回代"
+                },
+                "已解未知数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "solution",
+                "type": "GaussSolution",
+                "fields": {
+                  "z": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "y": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "x": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "高斯消元",
+          "grids": [
+            {
+              "id": "aug",
+              "label": "增广矩阵 [A|b]（末列=b）",
+              "rows": 3,
+              "cols": 4,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "6",
+                "0",
+                "1",
+                "2",
+                "8",
+                "0",
+                "0",
+                "2",
+                "6"
+              ],
+              "hlRow": 0,
+              "activeCells": [],
+              "doneCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 1 行 → x = 1"
+        }
+      ],
+      "intent": {
+        "why": "回代：把已知未知数代入上一行——自底向上一次解一个",
+        "invariant": "初等行变换不改变方程组的解——消元把矩阵化成上三角，回代自底向上解出每个未知数"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "为什么解不会变？三种初等变换（换行/倍乘/倍加）都保持方程组同解——这是高斯消元的合法性证明"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gauss",
+              "locals": {
+                "阶段": {
+                  "kind": "PRIM",
+                  "text": "回代"
+                },
+                "已解未知数": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "solution",
+                "type": "GaussSolution",
+                "fields": {
+                  "z": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "y": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "x": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "高斯消元",
+          "grids": [
+            {
+              "id": "aug",
+              "label": "增广矩阵 [A|b]（末列=b）",
+              "rows": 3,
+              "cols": 4,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "6",
+                "0",
+                "1",
+                "2",
+                "8",
+                "0",
+                "0",
+                "2",
+                "6"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "解得 x=1, y=2, z=3——O(n³) 的消元过程"
+        }
+      ],
+      "intent": {
+        "why": "为什么解不会变？三种初等变换（换行/倍乘/倍加）都保持方程组同解——这是高斯消元的合法性证明",
+        "invariant": "初等行变换不改变方程组的解——消元把矩阵化成上三角，回代自底向上解出每个未知数"
+      }
+    }
+  ]
+}

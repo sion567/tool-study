@@ -21,6 +21,8 @@ import java.util.List;
  *   [x0, x1, height] 列表，labels = n/和/真值注解。
  * kind = cartesian：笛卡尔直角坐标平面。sineTrace = 累积点列 (x,y)，
  *   pointX/pointY = 当前动点（如心形线 r=1−cosθ 逐点生成）。
+ * kind = scatter：随机撒点（蒙特卡洛）。rects = 圆内点 [x,y,size]，
+ *   trace3 = 圆外点 [x,y,size]，sineTrace = 边界曲线（如四分之一圆弧）。
  *
  * xMin/xMax/yMin/yMax = 世界坐标系（渲染器映射用；unitCircle 固定 0..2π / -1..1）。
  */
@@ -38,6 +40,7 @@ public record PlotView(String kind, String name, double angle,
     public static final String CORDIC = "cordic";
     public static final String RIEMANN = "riemann";
     public static final String CARTESIAN = "cartesian";
+    public static final String SCATTER = "scatter";
 
     /** unitCircle 旧形态的便捷构造（0..2π / -1..1 域）。 */
     public static PlotView unitCircle(String name, double angle,

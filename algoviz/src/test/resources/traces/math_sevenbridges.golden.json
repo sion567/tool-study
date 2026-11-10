@@ -1,0 +1,1655 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.sevenbridges",
+    "title": "七桥问题·欧拉路径",
+    "codeResource": "/code/SevenBridgesDemo.java",
+    "input": "4 陆地 7→6 桥",
+    "inputSize": 4
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "全城的尝试都失败了——欧拉说：别走了，先数数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "4 个奇点→无解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "0 / 7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "哥尼斯堡 1736：7 座桥连 4 块陆地，市民想不重复地走遍每座桥"
+        }
+      ],
+      "intent": {
+        "why": "全城的尝试都失败了——欧拉说：别走了，先数数",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "每次过桥'进'与'出'成对消耗 2 度——中间的点必须偶数度，奇点只能当起点/终点，而起点终点最多 2 个"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "4 个奇点→无解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "0 / 7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "度数：北岸 3、南岸 3、岛 5、东岸 3——**四个奇顶点**"
+        }
+      ],
+      "intent": {
+        "why": "每次过桥'进'与'出'成对消耗 2 度——中间的点必须偶数度，奇点只能当起点/终点，而起点终点最多 2 个",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "图论诞生的瞬间：把'陆地和桥'抽象成'点和边'，几何距离全部无关——只剩连接关系"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "4 个奇点→无解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "0 / 7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "奇顶点 4 个 > 2 → 欧拉路径不存在（数学上盖棺，不用再试了）"
+        }
+      ],
+      "intent": {
+        "why": "图论诞生的瞬间：把'陆地和桥'抽象成'点和边'，几何距离全部无关——只剩连接关系",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "奇顶点恰 2 个 → 欧拉路径存在，且必须从其中一个奇点出发、在另一个结束"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "2 个奇点→有解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "0 / 6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "重建后拆掉一座桥 → 度数 2,3,5,2 → 奇顶点只剩 2 个（南岸、岛）"
+        }
+      ],
+      "intent": {
+        "why": "奇顶点恰 2 个 → 欧拉路径存在，且必须从其中一个奇点出发、在另一个结束",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "2 个奇点→有解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "1 / 6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [
+            "@4"
+          ],
+          "dist": {},
+          "relaxFrom": "@2",
+          "relaxTo": "@4",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "南岸",
+            "东岸"
+          ],
+          "detail": "过桥：南岸 → 东岸"
+        }
+      ],
+      "intent": {
+        "why": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "2 个奇点→有解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "2 / 6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [
+            "@3"
+          ],
+          "dist": {},
+          "relaxFrom": "@4",
+          "relaxTo": "@3",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "东岸",
+            "岛"
+          ],
+          "detail": "过桥：东岸 → 岛"
+        }
+      ],
+      "intent": {
+        "why": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "2 个奇点→有解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "3 / 6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [
+            "@2"
+          ],
+          "dist": {},
+          "relaxFrom": "@3",
+          "relaxTo": "@2",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "岛",
+            "南岸"
+          ],
+          "detail": "过桥：岛 → 南岸"
+        }
+      ],
+      "intent": {
+        "why": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "2 个奇点→有解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "4 / 6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [
+            "@3"
+          ],
+          "dist": {},
+          "relaxFrom": "@2",
+          "relaxTo": "@3",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "南岸",
+            "岛"
+          ],
+          "detail": "过桥：南岸 → 岛"
+        }
+      ],
+      "intent": {
+        "why": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "2 个奇点→有解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "5 / 6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [
+            "@1"
+          ],
+          "dist": {},
+          "relaxFrom": "@3",
+          "relaxTo": "@1",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "岛",
+            "北岸"
+          ],
+          "detail": "过桥：岛 → 北岸"
+        }
+      ],
+      "intent": {
+        "why": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "2 个奇点→有解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "6 / 6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [
+            "@3"
+          ],
+          "dist": {},
+          "relaxFrom": "@1",
+          "relaxTo": "@3",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "VISIT",
+          "targets": [
+            "北岸",
+            "岛"
+          ],
+          "detail": "过桥：北岸 → 岛（最后一座！）"
+        }
+      ],
+      "intent": {
+        "why": "每座桥恰走一次——剩下的桥越来越少，路径自己延伸",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "起点=南岸（奇），终点=岛（奇）——与判据完全吻合"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "2 个奇点→有解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "6 / 6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [
+            "@3"
+          ],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "6 座桥全部走过一次 → 欧拉路径完成：南岸 → 东岸 → 岛 → 南岸 → 岛 → 北岸 → 岛"
+        }
+      ],
+      "intent": {
+        "why": "起点=南岸（奇），终点=岛（奇）——与判据完全吻合",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "应用：DNA 测序拼接、任务调度、笔画输入识别——本质都是'边不重复走遍'"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "eulerPath",
+              "locals": {
+                "奇点判定": {
+                  "kind": "PRIM",
+                  "text": "2 个奇点→有解"
+                },
+                "已过桥": {
+                  "kind": "PRIM",
+                  "text": "6 / 6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "graph",
+                "type": "Konigsberg",
+                "fields": {
+                  "北岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "南岸 度数": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "岛 度数": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "东岸 度数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "哥尼斯堡七桥",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "北岸",
+              "x": 0.18,
+              "y": 0.2
+            },
+            {
+              "nodeId": "@2",
+              "label": "南岸",
+              "x": 0.18,
+              "y": 0.78
+            },
+            {
+              "nodeId": "@3",
+              "label": "岛",
+              "x": 0.55,
+              "y": 0.48
+            },
+            {
+              "nodeId": "@4",
+              "label": "东岸",
+              "x": 0.85,
+              "y": 0.48
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "欧拉路径的算法遗产：Hierholzer 线性时间找路径——一笔画问题从此有 O(E) 解法"
+        }
+      ],
+      "intent": {
+        "why": "应用：DNA 测序拼接、任务调度、笔画输入识别——本质都是'边不重复走遍'",
+        "invariant": "每座桥进出各一次 = 每个顶点的度数必须是偶数（除起点终点可奇）——奇顶点 >2 则无解"
+      }
+    }
+  ]
+}

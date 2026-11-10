@@ -32,6 +32,7 @@ public final class PlotRenderer {
             case PlotView.CORDIC -> drawCordic(g, w, h, pv);
             case PlotView.RIEMANN -> drawRiemann(g, w, h, pv);
             case PlotView.CARTESIAN -> drawCartesian(g, w, h, pv);
+            case PlotView.SCATTER -> drawScatter(g, w, h, pv);
             default -> drawUnitCircle(g, w, h, pv);
         }
     }
@@ -393,6 +394,53 @@ public final class PlotRenderer {
         g.setLineWidth(1.5);
         g.strokeLine(sx.applyAsDouble(0), sy.applyAsDouble(0), cx, cy);   // 极径线（原点→动点）
 
+        // 注解
+        g.setTextAlign(TextAlignment.LEFT);
+        g.setFont(Font.font(12));
+        for (int i = 0; i < pv.labels().size(); i++) {
+            g.setFill(i == 0 ? Color.web("#374151") : Color.web("#6b7280"));
+            g.fillText(pv.labels().get(i), x0 + 8, yTop + 16 + i * 18);
+        }
+    }
+
+
+    // ==================== kind = scatter（随机撒点）====================
+
+    private static void drawScatter(GraphicsContext g, double w, double h, PlotView pv) {
+        double x0 = w * 0.10, x1 = w * 0.92;
+        double yTop = h * 0.10, yBase = h * 0.90;
+        double dx = pv.xMax() - pv.xMin();
+        double dy = pv.yMax() - pv.yMin();
+        java.util.function.DoubleUnaryOperator sx = x -> x0 + (x - pv.xMin()) / dx * (x1 - x0);
+        java.util.function.DoubleUnaryOperator sy = y -> yBase - (y - pv.yMin()) / dy * (yBase - yTop);
+
+        // 正方形边界
+        g.setStroke(Color.web("#d1d5db"));
+        g.setLineWidth(1.2);
+        g.strokeRect(sx.applyAsDouble(pv.xMin()), yTop, sx.applyAsDouble(pv.xMax()) - x0, yBase - yTop);
+
+        // 圆外点（橙）
+        for (List<Double> d : pv.trace3()) {
+            g.setFill(Color.web("#f97316", 0.75));
+            double r = Math.max(2, d.get(2) * (x1 - x0) * 3);
+            g.fillOval(sx.applyAsDouble(d.get(0)) - r, sy.applyAsDouble(d.get(1)) - r, r * 2, r * 2);
+        }
+        // 圆内点（蓝）
+        for (List<Double> d : pv.rects()) {
+            g.setFill(Color.web("#3b82f6", 0.8));
+            double r = Math.max(2, d.get(2) * (x1 - x0) * 3);
+            g.fillOval(sx.applyAsDouble(d.get(0)) - r, sy.applyAsDouble(d.get(1)) - r, r * 2, r * 2);
+        }
+        // 四分之一圆弧（绿粗线）
+        if (pv.sineTrace().size() >= 2) {
+            g.setStroke(Color.web("#16a34a"));
+            g.setLineWidth(2.5);
+            var pts = pv.sineTrace();
+            for (int i = 1; i < pts.size(); i++) {
+                g.strokeLine(sx.applyAsDouble(pts.get(i - 1).get(0)), sy.applyAsDouble(pts.get(i - 1).get(1)),
+                        sx.applyAsDouble(pts.get(i).get(0)), sy.applyAsDouble(pts.get(i).get(1)));
+            }
+        }
         // 注解
         g.setTextAlign(TextAlignment.LEFT);
         g.setFont(Font.font(12));
