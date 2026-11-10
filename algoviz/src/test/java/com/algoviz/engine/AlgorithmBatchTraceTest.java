@@ -82,6 +82,10 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"math_montecarlo", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.MonteCarloPiDemo::new},
                 new Object[]{"math_sevenbridges", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.SevenBridgesDemo::new},
                 new Object[]{"math_rsa", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.RsaMiniDemo::new},
+                // ---- 第十三批：黄金螺旋/玫瑰线画廊/2D 旋转 ----
+                new Object[]{"math_goldenspiral", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GoldenSpiralDemo::new},
+                new Object[]{"math_rose", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.RoseCurveGalleryDemo::new},
+                new Object[]{"math_rotation", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.Rotation2DDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -427,6 +431,28 @@ class AlgorithmBatchTraceTest {
         assertTrue2(dup, "应检测到 700 重复");
         // 终局：4 桶 + 数据条 共 5 个网格
         assertEquals(5, steps.get(steps.size() - 1).math().grids().size(), "data + 4 桶");
+    }
+
+    /** 行为：数学第七连——比值收敛 φ / 玫瑰三展 / 180° 旋转。 */
+    @org.junit.jupiter.api.Test
+    void mathSevenBehave() throws Exception {
+        // 黄金螺旋：末步比值 = 34/21 ≈ 1.6190，与 φ 差 < 0.002
+        var gs = new com.algoviz.engine.math.GoldenSpiralDemo().produce().steps();
+        var gsFields = gs.get(gs.size() - 2).heap().heap().objects().get("@1").fields();
+        double ratio = Double.parseDouble(gsFields.get("比值").text());
+        assertEquals(55.0 / 34, ratio, 1e-4, "末步比值 = F(10)/F(9) = 55/34（堆字段 4 位小数）");
+        assertEquals((1 + Math.sqrt(5)) / 2, ratio, 0.002, "55/34 与 φ 差 < 0.0004");
+        // 玫瑰线：三个 phase 的花瓣数断言（事件文本）
+        var rose = new com.algoviz.engine.math.RoseCurveGalleryDemo().produce().steps();
+        String roseText = rose.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        assertTrue2(roseText.contains("4 瓣") && roseText.contains("3 瓣") && roseText.contains("5 瓣"),
+                "三朵展品齐：4 瓣/3 瓣/5 瓣");
+        // 2D 旋转：180° 后顶点 A (2,0) → (−2,0)
+        var rot = new com.algoviz.engine.math.Rotation2DDemo().produce().steps();
+        var rotPlot = rot.get(rot.size() - 2).plot();
+        assertEquals(-2.0, rotPlot.pointX(), 1e-9, "顶点 A 转 180° → (−2, 0)");
+        assertEquals(0.0, rotPlot.pointY(), 1e-9, "顶点 A 的 y 归零");
     }
 
     /** 行为：数学新六连——杨辉末行/高斯解/汉诺塔步数/π估计/七桥奇点/RSA往返。 */
