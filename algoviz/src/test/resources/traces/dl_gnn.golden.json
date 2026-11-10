@@ -1,0 +1,1952 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dl.gnn",
+    "title": "GNN 图神经网络",
+    "codeResource": "/code/GnnDemo.java",
+    "input": "5 节点 2 轮",
+    "inputSize": 10
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "图神经网络要解决的问题：节点如何'知道'自己在图中的位置和邻域？"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "全体"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "0.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=1.00 B=0.00 C=2.00 D=0.00 E=1.00"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=1.00",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=0.00",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=2.00",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.00",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=1.00",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "初始特征：A=1.0 B=0.0 C=2.0 D=0.0 E=1.0——节点只知道自己的值"
+        }
+      ],
+      "intent": {
+        "why": "图神经网络要解决的问题：节点如何'知道'自己在图中的位置和邻域？",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "A"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "1.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=1.00 B=0.00 C=2.00 D=0.00 E=1.00"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=1.00",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=0.00",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=2.00",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.00",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=1.00",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "activeId": "@1",
+          "settledIds": [
+            "@2",
+            "@5",
+            "@3"
+          ],
+          "dist": {},
+          "relaxFrom": "@1",
+          "relaxTo": "@2",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 1 · A：(1.00 + 0.00 + 1.00 + 2.00) ÷ 4 = 1.00"
+        }
+      ],
+      "intent": {
+        "why": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "B"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "0.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=1.00 B=0.00 C=2.00 D=0.00 E=1.00"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=1.00",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=0.00",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=2.00",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.00",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=1.00",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "activeId": "@2",
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {},
+          "relaxFrom": "@2",
+          "relaxTo": "@1",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 1 · B：(0.00 + 1.00 + 2.00) ÷ 3 = 1.00"
+        }
+      ],
+      "intent": {
+        "why": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "C"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "2.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=1.00 B=1.00 C=2.00 D=0.00 E=1.00"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=1.00",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=1.00",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=2.00",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.00",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=1.00",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@2",
+            "@4",
+            "@1"
+          ],
+          "dist": {},
+          "relaxFrom": "@3",
+          "relaxTo": "@2",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 1 · C：(2.00 + 1.00 + 0.00 + 1.00) ÷ 4 = 1.00"
+        }
+      ],
+      "intent": {
+        "why": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "D"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "0.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=1.00 B=1.00 C=1.00 D=0.00 E=1.00"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=1.00",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=1.00",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=1.00",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.00",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=1.00",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@3",
+            "@5"
+          ],
+          "dist": {},
+          "relaxFrom": "@4",
+          "relaxTo": "@3",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 1 · D：(0.00 + 1.00 + 1.00) ÷ 3 = 0.67"
+        }
+      ],
+      "intent": {
+        "why": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "E"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "1.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=1.00 B=1.00 C=1.00 D=0.67 E=1.00"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=1.00",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=1.00",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=1.00",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.67",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=1.00",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "activeId": "@5",
+          "settledIds": [
+            "@4",
+            "@1"
+          ],
+          "dist": {},
+          "relaxFrom": "@5",
+          "relaxTo": "@4",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 1 · E：(1.00 + 0.67 + 1.00) ÷ 3 = 0.89"
+        }
+      ],
+      "intent": {
+        "why": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "一轮之后：每个节点知道自己 + 邻居的平均"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "全体"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "0.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=1.00 B=1.00 C=1.00 D=0.67 E=0.89"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=1.00",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=1.00",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=1.00",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.67",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=0.89",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 1 轮结束：A=1.00 B=1.00 C=1.00 D=0.67 E=0.89"
+        }
+      ],
+      "intent": {
+        "why": "一轮之后：每个节点知道自己 + 邻居的平均",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "A"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "1.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=1.00 B=1.00 C=1.00 D=0.67 E=0.89"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=1.00",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=1.00",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=1.00",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.67",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=0.89",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "activeId": "@1",
+          "settledIds": [
+            "@2",
+            "@5",
+            "@3"
+          ],
+          "dist": {},
+          "relaxFrom": "@1",
+          "relaxTo": "@2",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 2 · A：(1.00 + 1.00 + 0.89 + 1.00) ÷ 4 = 0.97"
+        }
+      ],
+      "intent": {
+        "why": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "B"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "1.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=0.97 B=1.00 C=1.00 D=0.67 E=0.89"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=0.97",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=1.00",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=1.00",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.67",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=0.89",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "activeId": "@2",
+          "settledIds": [
+            "@1",
+            "@3"
+          ],
+          "dist": {},
+          "relaxFrom": "@2",
+          "relaxTo": "@1",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 2 · B：(1.00 + 0.97 + 1.00) ÷ 3 = 0.99"
+        }
+      ],
+      "intent": {
+        "why": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "C"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "1.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=0.97 B=0.99 C=1.00 D=0.67 E=0.89"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=0.97",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=0.99",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=1.00",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.67",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=0.89",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "activeId": "@3",
+          "settledIds": [
+            "@2",
+            "@4",
+            "@1"
+          ],
+          "dist": {},
+          "relaxFrom": "@3",
+          "relaxTo": "@2",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 2 · C：(1.00 + 0.99 + 0.67 + 0.97) ÷ 4 = 0.91"
+        }
+      ],
+      "intent": {
+        "why": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "D"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "0.67"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=0.97 B=0.99 C=0.91 D=0.67 E=0.89"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=0.97",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=0.99",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=0.91",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.67",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=0.89",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "activeId": "@4",
+          "settledIds": [
+            "@3",
+            "@5"
+          ],
+          "dist": {},
+          "relaxFrom": "@4",
+          "relaxTo": "@3",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 2 · D：(0.67 + 0.91 + 0.89) ÷ 3 = 0.82"
+        }
+      ],
+      "intent": {
+        "why": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "E"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "0.89"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=0.97 B=0.99 C=0.91 D=0.82 E=0.89"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=0.97",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=0.99",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=0.91",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.82",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=0.89",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "activeId": "@5",
+          "settledIds": [
+            "@4",
+            "@1"
+          ],
+          "dist": {},
+          "relaxFrom": "@5",
+          "relaxTo": "@4",
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 2 · E：(0.89 + 0.82 + 0.97) ÷ 3 = 0.89"
+        }
+      ],
+      "intent": {
+        "why": "消息传递：邻居把特征'寄'过来，平均后更新——一层 = 看一眼邻域",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "两轮之后：知道邻居的邻居——层数 k = 感受野半径 k 跳"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "全体"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "0.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=0.97 B=0.99 C=0.91 D=0.82 E=0.89"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=0.97",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=0.99",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=0.91",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.82",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=0.89",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 2 轮结束：A=0.97 B=0.99 C=0.91 D=0.82 E=0.89"
+        }
+      ],
+      "intent": {
+        "why": "两轮之后：知道邻居的邻居——层数 k = 感受野半径 k 跳",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "应用：社交网络推荐、分子性质预测（药物）、知识图谱——凡是'关系'数据都归 GNN 管"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "gnn",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "节点": {
+                  "kind": "PRIM",
+                  "text": "全体"
+                },
+                "特征": {
+                  "kind": "PRIM",
+                  "text": "0.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "gnn",
+                "type": "GnnState",
+                "fields": {
+                  "特征": {
+                    "kind": "PRIM",
+                    "text": "A=0.97 B=0.99 C=0.91 D=0.82 E=0.89"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "GNN 消息传递",
+          "vertices": [
+            {
+              "nodeId": "@1",
+              "label": "A=0.97",
+              "x": 0.2,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@2",
+              "label": "B=0.99",
+              "x": 0.38,
+              "y": 0.16
+            },
+            {
+              "nodeId": "@3",
+              "label": "C=0.91",
+              "x": 0.38,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@4",
+              "label": "D=0.82",
+              "x": 0.68,
+              "y": 0.82
+            },
+            {
+              "nodeId": "@5",
+              "label": "E=0.89",
+              "x": 0.72,
+              "y": 0.18
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@1",
+              "toId": "@2",
+              "weight": 1
+            },
+            {
+              "fromId": "@2",
+              "toId": "@3",
+              "weight": 1
+            },
+            {
+              "fromId": "@3",
+              "toId": "@4",
+              "weight": 1
+            },
+            {
+              "fromId": "@4",
+              "toId": "@5",
+              "weight": 1
+            },
+            {
+              "fromId": "@5",
+              "toId": "@1",
+              "weight": 1
+            },
+            {
+              "fromId": "@1",
+              "toId": "@3",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "GCN 公式：H' = Â·H·W——A 加自环归一化，W 可学习；多层堆叠即深度的'图卷积'"
+        }
+      ],
+      "intent": {
+        "why": "应用：社交网络推荐、分子性质预测（药物）、知识图谱——凡是'关系'数据都归 GNN 管",
+        "invariant": "h'_v = mean(h_v ∪ 邻居的 h)——消息传递让每个节点'知道'自己的邻域；层数 = 信息传播半径"
+      }
+    }
+  ]
+}

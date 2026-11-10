@@ -1,0 +1,791 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dl.attention",
+    "title": "Transformer 自注意力",
+    "codeResource": "/code/AttentionDemo.java",
+    "input": "3 词元 d=2",
+    "inputSize": 3
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "自注意力 = 序列内部互相'打量'：我是猫，动词和地点各该关注多少？"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "attention",
+              "locals": {
+                "查询行": {
+                  "kind": "PRIM",
+                  "text": "全部"
+                },
+                "权重行": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "attention",
+                "type": "SelfAttention",
+                "fields": {
+                  "词元": {
+                    "kind": "PRIM",
+                    "text": "猫 / 坐 / 垫"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "2（缩放 √2）"
+                  },
+                  "权重行 1": {
+                    "kind": "PRIM",
+                    "text": "[0.00, 0.00, 0.00]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "自注意力",
+          "grids": [
+            {
+              "id": "emb",
+              "label": "嵌入（猫/坐/垫 × d=2）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1.0",
+                "0.0",
+                "0.0",
+                "1.0",
+                "1.0",
+                "1.0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "attn",
+              "label": "注意力权重（行=查询 猫/坐/垫）",
+              "rows": 3,
+              "cols": 3,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            },
+            {
+              "id": "out",
+              "label": "输出（加权和）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "词元 猫/坐/垫，嵌入 d=2（W_q=W_k=W_v=I 简化）——每个词既当查询又当键值"
+        }
+      ],
+      "intent": {
+        "why": "自注意力 = 序列内部互相'打量'：我是猫，动词和地点各该关注多少？",
+        "invariant": "每个词元用 q 查询所有 k，softmax 打分后加权求和 v——'关注谁、关注多少'由数据自己算出来"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "softmax = '归一化 + 放大差距'：得分高的词被更多关注"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "attention",
+              "locals": {
+                "查询行": {
+                  "kind": "PRIM",
+                  "text": "猫"
+                },
+                "权重行": {
+                  "kind": "PRIM",
+                  "text": "[0.40, 0.20, 0.40]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "attention",
+                "type": "SelfAttention",
+                "fields": {
+                  "词元": {
+                    "kind": "PRIM",
+                    "text": "猫 / 坐 / 垫"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "2（缩放 √2）"
+                  },
+                  "权重行 1": {
+                    "kind": "PRIM",
+                    "text": "[0.40, 0.20, 0.40]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "自注意力",
+          "grids": [
+            {
+              "id": "emb",
+              "label": "嵌入（猫/坐/垫 × d=2）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1.0",
+                "0.0",
+                "0.0",
+                "1.0",
+                "1.0",
+                "1.0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "attn",
+              "label": "注意力权重（行=查询 猫/坐/垫）",
+              "rows": 3,
+              "cols": 3,
+              "values": [
+                "0.40",
+                "0.20",
+                "0.40",
+                "?",
+                "?",
+                "?",
+                "?",
+                "?",
+                "?"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "out",
+              "label": "输出（加权和）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "0.80",
+                "0.60",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "W1"
+          ],
+          "detail": "查询[猫]：得分/√2 = [0.71, 0.00, 0.71] → softmax → [0.40, 0.20, 0.40]"
+        }
+      ],
+      "intent": {
+        "why": "softmax = '归一化 + 放大差距'：得分高的词被更多关注",
+        "invariant": "每个词元用 q 查询所有 k，softmax 打分后加权求和 v——'关注谁、关注多少'由数据自己算出来"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "softmax = '归一化 + 放大差距'：得分高的词被更多关注"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "attention",
+              "locals": {
+                "查询行": {
+                  "kind": "PRIM",
+                  "text": "坐"
+                },
+                "权重行": {
+                  "kind": "PRIM",
+                  "text": "[0.20, 0.40, 0.40]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "attention",
+                "type": "SelfAttention",
+                "fields": {
+                  "词元": {
+                    "kind": "PRIM",
+                    "text": "猫 / 坐 / 垫"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "2（缩放 √2）"
+                  },
+                  "权重行 1": {
+                    "kind": "PRIM",
+                    "text": "[0.40, 0.20, 0.40]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "自注意力",
+          "grids": [
+            {
+              "id": "emb",
+              "label": "嵌入（猫/坐/垫 × d=2）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1.0",
+                "0.0",
+                "0.0",
+                "1.0",
+                "1.0",
+                "1.0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "attn",
+              "label": "注意力权重（行=查询 猫/坐/垫）",
+              "rows": 3,
+              "cols": 3,
+              "values": [
+                "0.40",
+                "0.20",
+                "0.40",
+                "0.20",
+                "0.40",
+                "0.40",
+                "?",
+                "?",
+                "?"
+              ],
+              "activeCells": [
+                3,
+                4,
+                5
+              ],
+              "doneCells": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "id": "out",
+              "label": "输出（加权和）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "0.80",
+                "0.60",
+                "0.60",
+                "0.80",
+                "0.00",
+                "0.00"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "W2"
+          ],
+          "detail": "查询[坐]：得分/√2 = [0.00, 0.71, 0.71] → softmax → [0.20, 0.40, 0.40]"
+        }
+      ],
+      "intent": {
+        "why": "softmax = '归一化 + 放大差距'：得分高的词被更多关注",
+        "invariant": "每个词元用 q 查询所有 k，softmax 打分后加权求和 v——'关注谁、关注多少'由数据自己算出来"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "softmax = '归一化 + 放大差距'：得分高的词被更多关注"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "attention",
+              "locals": {
+                "查询行": {
+                  "kind": "PRIM",
+                  "text": "垫"
+                },
+                "权重行": {
+                  "kind": "PRIM",
+                  "text": "[0.25, 0.25, 0.50]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "attention",
+                "type": "SelfAttention",
+                "fields": {
+                  "词元": {
+                    "kind": "PRIM",
+                    "text": "猫 / 坐 / 垫"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "2（缩放 √2）"
+                  },
+                  "权重行 1": {
+                    "kind": "PRIM",
+                    "text": "[0.40, 0.20, 0.40]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "自注意力",
+          "grids": [
+            {
+              "id": "emb",
+              "label": "嵌入（猫/坐/垫 × d=2）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1.0",
+                "0.0",
+                "0.0",
+                "1.0",
+                "1.0",
+                "1.0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "attn",
+              "label": "注意力权重（行=查询 猫/坐/垫）",
+              "rows": 3,
+              "cols": 3,
+              "values": [
+                "0.40",
+                "0.20",
+                "0.40",
+                "0.20",
+                "0.40",
+                "0.40",
+                "0.25",
+                "0.25",
+                "0.50"
+              ],
+              "activeCells": [
+                6,
+                7,
+                8
+              ],
+              "doneCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "id": "out",
+              "label": "输出（加权和）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "0.80",
+                "0.60",
+                "0.60",
+                "0.80",
+                "0.75",
+                "0.75"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "W3"
+          ],
+          "detail": "查询[垫]：得分/√2 = [0.71, 0.71, 1.41] → softmax → [0.25, 0.25, 0.50]"
+        }
+      ],
+      "intent": {
+        "why": "softmax = '归一化 + 放大差距'：得分高的词被更多关注",
+        "invariant": "每个词元用 q 查询所有 k，softmax 打分后加权求和 v——'关注谁、关注多少'由数据自己算出来"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "注意力的本质：每个位置的表示 = 全序列的加权混合——信息在词之间流动"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "attention",
+              "locals": {
+                "查询行": {
+                  "kind": "PRIM",
+                  "text": "全部"
+                },
+                "权重行": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "attention",
+                "type": "SelfAttention",
+                "fields": {
+                  "词元": {
+                    "kind": "PRIM",
+                    "text": "猫 / 坐 / 垫"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "2（缩放 √2）"
+                  },
+                  "权重行 1": {
+                    "kind": "PRIM",
+                    "text": "[0.40, 0.20, 0.40]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "自注意力",
+          "grids": [
+            {
+              "id": "emb",
+              "label": "嵌入（猫/坐/垫 × d=2）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1.0",
+                "0.0",
+                "0.0",
+                "1.0",
+                "1.0",
+                "1.0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "attn",
+              "label": "注意力权重（行=查询 猫/坐/垫）",
+              "rows": 3,
+              "cols": 3,
+              "values": [
+                "0.40",
+                "0.20",
+                "0.40",
+                "0.20",
+                "0.40",
+                "0.40",
+                "0.25",
+                "0.25",
+                "0.50"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            },
+            {
+              "id": "out",
+              "label": "输出（加权和）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "0.80",
+                "0.60",
+                "0.60",
+                "0.80",
+                "0.75",
+                "0.75"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "输出[猫] = 0.40·猫 + 0.20·坐 + 0.40·垫 = (0.80, 0.60)——'猫'已经吸收了上下文"
+        }
+      ],
+      "intent": {
+        "why": "注意力的本质：每个位置的表示 = 全序列的加权混合——信息在词之间流动",
+        "invariant": "每个词元用 q 查询所有 k，softmax 打分后加权求和 v——'关注谁、关注多少'由数据自己算出来"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "'Attention Is All You Need'（2017）：抛弃循环与卷积，只靠注意力——GPT/BERT 的地基"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "attention",
+              "locals": {
+                "查询行": {
+                  "kind": "PRIM",
+                  "text": "全部"
+                },
+                "权重行": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "attention",
+                "type": "SelfAttention",
+                "fields": {
+                  "词元": {
+                    "kind": "PRIM",
+                    "text": "猫 / 坐 / 垫"
+                  },
+                  "d": {
+                    "kind": "PRIM",
+                    "text": "2（缩放 √2）"
+                  },
+                  "权重行 1": {
+                    "kind": "PRIM",
+                    "text": "[0.40, 0.20, 0.40]"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "自注意力",
+          "grids": [
+            {
+              "id": "emb",
+              "label": "嵌入（猫/坐/垫 × d=2）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1.0",
+                "0.0",
+                "0.0",
+                "1.0",
+                "1.0",
+                "1.0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "attn",
+              "label": "注意力权重（行=查询 猫/坐/垫）",
+              "rows": 3,
+              "cols": 3,
+              "values": [
+                "0.40",
+                "0.20",
+                "0.40",
+                "0.20",
+                "0.40",
+                "0.40",
+                "0.25",
+                "0.25",
+                "0.50"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            },
+            {
+              "id": "out",
+              "label": "输出（加权和）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "0.80",
+                "0.60",
+                "0.60",
+                "0.80",
+                "0.75",
+                "0.75"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "多头 = 并行多组 Q/K/V 各看各的角度；位置编码补上语序；堆叠 N 层 = Transformer"
+        }
+      ],
+      "intent": {
+        "why": "'Attention Is All You Need'（2017）：抛弃循环与卷积，只靠注意力——GPT/BERT 的地基",
+        "invariant": "每个词元用 q 查询所有 k，softmax 打分后加权求和 v——'关注谁、关注多少'由数据自己算出来"
+      }
+    }
+  ]
+}

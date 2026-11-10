@@ -94,6 +94,13 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"math_fibmatrix", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FibMatrixDemo::new},
                 new Object[]{"math_dicebell", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.DiceBellDemo::new},
                 new Object[]{"math_gambler", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GamblersRuinDemo::new},
+                // ---- 第十六批：傅里叶 + 深度学习五连 ----
+                new Object[]{"math_fourier", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FourierDemo::new},
+                new Object[]{"dl_cnn", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.CnnDemo::new},
+                new Object[]{"dl_rnn", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.RnnDemo::new},
+                new Object[]{"dl_gnn", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.GnnDemo::new},
+                new Object[]{"dl_gan", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.GanDemo::new},
+                new Object[]{"dl_attention", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.AttentionDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -439,6 +446,44 @@ class AlgorithmBatchTraceTest {
         assertTrue2(dup, "应检测到 700 重复");
         // 终局：4 桶 + 数据条 共 5 个网格
         assertEquals(5, steps.get(steps.size() - 1).math().grids().size(), "data + 4 桶");
+    }
+
+    /** 行为：傅里叶+深度学习六连——频谱双峰/边缘检测/tanh滚动/消息传递/收敛均衡/注意力权重。 */
+    @org.junit.jupiter.api.Test
+    void fourierAndDeepLearningBehave() throws Exception {
+        // 傅里叶：频谱格 3 = 1.0、7 = 0.5（格值 1 位小数）
+        var ft = new com.algoviz.engine.math.FourierDemo().produce().steps();
+        var ftGrid = ft.get(ft.size() - 1).math().grids().get(0);
+        assertEquals("1.0", ftGrid.value(0, 3), "频率 3 幅度 1.0");
+        assertEquals("0.5", ftGrid.value(0, 7), "频率 7 幅度 0.5");
+        // CNN：池化终局 = [[0,12],[0,0]]（垂直边缘检测）
+        var cnn = new com.algoviz.engine.dl.CnnDemo().produce().steps();
+        var cnnGrids = cnn.get(cnn.size() - 1).math().grids();
+        var pool = cnnGrids.stream().filter(g -> g.id().equals("pool")).findFirst().orElseThrow();
+        assertEquals("12", pool.value(0, 1), "边缘列池化后 = 12");
+        assertEquals("12", pool.value(0, 0), "边缘跨两列 → 池化后仍保留（平移容忍的例证）");
+        // RNN：h₅ = tanh(0.8·h₄) ≈ 0.66
+        var rn = new com.algoviz.engine.dl.RnnDemo().produce().steps();
+        var rnGrid = rn.get(rn.size() - 3).math().grids().get(0);   // 最后一个时间步（MARK 步 curT=-1 全是 ?）
+        double h5 = Double.parseDouble(rnGrid.value(4, 2));
+        assertEquals(0.63, h5, 0.005, "终态 h₅ = tanh(0.8·0.94) ≈ 0.63");
+        // GNN：两轮后特征均收敛在 0.6~1.0 区间（过平滑前夜）
+        var gn = new com.algoviz.engine.dl.GnnDemo().produce().steps();
+        var gnVertex = gn.get(gn.size() - 2).graph().vertices().get(0).label();   // "A=0.85"
+        double a2 = Double.parseDouble(gnVertex.split("=")[1]);
+        assertTrue2(a2 > 0.5 && a2 < 1.1, "两轮后 A 特征应被邻域拉平，实际 " + a2);
+        // GAN：终局 D 准确率 ≈ 0.52（接近瞎猜）
+        var gan = new com.algoviz.engine.dl.GanDemo().produce().steps();
+        var ganFields = gan.get(gan.size() - 2).heap().heap().objects().get("@1").fields();
+        double acc = Double.parseDouble(ganFields.get("D 准确率").text());
+        assertEquals(0.52, acc, 1e-9, "终局 D 准确率 0.52");
+        // 注意力：权重行 1 = [0.40, 0.20, 0.40]（softmax 后）
+        var at = new com.algoviz.engine.dl.AttentionDemo().produce().steps();
+        var atGrid = at.get(at.size() - 2).math().grids().stream()
+                .filter(g -> g.id().equals("attn")).findFirst().orElseThrow();
+        assertEquals("0.40", atGrid.value(0, 0), "猫→猫 权重 0.40");
+        assertEquals("0.20", atGrid.value(0, 1), "猫→坐 权重 0.20");
+        assertEquals("0.40", atGrid.value(0, 2), "猫→垫 权重 0.40");
     }
 
     /** 行为：数学第九连——矩阵幂得 F(32) / 骰子钟形 11 条 / 游走暴富。 */

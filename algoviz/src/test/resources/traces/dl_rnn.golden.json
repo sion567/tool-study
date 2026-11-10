@@ -1,0 +1,887 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dl.rnn",
+    "title": "RNN 循环神经网络",
+    "codeResource": "/code/RnnDemo.java",
+    "input": "5 步",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "RNN 与前馈网络的区别：'循环'——上一步的输出 h 是这一步的输入之一"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "rnn",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "RnnCell",
+                "fields": {
+                  "w_x / w_h": {
+                    "kind": "PRIM",
+                    "text": "1.0 / 0.8"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RNN",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → h 滚动）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "1",
+                "h1",
+                "?",
+                "0",
+                "h2",
+                "?",
+                "1",
+                "h3",
+                "?",
+                "1",
+                "h4",
+                "?",
+                "0",
+                "h5",
+                "?"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "weights",
+              "label": "权重（所有时间步共享）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "w_x=1.0",
+                "w_h=0.8"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "权重 w_x=1, w_h=0.8；h₀ = 0——同一个细胞将滚动 5 个时间步"
+        }
+      ],
+      "intent": {
+        "why": "RNN 与前馈网络的区别：'循环'——上一步的输出 h 是这一步的输入之一",
+        "invariant": "h_t = tanh(w_x·x_t + w_h·h_{t-1})：同一组权重复用每个时间步——序列信息被压缩进不断更新的 h"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "h 既是输出也是下一步的'记忆'——序列被逐步压缩"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "rnn",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0.76"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "RnnCell",
+                "fields": {
+                  "w_x / w_h": {
+                    "kind": "PRIM",
+                    "text": "1.0 / 0.8"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0.76"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RNN",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → h 滚动）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "1",
+                "h1",
+                "0.76",
+                "0",
+                "h2",
+                "?",
+                "1",
+                "h3",
+                "?",
+                "1",
+                "h4",
+                "?",
+                "0",
+                "h5",
+                "?"
+              ],
+              "hlRow": 0,
+              "activeCells": [
+                0,
+                1,
+                2
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "weights",
+              "label": "权重（所有时间步共享）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "w_x=1.0",
+                "w_h=0.8"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "T1"
+          ],
+          "detail": "t=0：x=1 → h1 = tanh(1.00 + 0.80·0.00) = 0.76"
+        }
+      ],
+      "intent": {
+        "why": "h 既是输出也是下一步的'记忆'——序列被逐步压缩",
+        "invariant": "h_t = tanh(w_x·x_t + w_h·h_{t-1})：同一组权重复用每个时间步——序列信息被压缩进不断更新的 h"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "h 既是输出也是下一步的'记忆'——序列被逐步压缩"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "rnn",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0.54"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "RnnCell",
+                "fields": {
+                  "w_x / w_h": {
+                    "kind": "PRIM",
+                    "text": "1.0 / 0.8"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0.54"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RNN",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → h 滚动）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "1",
+                "h1",
+                "0.76",
+                "0",
+                "h2",
+                "0.54",
+                "1",
+                "h3",
+                "?",
+                "1",
+                "h4",
+                "?",
+                "0",
+                "h5",
+                "?"
+              ],
+              "hlRow": 1,
+              "activeCells": [
+                3,
+                4,
+                5
+              ],
+              "doneCells": [
+                0,
+                2
+              ]
+            },
+            {
+              "id": "weights",
+              "label": "权重（所有时间步共享）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "w_x=1.0",
+                "w_h=0.8"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "T2"
+          ],
+          "detail": "t=1：x=0 → h2 = tanh(0.00 + 0.80·0.76) = 0.54"
+        }
+      ],
+      "intent": {
+        "why": "h 既是输出也是下一步的'记忆'——序列被逐步压缩",
+        "invariant": "h_t = tanh(w_x·x_t + w_h·h_{t-1})：同一组权重复用每个时间步——序列信息被压缩进不断更新的 h"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "h 既是输出也是下一步的'记忆'——序列被逐步压缩"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "rnn",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0.89"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "RnnCell",
+                "fields": {
+                  "w_x / w_h": {
+                    "kind": "PRIM",
+                    "text": "1.0 / 0.8"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0.89"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RNN",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → h 滚动）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "1",
+                "h1",
+                "0.76",
+                "0",
+                "h2",
+                "0.54",
+                "1",
+                "h3",
+                "0.89",
+                "1",
+                "h4",
+                "?",
+                "0",
+                "h5",
+                "?"
+              ],
+              "hlRow": 2,
+              "activeCells": [
+                6,
+                7,
+                8
+              ],
+              "doneCells": [
+                0,
+                2,
+                3,
+                5
+              ]
+            },
+            {
+              "id": "weights",
+              "label": "权重（所有时间步共享）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "w_x=1.0",
+                "w_h=0.8"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "T3"
+          ],
+          "detail": "t=2：x=1 → h3 = tanh(1.00 + 0.80·0.54) = 0.89"
+        }
+      ],
+      "intent": {
+        "why": "h 既是输出也是下一步的'记忆'——序列被逐步压缩",
+        "invariant": "h_t = tanh(w_x·x_t + w_h·h_{t-1})：同一组权重复用每个时间步——序列信息被压缩进不断更新的 h"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "h 既是输出也是下一步的'记忆'——序列被逐步压缩"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "rnn",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0.94"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "RnnCell",
+                "fields": {
+                  "w_x / w_h": {
+                    "kind": "PRIM",
+                    "text": "1.0 / 0.8"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0.94"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RNN",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → h 滚动）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "1",
+                "h1",
+                "0.76",
+                "0",
+                "h2",
+                "0.54",
+                "1",
+                "h3",
+                "0.89",
+                "1",
+                "h4",
+                "0.94",
+                "0",
+                "h5",
+                "?"
+              ],
+              "hlRow": 3,
+              "activeCells": [
+                9,
+                10,
+                11
+              ],
+              "doneCells": [
+                0,
+                2,
+                3,
+                5,
+                6,
+                8
+              ]
+            },
+            {
+              "id": "weights",
+              "label": "权重（所有时间步共享）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "w_x=1.0",
+                "w_h=0.8"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "T4"
+          ],
+          "detail": "t=3：x=1 → h4 = tanh(1.00 + 0.80·0.89) = 0.94"
+        }
+      ],
+      "intent": {
+        "why": "h 既是输出也是下一步的'记忆'——序列被逐步压缩",
+        "invariant": "h_t = tanh(w_x·x_t + w_h·h_{t-1})：同一组权重复用每个时间步——序列信息被压缩进不断更新的 h"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "h₅ = 0.63：整条序列被压缩成一个向量——它可以直接接分类器"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "rnn",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0.63"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "RnnCell",
+                "fields": {
+                  "w_x / w_h": {
+                    "kind": "PRIM",
+                    "text": "1.0 / 0.8"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0.63"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RNN",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → h 滚动）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "1",
+                "h1",
+                "0.76",
+                "0",
+                "h2",
+                "0.54",
+                "1",
+                "h3",
+                "0.89",
+                "1",
+                "h4",
+                "0.94",
+                "0",
+                "h5",
+                "0.63"
+              ],
+              "hlRow": 4,
+              "activeCells": [
+                12,
+                13,
+                14
+              ],
+              "doneCells": [
+                0,
+                2,
+                3,
+                5,
+                6,
+                8,
+                9,
+                11
+              ]
+            },
+            {
+              "id": "weights",
+              "label": "权重（所有时间步共享）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "w_x=1.0",
+                "w_h=0.8"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "T5"
+          ],
+          "detail": "t=4：x=0 → h5 = tanh(0.00 + 0.80·0.94) = 0.63"
+        }
+      ],
+      "intent": {
+        "why": "h₅ = 0.63：整条序列被压缩成一个向量——它可以直接接分类器",
+        "invariant": "h_t = tanh(w_x·x_t + w_h·h_{t-1})：同一组权重复用每个时间步——序列信息被压缩进不断更新的 h"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "h₅ 对 h₁ 的梯度 ∝ w_h⁴ = 0.41——序列越长衰减越狠，这就是 LSTM/GRU 诞生的原因"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "rnn",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "RnnCell",
+                "fields": {
+                  "w_x / w_h": {
+                    "kind": "PRIM",
+                    "text": "1.0 / 0.8"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RNN",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → h 滚动）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "1",
+                "h1",
+                "?",
+                "0",
+                "h2",
+                "?",
+                "1",
+                "h3",
+                "?",
+                "1",
+                "h4",
+                "?",
+                "0",
+                "h5",
+                "?"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "weights",
+              "label": "权重（所有时间步共享）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "w_x=1.0",
+                "w_h=0.8"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "训练：沿时间展开后反向传播（BPTT）——梯度连乘 w_h 导致消失/爆炸"
+        }
+      ],
+      "intent": {
+        "why": "h₅ 对 h₁ 的梯度 ∝ w_h⁴ = 0.41——序列越长衰减越狠，这就是 LSTM/GRU 诞生的原因",
+        "invariant": "h_t = tanh(w_x·x_t + w_h·h_{t-1})：同一组权重复用每个时间步——序列信息被压缩进不断更新的 h"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "RNN 教会了世界'用隐藏状态处理序列'——这个思想被 Transformer 继承并发扬"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "rnn",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "RnnCell",
+                "fields": {
+                  "w_x / w_h": {
+                    "kind": "PRIM",
+                    "text": "1.0 / 0.8"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "RNN",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → h 滚动）",
+              "rows": 5,
+              "cols": 3,
+              "values": [
+                "1",
+                "h1",
+                "?",
+                "0",
+                "h2",
+                "?",
+                "1",
+                "h3",
+                "?",
+                "1",
+                "h4",
+                "?",
+                "0",
+                "h5",
+                "?"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "weights",
+              "label": "权重（所有时间步共享）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "w_x=1.0",
+                "w_h=0.8"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "RNN 的两个变体：LSTM 用门控保住长期记忆；GRU 是简化版——Transformer 后来用注意力另起炉灶"
+        }
+      ],
+      "intent": {
+        "why": "RNN 教会了世界'用隐藏状态处理序列'——这个思想被 Transformer 继承并发扬",
+        "invariant": "h_t = tanh(w_x·x_t + w_h·h_{t-1})：同一组权重复用每个时间步——序列信息被压缩进不断更新的 h"
+      }
+    }
+  ]
+}
