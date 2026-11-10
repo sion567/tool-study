@@ -86,6 +86,10 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"math_goldenspiral", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GoldenSpiralDemo::new},
                 new Object[]{"math_rose", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.RoseCurveGalleryDemo::new},
                 new Object[]{"math_rotation", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.Rotation2DDemo::new},
+                // ---- 第十四批：钟摆/二分法/复利与 e ----
+                new Object[]{"math_pendulum", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.PendulumDemo::new},
+                new Object[]{"math_bisection", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BisectionDemo::new},
+                new Object[]{"math_compound", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.CompoundInterestDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -431,6 +435,29 @@ class AlgorithmBatchTraceTest {
         assertTrue2(dup, "应检测到 700 重复");
         // 终局：4 桶 + 数据条 共 5 个网格
         assertEquals(5, steps.get(steps.size() - 1).math().grids().size(), "data + 4 桶");
+    }
+
+    /** 行为：数学第八连——钟摆 T/2 反相 / 二分夹根 / 复利逼近 e。 */
+    @org.junit.jupiter.api.Test
+    void mathEightBehave() throws Exception {
+        // 钟摆：t = T/2 时刻 θ = −θ₀（反相）
+        var pd = new com.algoviz.engine.math.PendulumDemo().produce().steps();
+        var pdFields = pd.get(7).heap().heap().objects().get("@1").fields();
+        double thetaAtHalfT = Double.parseDouble(pdFields.get("当前 θ").text().replace("°", ""));
+        assertEquals(-30.0, thetaAtHalfT, 1.0, "半周期处摆到另一侧 −30°（小角度近似）");
+        // 二分法：区间宽 < 0.002，根估计 ≈ 1.5214
+        var bi = new com.algoviz.engine.math.BisectionDemo().produce().steps();
+        var biFields = bi.get(bi.size() - 1).heap().heap().objects().get("@1").fields();
+        double width = Double.parseDouble(biFields.get("区间宽").text());
+        assertTrue2(width < 0.002, "10 步后区间宽 = 1/1024 ≈ 0.00098，实际 " + width);
+        double root = Double.parseDouble(biFields.get("根估计").text());
+        assertEquals(1.5213797, root, 0.002, "根 ≈ 1.5214");
+        // 复利：n=128 终值介于 2.7 与 e 之间，且单调逼近
+        var ci = new com.algoviz.engine.math.CompoundInterestDemo().produce().steps();
+        var ciFields = ci.get(ci.size() - 3).heap().heap().objects().get("@1").fields();
+        double val128 = Double.parseDouble(ciFields.get("终值").text());
+        assertEquals(Math.E, val128, 0.02, "(1+1/128)^128 与 e 差 ≈ 0.0106");
+        assertTrue2(val128 < Math.E, "从下方逼近 e");
     }
 
     /** 行为：数学第七连——比值收敛 φ / 玫瑰三展 / 180° 旋转。 */

@@ -386,6 +386,19 @@ public final class PlotRenderer {
             }
         }
 
+        // 参考线（绿虚线，如复利 demo 的 y=e 极限线）
+        if (pv.cosineTrace().size() >= 2) {
+            g.setStroke(Color.web("#16a34a"));
+            g.setLineWidth(1.5);
+            g.setLineDashes(5, 4);
+            var ln = pv.cosineTrace();
+            for (int i = 1; i < ln.size(); i++) {
+                g.strokeLine(sx.applyAsDouble(ln.get(i - 1).get(0)), sy.applyAsDouble(ln.get(i - 1).get(1)),
+                        sx.applyAsDouble(ln.get(i).get(0)), sy.applyAsDouble(ln.get(i).get(1)));
+            }
+            g.setLineDashes();
+        }
+
         // 当前动点（橙）
         double cx = sx.applyAsDouble(pv.pointX()), cy = sy.applyAsDouble(pv.pointY());
         g.setFill(Color.web("#ea580c"));
