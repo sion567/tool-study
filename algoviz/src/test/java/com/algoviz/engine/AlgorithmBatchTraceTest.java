@@ -90,6 +90,10 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"math_pendulum", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.PendulumDemo::new},
                 new Object[]{"math_bisection", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BisectionDemo::new},
                 new Object[]{"math_compound", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.CompoundInterestDemo::new},
+                // ---- 第十五批：矩阵幂/骰子钟形/赌徒破产 ----
+                new Object[]{"math_fibmatrix", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FibMatrixDemo::new},
+                new Object[]{"math_dicebell", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.DiceBellDemo::new},
+                new Object[]{"math_gambler", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GamblersRuinDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -435,6 +439,25 @@ class AlgorithmBatchTraceTest {
         assertTrue2(dup, "应检测到 700 重复");
         // 终局：4 桶 + 数据条 共 5 个网格
         assertEquals(5, steps.get(steps.size() - 1).math().grids().size(), "data + 4 桶");
+    }
+
+    /** 行为：数学第九连——矩阵幂得 F(32) / 骰子钟形 11 条 / 游走暴富。 */
+    @org.junit.jupiter.api.Test
+    void mathNineBehave() throws Exception {
+        // 矩阵幂：M^32 右上角 = F(32) = 2178309
+        var fm = new com.algoviz.engine.math.FibMatrixDemo().produce().steps();
+        var fmGrid = fm.get(fm.size() - 2).math().grids().get(0);
+        assertEquals("2178309", fmGrid.value(0, 1), "M^32 右上角 = F(32)");
+        // 骰子：两枚之和 11 条柱，最高 6（P(7)=6/36）
+        var db = new com.algoviz.engine.math.DiceBellDemo().produce().steps();
+        var dbGrids = db.get(db.size() - 1).math().grids();
+        assertEquals(11, dbGrids.get(0).values().size(), "两枚之和 2..12 共 11 档");
+        assertTrue2(dbGrids.get(0).values().contains("6"), "最高柱 = 6 种组合");
+        // 赌徒：种子 42 在第 1194 步暴富
+        var gr = new com.algoviz.engine.math.GamblersRuinDemo().produce().steps();
+        var grFields = gr.get(gr.size() - 2).heap().heap().objects().get("@1").fields();
+        assertEquals("暴富（达到 100）", grFields.get("结局").text(), "种子 42 → 第 1194 步暴富");
+        assertEquals("1194", grFields.get("局数").text(), "局数应为 1194");
     }
 
     /** 行为：数学第八连——钟摆 T/2 反相 / 二分夹根 / 复利逼近 e。 */

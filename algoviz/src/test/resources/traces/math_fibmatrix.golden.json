@@ -1,0 +1,692 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "math.fibmatrix",
+    "title": "斐波那契×矩阵幂",
+    "codeResource": "/code/FibMatrixDemo.java",
+    "input": "M^32",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "神奇的对应：Mⁿ = [[F(n+1),F(n)],[F(n),F(n−1)]]——矩阵乘法天然生成斐波那契"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fibMatrix",
+              "locals": {
+                "指数": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "F(n) = Mⁿ 右上角": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "matrix",
+                "type": "FibMatrix",
+                "fields": {
+                  "指数 n": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "F(n)": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "乘法次数": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "斐波那契矩阵",
+          "grids": [
+            {
+              "id": "m",
+              "label": "M^1（右上角 = F(1)）",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "M = [[1,1],[1,0]]，M¹ 右上角 = 1 = F(1)"
+        }
+      ],
+      "intent": {
+        "why": "神奇的对应：Mⁿ = [[F(n+1),F(n)],[F(n),F(n−1)]]——矩阵乘法天然生成斐波那契",
+        "invariant": "Mⁿ 的右上角 = F(n)（M=[[1,1],[1,0]]）——平方一次指数翻倍，F(2¹⁰⁰) 也只需 100 次矩阵乘"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "平方一次 = 指数翻倍——这就是快速幂 O(log n) 的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fibMatrix",
+              "locals": {
+                "指数": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "F(n) = Mⁿ 右上角": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "matrix",
+                "type": "FibMatrix",
+                "fields": {
+                  "指数 n": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "F(n)": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "乘法次数": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "斐波那契矩阵",
+          "grids": [
+            {
+              "id": "m",
+              "label": "M^2（右上角 = F(2)）",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "2",
+                "1",
+                "1",
+                "1"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "M^2 = M^1 · M^1 → F(2) = 1"
+        }
+      ],
+      "intent": {
+        "why": "平方一次 = 指数翻倍——这就是快速幂 O(log n) 的全部秘密",
+        "invariant": "Mⁿ 的右上角 = F(n)（M=[[1,1],[1,0]]）——平方一次指数翻倍，F(2¹⁰⁰) 也只需 100 次矩阵乘"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "平方一次 = 指数翻倍——这就是快速幂 O(log n) 的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fibMatrix",
+              "locals": {
+                "指数": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "F(n) = Mⁿ 右上角": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "matrix",
+                "type": "FibMatrix",
+                "fields": {
+                  "指数 n": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "F(n)": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "乘法次数": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "斐波那契矩阵",
+          "grids": [
+            {
+              "id": "m",
+              "label": "M^4（右上角 = F(4)）",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "5",
+                "3",
+                "3",
+                "2"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "M^4 = M^2 · M^2 → F(4) = 3"
+        }
+      ],
+      "intent": {
+        "why": "平方一次 = 指数翻倍——这就是快速幂 O(log n) 的全部秘密",
+        "invariant": "Mⁿ 的右上角 = F(n)（M=[[1,1],[1,0]]）——平方一次指数翻倍，F(2¹⁰⁰) 也只需 100 次矩阵乘"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "平方一次 = 指数翻倍——这就是快速幂 O(log n) 的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fibMatrix",
+              "locals": {
+                "指数": {
+                  "kind": "PRIM",
+                  "text": "8"
+                },
+                "F(n) = Mⁿ 右上角": {
+                  "kind": "PRIM",
+                  "text": "21"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "matrix",
+                "type": "FibMatrix",
+                "fields": {
+                  "指数 n": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "F(n)": {
+                    "kind": "PRIM",
+                    "text": "21"
+                  },
+                  "乘法次数": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "斐波那契矩阵",
+          "grids": [
+            {
+              "id": "m",
+              "label": "M^8（右上角 = F(8)）",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "34",
+                "21",
+                "21",
+                "13"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "M^8 = M^4 · M^4 → F(8) = 21"
+        }
+      ],
+      "intent": {
+        "why": "平方一次 = 指数翻倍——这就是快速幂 O(log n) 的全部秘密",
+        "invariant": "Mⁿ 的右上角 = F(n)（M=[[1,1],[1,0]]）——平方一次指数翻倍，F(2¹⁰⁰) 也只需 100 次矩阵乘"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "平方一次 = 指数翻倍——这就是快速幂 O(log n) 的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fibMatrix",
+              "locals": {
+                "指数": {
+                  "kind": "PRIM",
+                  "text": "16"
+                },
+                "F(n) = Mⁿ 右上角": {
+                  "kind": "PRIM",
+                  "text": "987"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "matrix",
+                "type": "FibMatrix",
+                "fields": {
+                  "指数 n": {
+                    "kind": "PRIM",
+                    "text": "16"
+                  },
+                  "F(n)": {
+                    "kind": "PRIM",
+                    "text": "987"
+                  },
+                  "乘法次数": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "斐波那契矩阵",
+          "grids": [
+            {
+              "id": "m",
+              "label": "M^16（右上角 = F(16)）",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "1597",
+                "987",
+                "987",
+                "610"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "M^16 = M^8 · M^8 → F(16) = 987"
+        }
+      ],
+      "intent": {
+        "why": "平方一次 = 指数翻倍——这就是快速幂 O(log n) 的全部秘密",
+        "invariant": "Mⁿ 的右上角 = F(n)（M=[[1,1],[1,0]]）——平方一次指数翻倍，F(2¹⁰⁰) 也只需 100 次矩阵乘"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "平方一次 = 指数翻倍——这就是快速幂 O(log n) 的全部秘密"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fibMatrix",
+              "locals": {
+                "指数": {
+                  "kind": "PRIM",
+                  "text": "32"
+                },
+                "F(n) = Mⁿ 右上角": {
+                  "kind": "PRIM",
+                  "text": "2178309"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "matrix",
+                "type": "FibMatrix",
+                "fields": {
+                  "指数 n": {
+                    "kind": "PRIM",
+                    "text": "32"
+                  },
+                  "F(n)": {
+                    "kind": "PRIM",
+                    "text": "2178309"
+                  },
+                  "乘法次数": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "斐波那契矩阵",
+          "grids": [
+            {
+              "id": "m",
+              "label": "M^32（右上角 = F(32)）",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "3524578",
+                "2178309",
+                "2178309",
+                "1346269"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "M^32 = M^16 · M^16 → F(32) = 2178309"
+        }
+      ],
+      "intent": {
+        "why": "平方一次 = 指数翻倍——这就是快速幂 O(log n) 的全部秘密",
+        "invariant": "Mⁿ 的右上角 = F(n)（M=[[1,1],[1,0]]）——平方一次指数翻倍，F(2¹⁰⁰) 也只需 100 次矩阵乘"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 11,
+        "endLine": 11,
+        "note": "递推 O(n)：n=32 要 31 步；矩阵幂 O(log n)：n=2¹⁰⁰ 只要 100 步"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fibMatrix",
+              "locals": {
+                "指数": {
+                  "kind": "PRIM",
+                  "text": "32"
+                },
+                "F(n) = Mⁿ 右上角": {
+                  "kind": "PRIM",
+                  "text": "2178309"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "matrix",
+                "type": "FibMatrix",
+                "fields": {
+                  "指数 n": {
+                    "kind": "PRIM",
+                    "text": "32"
+                  },
+                  "F(n)": {
+                    "kind": "PRIM",
+                    "text": "2178309"
+                  },
+                  "乘法次数": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "斐波那契矩阵",
+          "grids": [
+            {
+              "id": "m",
+              "label": "M^32（右上角 = F(32)）",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "3524578",
+                "2178309",
+                "2178309",
+                "1346269"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "M^32 右上角 = F(32) = 2178309——5 次矩阵乘法直达"
+        }
+      ],
+      "intent": {
+        "why": "递推 O(n)：n=32 要 31 步；矩阵幂 O(log n)：n=2¹⁰⁰ 只要 100 步",
+        "invariant": "Mⁿ 的右上角 = F(n)（M=[[1,1],[1,0]]）——平方一次指数翻倍，F(2¹⁰⁰) 也只需 100 次矩阵乘"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "快速幂的三次出场：整数幂（math.fastpower）→ RSA 模幂（math.rsa）→ 矩阵幂（本节）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fibMatrix",
+              "locals": {
+                "指数": {
+                  "kind": "PRIM",
+                  "text": "32"
+                },
+                "F(n) = Mⁿ 右上角": {
+                  "kind": "PRIM",
+                  "text": "2178309"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "matrix",
+                "type": "FibMatrix",
+                "fields": {
+                  "指数 n": {
+                    "kind": "PRIM",
+                    "text": "32"
+                  },
+                  "F(n)": {
+                    "kind": "PRIM",
+                    "text": "2178309"
+                  },
+                  "乘法次数": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "斐波那契矩阵",
+          "grids": [
+            {
+              "id": "m",
+              "label": "M^32（右上角 = F(32)）",
+              "rows": 2,
+              "cols": 2,
+              "values": [
+                "3524578",
+                "2178309",
+                "2178309",
+                "1346269"
+              ],
+              "activeCells": [],
+              "doneCells": [
+                1
+              ]
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "延伸：任何线性递推（Lucas、 Tribonacci）都能写成矩阵幂——通解是特征根（黄金螺旋那一课）"
+        }
+      ],
+      "intent": {
+        "why": "快速幂的三次出场：整数幂（math.fastpower）→ RSA 模幂（math.rsa）→ 矩阵幂（本节）",
+        "invariant": "Mⁿ 的右上角 = F(n)（M=[[1,1],[1,0]]）——平方一次指数翻倍，F(2¹⁰⁰) 也只需 100 次矩阵乘"
+      }
+    }
+  ]
+}
