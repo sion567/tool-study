@@ -145,6 +145,7 @@ public final class AlgorithmRegistry {
             new Entry("算法", "回溯", new com.algoviz.engine.backtracking.SudokuDemo()),
             new Entry("算法", "图", new com.algoviz.engine.graph.AStarDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.PathSumDemo()),
+            new Entry("算法", "树", new com.algoviz.engine.tree.HuffmanDemo()),
             new Entry("算法", "链表", new com.algoviz.engine.list.ListBuildDemo()),
             new Entry("算法", "链表", new com.algoviz.engine.list.ListDeleteDemo()),
             new Entry("算法", "链表", new com.algoviz.engine.list.DoublyListDemo()),

@@ -55,6 +55,11 @@ public final class CodePanel extends ScrollPane {
         if (marker >= 0 && !dataLines.isEmpty()) {
             effective.remove(marker);
             effective.addAll(marker, dataLines);
+        } else if (marker < 0 && !dataLines.isEmpty()) {
+            // 模板无 //@DATA 标记（固定剧本类居多）——数据行以注释块附加在代码尾部，画面数据仍可见
+            effective.add("");
+            effective.add("// ---- 本演示的数据 ----");
+            effective.addAll(dataLines.stream().map(l -> "// " + l).toList());
         }
         int no = 1;
         javafx.scene.control.Button copyBtn = new javafx.scene.control.Button("📋 复制全文（可直接粘贴运行）");

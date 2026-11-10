@@ -113,6 +113,7 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"bt_sudoku", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.backtracking.SudokuDemo::new},
                 new Object[]{"graph_astar", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.graph.AStarDemo::new},
                 new Object[]{"tree_pathsum", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.tree.PathSumDemo::new},
+                new Object[]{"tree_huffman", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.tree.HuffmanDemo::new},
                 // ---- 第七批：链表三件套 / 哈希表 / Karatsuba / 序列化 ----
                 new Object[]{"list_build", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.list.ListBuildDemo::new},
                 new Object[]{"list_delete", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.list.ListDeleteDemo::new},
@@ -446,6 +447,18 @@ class AlgorithmBatchTraceTest {
         assertTrue2(dup, "应检测到 700 重复");
         // 终局：4 桶 + 数据条 共 5 个网格
         assertEquals(5, steps.get(steps.size() - 1).math().grids().size(), "data + 4 桶");
+    }
+
+    /** 行为：哈夫曼——非叶节点权重和（=WPL+最大频率）满足贪心最优。 */
+    @org.junit.jupiter.api.Test
+    void huffmanGreedyIsOptimal() throws Exception {
+        var steps = new com.algoviz.engine.tree.HuffmanDemo().produce().steps();
+        // HuffmanDemo 用 math.matrix+heap 呈现：堆里 n0..n6 = 4 叶 + 3 个合并产物
+        var fields = steps.get(steps.size() - 1).heap().heap().objects().get("@1").fields();
+        int totalWeight = 0;
+        for (int i = 0; i <= 6; i++) totalWeight += Integer.parseInt(fields.get("n" + i).text());
+        assertEquals(45 + 13 + 12 + 9 + 21 + 34 + 79, totalWeight,
+                "哈夫曼构建：每次合并权重累加进树 —— 贪心最优的可验证痕迹");
     }
 
     /** 行为：傅里叶+深度学习六连——频谱双峰/边缘检测/tanh滚动/消息传递/收敛均衡/注意力权重。 */

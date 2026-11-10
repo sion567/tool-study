@@ -1,0 +1,460 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "greedy.huffman",
+    "title": "霍夫曼编码",
+    "codeResource": "/code/HuffmanDemo.java",
+    "input": "chars=4",
+    "inputSize": 4
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 3,
+        "endLine": 3,
+        "note": "每个字符一棵权重为频率的单节点树——全部放进优先队列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "huffman",
+              "locals": {
+                "queue": {
+                  "kind": "PRIM",
+                  "text": "[A(45), B(13), C(12), D(9)]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "tree",
+                "type": "HuffmanTree",
+                "fields": {
+                  "n0": {
+                    "kind": "PRIM",
+                    "text": "45"
+                  },
+                  "n1": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  },
+                  "n2": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "n3": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "霍夫曼优先队列",
+          "grids": [
+            {
+              "id": "queue",
+              "label": "优先队列",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "A(45)",
+                "B(13)",
+                "C(12)",
+                "D(9)"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "初始化：[A(45), B(13), C(12), D(9)]（每个字符一棵单节点树）"
+        }
+      ],
+      "intent": {
+        "why": "每个字符一棵权重为频率的单节点树——全部放进优先队列",
+        "invariant": "每次合并最小权重的两棵子树——频率高的字符自然离根近（编码短）"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：每次合并最小两棵——频率低的离根远（编码长），频率高的离根近（编码短）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "huffman",
+              "locals": {
+                "queue": {
+                  "kind": "PRIM",
+                  "text": "[B(13), A(45), (21)]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "tree",
+                "type": "HuffmanTree",
+                "fields": {
+                  "n0": {
+                    "kind": "PRIM",
+                    "text": "45"
+                  },
+                  "n1": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  },
+                  "n2": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "n3": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "n4": {
+                    "kind": "PRIM",
+                    "text": "21"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "霍夫曼优先队列",
+          "grids": [
+            {
+              "id": "queue",
+              "label": "优先队列",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "B(13)",
+                "A(45)",
+                "(21)"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@5"
+          ],
+          "detail": "合并 D(9)+C(12) → (21)"
+        }
+      ],
+      "intent": {
+        "why": "贪心：每次合并最小两棵——频率低的离根远（编码长），频率高的离根近（编码短）",
+        "invariant": "每次合并最小权重的两棵子树——频率高的字符自然离根近（编码短）"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：每次合并最小两棵——频率低的离根远（编码长），频率高的离根近（编码短）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "huffman",
+              "locals": {
+                "queue": {
+                  "kind": "PRIM",
+                  "text": "[A(45), (34)]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "tree",
+                "type": "HuffmanTree",
+                "fields": {
+                  "n0": {
+                    "kind": "PRIM",
+                    "text": "45"
+                  },
+                  "n1": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  },
+                  "n2": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "n3": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "n4": {
+                    "kind": "PRIM",
+                    "text": "21"
+                  },
+                  "n5": {
+                    "kind": "PRIM",
+                    "text": "34"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "霍夫曼优先队列",
+          "grids": [
+            {
+              "id": "queue",
+              "label": "优先队列",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "A(45)",
+                "(34)"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@6"
+          ],
+          "detail": "合并 B(13)+(21) → (34)"
+        }
+      ],
+      "intent": {
+        "why": "贪心：每次合并最小两棵——频率低的离根远（编码长），频率高的离根近（编码短）",
+        "invariant": "每次合并最小权重的两棵子树——频率高的字符自然离根近（编码短）"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "贪心：每次合并最小两棵——频率低的离根远（编码长），频率高的离根近（编码短）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "huffman",
+              "locals": {
+                "queue": {
+                  "kind": "PRIM",
+                  "text": "[(79)]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "tree",
+                "type": "HuffmanTree",
+                "fields": {
+                  "n0": {
+                    "kind": "PRIM",
+                    "text": "45"
+                  },
+                  "n1": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  },
+                  "n2": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "n3": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "n4": {
+                    "kind": "PRIM",
+                    "text": "21"
+                  },
+                  "n5": {
+                    "kind": "PRIM",
+                    "text": "34"
+                  },
+                  "n6": {
+                    "kind": "PRIM",
+                    "text": "79"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "霍夫曼优先队列",
+          "grids": [
+            {
+              "id": "queue",
+              "label": "优先队列",
+              "rows": 1,
+              "cols": 1,
+              "values": [
+                "(79)"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [
+            "@7"
+          ],
+          "detail": "合并 (34)+A(45) → (79)"
+        }
+      ],
+      "intent": {
+        "why": "贪心：每次合并最小两棵——频率低的离根远（编码长），频率高的离根近（编码短）",
+        "invariant": "每次合并最小权重的两棵子树——频率高的字符自然离根近（编码短）"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "编码树建好：从根到每个叶子的路径就是该字符的霍夫曼编码"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "huffman",
+              "locals": {
+                "queue": {
+                  "kind": "PRIM",
+                  "text": "[(79)]"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "tree",
+                "type": "HuffmanTree",
+                "fields": {
+                  "n0": {
+                    "kind": "PRIM",
+                    "text": "45"
+                  },
+                  "n1": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  },
+                  "n2": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "n3": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "n4": {
+                    "kind": "PRIM",
+                    "text": "21"
+                  },
+                  "n5": {
+                    "kind": "PRIM",
+                    "text": "34"
+                  },
+                  "n6": {
+                    "kind": "PRIM",
+                    "text": "79"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "霍夫曼优先队列",
+          "grids": [
+            {
+              "id": "queue",
+              "label": "优先队列",
+              "rows": 1,
+              "cols": 1,
+              "values": [
+                "(79)"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "编码树完成：根 = (79)（总频率 79）"
+        }
+      ],
+      "intent": {
+        "why": "编码树建好：从根到每个叶子的路径就是该字符的霍夫曼编码",
+        "invariant": "每次合并最小权重的两棵子树——频率高的字符自然离根近（编码短）"
+      }
+    }
+  ]
+}
