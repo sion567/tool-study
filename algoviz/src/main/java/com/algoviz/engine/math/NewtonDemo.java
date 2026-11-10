@@ -133,7 +133,7 @@ public final class NewtonDemo implements Algorithm {
                 0, 2.3, -2.5, 3.3,
                 Collections.unmodifiableList(curve),
                 Collections.unmodifiableList(tangent),
-                Collections.unmodifiableList(rootPts),
+                Collections.unmodifiableList(rootPts), List.of(),
                 Collections.unmodifiableList(labels));
     }
 

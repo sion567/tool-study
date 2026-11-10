@@ -138,7 +138,7 @@ public final class CordicDemo implements Algorithm {
         }
         labels.add(String.format("|残差| = %.4f°", Math.abs(Math.toDegrees(z))));
         return new PlotView(PlotView.CORDIC, "CORDIC 向量旋转", TARGET, x, y,
-                -1, 1, -1, 1, List.of(), List.of(),
+                -1, 1, -1, 1, List.of(), List.of(), List.of(),
                 Collections.unmodifiableList(hist),
                 Collections.unmodifiableList(labels));
     }

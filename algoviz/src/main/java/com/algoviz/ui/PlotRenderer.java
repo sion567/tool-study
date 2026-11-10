@@ -30,6 +30,8 @@ public final class PlotRenderer {
         switch (pv.kind() == null ? PlotView.UNIT_CIRCLE : pv.kind()) {
             case PlotView.NEWTON -> drawNewton(g, w, h, pv);
             case PlotView.CORDIC -> drawCordic(g, w, h, pv);
+            case PlotView.RIEMANN -> drawRiemann(g, w, h, pv);
+            case PlotView.CARTESIAN -> drawCartesian(g, w, h, pv);
             default -> drawUnitCircle(g, w, h, pv);
         }
     }
@@ -284,6 +286,120 @@ public final class PlotRenderer {
         g.fillOval(px - 6, py - 6, 12, 12);
 
         drawLabels(g, pv, w * 0.80, h * 0.16);
+    }
+
+
+    // ==================== kind = riemann（定积分·黎曼和）====================
+
+    private static void drawRiemann(GraphicsContext g, double w, double h, PlotView pv) {
+        double x0 = w * 0.10, x1 = w * 0.92;
+        double yTop = h * 0.10, yBase = h * 0.88;
+        double dx = pv.xMax() - pv.xMin();
+        double dy = pv.yMax() - pv.yMin();
+        java.util.function.DoubleUnaryOperator sx = x -> x0 + (x - pv.xMin()) / dx * (x1 - x0);
+        java.util.function.DoubleUnaryOperator sy = y -> yBase - (y - pv.yMin()) / dy * (yBase - yTop);
+
+        // 坐标轴 + y=1 参考线
+        g.setStroke(Color.web("#9ca3af"));
+        g.setLineWidth(1.2);
+        g.strokeLine(x0, sy.applyAsDouble(0), x1, sy.applyAsDouble(0));
+        g.strokeLine(x0, yTop, x0, yBase);
+        g.setStroke(Color.web("#d1d5db"));
+        g.setLineDashes(4, 4);
+        g.strokeLine(x0, sy.applyAsDouble(1), x1, sy.applyAsDouble(1));
+        g.setLineDashes();
+        g.setFill(Color.web("#9ca3af"));
+        g.setFont(Font.font(10));
+        g.setTextAlign(TextAlignment.LEFT);
+        g.fillText("y=1", x1 - 28, sy.applyAsDouble(1) - 4);
+
+        // 矩形（黎曼和的"条"）
+        for (List<Double> r : pv.rects()) {
+            double rx0 = sx.applyAsDouble(r.get(0)), rx1 = sx.applyAsDouble(r.get(1));
+            double ry = sy.applyAsDouble(r.get(2));
+            g.setFill(Color.web("#3b82f6", 0.35));
+            g.fillRect(rx0, ry, rx1 - rx0, sy.applyAsDouble(0) - ry);
+            g.setStroke(Color.web("#2563eb"));
+            g.setLineWidth(1);
+            g.strokeRect(rx0, ry, rx1 - rx0, sy.applyAsDouble(0) - ry);
+        }
+
+        // 曲线（绿）
+        if (pv.sineTrace().size() >= 2) {
+            g.setStroke(Color.web("#16a34a"));
+            g.setLineWidth(2.5);
+            var pts = pv.sineTrace();
+            for (int i = 1; i < pts.size(); i++) {
+                g.strokeLine(sx.applyAsDouble(pts.get(i - 1).get(0)), sy.applyAsDouble(pts.get(i - 1).get(1)),
+                        sx.applyAsDouble(pts.get(i).get(0)), sy.applyAsDouble(pts.get(i).get(1)));
+            }
+        }
+
+        // 注解
+        g.setTextAlign(TextAlignment.LEFT);
+        g.setFont(Font.font(12));
+        for (int i = 0; i < pv.labels().size(); i++) {
+            g.setFill(i == 0 ? Color.web("#374151") : Color.web("#6b7280"));
+            g.fillText(pv.labels().get(i), x0 + 8, yTop + 16 + i * 18);
+        }
+    }
+
+    // ==================== kind = cartesian（笛卡尔直角坐标平面）====================
+
+    private static void drawCartesian(GraphicsContext g, double w, double h, PlotView pv) {
+        double x0 = w * 0.08, x1 = w * 0.94;
+        double yTop = h * 0.08, yBase = h * 0.90;
+        double dx = pv.xMax() - pv.xMin();
+        double dy = pv.yMax() - pv.yMin();
+        java.util.function.DoubleUnaryOperator sx = x -> x0 + (x - pv.xMin()) / dx * (x1 - x0);
+        java.util.function.DoubleUnaryOperator sy = y -> yBase - (y - pv.yMin()) / dy * (yBase - yTop);
+
+        // 网格 + 坐标轴（笛卡尔坐标系的骨架）
+        g.setStroke(Color.web("#eef2f7"));
+        g.setLineWidth(1);
+        for (int gx = (int) Math.ceil(pv.xMin()); gx <= pv.xMax(); gx++) {
+            g.strokeLine(sx.applyAsDouble(gx), yTop, sx.applyAsDouble(gx), yBase);
+        }
+        for (int gy = (int) Math.ceil(pv.yMin()); gy <= pv.yMax(); gy++) {
+            g.strokeLine(x0, sy.applyAsDouble(gy), x1, sy.applyAsDouble(gy));
+        }
+        if (pv.yMin() <= 0 && pv.yMax() >= 0) {
+            g.setStroke(Color.web("#6b7280"));
+            g.setLineWidth(1.5);
+            g.strokeLine(x0, sy.applyAsDouble(0), x1, sy.applyAsDouble(0));
+        }
+        if (pv.xMin() <= 0 && pv.xMax() >= 0) {
+            g.setStroke(Color.web("#6b7280"));
+            g.setLineWidth(1.5);
+            g.strokeLine(sx.applyAsDouble(0), yTop, sx.applyAsDouble(0), yBase);
+        }
+
+        // 累积曲线（蓝）——极坐标点逐个落到直角坐标系里
+        if (pv.sineTrace().size() >= 2) {
+            g.setStroke(Color.web("#3b82f6"));
+            g.setLineWidth(2.5);
+            var pts = pv.sineTrace();
+            for (int i = 1; i < pts.size(); i++) {
+                g.strokeLine(sx.applyAsDouble(pts.get(i - 1).get(0)), sy.applyAsDouble(pts.get(i - 1).get(1)),
+                        sx.applyAsDouble(pts.get(i).get(0)), sy.applyAsDouble(pts.get(i).get(1)));
+            }
+        }
+
+        // 当前动点（橙）
+        double cx = sx.applyAsDouble(pv.pointX()), cy = sy.applyAsDouble(pv.pointY());
+        g.setFill(Color.web("#ea580c"));
+        g.fillOval(cx - 6, cy - 6, 12, 12);
+        g.setStroke(Color.web("#f59e0b"));
+        g.setLineWidth(1.5);
+        g.strokeLine(sx.applyAsDouble(0), sy.applyAsDouble(0), cx, cy);   // 极径线（原点→动点）
+
+        // 注解
+        g.setTextAlign(TextAlignment.LEFT);
+        g.setFont(Font.font(12));
+        for (int i = 0; i < pv.labels().size(); i++) {
+            g.setFill(i == 0 ? Color.web("#374151") : Color.web("#6b7280"));
+            g.fillText(pv.labels().get(i), x0 + 8, yTop + 16 + i * 18);
+        }
     }
 
     // ==================== 公共 ====================

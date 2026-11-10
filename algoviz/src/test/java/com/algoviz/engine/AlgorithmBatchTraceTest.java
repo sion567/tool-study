@@ -71,6 +71,10 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"math_unitcircle", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.UnitCircleDemo::new},
                 new Object[]{"math_taylor", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.TaylorDemo::new},
                 new Object[]{"math_taylor_cos", (java.util.function.Supplier<Algorithm>) () -> new com.algoviz.engine.math.TaylorDemo(true)},
+                // ---- 第十一批：微积分与笛卡尔（导数/定积分/心形线）----
+                new Object[]{"math_derivative", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.DerivativeDemo::new},
+                new Object[]{"math_integral", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.RiemannSumDemo::new},
+                new Object[]{"math_cardioid", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.CardioidDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -416,6 +420,27 @@ class AlgorithmBatchTraceTest {
         assertTrue2(dup, "应检测到 700 重复");
         // 终局：4 桶 + 数据条 共 5 个网格
         assertEquals(5, steps.get(steps.size() - 1).math().grids().size(), "data + 4 桶");
+    }
+
+    /** 行为：微积分三连——割线收敛到 3、黎曼和收敛到 1/3、心形线 49 点对称。 */
+    @org.junit.jupiter.api.Test
+    void calculusAndCardioidBehave() throws Exception {
+        // 导数：切线步（倒数第二步）的堆字段斜率 = f'(1.5)=3
+        var d = new com.algoviz.engine.math.DerivativeDemo().produce().steps();
+        double lastSlope = Double.parseDouble(d.get(d.size() - 2).heap().heap().objects()
+                .get("@1").fields().get("割线/切线斜率").text());
+        assertEquals(3.0, lastSlope, 0.001, "切线斜率应 = 2×1.5 = 3");
+        // 定积分：n=32 步（倒数第三步）的堆字段黎曼和 ≈ 1/3
+        var r = new com.algoviz.engine.math.RiemannSumDemo().produce().steps();
+        double rSum = Double.parseDouble(r.get(r.size() - 3).heap().heap().objects()
+                .get("@1").fields().get("黎曼和").text());
+        assertEquals(1.0 / 3, rSum, 0.016, "n=32 黎曼和应逼近 1/3（左端点误差恰为 1/(2n)−1/(6n²)≈0.0154）");
+        // 心形线：49 个点，关于 x 轴对称（y 总和 ≈ 0）
+        var c = new com.algoviz.engine.math.CardioidDemo().produce().steps();
+        var pts = c.get(c.size() - 1).plot().sineTrace();
+        assertEquals(49, pts.size(), "48 步 + 起点闭合 = 49 点");
+        double ySum = pts.stream().mapToDouble(pt -> pt.get(1)).sum();
+        assertEquals(0.0, ySum, 0.01, "心形线关于 x 轴对称 → y 总和为 0");
     }
 
     /** 行为：泰勒 cos 版——终局（10 次幂）在 [0,2π] 逼近 cos，且 heap 公式为偶次幂形式。 */

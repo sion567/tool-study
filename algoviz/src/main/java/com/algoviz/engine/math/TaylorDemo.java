@@ -168,7 +168,7 @@ public final class TaylorDemo implements Algorithm {
                 0, X_MAX, -1.4, 1.4,
                 Collections.unmodifiableList(real),      // 真实曲线
                 Collections.unmodifiableList(approx),    // 近似曲线
-                List.of(), List.of("真实 " + fn(), termCount + " 次幂近似"));
+                List.of(), List.of(), List.of("真实 " + fn(), termCount + " 次幂近似"));
     }
 
     private Trace.TraceMeta meta() {
