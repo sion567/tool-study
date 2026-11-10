@@ -87,11 +87,11 @@
 | 数独 trace 瘦身 | 剪枝按格聚合 + 提示数 51→36 空 | 41,811 步/180MB golden 教训：**演示的步数预算也是设计约束** |
 | JavaRunner | JDK 内置 `javax.tools` 内存编译 | 行为级判卷不用外部进程；jpackage runtime 自带 `jdk.compiler` |
 
-## 七、已知债务（2026-11-05 清理后）
+## 七、已知债务（2026-11-11 全部清零）
 
-1. **MainApp 拆分（仅剩这一项）**：预测状态机（ARMED/REVEALED + 判卷计数）仍在 MainApp，约 250 行——
-   提取需引入 listener 回调（状态变更后要触发 render/NotesStore），无 UI 测试兜底，暂缓。
-   已完成的部分：Tab 内容 → `ui/TabContents`；渲染分发 → `ui/CanvasDispatch`；MainApp 937 → 843 行。
+1. ~~MainApp 拆分~~ ✅ **收官**：预测状态机 → `ui/PredictionController`（ARMED/REVEALED、判卷计数、
+   truthIndices/fmtIdx 全部迁入，MainApp 经回调委托）；Tab 内容 → `ui/TabContents`；
+   渲染分发 → `ui/CanvasDispatch`。MainApp 937 → **527 行**（纯组合根）。
 2. ~~预测模式 hash/btree 点击~~ ✅ **核实为误记**：问题文案/truthIndices/fmtIdx/hitIndex 四层早已接通（CanvasDispatch.pick 统一入口）。
 3. ~~引擎与 UI 边界微漏~~ ✅ `JavaRunner`/`DictationJudge`/`DictationDiff`/`NotesStore` 已迁至 `com.algoviz.app`（纯逻辑包，测试同步迁移）。
 4. ~~if/else 渲染分发链~~ ✅ `ui/CanvasDispatch` 有序数组分发：每个条目自算 diff、自绘制，新增图层 = 加一个条目。
