@@ -469,8 +469,15 @@ public class MainApp extends Application {
                 boolean seqMode = cur != null && cur.seq() != null;
                 boolean mathMode = cur != null && cur.math() != null && cur.bitmap() == null;
                 boolean bitmapMode = cur != null && cur.bitmap() != null;
+                boolean plotMode = cur != null && cur.plot() != null;
+                if (plotMode) {
+                    predictPanel.setQuestion("此演示是连续图像型（曲线/几何），暂不支持点选预测——"
+                            + "点选类演示（排序/链表/树/图/矩阵）练起来更顺手。");
+                    predictPanel.setPicked("");
+                    predictPanel.setButtons(false, false, "跳过");
+                } else {
                 String target = bitmapMode ? "BitSet 上哪些格子会翻转？（点格子）"
-                        : mathMode ? "C 的哪个格子会写数？（点 C 矩阵的格子）"
+                        : mathMode ? "矩阵上哪些格子会变？（点格子选择）"
                         : seqMode ? "下一条消息会经过哪些泳道？（点泳道头选择）"
                         : graphMode || treeMode || hashMode || btreeMode ? "哪些节点会变？（点节点选择）"
                         : listMode ? "哪些节点的 next 箭头会变？（点盒子选择）"
@@ -485,6 +492,7 @@ public class MainApp extends Application {
                         + "\n全不选 = 预测「" + noneCase + "」");
                 predictPanel.setPicked(picked.isEmpty() ? "已选：（无）" : "已选：" + fmtIdx(picked, cur));
                 predictPanel.setButtons(true, true, "提交答案");
+                }
             }
         }
     }
@@ -731,9 +739,11 @@ public class MainApp extends Application {
                     }
                     if (mathMode) {
                         var grids = refStep.math().grids();
-                        MathView.Grid c = grids.stream().filter(g -> g.id().equals("C")).findFirst().orElse(null);
+                        MathView.Grid c = grids.stream().filter(g -> g.id().equals("C")).findFirst()
+                                .orElse(grids.isEmpty() ? null : grids.get(0));
                         if (c != null && i >= 0 && i < c.values().size()) {
-                            return "C[" + (i / c.cols()) + "][" + (i % c.cols()) + "]";
+                            String name = c.id().equals("C") ? "C" : c.label();
+                            return name + "[" + (i / c.cols()) + "][" + (i % c.cols()) + "]";
                         }
                         return "?" + i;
                     }
