@@ -95,3 +95,4 @@ Golden 基线的哲学：**任何一行产出的变化都看得见**。有意变
 - [AlgoViz学习蓝图.md](AlgoViz学习蓝图.md) —— 从一页愿景到全部落地的完整蓝图（状态标记）
 - [AlgoViz架构归档.md](AlgoViz架构归档.md) —— 自身架构的 MVC 案例归档 + 决策日志
 - [AlgoViz踩坑记录.md](AlgoViz踩坑记录.md) —— 全程真实错误与教训（动手前先扫一眼）
+- [TODO.md](TODO.md) —— 跨会话待办池（P1/P2/P3 分级 + 完成归档）
