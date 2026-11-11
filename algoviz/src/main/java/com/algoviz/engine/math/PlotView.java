@@ -25,6 +25,10 @@ import java.util.List;
  *   trace3 = 圆外点 [x,y,size]，sineTrace = 边界曲线（如四分之一圆弧）。
  *
  * xMin/xMax/yMin/yMax = 世界坐标系（渲染器映射用；unitCircle 固定 0..2π / -1..1）。
+ *
+ * kind = doublePendulum：双摆混沌（物理域）。angle = 当前 θ₁，
+ *   pointX/pointY = 主摆锤 2 位置，sineTrace = 主摆锤 2 轨迹，
+ *   cosineTrace = 幽灵双摆锤 2 轨迹（初值差 0.001），labels = t/θ/分离度注解。
  */
 public record PlotView(String kind, String name, double angle,
                        double pointX, double pointY,
@@ -41,6 +45,7 @@ public record PlotView(String kind, String name, double angle,
     public static final String RIEMANN = "riemann";
     public static final String CARTESIAN = "cartesian";
     public static final String SCATTER = "scatter";
+    public static final String DOUBLE_PENDULUM = "doublePendulum";
 
     /** unitCircle 旧形态的便捷构造（0..2π / -1..1 域）。 */
     public static PlotView unitCircle(String name, double angle,

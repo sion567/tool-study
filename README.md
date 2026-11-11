@@ -1,9 +1,9 @@
 # AlgoViz —— 算法的"执行现场"
 
-> 一个 JavaFX 桌面应用：把 **109 个算法/模式/数学主题** 变成可逐帧回放的"执行现场"。
+> 一个 JavaFX 桌面应用：把 **115 个算法/模式/数学/物理主题** 变成可逐帧回放的"执行现场"。
 > 不是看动画的**电影院**，而是练预测、练默写的**健身房**。
 
-[![Java](https://img.shields.io/badge/Java-21-orange)]() [![JavaFX](https://img.shields.io/badge/JavaFX-21.0.4-blue)]() [![Tests](https://img.shields.io/badge/tests-410%20passing-brightgreen)]() [![Golden](https://img.shields.io/badge/golden%20baselines-121-yellow)]()
+[![Java](https://img.shields.io/badge/Java-21-orange)]() [![JavaFX](https://img.shields.io/badge/JavaFX-21.0.4-blue)]() [![Tests](https://img.shields.io/badge/tests-452%20passing-brightgreen)]() [![Golden](https://img.shields.io/badge/golden%20baselines-134-yellow)]()
 
 ---
 
@@ -19,7 +19,7 @@
 
 **时间旅行**：因为每帧不可变，任意回退、逐帧步进、 golden 基线逐字节比对，全部免费。
 
-## 内容目录（约 109 个演示）
+## 内容目录（约 115 个演示）
 
 | 板块 | 内容 |
 |---|---|
@@ -29,15 +29,16 @@
 | **并发**（3） | 生产者-消费者 / 读写锁 / 线程池——脚本化交错保证确定性 |
 | **分布式**（3） | 断路器三态机 / 服务发现 / CQRS |
 | **数学**（32） | 数与计算 10 · 微积分 6 · 几何坐标 5 · 线性代数 3 · 概率统计 3 · 图论离散 7 |
+| **物理**（6） | 力学 3（抛体/弹簧振子/双摆混沌）· 热与分子 2（热扩散/理想气体）· 天体 1（N 体引力） |
 
-每个演示自带：高亮代码（行号跟随）· 课件 markdown · 复杂度横幅 · 部分支持 🎲 随机数据（33 个）。
+每个演示自带：高亮代码（行号跟随）· 课件 markdown · 复杂度横幅 · 部分支持 🎲 随机数据（37 个）。
 
 ## 快速开始
 
 ```bash
 # 依赖：JDK 21 + Maven（Windows）
 cd algoviz
-mvn test              # 410 个测试（纯 JVM，不需要图形环境）
+mvn test              # 452 个测试（纯 JVM，不需要图形环境）
 mvn javafx:run        # 开发运行
 
 # 一键打包（产物：免安装 exe，自带 JRE，目标机器无需 Java）
@@ -55,7 +56,7 @@ MainApp（Controller/组合根）
                                      com.algoviz.app/（JavaRunner 行为判卷等纯逻辑）
 ```
 
-- **`engine/` 与测试零 JavaFX 依赖** → 410 个测试纯 JVM 毫秒级跑完
+- **`engine/` 与测试零 JavaFX 依赖** → 452 个测试纯 JVM 毫秒级跑完
 - 121 个 golden 基线逐字节锁定每条 trace——任何行为变化都看得见
 - 详见 [AlgoViz架构归档.md](AlgoViz架构归档.md)：MVC/MVP/MVVM 三镜头映射、新图层 7 步 checklist、关键决策日志
 
@@ -71,14 +72,14 @@ algoviz/
 ├── src/main/resources/
 │   ├── code/            # 每个演示的可运行代码模板（默写参考答案）
 │   └── markdown/        # 每个演示的课件
-└── src/test/            # 410 测试 + TraceAsserts 合约检查 + golden 基线
+└── src/test/            # 452 测试 + TraceAsserts 合约检查 + golden 基线
 package.cmd              # 一键打包
 ```
 
 ## 测试
 
 ```bash
-mvn test    # 410 tests：合约检查（TraceAsserts）+ 幂等性 + 121 golden 逐字节 + 行为断言
+mvn test    # 452 tests：合约检查（TraceAsserts）+ 幂等性 + 134 golden 逐字节 + 行为断言
 ```
 
 Golden 基线的哲学：**任何一行产出的变化都看得见**。有意变更时删除对应 `.golden.json` 重跑即自动重建。

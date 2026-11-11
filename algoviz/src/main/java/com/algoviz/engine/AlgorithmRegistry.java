@@ -156,6 +156,12 @@ public final class AlgorithmRegistry {
             new Entry("深度学习", null, new com.algoviz.engine.dl.GnnDemo()),
             new Entry("深度学习", null, new com.algoviz.engine.dl.GanDemo()),
             new Entry("深度学习", null, new com.algoviz.engine.dl.AttentionDemo()),
+            new Entry("物理", "力学", new com.algoviz.engine.physics.ProjectileDemo()),
+            new Entry("物理", "力学", new com.algoviz.engine.physics.SpringDemo()),
+            new Entry("物理", "力学", new com.algoviz.engine.physics.DoublePendulumDemo()),
+            new Entry("物理", "热与分子", new com.algoviz.engine.physics.HeatDemo()),
+            new Entry("物理", "热与分子", new com.algoviz.engine.physics.GasDemo()),
+            new Entry("物理", "天体", new com.algoviz.engine.physics.NBodyDemo()),
             new Entry("数学", "数与计算", new com.algoviz.engine.math.KaratsubaDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.TreeSerializeDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.BPlusTreeDemo()),
@@ -316,6 +322,10 @@ public final class AlgorithmRegistry {
                 data[data.length - 1] = data[0];                      // 保证有一个重复
                 yield new com.algoviz.engine.math.BucketDemo(data);
             }
+            case "physics.projectile" -> new com.algoviz.engine.physics.ProjectileDemo(
+                    20 + r.nextInt(11), 30 + r.nextInt(31));   // v₀ 20~30，θ 30°~60°
+            case "physics.nbody" -> new com.algoviz.engine.physics.NBodyDemo(1L + r.nextInt(9999));
+            case "physics.gas" -> new com.algoviz.engine.physics.GasDemo(1L + r.nextInt(9999));
             default -> null;
         };
     }

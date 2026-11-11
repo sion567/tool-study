@@ -101,6 +101,13 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"dl_gnn", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.GnnDemo::new},
                 new Object[]{"dl_gan", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.GanDemo::new},
                 new Object[]{"dl_attention", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.AttentionDemo::new},
+                // ---- 第十七批：物理试点六连（抛体/弹簧/双摆/热扩散/N体/气体）----
+                new Object[]{"physics_projectile", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.physics.ProjectileDemo::new},
+                new Object[]{"physics_spring", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.physics.SpringDemo::new},
+                new Object[]{"physics_doublependulum", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.physics.DoublePendulumDemo::new},
+                new Object[]{"physics_heat", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.physics.HeatDemo::new},
+                new Object[]{"physics_nbody", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.physics.NBodyDemo::new},
+                new Object[]{"physics_gas", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.physics.GasDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -863,5 +870,63 @@ class AlgorithmBatchTraceTest {
             if (n.leftId() != null) stack.push(byId.get(n.leftId()));
         }
         assertEquals(List.of(5, 3, 1, 4, 8, 7, 9), preOrder, "重建树前序应与原树一致");
+    }
+
+    /** 行为：物理六连——射程公式/欧拉注能/混沌分离/热量守恒/轨道保真/弹性碰壁。 */
+    @org.junit.jupiter.api.Test
+    void physicsSixBehave() throws Exception {
+        // 抛体：45° 射程 = v²sin(2θ)/g = 625/9.8 = 63.78m
+        var pj = new com.algoviz.engine.physics.ProjectileDemo().produce().steps();
+        double range = parseNum(fieldLast(pj, "射程 R"));
+        assertEquals(625 / 9.8, range, 0.05, "45° 射程应 = v²sin(2θ)/g");
+        // 弹簧：显式欧拉注能——振幅放大 √(1+dt²)^189 ≈ 2.56，能量 = 振幅² → E/E₀ ≈ 6.56
+        var sp = new com.algoviz.engine.physics.SpringDemo().produce().steps();
+        double ratio = parseNum(fieldLast(sp, "欧拉能量比"));
+        assertTrue2(ratio > 5.5 && ratio < 7.5, "3 周期后 E/E₀ 应 ≈ 6.56（振幅² 修正），实际 " + ratio);
+        // 双摆：初值差 0.001 → 分离 > 0.1（放大 100 倍+），能量漂移 < 1e-6
+        var dp = new com.algoviz.engine.physics.DoublePendulumDemo().produce().steps();
+        double sep = parseNum(fieldLast(dp, "两解分离 |Δ|"));
+        assertTrue2(sep > 0.1, "12 秒后分离应 > 0.1（初值差 0.001 的 100 倍+），实际 " + sep);
+        double drift = Double.parseDouble(fieldLast(dp, "能量漂移"));
+        assertTrue2(drift < 1e-6, "RK4 能量漂移应 < 1e-6，实际 " + drift);
+        // 热扩散：终态 max-min ≤ 1.0°C 且总热量守恒 ≈ 400
+        var ht = new com.algoviz.engine.physics.HeatDemo().produce().steps();
+        var grid = ht.get(ht.size() - 1).math().grids().get(0);
+        double sum = 0, max = -1e9, min = 1e9;
+        for (String v : grid.values()) {
+            double tv = Double.parseDouble(v);
+            sum += tv;
+            max = Math.max(max, tv);
+            min = Math.min(min, tv);
+        }
+        assertTrue2(max - min <= 1.0, "终态应摊平（max-min ≤ 1°C），实际 " + (max - min));
+        assertEquals(400.0, sum, 0.5, "绝热边界总热量必须守恒 = 400");
+        // N 体：全程能量漂移 < 2%（辛积分轨道保真）
+        var nb = new com.algoviz.engine.physics.NBodyDemo().produce().steps();
+        double nbDrift = parseNum(fieldLast(nb, "能量漂移"));
+        assertTrue2(nbDrift < 2.0, "辛积分能量漂移应 < 2%，实际 " + nbDrift + "%");
+        // 气体：RMS 首尾相等（弹性碰壁不改速率）+ 碰壁确实发生
+        var gs = new com.algoviz.engine.physics.GasDemo().produce().steps();
+        double rmsFirst = parseNum(fieldLast(gs.subList(1, 2), "RMS 速度"));
+        double rmsLast = parseNum(fieldLast(gs, "RMS 速度"));
+        assertEquals(rmsFirst, rmsLast, 1e-9, "RMS 速度必须恒定（动能守恒）");
+        int hits = (int) parseNum(fieldLast(gs, "累计碰壁").replace(" 次", ""));
+        assertTrue2(hits > 30, "60 步内应碰壁 30 次以上，实际 " + hits);
+    }
+
+    /** 从后往前扫 steps，取堆对象 @1 里最早出现（= 初始值）或首次出现的字段文本。 */
+    private static String fieldLast(java.util.List<Step> steps, String key) {
+        for (int i = steps.size() - 1; i >= 0; i--) {
+            var o = steps.get(i).heap().heap().objects().get("@1");
+            if (o != null && o.fields().containsKey(key)) {
+                return o.fields().get(key).text();
+            }
+        }
+        throw new AssertionError("堆里找不到字段：" + key);
+    }
+
+    /** "63.78m" / "1.665（恒定）" / "0.0137%" → 63.78 / 1.665 / 0.0137。 */
+    private static double parseNum(String text) {
+        return Double.parseDouble(text.replaceAll("[^0-9.eE+-].*$", "").trim());
     }
 }

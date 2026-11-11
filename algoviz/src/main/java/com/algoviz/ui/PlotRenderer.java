@@ -33,6 +33,7 @@ public final class PlotRenderer {
             case PlotView.RIEMANN -> drawRiemann(g, w, h, pv);
             case PlotView.CARTESIAN -> drawCartesian(g, w, h, pv);
             case PlotView.SCATTER -> drawScatter(g, w, h, pv);
+            case PlotView.DOUBLE_PENDULUM -> drawDoublePendulum(g, w, h, pv);
             default -> drawUnitCircle(g, w, h, pv);
         }
     }
@@ -461,6 +462,71 @@ public final class PlotRenderer {
             g.setFill(i == 0 ? Color.web("#374151") : Color.web("#6b7280"));
             g.fillText(pv.labels().get(i), x0 + 8, yTop + 16 + i * 18);
         }
+    }
+
+    // ==================== kind = doublePendulum（双摆混沌）====================
+
+    private static void drawDoublePendulum(GraphicsContext g, double w, double h, PlotView pv) {
+        double cx = w * 0.5, cy = h * 0.50;
+        double scale = Math.min(w * 0.36, h * 0.40) / 2.2;   // 世界半径 ±2.2（L1+L2=2 留余量）
+        java.util.function.DoubleUnaryOperator sx = x -> cx + x * scale;
+        java.util.function.DoubleUnaryOperator sy = y -> cy - y * scale;
+
+        // 十字参考线 + 挂点
+        g.setStroke(Color.web("#e5e7eb"));
+        g.setLineWidth(1);
+        g.strokeLine(cx - scale * 2.3, cy, cx + scale * 2.3, cy);
+        g.strokeLine(cx, cy - scale * 2.3, cx, cy + scale * 2.3);
+        g.setFill(Color.web("#374151"));
+        g.fillOval(cx - 3, cy - 3, 6, 6);
+
+        // 主摆锤 2 轨迹（蓝细线）
+        if (pv.sineTrace().size() >= 2) {
+            g.setStroke(Color.web("#3b82f6", 0.55));
+            g.setLineWidth(1.4);
+            var pts = pv.sineTrace();
+            for (int i = 1; i < pts.size(); i++) {
+                g.strokeLine(sx.applyAsDouble(pts.get(i - 1).get(0)), sy.applyAsDouble(pts.get(i - 1).get(1)),
+                        sx.applyAsDouble(pts.get(i).get(0)), sy.applyAsDouble(pts.get(i).get(1)));
+            }
+        }
+
+        // 幽灵摆锤 2 轨迹（灰虚点——初值差 0.001 的另一条命运）
+        if (pv.cosineTrace().size() >= 2) {
+            g.setStroke(Color.web("#9ca3af", 0.5));
+            g.setLineWidth(1.2);
+            g.setLineDashes(2, 5);
+            var ghosts = pv.cosineTrace();
+            for (int i = 1; i < ghosts.size(); i++) {
+                g.strokeLine(sx.applyAsDouble(ghosts.get(i - 1).get(0)), sy.applyAsDouble(ghosts.get(i - 1).get(1)),
+                        sx.applyAsDouble(ghosts.get(i).get(0)), sy.applyAsDouble(ghosts.get(i).get(1)));
+            }
+            g.setLineDashes();
+        }
+
+        // 主双摆：θ₁ 定摆臂 1，摆锤 1 处接摆臂 2（点X/Y = 主摆锤 2）
+        double x1 = Math.sin(pv.angle()), y1 = -Math.cos(pv.angle());
+        double x2 = pv.pointX(), y2 = pv.pointY();
+        g.setStroke(Color.web("#f59e0b"));
+        g.setLineWidth(2.5);
+        g.strokeLine(cx, cy, sx.applyAsDouble(x1), sy.applyAsDouble(y1));
+        g.strokeLine(sx.applyAsDouble(x1), sy.applyAsDouble(y1), sx.applyAsDouble(x2), sy.applyAsDouble(y2));
+        g.setFill(Color.web("#f59e0b"));
+        g.fillOval(sx.applyAsDouble(x1) - 6, sy.applyAsDouble(y1) - 6, 12, 12);
+        g.setFill(Color.web("#ea580c"));
+        g.fillOval(sx.applyAsDouble(x2) - 7, sy.applyAsDouble(y2) - 7, 14, 14);
+
+        // 幽灵摆锤 2 当前位置（灰空心圆，取幽灵轨迹末点）
+        if (!pv.cosineTrace().isEmpty()) {
+            var gp = pv.cosineTrace().get(pv.cosineTrace().size() - 1);
+            double gx = sx.applyAsDouble(gp.get(0)), gy = sy.applyAsDouble(gp.get(1));
+            g.setStroke(Color.web("#9ca3af"));
+            g.setLineWidth(1.6);
+            g.strokeOval(gx - 6, gy - 6, 12, 12);
+        }
+
+        // 注解
+        drawLabels(g, pv, w * 0.04, h * 0.12);
     }
 
     // ==================== 公共 ====================
