@@ -113,6 +113,11 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"olympiad_josephus", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.olympiad.JosephusDemo::new},
                 new Object[]{"olympiad_crt", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.olympiad.CrtDemo::new},
                 new Object[]{"olympiad_fifteen", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.olympiad.FifteenPuzzleDemo::new},
+                // ---- 第十九批：化学过程四连（动力学/平衡/滴定/同分异构）----
+                new Object[]{"chem_kinetics", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.chem.KineticsDemo::new},
+                new Object[]{"chem_equilibrium", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.chem.EquilibriumDemo::new},
+                new Object[]{"chem_titration", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.chem.TitrationDemo::new},
+                new Object[]{"chem_isomer", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.chem.IsomerDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -970,5 +975,49 @@ class AlgorithmBatchTraceTest {
         var fpFlat = fp.get(fp.size() - 1).math().grids().get(1);
         assertEquals(15, fpFlat.values().size());
         assertTrue2(fpFlat.values().stream().noneMatch(String::isEmpty), "扁平行不应含空格");
+    }
+
+    /** 行为：化学四连——半衰期恒定性/平衡判据/等价点水解/度序列非同构。 */
+    @org.junit.jupiter.api.Test
+    void chemFourBehave() throws Exception {
+        // 动力学：一级 t½ 首末帧完全相同（恒定），二级 t½ 涨幅 > 1.5 倍
+        var kn = new com.algoviz.engine.chem.KineticsDemo().produce().steps();
+        double tHalfFirst = parseNum(fieldLast(kn.subList(1, 2), "一级 t½"));
+        double tHalfLast = parseNum(fieldLast(kn, "一级 t½"));
+        assertEquals(tHalfFirst, tHalfLast, 1e-9, "一级半衰期必须恒定（指数衰减的记忆缺失）");
+        double s2First = parseNum(fieldLast(kn.subList(1, 2), "二级 t½ 当前"));
+        double s2Last = parseNum(fieldLast(kn, "二级 t½ 当前"));
+        assertTrue2(s2Last > s2First * 1.5, String.format("二级半衰期应涨 >1.5 倍（%.2f→%.2f）", s2First, s2Last));
+        // 平衡：终态判据 v_f == v_r（速率握手），扰动事件存在
+        var eq = new com.algoviz.engine.chem.EquilibriumDemo().produce().steps();
+        assertTrue2(fieldLast(eq, "判据").contains("平衡"), "终态应达成 v_f≈v_r（数值收敛到 3 位）");
+        boolean pulse = eq.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("扰动"));
+        assertTrue2(pulse, "必须有扰动幕（勒夏特列的灵魂）");
+        // 滴定：等价点 pH = 8.88（>7 水解证据）；拐点判决存在
+        var ti = new com.algoviz.engine.chem.TitrationDemo().produce().steps();
+        double eqPh = parseNum(fieldLast(ti, "等价点 pH（弱酸）"));
+        assertEquals(8.88, eqPh, 0.01, "弱酸等价点 pH = 7+½(pKa+lgC) = 8.88");
+        assertTrue2(fieldLast(ti, "等价点体积").contains("25.0"), "0.10M×25mL ÷ 0.10M → Ve=25mL");
+        // 同分异构：终局异丁烷骨架 4 顶点 3 边，度序列排序 [1,1,1,3]；C5 变体链状 [1,1,2,2,2]
+        var iso = new com.algoviz.engine.chem.IsomerDemo().produce().steps();
+        var g = iso.get(iso.size() - 1).graph();
+        assertEquals(4, g.vertices().size());
+        assertEquals(3, g.edges().size(), "C₄H₁₀ 骨架是树：4 碳 3 键");
+        int[] deg = new int[4];
+        for (var e : g.edges()) {
+            deg[Integer.parseInt(e.fromId().replace("@C", ""))]++;
+            deg[Integer.parseInt(e.toId().replace("@C", ""))]++;
+        }
+        java.util.Arrays.sort(deg);
+        assertArrayEqualsMsg(new int[]{1, 1, 1, 3}, deg, "异丁烷星形度序列");
+        var c5 = new com.algoviz.engine.chem.IsomerDemo(1).produce().steps();
+        var g5 = c5.get(c5.size() - 1).graph();
+        assertEquals(4, g5.edges().size(), "C₅ 链：5 碳 4 键");
+    }
+
+    private static void assertArrayEqualsMsg(int[] expected, int[] actual, String msg) {
+        org.junit.jupiter.api.Assertions.assertArrayEquals(expected, actual, msg + "：实际 "
+                + java.util.Arrays.toString(actual));
     }
 }

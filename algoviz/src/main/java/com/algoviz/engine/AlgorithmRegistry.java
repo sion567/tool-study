@@ -166,6 +166,10 @@ public final class AlgorithmRegistry {
             new Entry("奥数", "组合构造", new com.algoviz.engine.olympiad.JosephusDemo()),
             new Entry("奥数", "数论", new com.algoviz.engine.olympiad.CrtDemo()),
             new Entry("奥数", "不变量", new com.algoviz.engine.olympiad.FifteenPuzzleDemo()),
+            new Entry("化学", "反应过程", new com.algoviz.engine.chem.KineticsDemo()),
+            new Entry("化学", "反应过程", new com.algoviz.engine.chem.EquilibriumDemo()),
+            new Entry("化学", "反应过程", new com.algoviz.engine.chem.TitrationDemo()),
+            new Entry("化学", "分子结构", new com.algoviz.engine.chem.IsomerDemo()),
             new Entry("数学", "数与计算", new com.algoviz.engine.math.KaratsubaDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.TreeSerializeDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.BPlusTreeDemo()),
@@ -350,6 +354,15 @@ public final class AlgorithmRegistry {
                 yield new com.algoviz.engine.olympiad.CrtDemo(aa, p1, bb, p2);
             }
             case "olympiad.fifteen" -> new com.algoviz.engine.olympiad.FifteenPuzzleDemo(1L + r.nextInt(9999));
+            // ---- 化学过程类 ----
+            case "chem.kinetics" -> new com.algoviz.engine.chem.KineticsDemo(
+                    0.05 + 0.05 * r.nextInt(8));                       // k₁ 0.05~0.40
+            case "chem.equilibrium" -> new com.algoviz.engine.chem.EquilibriumDemo(
+                    0.3 + 0.15 * r.nextInt(4));                        // 扰动注入 0.3~0.75
+            case "chem.titration" -> new com.algoviz.engine.chem.TitrationDemo(
+                    new double[]{0.05, 0.10, 0.20}[r.nextInt(3)]);     // 酸浓度档位
+            case "chem.isomer" -> new com.algoviz.engine.chem.IsomerDemo(
+                    1 + r.nextInt(3));                                 // C₅ 三兄弟随机出场
             default -> null;
         };
     }

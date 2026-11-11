@@ -1,0 +1,1249 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "chem.isomer",
+    "title": "分子结构·同分异构",
+    "codeResource": "/code/IsomerDemo.java",
+    "input": "C₄ 正丁烷 vs 异丁烷",
+    "inputSize": 12
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "碳是建筑大师：4 只手（4 价）搭出万物——骨架图就是它的施工图"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "正丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[0,0,0,0]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−0.5°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[0,0,0,0]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "搭骨架中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.36,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.6399999999999999,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.9199999999999999,
+              "y": 0.5
+            }
+          ],
+          "edges": [],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "正丁烷 C₄H₁₀：4 个碳原子逐键搭骨架（边权 = C-C 单键）"
+        }
+      ],
+      "intent": {
+        "why": "碳是建筑大师：4 只手（4 价）搭出万物——骨架图就是它的施工图",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "正丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[0,0,1,1]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−0.5°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[0,0,1,1]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "搭骨架中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.36,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.6399999999999999,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.9199999999999999,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@C0",
+              "toId": "@C1",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "e1"
+          ],
+          "detail": "C1—C2 成键（共 1 键）"
+        }
+      ],
+      "intent": {
+        "why": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "正丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[0,1,1,2]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−0.5°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[0,1,1,2]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "搭骨架中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.36,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.6399999999999999,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.9199999999999999,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@C0",
+              "toId": "@C1",
+              "weight": 1
+            },
+            {
+              "fromId": "@C1",
+              "toId": "@C2",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "e2"
+          ],
+          "detail": "C2—C3 成键（共 2 键）"
+        }
+      ],
+      "intent": {
+        "why": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "正丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[1,1,2,2]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−0.5°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[1,1,2,2]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "搭骨架中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.36,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.6399999999999999,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.9199999999999999,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@C0",
+              "toId": "@C1",
+              "weight": 1
+            },
+            {
+              "fromId": "@C1",
+              "toId": "@C2",
+              "weight": 1
+            },
+            {
+              "fromId": "@C2",
+              "toId": "@C3",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "e3"
+          ],
+          "detail": "C3—C4 成键（共 3 键）"
+        }
+      ],
+      "intent": {
+        "why": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "度 = 这个碳连着几个碳：链中段 2 个端点 1 个——骨架的「指纹」就是度序列"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "正丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[1,1,2,2]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−0.5°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[1,1,2,2]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "搭骨架中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.36,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.6399999999999999,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.9199999999999999,
+              "y": 0.5
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@C0",
+              "toId": "@C1",
+              "weight": 1
+            },
+            {
+              "fromId": "@C1",
+              "toId": "@C2",
+              "weight": 1
+            },
+            {
+              "fromId": "@C2",
+              "toId": "@C3",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "幕一判决：正丁烷 C₄H₁₀ 度序列 [1,1,2,2]，沸点 −0.5°C"
+        }
+      ],
+      "intent": {
+        "why": "度 = 这个碳连着几个碳：链中段 2 个端点 1 个——骨架的「指纹」就是度序列",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "碳是建筑大师：4 只手（4 价）搭出万物——骨架图就是它的施工图"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "异丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[0,0,0,0]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−11.7°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[0,0,0,0]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "搭骨架中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.5,
+              "y": 0.72
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.12,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.5,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.88,
+              "y": 0.28
+            }
+          ],
+          "edges": [],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "异丁烷 C₄H₁₀：4 个碳原子逐键搭骨架（边权 = C-C 单键）"
+        }
+      ],
+      "intent": {
+        "why": "碳是建筑大师：4 只手（4 价）搭出万物——骨架图就是它的施工图",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "异丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[0,0,1,1]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−11.7°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[0,0,1,1]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "搭骨架中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.5,
+              "y": 0.72
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.12,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.5,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.88,
+              "y": 0.28
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@C0",
+              "toId": "@C1",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "e1"
+          ],
+          "detail": "C1—C2 成键（共 1 键）"
+        }
+      ],
+      "intent": {
+        "why": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "异丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[0,1,1,2]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−11.7°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[0,1,1,2]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "搭骨架中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.5,
+              "y": 0.72
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.12,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.5,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.88,
+              "y": 0.28
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@C0",
+              "toId": "@C1",
+              "weight": 1
+            },
+            {
+              "fromId": "@C0",
+              "toId": "@C2",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "e2"
+          ],
+          "detail": "C1—C3 成键（共 2 键）"
+        }
+      ],
+      "intent": {
+        "why": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "异丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[1,1,1,3]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−11.7°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[1,1,1,3]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "搭骨架中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.5,
+              "y": 0.72
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.12,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.5,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.88,
+              "y": 0.28
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@C0",
+              "toId": "@C1",
+              "weight": 1
+            },
+            {
+              "fromId": "@C0",
+              "toId": "@C2",
+              "weight": 1
+            },
+            {
+              "fromId": "@C0",
+              "toId": "@C3",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "e3"
+          ],
+          "detail": "C1—C4 成键（共 3 键）"
+        }
+      ],
+      "intent": {
+        "why": "每加一条键，两个碳的度各 +1——度序列在生长中逐渐定形",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": "同分异构 = 分子式相同 + 图不同构：原子清单一样，「连接方式」才是身份"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "异丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[1,1,1,3]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−11.7°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[1,1,1,3]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "度序列 [1,1,1,3] ≠ [1,1,2,2] → 非同构 → 两种不同的物质！"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.5,
+              "y": 0.72
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.12,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.5,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.88,
+              "y": 0.28
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@C0",
+              "toId": "@C1",
+              "weight": 1
+            },
+            {
+              "fromId": "@C0",
+              "toId": "@C2",
+              "weight": 1
+            },
+            {
+              "fromId": "@C0",
+              "toId": "@C3",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "幕二判决：度序列 [1,1,1,3] ≠ [1,1,2,2] → 非同构 → 两种不同的物质！。沸点差 11.2°C——结构差 1 根键，物理差一截"
+        }
+      ],
+      "intent": {
+        "why": "同分异构 = 分子式相同 + 图不同构：原子清单一样，「连接方式」才是身份",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 23,
+        "endLine": 23,
+        "note": "C₅H₁₂ 有 3 种、C₈H₁₈ 有 18 种、C₂₀H₄₂ 有 366319 种——异构体数目是图的计数问题"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "isomer",
+              "locals": {
+                "展品": {
+                  "kind": "PRIM",
+                  "text": "异丁烷 C₄H₁₀"
+                },
+                "度序列": {
+                  "kind": "PRIM",
+                  "text": "[1,1,1,3]"
+                },
+                "沸点": {
+                  "kind": "PRIM",
+                  "text": "−11.7°C"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "isomer",
+                "type": "SkeletonState",
+                "fields": {
+                  "分子式": {
+                    "kind": "PRIM",
+                    "text": "C₄H₁₀（两种）"
+                  },
+                  "当前度序列": {
+                    "kind": "PRIM",
+                    "text": "[1,1,1,3]"
+                  },
+                  "判决": {
+                    "kind": "PRIM",
+                    "text": "度序列 [1,1,1,3] ≠ [1,1,2,2] → 非同构 → 两种不同的物质！"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.graph": {
+          "name": "碳骨架（顶点=C，边=C-C 键）",
+          "vertices": [
+            {
+              "nodeId": "@C0",
+              "label": "C1",
+              "x": 0.5,
+              "y": 0.72
+            },
+            {
+              "nodeId": "@C1",
+              "label": "C2",
+              "x": 0.12,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C2",
+              "label": "C3",
+              "x": 0.5,
+              "y": 0.28
+            },
+            {
+              "nodeId": "@C3",
+              "label": "C4",
+              "x": 0.88,
+              "y": 0.28
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@C0",
+              "toId": "@C1",
+              "weight": 1
+            },
+            {
+              "fromId": "@C0",
+              "toId": "@C2",
+              "weight": 1
+            },
+            {
+              "fromId": "@C0",
+              "toId": "@C3",
+              "weight": 1
+            }
+          ],
+          "settledIds": [],
+          "dist": {},
+          "visitOrderIds": []
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "支链越多分子越「圆」→ 范德华接触面越小 → 沸点越低：异丁烷比正丁烷低 11.2°C"
+        }
+      ],
+      "intent": {
+        "why": "C₅H₁₂ 有 3 种、C₈H₁₈ 有 18 种、C₂₀H₄₂ 有 366319 种——异构体数目是图的计数问题",
+        "invariant": "度序列（顶点度排序后）是图同构的不变量：序列不同必非同构——分子式相同而碳骨架不同 = 同分异构体，连接数不同 → 范德华力不同 → 沸点不同"
+      }
+    }
+  ]
+}
