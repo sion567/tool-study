@@ -45,8 +45,14 @@ public final class BarRenderer {
         double h = canvas.getHeight();
         double bw = barWidth(w, n);
         int max = av.values().stream().mapToInt(Integer::intValue).max().orElse(1);
+        int min = av.values().stream().mapToInt(Integer::intValue).min().orElse(0);
 
         g.setTextAlign(TextAlignment.CENTER);
+        // 0/1 标记数组（筛法/位运算/快速幂）：柱高无信息量 → 自动切换为格子模式
+        if (max <= 1 && min >= 0) {
+            drawCells(g, av, w, h, bw, picked, changed);
+            return;
+        }
         for (int i = 0; i < n; i++) {
             int v = av.values().get(i);
             double bh = (h - 90) * v / (double) max;
@@ -69,6 +75,41 @@ public final class BarRenderer {
             g.setFill(Color.GRAY);
             g.setFont(Font.font(11));
             g.fillText(String.valueOf(v), x + bw / 2, y - 6);
+            g.fillText("[" + i + "]", x + bw / 2, h - 30);
+        }
+    }
+
+    /** 0/1 格子模式：1 = 实心块（语义色），0 = 灰空心格——筛法/位运算的"标记"一眼可见。 */
+    private static void drawCells(GraphicsContext g, ArrayView av, double w, double h,
+                                  double bw, Set<Integer> picked, Set<Integer> changed) {
+        int n = av.values().size();
+        double size = Math.min(bw, h - 130);   // 单行格子：宽随柱宽、高钳制
+        double y = h / 2 - size / 2;
+        g.setTextAlign(TextAlignment.CENTER);
+        for (int i = 0; i < n; i++) {
+            double x = PAD + i * (bw + GAP);
+            int v = av.values().get(i);
+            boolean on = v != 0;
+            g.setFill(on ? colorOf(av, i) : Color.web("#eef2f7"));
+            g.fillRoundRect(x, y, bw, size, 6, 6);
+            g.setStroke(Color.web("#cbd5e1"));
+            g.setLineWidth(1.2);
+            g.strokeRoundRect(x, y, bw, size, 6, 6);
+            if (changed != null && changed.contains(i)) {
+                g.setStroke(CHANGED);
+                g.setLineWidth(2.5);
+                g.strokeRoundRect(x - 2, y - 2, bw + 4, size + 4, 8, 8);
+            }
+            if (picked != null && picked.contains(i)) {
+                g.setStroke(PICKED);
+                g.setLineWidth(2.5);
+                g.setLineDashes(6, 4);
+                g.strokeRoundRect(x - 4, y - 4, bw + 8, size + 8, 10, 10);
+                g.setLineDashes();
+            }
+            g.setFill(on ? Color.web("#1e3a8a") : Color.GRAY);
+            g.setFont(Font.font(11));
+            g.fillText(String.valueOf(v), x + bw / 2, y + size / 2 + 4);
             g.fillText("[" + i + "]", x + bw / 2, h - 30);
         }
     }

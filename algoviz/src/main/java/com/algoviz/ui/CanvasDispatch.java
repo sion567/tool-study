@@ -116,11 +116,47 @@ public final class CanvasDispatch {
 
     /** 按优先级渲染：第一个命中该层的渲染器胜出。 */
     public static void paint(Canvas canvas, Step prev, Step cur, Set<Integer> picked) {
-        for (Painter p : PAINTERS) {
-            if (p.draw(canvas, prev, cur, picked)) {
-                return;
+        paint(canvas, prev, cur, picked, 1, 0, 0);
+    }
+
+    /**
+     * 带视图变换的渲染（画布缩放/平移，围绕画布中心）：
+     * 先在恒等变换下全屏清屏（渲染器内部的 clearRect 在缩放变换下只能清 world 区域），
+     * 再施加 zoom/pan，渲染器无感知。
+     */
+    public static void paint(Canvas canvas, Step prev, Step cur, Set<Integer> picked,
+                             double zoom, double panX, double panY) {
+        javafx.scene.canvas.GraphicsContext g = canvas.getGraphicsContext2D();
+        g.save();
+        g.setTransform(1, 0, 0, 1, 0, 0);
+        g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        g.restore();
+        if (zoom != 1 || panX != 0 || panY != 0) {
+            g.save();
+            g.translate(canvas.getWidth() / 2.0 + panX, canvas.getHeight() / 2.0 + panY);
+            g.scale(zoom, zoom);
+            g.translate(-canvas.getWidth() / 2.0, -canvas.getHeight() / 2.0);
+        }
+        try {
+            for (Painter p : PAINTERS) {
+                if (p.draw(canvas, prev, cur, picked)) {
+                    return;
+                }
+            }
+        } finally {
+            if (zoom != 1 || panX != 0 || panY != 0) {
+                g.restore();
             }
         }
+    }
+
+    /** 屏幕坐标 → world 坐标（缩放围绕画布中心，pan 为屏幕像素）。 */
+    public static double toWorldX(double screenX, double canvasW, double zoom, double panX) {
+        return (screenX - canvasW / 2.0 - panX) / zoom + canvasW / 2.0;
+    }
+
+    public static double toWorldY(double screenY, double canvasH, double zoom, double panY) {
+        return (screenY - canvasH / 2.0 - panY) / zoom + canvasH / 2.0;
     }
 
     /** 预测模式点击命中：返回该层内被点中的元素下标，未命中 -1。 */

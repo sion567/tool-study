@@ -59,9 +59,11 @@ public final class GraphRenderer {
             g.strokeLine(a[0], a[1], b[0], b[1]);
             double mx = (a[0] + b[0]) / 2;
             double my = (a[1] + b[1]) / 2;
-            g.setFill(Color.web("#6b7280"));
-            g.setFont(Font.font(11));
-            g.fillText(String.valueOf(e.weight()), mx, my - 4);
+            if (e.weight() > 0) {   // 权重 0 = 无权边（并查集森林），不显示数字
+                g.setFill(Color.web("#6b7280"));
+                g.setFont(Font.font(11));
+                g.fillText(String.valueOf(e.weight()), mx, my - 4);
+            }
         }
 
         // 2. 顶点 + 距离

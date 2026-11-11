@@ -118,8 +118,11 @@ public final class GoldenSpiralDemo implements Algorithm {
         labels.add("r = φ^(2θ/π)——对数螺线");
         labels.add(String.format("F(n+1)/F(n) ≈ %.4f", ratio));
         labels.add("每 1/4 圈半径 × φ");
+        double phi = (1 + Math.sqrt(5)) / 2;
+        double rEnd = Math.pow(phi, 2 * thetaMax / Math.PI);   // 末段半径：域必须包住它，螺线不再飞出画面
+        double lim = rEnd * 1.10;
         return new PlotView(PlotView.CARTESIAN, "黄金螺旋", thetaMax, pointX, pointY,
-                -7.2, 7.2, -7.2, 7.2,
+                -lim, lim, -lim, lim,
                 Collections.unmodifiableList(pts),
                 List.of(), List.of(), List.of(),
                 Collections.unmodifiableList(labels));

@@ -91,6 +91,11 @@ public class MainApp extends Application {
     private Label stepLabel;
     private Button playBtn;
 
+    // 画布视图变换：拖动平移 + 缩放（滚轮/按钮），围绕画布中心
+    private double viewZoom = 1, viewPanX = 0, viewPanY = 0;
+    private double lastDragX, lastDragY;
+    private boolean draggedView;
+
     // 预测模式状态机
     private PredictionController prediction;
 
@@ -109,8 +114,40 @@ public class MainApp extends Application {
         // 中：动画区（Pane 不参与子节点布局，画布尺寸手动跟随且钳制下限——
         // Canvas 被压到 0 会触发 NGCanvas 渲染缓冲 NPE，整个画布从此白板）
         canvas = new Canvas(600, 400);
-        canvas.setOnMouseClicked(e -> onCanvasClick(e.getX(), e.getY()));
+        canvas.setOnMouseClicked(e -> {
+            if (draggedView) {          // 拖动后的松手不算点选
+                draggedView = false;
+                return;
+            }
+            onCanvasClick(
+                    CanvasDispatch.toWorldX(e.getX(), canvas.getWidth(), viewZoom, viewPanX),
+                    CanvasDispatch.toWorldY(e.getY(), canvas.getHeight(), viewZoom, viewPanY));
+        });
+        canvas.setOnMousePressed(e -> {
+            lastDragX = e.getX();
+            lastDragY = e.getY();
+            draggedView = false;
+        });
+        canvas.setOnMouseDragged(e -> {
+            double dx = e.getX() - lastDragX;
+            double dy = e.getY() - lastDragY;
+            if (Math.abs(dx) + Math.abs(dy) > 3) {
+                draggedView = true;
+            }
+            viewPanX += dx;
+            viewPanY += dy;
+            lastDragX = e.getX();
+            lastDragY = e.getY();
+            render();
+        });
+        canvas.setOnScroll(e -> {
+            double f = e.getDeltaY() > 0 ? 1.1 : 1 / 1.1;
+            viewZoom = Math.max(0.4, Math.min(6, viewZoom * f));
+            render();
+            e.consume();
+        });
         canvasPane = new Pane(canvas);
+        canvasPane.getChildren().add(buildViewControls());
         canvasPane.setStyle(Theme.canvasPaneStyle());
         canvasPane.setMinSize(240, 200);
         canvasPane.widthProperty().addListener((o, ov, nv) -> {
@@ -366,7 +403,7 @@ public class MainApp extends Application {
             Step cur = playback.current();
             Step prev = playback.index() > 0 ? playback.trace().steps().get(playback.index() - 1) : null;
             Set<Integer> pickedNow = prediction.armed() ? prediction.picked() : null;
-            CanvasDispatch.paint(canvas, prev, cur, pickedNow);
+            CanvasDispatch.paint(canvas, prev, cur, pickedNow, viewZoom, viewPanX, viewPanY);
             if (cur != null) {
                 codePanel.highlight(cur.loc().startLine());
             }
@@ -395,6 +432,9 @@ public class MainApp extends Application {
 
     private void load(Algorithm alg) {
         stopPlayback();   // 换算法：播放立刻停，避免 timer 在新 Trace 上继续走
+        viewZoom = 1;     // 视图复位：新演示从默认视角开始
+        viewPanX = 0;
+        viewPanY = 0;
         currentAlgorithm = alg;
         Trace trace = alg.produce();
         // 代码页每次重建：🎲 随机输入后，main() 里的数据行要与画面同步
@@ -428,6 +468,36 @@ public class MainApp extends Application {
             return;
         }
         prediction.onCanvasClick(CanvasDispatch.pick(canvas, cur, x, y));
+    }
+
+    /** 画布右上角的视图控件：放大 / 缩小 / 还原（配合拖拽平移与滚轮缩放）。 */
+    private javafx.scene.Node buildViewControls() {
+        Button zoomIn = new Button("＋");
+        Button zoomOut = new Button("－");
+        Button reset = new Button("⟲");
+        zoomIn.setOnAction(e -> {
+            viewZoom = Math.min(6, viewZoom * 1.25);
+            render();
+        });
+        zoomOut.setOnAction(e -> {
+            viewZoom = Math.max(0.4, viewZoom / 1.25);
+            render();
+        });
+        reset.setOnAction(e -> {
+            viewZoom = 1;
+            viewPanX = 0;
+            viewPanY = 0;
+            render();
+        });
+        for (Button b : new Button[]{zoomIn, zoomOut, reset}) {
+            b.setStyle("-fx-background-color: rgba(255,255,255,0.9); -fx-border-color: #cbd5e1;"
+                    + "-fx-border-radius: 6; -fx-background-radius: 6; -fx-padding: 1 7 1 7; -fx-cursor: hand;");
+        }
+        javafx.scene.layout.HBox box = new javafx.scene.layout.HBox(4, zoomIn, zoomOut, reset);
+        box.layoutXProperty().bind(canvasPane.widthProperty().subtract(118));
+        box.setLayoutY(8);
+        box.setMouseTransparent(false);
+        return box;
     }
 
     private void onDictationBehavior() {

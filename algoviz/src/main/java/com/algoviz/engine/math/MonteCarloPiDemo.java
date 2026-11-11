@@ -68,9 +68,9 @@ public final class MonteCarloPiDemo implements Algorithm {
                 double x = r.nextDouble(), y = r.nextDouble();
                 if (x * x + y * y <= 1.0) {
                     inCount++;
-                    inside.add(List.of(x, y, 0.008));
+                    inside.add(List.of(x, y, 0.0022));
                 } else {
-                    outside.add(List.of(x, y, 0.008));
+                    outside.add(List.of(x, y, 0.0022));
                 }
             }
             double pi = 4.0 * inCount / n;

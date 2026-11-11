@@ -120,9 +120,10 @@ public final class UnionFindDemo implements Algorithm {
     }
 
     private GraphView snapshotGraph() {
+        double[][] xy = {{0.08, 0.50}, {0.30, 0.15}, {0.70, 0.15}, {0.92, 0.50}, {0.70, 0.85}, {0.30, 0.85}};
         List<GraphVertex> verts = new ArrayList<>();
         for (int i = 0; i < LABELS.length; i++) {
-            verts.add(new GraphVertex(nodeId(i), LABELS[i], 0.5, 0.5));
+            verts.add(new GraphVertex(nodeId(i), LABELS[i], xy[i][0], xy[i][1]));
         }
         List<GraphEdge> edges = new ArrayList<>();
         for (int i = 0; i < LABELS.length; i++) {
