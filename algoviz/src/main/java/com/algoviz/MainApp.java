@@ -131,7 +131,7 @@ public class MainApp extends Application {
         canvas.setOnMouseDragged(e -> {
             double dx = e.getX() - lastDragX;
             double dy = e.getY() - lastDragY;
-            if (Math.abs(dx) + Math.abs(dy) > 3) {
+            if (Math.abs(dx) + Math.abs(dy) > 8) {
                 draggedView = true;
             }
             viewPanX += dx;
@@ -329,15 +329,15 @@ public class MainApp extends Application {
         nLabel.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
         dataNSlider = nSlider;
 
-        first.setOnAction(e -> playback.go(0));
-        prev.setOnAction(e -> playback.prev());
-        next.setOnAction(e -> playback.next());
-        last.setOnAction(e -> playback.go(playback.size() - 1));
+        first.setOnAction(e -> navigate(0));
+        prev.setOnAction(e -> navigate(playback.index() - 1));
+        next.setOnAction(e -> navigate(playback.index() + 1));
+        last.setOnAction(e -> navigate(playback.size() - 1));
         playBtn.setOnAction(e -> togglePlay());
 
         slider = new Slider(0, 1, 0);
         HBox.setHgrow(slider, Priority.ALWAYS);
-        slider.valueProperty().addListener((o, ov, nv) -> playback.go((int) Math.round(nv.doubleValue())));
+        slider.valueProperty().addListener((o, ov, nv) -> navigate((int) Math.round(nv.doubleValue())));
 
         stepLabel = new Label("0 / 0");
         HBox bar = new HBox(8, first, prev, playBtn, next, last, randBtn, nLabel, themeBtn, slider, stepLabel);
@@ -462,6 +462,13 @@ public class MainApp extends Application {
 
     // ---------- 预测模式（蓝图 §2.5-A） ----------
 
+    /** 显式导航（按钮/滑杆/键盘）：平移自动归零——防止拖动残留导致步进"看起来没反应"（缩放保留）。 */
+    private void navigate(int i) {
+        viewPanX = 0;
+        viewPanY = 0;
+        playback.go(i);
+    }
+
     private void onCanvasClick(double x, double y) {
         Step cur = playback.current();
         if (cur == null) {
@@ -551,10 +558,18 @@ public class MainApp extends Application {
     }
 
     private void setupKeys(Stage stage) {
-        stage.getScene().setOnKeyPressed(e -> {
+        // 用 addEventFilter（tunnel 阶段）而非 setOnKeyPressed：
+        // 焦点在滑杆/树/面板时，方向键会被组件先行消费——filter 保证左右键永远步进
+        stage.getScene().addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, e -> {
             switch (e.getCode()) {
-                case RIGHT -> playback.next();
-                case LEFT -> playback.prev();
+                case RIGHT -> {
+                    navigate(playback.index() + 1);
+                    e.consume();
+                }
+                case LEFT -> {
+                    navigate(playback.index() - 1);
+                    e.consume();
+                }
                 case N -> cycleAlgorithm(1);   // N = 下一个算法
                 case R -> {                     // R = 换一批随机数据（同 🎲）
                     if (currentAlgorithm != null) {
