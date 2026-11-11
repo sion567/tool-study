@@ -71,6 +71,99 @@
           ],
           "sortedFrom": 9,
           "sortedTo": -1
+        },
+        "ds.graph": {
+          "name": "图（绿=已入 MST，橙=本步选边）",
+          "vertices": [
+            {
+              "nodeId": "@V0",
+              "label": "A",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V1",
+              "label": "B",
+              "x": 0.3,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V2",
+              "label": "C",
+              "x": 0.7,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V3",
+              "label": "D",
+              "x": 0.92,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V4",
+              "label": "E",
+              "x": 0.7,
+              "y": 0.85
+            },
+            {
+              "nodeId": "@V5",
+              "label": "F",
+              "x": 0.3,
+              "y": 0.85
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@V0",
+              "toId": "@V1",
+              "weight": 4
+            },
+            {
+              "fromId": "@V0",
+              "toId": "@V2",
+              "weight": 2
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V2",
+              "weight": 1
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V3",
+              "weight": 5
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V3",
+              "weight": 8
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V4",
+              "weight": 10
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V4",
+              "weight": 2
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V5",
+              "weight": 6
+            },
+            {
+              "fromId": "@V4",
+              "toId": "@V5",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@V0"
+          ],
+          "dist": {},
+          "visitOrderIds": []
         }
       },
       "events": [
@@ -148,6 +241,102 @@
           ],
           "sortedFrom": 9,
           "sortedTo": -1
+        },
+        "ds.graph": {
+          "name": "图（绿=已入 MST，橙=本步选边）",
+          "vertices": [
+            {
+              "nodeId": "@V0",
+              "label": "A",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V1",
+              "label": "B",
+              "x": 0.3,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V2",
+              "label": "C",
+              "x": 0.7,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V3",
+              "label": "D",
+              "x": 0.92,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V4",
+              "label": "E",
+              "x": 0.7,
+              "y": 0.85
+            },
+            {
+              "nodeId": "@V5",
+              "label": "F",
+              "x": 0.3,
+              "y": 0.85
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@V0",
+              "toId": "@V1",
+              "weight": 4
+            },
+            {
+              "fromId": "@V0",
+              "toId": "@V2",
+              "weight": 2
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V2",
+              "weight": 1
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V3",
+              "weight": 5
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V3",
+              "weight": 8
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V4",
+              "weight": 10
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V4",
+              "weight": 2
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V5",
+              "weight": 6
+            },
+            {
+              "fromId": "@V4",
+              "toId": "@V5",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@V0",
+            "@V2"
+          ],
+          "dist": {},
+          "relaxFrom": "@V0",
+          "relaxTo": "@V2",
+          "visitOrderIds": []
         }
       },
       "events": [
@@ -227,6 +416,103 @@
           ],
           "sortedFrom": 9,
           "sortedTo": -1
+        },
+        "ds.graph": {
+          "name": "图（绿=已入 MST，橙=本步选边）",
+          "vertices": [
+            {
+              "nodeId": "@V0",
+              "label": "A",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V1",
+              "label": "B",
+              "x": 0.3,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V2",
+              "label": "C",
+              "x": 0.7,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V3",
+              "label": "D",
+              "x": 0.92,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V4",
+              "label": "E",
+              "x": 0.7,
+              "y": 0.85
+            },
+            {
+              "nodeId": "@V5",
+              "label": "F",
+              "x": 0.3,
+              "y": 0.85
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@V0",
+              "toId": "@V1",
+              "weight": 4
+            },
+            {
+              "fromId": "@V0",
+              "toId": "@V2",
+              "weight": 2
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V2",
+              "weight": 1
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V3",
+              "weight": 5
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V3",
+              "weight": 8
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V4",
+              "weight": 10
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V4",
+              "weight": 2
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V5",
+              "weight": 6
+            },
+            {
+              "fromId": "@V4",
+              "toId": "@V5",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@V0",
+            "@V1",
+            "@V2"
+          ],
+          "dist": {},
+          "relaxFrom": "@V1",
+          "relaxTo": "@V2",
+          "visitOrderIds": []
         }
       },
       "events": [
@@ -306,6 +592,104 @@
           ],
           "sortedFrom": 9,
           "sortedTo": -1
+        },
+        "ds.graph": {
+          "name": "图（绿=已入 MST，橙=本步选边）",
+          "vertices": [
+            {
+              "nodeId": "@V0",
+              "label": "A",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V1",
+              "label": "B",
+              "x": 0.3,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V2",
+              "label": "C",
+              "x": 0.7,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V3",
+              "label": "D",
+              "x": 0.92,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V4",
+              "label": "E",
+              "x": 0.7,
+              "y": 0.85
+            },
+            {
+              "nodeId": "@V5",
+              "label": "F",
+              "x": 0.3,
+              "y": 0.85
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@V0",
+              "toId": "@V1",
+              "weight": 4
+            },
+            {
+              "fromId": "@V0",
+              "toId": "@V2",
+              "weight": 2
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V2",
+              "weight": 1
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V3",
+              "weight": 5
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V3",
+              "weight": 8
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V4",
+              "weight": 10
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V4",
+              "weight": 2
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V5",
+              "weight": 6
+            },
+            {
+              "fromId": "@V4",
+              "toId": "@V5",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@V0",
+            "@V1",
+            "@V2",
+            "@V3"
+          ],
+          "dist": {},
+          "relaxFrom": "@V1",
+          "relaxTo": "@V3",
+          "visitOrderIds": []
         }
       },
       "events": [
@@ -385,6 +769,105 @@
           ],
           "sortedFrom": 9,
           "sortedTo": -1
+        },
+        "ds.graph": {
+          "name": "图（绿=已入 MST，橙=本步选边）",
+          "vertices": [
+            {
+              "nodeId": "@V0",
+              "label": "A",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V1",
+              "label": "B",
+              "x": 0.3,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V2",
+              "label": "C",
+              "x": 0.7,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V3",
+              "label": "D",
+              "x": 0.92,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V4",
+              "label": "E",
+              "x": 0.7,
+              "y": 0.85
+            },
+            {
+              "nodeId": "@V5",
+              "label": "F",
+              "x": 0.3,
+              "y": 0.85
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@V0",
+              "toId": "@V1",
+              "weight": 4
+            },
+            {
+              "fromId": "@V0",
+              "toId": "@V2",
+              "weight": 2
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V2",
+              "weight": 1
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V3",
+              "weight": 5
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V3",
+              "weight": 8
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V4",
+              "weight": 10
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V4",
+              "weight": 2
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V5",
+              "weight": 6
+            },
+            {
+              "fromId": "@V4",
+              "toId": "@V5",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@V0",
+            "@V1",
+            "@V2",
+            "@V3",
+            "@V4"
+          ],
+          "dist": {},
+          "relaxFrom": "@V3",
+          "relaxTo": "@V4",
+          "visitOrderIds": []
         }
       },
       "events": [
@@ -464,6 +947,106 @@
           ],
           "sortedFrom": 9,
           "sortedTo": -1
+        },
+        "ds.graph": {
+          "name": "图（绿=已入 MST，橙=本步选边）",
+          "vertices": [
+            {
+              "nodeId": "@V0",
+              "label": "A",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V1",
+              "label": "B",
+              "x": 0.3,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V2",
+              "label": "C",
+              "x": 0.7,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V3",
+              "label": "D",
+              "x": 0.92,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V4",
+              "label": "E",
+              "x": 0.7,
+              "y": 0.85
+            },
+            {
+              "nodeId": "@V5",
+              "label": "F",
+              "x": 0.3,
+              "y": 0.85
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@V0",
+              "toId": "@V1",
+              "weight": 4
+            },
+            {
+              "fromId": "@V0",
+              "toId": "@V2",
+              "weight": 2
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V2",
+              "weight": 1
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V3",
+              "weight": 5
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V3",
+              "weight": 8
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V4",
+              "weight": 10
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V4",
+              "weight": 2
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V5",
+              "weight": 6
+            },
+            {
+              "fromId": "@V4",
+              "toId": "@V5",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@V0",
+            "@V1",
+            "@V2",
+            "@V3",
+            "@V4",
+            "@V5"
+          ],
+          "dist": {},
+          "relaxFrom": "@V4",
+          "relaxTo": "@V5",
+          "visitOrderIds": []
         }
       },
       "events": [
@@ -539,6 +1122,104 @@
           ],
           "sortedFrom": 9,
           "sortedTo": -1
+        },
+        "ds.graph": {
+          "name": "图（绿=已入 MST，橙=本步选边）",
+          "vertices": [
+            {
+              "nodeId": "@V0",
+              "label": "A",
+              "x": 0.08,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V1",
+              "label": "B",
+              "x": 0.3,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V2",
+              "label": "C",
+              "x": 0.7,
+              "y": 0.15
+            },
+            {
+              "nodeId": "@V3",
+              "label": "D",
+              "x": 0.92,
+              "y": 0.5
+            },
+            {
+              "nodeId": "@V4",
+              "label": "E",
+              "x": 0.7,
+              "y": 0.85
+            },
+            {
+              "nodeId": "@V5",
+              "label": "F",
+              "x": 0.3,
+              "y": 0.85
+            }
+          ],
+          "edges": [
+            {
+              "fromId": "@V0",
+              "toId": "@V1",
+              "weight": 4
+            },
+            {
+              "fromId": "@V0",
+              "toId": "@V2",
+              "weight": 2
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V2",
+              "weight": 1
+            },
+            {
+              "fromId": "@V1",
+              "toId": "@V3",
+              "weight": 5
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V3",
+              "weight": 8
+            },
+            {
+              "fromId": "@V2",
+              "toId": "@V4",
+              "weight": 10
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V4",
+              "weight": 2
+            },
+            {
+              "fromId": "@V3",
+              "toId": "@V5",
+              "weight": 6
+            },
+            {
+              "fromId": "@V4",
+              "toId": "@V5",
+              "weight": 3
+            }
+          ],
+          "settledIds": [
+            "@V0",
+            "@V1",
+            "@V2",
+            "@V3",
+            "@V4",
+            "@V5"
+          ],
+          "dist": {},
+          "visitOrderIds": []
         }
       },
       "events": [

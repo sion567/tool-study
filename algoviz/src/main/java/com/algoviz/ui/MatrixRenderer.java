@@ -71,15 +71,16 @@ public final class MatrixRenderer {
     private static void drawGrid(GraphicsContext g, MathView.Grid grid, double x, double y,
                                  double cell, boolean clickable, Set<String> changedKeys,
                                  Set<Integer> picked) {
+        double cw = gridCell(grid, cell);   // 格宽可超出基宽：长公式格子横向加宽而非缩字
         g.setFill(Color.web("#111827"));
         g.setFont(Font.font(12));
         g.setTextAlign(TextAlignment.CENTER);
-        g.fillText(grid.label(), x + grid.cols() * cell / 2, y - 8);
+        g.fillText(grid.label(), x + grid.cols() * cw / 2, y - 8);
 
         for (int r = 0; r < grid.rows(); r++) {
             for (int c = 0; c < grid.cols(); c++) {
                 int idx = grid.idx(r, c);
-                double cx = x + c * cell;
+                double cx = x + c * cw;
                 double cy = y + r * cell;
                 boolean done = grid.doneCells().contains(idx);
                 boolean hl = (grid.hlRow() != null && grid.hlRow() == r)
@@ -87,7 +88,7 @@ public final class MatrixRenderer {
                 boolean active = grid.activeCells().contains(idx);
                 boolean changed = changedKeys != null && changedKeys.contains(grid.id() + ":" + idx);
                 g.setFill(done ? Color.web("#dcfce7") : CELL_BG);
-                g.fillRect(cx, cy, cell, cell);
+                g.fillRect(cx, cy, cw, cell);
                 if (done) {
                     g.setStroke(DONE);
                 } else if (active || changed) {
@@ -98,19 +99,48 @@ public final class MatrixRenderer {
                     g.setStroke(CELL_LINE);
                 }
                 g.setLineWidth(active || changed ? 2.6 : 1.4);
-                g.strokeRect(cx, cy, cell, cell);
+                g.strokeRect(cx, cy, cw, cell);
                 if (clickable && picked != null && picked.contains(idx)) {
                     g.setStroke(PICKED);
                     g.setLineWidth(2.5);
                     g.setLineDashes(6, 4);
-                    g.strokeRect(cx - 3, cy - 3, cell + 6, cell + 6);
+                    g.strokeRect(cx - 3, cy - 3, cw + 6, cell + 6);
                     g.setLineDashes();
                 }
                 g.setFill(done ? Color.web("#166534") : Color.web("#1e3a8a"));
-                g.setFont(Font.font(13));
-                g.fillText(grid.values().get(idx), cx + cell / 2, cy + cell / 2 + 5);
+                g.setFont(Font.font(fitFontSize(grid.values().get(idx), cw)));
+                g.fillText(grid.values().get(idx), cx + cw / 2, cy + cell / 2 + 5);
             }
         }
+    }
+
+    /** 网格实际格宽：最长文本按 13px 估宽，允许加宽到基宽 2.6 倍（横向空间足够时保住可读字号）。 */
+    private static double gridCell(MathView.Grid grid, double base) {
+        double maxEm = 1;
+        for (String v : grid.values()) {
+            maxEm = Math.max(maxEm, emWidth(v));
+        }
+        double need = maxEm * 13 * 0.62 + 12;
+        return Math.max(base, Math.min(base * 2.6, need));
+    }
+
+    /** 文本估宽（em）：CJK ≈ 1.0，其余 ≈ 0.58。 */
+    private static double emWidth(String text) {
+        double em = 0;
+        for (int i = 0; i < text.length(); i++) {
+            em += text.charAt(i) > 0x2E80 ? 1.0 : 0.58;
+        }
+        return em;
+    }
+
+    /** 格子文本自适应字号：中文≈1em、ASCII≈0.58em 估宽，超出格子就缩（下限 9），长公式不再溢出。 */
+    private static int fitFontSize(String text, double cell) {
+        double em = 0;
+        for (int i = 0; i < text.length(); i++) {
+            em += text.charAt(i) > 0x2E80 ? 1.0 : 0.58;
+        }
+        double fit = cell * 0.92 / Math.max(em, 1);
+        return (int) Math.max(9, Math.min(13, fit));
     }
 
     /** 供预测模式点击命中：只认 C 网格（输出），返回其格下标，未命中 -1。 */
@@ -122,7 +152,8 @@ public final class MatrixRenderer {
         MathView.Grid c = mv.grids().get(2);
         double w = canvas.getWidth();
         double h = canvas.getHeight();
-        double cell = Math.min(46, Math.min(w / 14, h / 9));
+        double base = Math.min(46, Math.min(w / 14, h / 9));
+        double cell = gridCell(c, base);
         double cx0 = w * 0.36;
         double cy0 = h * 0.58;
         int col = (int) Math.floor((x - cx0) / cell);

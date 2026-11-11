@@ -121,8 +121,8 @@ public final class KaratsubaDemo implements Algorithm {
         grids.add(new MathView.Grid("split", "拆分 m=" + M, 2, 2,
                 List.of("a=" + a, "b=" + b, "c=" + c, "d=" + d),
                 null, null, java.util.Set.of(), java.util.Set.of()));
-        // 网格二：三次乘法（高亮 = 最后算出的那个）
-        List<String> pm = List.of("P1=ac=" + p1, "P2=bd=" + p2, "P3=(a+b)(c+d)=" + p3);
+        // 网格二：三次乘法（高亮 = 最后算出的那个；数值在合并行展示，格内只放公式避免溢出）
+        List<String> pm = List.of("P1=ac", "P2=bd", "P3=(a+b)(c+d)");
         java.util.Set<Integer> pActive = new java.util.LinkedHashSet<>();
         if (p3 != 0) pActive.add(2);
         else if (p2 != 0) pActive.add(1);

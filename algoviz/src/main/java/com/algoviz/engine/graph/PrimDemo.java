@@ -41,6 +41,7 @@ public final class PrimDemo implements Algorithm {
     private final boolean[] inMST = new boolean[6];
     private final List<Integer> mstEdges = new ArrayList<>();   // EDGES 下标
     private String curEdge = "";
+    private int curEdgeIdx = -1;                                // 当前选中边（图高亮用）
 
     @Override public String id() { return "graph.prim"; }
     @Override public String title() { return "Prim MST"; }
@@ -62,6 +63,7 @@ public final class PrimDemo implements Algorithm {
             if (bestIdx == -1) break;
             int bf = EDGES[bestIdx][0], bt = EDGES[bestIdx][1];
             curEdge = LABELS[bf] + "-" + LABELS[bt] + " w=" + bestW;
+            curEdgeIdx = bestIdx;
             inMST[bf] = true; inMST[bt] = true;
             mstEdges.add(bestIdx);
             emit(5, List.of(VizEvent.of(VizEvent.EventType.MARK_SORTED,
@@ -69,6 +71,7 @@ public final class PrimDemo implements Algorithm {
                     "贪心：已选/未选集合间最小权边——MST 性质保证全局最优");
         }
         curEdge = null;
+        curEdgeIdx = -1;
         emit(8, List.of(VizEvent.of(VizEvent.EventType.RETURN,
                 "MST 完成：" + mstEdges.size() + " 条边")), "最小生成树 = V-1 条边");
         return new Trace(SCHEMA, meta(), steps);
@@ -82,6 +85,7 @@ public final class PrimDemo implements Algorithm {
         layers.put("mem.stack", new StackLayer(List.of(frame)));
         layers.put("mem.heap", new com.algoviz.engine.mem.HeapLayer(snapshotHeap()));
         layers.put("ds.array", snapshotArray());
+        layers.put("ds.graph", snapshotGraph());
         steps.add(new Step(steps.size(), Loc.line(line, why),
                 Collections.unmodifiableMap(layers), List.copyOf(events), new Intent(why, INVARIANT)));
     }
@@ -94,6 +98,29 @@ public final class PrimDemo implements Algorithm {
         objs.put("@1", new HeapObject("@1", "prim", "PrimState",
                 Collections.unmodifiableMap(fields), List.of()));
         return new Heap(Collections.unmodifiableMap(objs));
+    }
+
+    /** 图视图：绿 = 已入 MST 的顶点，橙 = 本步选中的边——树的生长一目了然。 */
+    private com.algoviz.engine.ds.GraphView snapshotGraph() {
+        double[][] xy = {{0.08, 0.50}, {0.30, 0.15}, {0.70, 0.15}, {0.92, 0.50}, {0.70, 0.85}, {0.30, 0.85}};
+        java.util.List<com.algoviz.engine.ds.GraphView.GraphVertex> vs = new ArrayList<>();
+        for (int i = 0; i < LABELS.length; i++) {
+            vs.add(new com.algoviz.engine.ds.GraphView.GraphVertex("@V" + i, LABELS[i], xy[i][0], xy[i][1]));
+        }
+        java.util.List<com.algoviz.engine.ds.GraphView.GraphEdge> es = new ArrayList<>();
+        for (int[] e : EDGES) {
+            es.add(new com.algoviz.engine.ds.GraphView.GraphEdge("@V" + e[0], "@V" + e[1], e[2]));
+        }
+        java.util.List<String> settled = new ArrayList<>();
+        for (int i = 0; i < LABELS.length; i++) {
+            if (inMST[i]) {
+                settled.add("@V" + i);
+            }
+        }
+        String rf = curEdgeIdx >= 0 ? "@V" + EDGES[curEdgeIdx][0] : null;
+        String rt = curEdgeIdx >= 0 ? "@V" + EDGES[curEdgeIdx][1] : null;
+        return new com.algoviz.engine.ds.GraphView("图（绿=已入 MST，橙=本步选边）", vs, es, null,
+                Collections.unmodifiableList(settled), Map.of(), rf, rt, List.of());
     }
 
     private ArrayView snapshotArray() {

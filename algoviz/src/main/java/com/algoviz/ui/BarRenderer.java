@@ -96,10 +96,10 @@ public final class BarRenderer {
     }
 
     private static Color colorOf(ArrayView av, int i) {
-        if (av.swapA() != null && (i == av.swapA() || i == av.swapB())) {
+        if (av.swapA() != null && (i == av.swapA() || (av.swapB() != null && i == av.swapB()))) {
             return SWAP;
         }
-        if (av.compareA() != null && (i == av.compareA() || i == av.compareB())) {
+        if (av.compareA() != null && (i == av.compareA() || (av.compareB() != null && i == av.compareB()))) {
             return COMPARE;
         }
         if (i >= av.sortedFrom() || (av.sortedTo() >= 0 && i <= av.sortedTo())) {

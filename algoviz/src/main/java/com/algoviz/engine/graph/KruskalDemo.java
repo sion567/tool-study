@@ -15,6 +15,7 @@ import com.algoviz.engine.mem.HeapObject;
 import com.algoviz.engine.mem.StackFrame;
 import com.algoviz.engine.mem.StackLayer;
 import com.algoviz.engine.ds.ArrayView;
+import com.algoviz.engine.ds.GraphView;
 import com.algoviz.engine.trace.Trace;
 
 import java.util.ArrayList;
@@ -100,6 +101,7 @@ public final class KruskalDemo implements Algorithm {
         layers.put("mem.stack", new StackLayer(List.of(frame)));
         layers.put("mem.heap", new HeapLayer(snapshotHeap()));
         layers.put("ds.array", snapshotArray());
+        layers.put("ds.graph", snapshotGraph());
         steps.add(new Step(steps.size(), Loc.line(line, why),
                 Collections.unmodifiableMap(layers), List.copyOf(events), new Intent(why, INVARIANT)));
     }
@@ -113,6 +115,28 @@ public final class KruskalDemo implements Algorithm {
         objs.put("@1", new HeapObject("@1", "uf", "UnionFind",
                 Collections.unmodifiableMap(fields), List.of()));
         return new Heap(Collections.unmodifiableMap(objs));
+    }
+
+    /** 图视图：绿 = 已接入 MST 的顶点，橙 = 当前考察的边（加入或判环）。 */
+    private GraphView snapshotGraph() {
+        double[][] xy = {{0.08, 0.50}, {0.30, 0.15}, {0.70, 0.15}, {0.92, 0.50}, {0.70, 0.85}, {0.30, 0.85}};
+        List<GraphView.GraphVertex> vs = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            vs.add(new GraphView.GraphVertex("@V" + i, LABELS[i], xy[i][0], xy[i][1]));
+        }
+        List<GraphView.GraphEdge> es = new ArrayList<>();
+        for (int[] e : EDGES) {
+            es.add(new GraphView.GraphEdge("@V" + e[0], "@V" + e[1], e[2]));
+        }
+        List<String> settled = new ArrayList<>();
+        for (int e : mstEdges) {
+            settled.add("@V" + EDGES[e][0]);
+            settled.add("@V" + EDGES[e][1]);
+        }
+        String rf = curEdge >= 0 ? "@V" + EDGES[curEdge][0] : null;
+        String rt = curEdge >= 0 ? "@V" + EDGES[curEdge][1] : null;
+        return new GraphView("图（绿=已接入 MST，橙=当前考察边）", vs, es, null,
+                Collections.unmodifiableList(settled), Map.of(), rf, rt, List.of());
     }
 
     private ArrayView snapshotArray() {
