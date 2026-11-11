@@ -64,7 +64,7 @@
 
 ## 已完成归档（最近 5 条）
 
-- [x] ✅ 物理试点六连：抛体/弹簧振子(欧拉注能)/双摆混沌(RK4+幽灵轨迹)/热扩散(🎯点选预测)/N体/理想气体——新分类物理(6)，PlotView 增 doublePendulum kind——`ec5542e`
+- [x] ✅ 物理试点六连：抛体/弹簧振子(欧拉注能)/双摆混沌(RK4+幽灵轨迹)/热扩散(🎯点选预测)/N体/理想气体——新分类物理(6)，PlotView 增 doublePendulum kind——`924df3b`
 - [x] ✅ 傅里叶 + 深度学习五连（CNN/RNN/GNN/GAN/Attention）——`b4ae922`
 - [x] ✅ 项目自检：Huffman 注册 + 3 模板 + 6 课件 + CodePanel 兜底——`d5f27d8`
 - [x] ✅ 踩坑记录 18 条系统化沉淀——`d61de33`
