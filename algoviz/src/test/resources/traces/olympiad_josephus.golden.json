@@ -1,0 +1,2542 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "olympiad.josephus",
+    "title": "组合构造·约瑟夫环",
+    "codeResource": "/code/JosephusDemo.java",
+    "input": "n=12 k=3",
+    "inputSize": 17
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "史学家约瑟夫斯在洞穴里算出了自己的位置——这道题的答案关乎性命"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle",
+          "values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "12 人围圈，1 号起每报到 3 出列——谁活到最后？"
+        }
+      ],
+      "intent": {
+        "why": "史学家约瑟夫斯在洞穴里算出了自己的位置——这道题的答案关乎性命",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            1,
+            2,
+            0,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[2]"
+          ],
+          "detail": "第 1 轮：报数 1号 2号 3号 → 3 号出列（剩 11 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            1,
+            2,
+            0,
+            4,
+            5,
+            0,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[5]"
+          ],
+          "detail": "第 2 轮：报数 4号 5号 6号 → 6 号出列（剩 10 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            1,
+            2,
+            0,
+            4,
+            5,
+            0,
+            7,
+            8,
+            0,
+            10,
+            11,
+            12
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[8]"
+          ],
+          "detail": "第 3 轮：报数 7号 8号 9号 → 9 号出列（剩 9 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            1,
+            2,
+            0,
+            4,
+            5,
+            0,
+            7,
+            8,
+            0,
+            10,
+            11,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[11]"
+          ],
+          "detail": "第 4 轮：报数 10号 11号 12号 → 12 号出列（剩 8 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            1,
+            2,
+            0,
+            0,
+            5,
+            0,
+            7,
+            8,
+            0,
+            10,
+            11,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[3]"
+          ],
+          "detail": "第 5 轮：报数 1号 2号 4号 → 4 号出列（剩 7 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            1,
+            2,
+            0,
+            0,
+            5,
+            0,
+            7,
+            0,
+            0,
+            10,
+            11,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[7]"
+          ],
+          "detail": "第 6 轮：报数 5号 7号 8号 → 8 号出列（剩 6 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            0,
+            0,
+            5,
+            0,
+            7,
+            0,
+            0,
+            10,
+            11,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[0]"
+          ],
+          "detail": "第 7 轮：报数 10号 11号 1号 → 1 号出列（剩 5 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "8"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            10,
+            11,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[6]"
+          ],
+          "detail": "第 8 轮：报数 2号 5号 7号 → 7 号出列（剩 4 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "9"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            10,
+            11,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[1]"
+          ],
+          "detail": "第 9 轮：报数 10号 11号 2号 → 2 号出列（剩 3 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "10"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "进行中"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            5,
+            0,
+            0,
+            0,
+            0,
+            10,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[10]"
+          ],
+          "detail": "第 10 轮：报数 5号 10号 11号 → 11 号出列（剩 2 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            10,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "a[4]"
+          ],
+          "detail": "第 11 轮：报数 5号 10号 5号 → 5 号出列（剩 1 人）"
+        }
+      ],
+      "intent": {
+        "why": "圈没有起点：数到尾巴就绕回头——模运算天生就是圆圈的代数",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 22,
+        "endLine": 22,
+        "note": "模拟给了直觉：幸存者位置和 n、k 的关系藏在淘汰顺序里"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            10,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "模拟落幕：10 号幸存——但每轮要走 O(n) 步，n 大了模拟太慢"
+        }
+      ],
+      "intent": {
+        "why": "模拟给了直觉：幸存者位置和 n、k 的关系藏在淘汰顺序里",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "删掉出列者后圈少一人：j 人圈的答案 = (j−1 人圈的答案 + k) 对 j 取模"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [],
+          "detail": "换公式：f(1)=0，f(j) = (f(j−1)+3) mod j——从 1 人圈滚到 12 人圈"
+        }
+      ],
+      "intent": {
+        "why": "删掉出列者后圈少一人：j 人圈的答案 = (j−1 人圈的答案 + k) 对 j 取模",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "2 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[1]"
+          ],
+          "detail": "f(2) = (f(1)+3) mod 2 = 1 → 2 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "2 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[2]"
+          ],
+          "detail": "f(3) = (f(2)+3) mod 3 = 1 → 2 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[3]"
+          ],
+          "detail": "f(4) = (f(3)+3) mod 4 = 0 → 1 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "4 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            4,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[4]"
+          ],
+          "detail": "f(5) = (f(4)+3) mod 5 = 3 → 4 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            4,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[5]"
+          ],
+          "detail": "f(6) = (f(5)+3) mod 6 = 0 → 1 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 19,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "4 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            4,
+            1,
+            4,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[6]"
+          ],
+          "detail": "f(7) = (f(6)+3) mod 7 = 3 → 4 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 20,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "7 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            4,
+            1,
+            4,
+            7,
+            0,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[7]"
+          ],
+          "detail": "f(8) = (f(7)+3) mod 8 = 6 → 7 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 21,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "1 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            4,
+            1,
+            4,
+            7,
+            1,
+            0,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[8]"
+          ],
+          "detail": "f(9) = (f(8)+3) mod 9 = 0 → 1 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 22,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "4 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            4,
+            1,
+            4,
+            7,
+            1,
+            4,
+            0,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[9]"
+          ],
+          "detail": "f(10) = (f(9)+3) mod 10 = 3 → 4 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 23,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "6"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "7 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            4,
+            1,
+            4,
+            7,
+            1,
+            4,
+            7,
+            0
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[10]"
+          ],
+          "detail": "f(11) = (f(10)+3) mod 11 = 6 → 7 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 24,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "10 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            4,
+            1,
+            4,
+            7,
+            1,
+            4,
+            7,
+            10
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "f[11]"
+          ],
+          "detail": "f(12) = (f(11)+3) mod 12 = 9 → 10 号位"
+        }
+      ],
+      "intent": {
+        "why": "每滚一步只用上一步的答案——递推是「记忆」的 O(n)，模拟是「重演」的 O(n²)",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 25,
+      "loc": {
+        "startLine": 23,
+        "endLine": 23,
+        "note": "1 亿人、报到 9 出列？公式毫秒出答案：模拟「做一遍」，递推「想明白」"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "10 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            4,
+            1,
+            4,
+            7,
+            1,
+            4,
+            7,
+            10
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "f[11]"
+          ],
+          "detail": "公式 f(12)+1 = 10 号 == 模拟幸存者 10 号——两种解法握手言和"
+        }
+      ],
+      "intent": {
+        "why": "1 亿人、报到 9 出列？公式毫秒出答案：模拟「做一遍」，递推「想明白」",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    },
+    {
+      "index": 26,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "约瑟夫斯当场算出了自己该站的位置——会递推的人多活一次"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "josephus",
+              "locals": {
+                "圈人数": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "报数 k": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "轮次": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "f 当前": {
+                  "kind": "PRIM",
+                  "text": "9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "josephus",
+                "type": "CircleState",
+                "fields": {
+                  "幸存者（模拟）": {
+                    "kind": "PRIM",
+                    "text": "10 号"
+                  },
+                  "幸存者（公式 f+1）": {
+                    "kind": "PRIM",
+                    "text": "10 号位"
+                  },
+                  "复杂度对比": {
+                    "kind": "PRIM",
+                    "text": "模拟 O(n²) · 递推 O(n)"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.array": {
+          "arrayId": "@1",
+          "name": "circle/f 表",
+          "values": [
+            0,
+            2,
+            2,
+            1,
+            4,
+            1,
+            4,
+            7,
+            1,
+            4,
+            7,
+            10
+          ],
+          "sortedFrom": 12,
+          "sortedTo": -1
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "递推不动点：小圈答案唯一确定大圈答案——数学归纳法的算法化身"
+        }
+      ],
+      "intent": {
+        "why": "约瑟夫斯当场算出了自己该站的位置——会递推的人多活一次",
+        "invariant": "报数取模 = 圆圈没有起点；递推 f(j) = (f(j−1)+k) mod j——j 人圈的幸存者位置 = (j−1 人圈答案 + k) 对 j 取模：小圈答案滚成大圈答案；模拟与公式必须同归"
+      }
+    }
+  ]
+}

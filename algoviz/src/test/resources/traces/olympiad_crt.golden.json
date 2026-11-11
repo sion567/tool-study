@@ -1,0 +1,1058 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "olympiad.crt",
+    "title": "数论·扩展欧几里得与CRT",
+    "codeResource": "/code/CrtDemo.java",
+    "input": "x≡2(3), x≡3(5)",
+    "inputSize": 10
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "普通 GCD 只留商数，扩展版把「怎么凑出 gcd」的系数一并记下——Bézout 的逐行流水账"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "crt",
+              "locals": {
+                "方程组": {
+                  "kind": "PRIM",
+                  "text": "x≡2(3), x≡3(5)"
+                },
+                "逆元": {
+                  "kind": "PRIM",
+                  "text": "3⁻¹≡0 (mod 5)"
+                },
+                "k / x": {
+                  "kind": "PRIM",
+                  "text": "0 / 0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "crt",
+                "type": "CongruenceState",
+                "fields": {
+                  "逆元 m⁻¹": {
+                    "kind": "PRIM",
+                    "text": "0 (mod 5)"
+                  },
+                  "解 x": {
+                    "kind": "PRIM",
+                    "text": "求解中"
+                  },
+                  "验算 mod m / mod n": {
+                    "kind": "PRIM",
+                    "text": "—"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "扩展欧几里得 + CRT",
+          "grids": [
+            {
+              "id": "table",
+              "label": "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "3",
+                "5",
+                "1",
+                "0",
+                "0",
+                "1"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "crt",
+              "label": "CRT 演算栏（x≡2 mod 3，x≡3 mod 5）",
+              "rows": 4,
+              "cols": 1,
+              "values": [
+                "",
+                "",
+                "",
+                ""
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "exGCD(3, 5)：目标 m·s + n·t = gcd——三列系数随商滚动"
+        }
+      ],
+      "intent": {
+        "why": "普通 GCD 只留商数，扩展版把「怎么凑出 gcd」的系数一并记下——Bézout 的逐行流水账",
+        "invariant": "Bézout 恒等式 ms+nt=gcd(m,n)；gcd=1 → s 就是 m 在 mod n 下的逆元——「除法」在模世界存在；互质模数下 CRT 恰有一解（mod mn）：两个余数唯一确定一个数"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "同一套「除→减」操作同步作用在 (m,n)、(1,0)、(0,1) 三行——不变式 ms+nt=旧 gcd 全程成立"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "crt",
+              "locals": {
+                "方程组": {
+                  "kind": "PRIM",
+                  "text": "x≡2(3), x≡3(5)"
+                },
+                "逆元": {
+                  "kind": "PRIM",
+                  "text": "3⁻¹≡0 (mod 5)"
+                },
+                "k / x": {
+                  "kind": "PRIM",
+                  "text": "0 / 0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "crt",
+                "type": "CongruenceState",
+                "fields": {
+                  "逆元 m⁻¹": {
+                    "kind": "PRIM",
+                    "text": "0 (mod 5)"
+                  },
+                  "解 x": {
+                    "kind": "PRIM",
+                    "text": "求解中"
+                  },
+                  "验算 mod m / mod n": {
+                    "kind": "PRIM",
+                    "text": "—"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "扩展欧几里得 + CRT",
+          "grids": [
+            {
+              "id": "table",
+              "label": "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "5",
+                "3",
+                "0",
+                "1",
+                "1",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "crt",
+              "label": "CRT 演算栏（x≡2 mod 3，x≡3 mod 5）",
+              "rows": 4,
+              "cols": 1,
+              "values": [
+                "",
+                "",
+                "",
+                ""
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "商 q=0 → (5,3)·(0,1)·(1,0)"
+        }
+      ],
+      "intent": {
+        "why": "同一套「除→减」操作同步作用在 (m,n)、(1,0)、(0,1) 三行——不变式 ms+nt=旧 gcd 全程成立",
+        "invariant": "Bézout 恒等式 ms+nt=gcd(m,n)；gcd=1 → s 就是 m 在 mod n 下的逆元——「除法」在模世界存在；互质模数下 CRT 恰有一解（mod mn）：两个余数唯一确定一个数"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "同一套「除→减」操作同步作用在 (m,n)、(1,0)、(0,1) 三行——不变式 ms+nt=旧 gcd 全程成立"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "crt",
+              "locals": {
+                "方程组": {
+                  "kind": "PRIM",
+                  "text": "x≡2(3), x≡3(5)"
+                },
+                "逆元": {
+                  "kind": "PRIM",
+                  "text": "3⁻¹≡0 (mod 5)"
+                },
+                "k / x": {
+                  "kind": "PRIM",
+                  "text": "0 / 0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "crt",
+                "type": "CongruenceState",
+                "fields": {
+                  "逆元 m⁻¹": {
+                    "kind": "PRIM",
+                    "text": "0 (mod 5)"
+                  },
+                  "解 x": {
+                    "kind": "PRIM",
+                    "text": "求解中"
+                  },
+                  "验算 mod m / mod n": {
+                    "kind": "PRIM",
+                    "text": "—"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "扩展欧几里得 + CRT",
+          "grids": [
+            {
+              "id": "table",
+              "label": "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "3",
+                "2",
+                "1",
+                "-1",
+                "0",
+                "1"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "crt",
+              "label": "CRT 演算栏（x≡2 mod 3，x≡3 mod 5）",
+              "rows": 4,
+              "cols": 1,
+              "values": [
+                "",
+                "",
+                "",
+                ""
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "商 q=1 → (3,2)·(1,-1)·(0,1)"
+        }
+      ],
+      "intent": {
+        "why": "同一套「除→减」操作同步作用在 (m,n)、(1,0)、(0,1) 三行——不变式 ms+nt=旧 gcd 全程成立",
+        "invariant": "Bézout 恒等式 ms+nt=gcd(m,n)；gcd=1 → s 就是 m 在 mod n 下的逆元——「除法」在模世界存在；互质模数下 CRT 恰有一解（mod mn）：两个余数唯一确定一个数"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "同一套「除→减」操作同步作用在 (m,n)、(1,0)、(0,1) 三行——不变式 ms+nt=旧 gcd 全程成立"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "crt",
+              "locals": {
+                "方程组": {
+                  "kind": "PRIM",
+                  "text": "x≡2(3), x≡3(5)"
+                },
+                "逆元": {
+                  "kind": "PRIM",
+                  "text": "3⁻¹≡0 (mod 5)"
+                },
+                "k / x": {
+                  "kind": "PRIM",
+                  "text": "0 / 0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "crt",
+                "type": "CongruenceState",
+                "fields": {
+                  "逆元 m⁻¹": {
+                    "kind": "PRIM",
+                    "text": "0 (mod 5)"
+                  },
+                  "解 x": {
+                    "kind": "PRIM",
+                    "text": "求解中"
+                  },
+                  "验算 mod m / mod n": {
+                    "kind": "PRIM",
+                    "text": "—"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "扩展欧几里得 + CRT",
+          "grids": [
+            {
+              "id": "table",
+              "label": "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "2",
+                "1",
+                "-1",
+                "2",
+                "1",
+                "-1"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "crt",
+              "label": "CRT 演算栏（x≡2 mod 3，x≡3 mod 5）",
+              "rows": 4,
+              "cols": 1,
+              "values": [
+                "",
+                "",
+                "",
+                ""
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "商 q=1 → (2,1)·(-1,2)·(1,-1)"
+        }
+      ],
+      "intent": {
+        "why": "同一套「除→减」操作同步作用在 (m,n)、(1,0)、(0,1) 三行——不变式 ms+nt=旧 gcd 全程成立",
+        "invariant": "Bézout 恒等式 ms+nt=gcd(m,n)；gcd=1 → s 就是 m 在 mod n 下的逆元——「除法」在模世界存在；互质模数下 CRT 恰有一解（mod mn）：两个余数唯一确定一个数"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "同一套「除→减」操作同步作用在 (m,n)、(1,0)、(0,1) 三行——不变式 ms+nt=旧 gcd 全程成立"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "crt",
+              "locals": {
+                "方程组": {
+                  "kind": "PRIM",
+                  "text": "x≡2(3), x≡3(5)"
+                },
+                "逆元": {
+                  "kind": "PRIM",
+                  "text": "3⁻¹≡0 (mod 5)"
+                },
+                "k / x": {
+                  "kind": "PRIM",
+                  "text": "0 / 0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "crt",
+                "type": "CongruenceState",
+                "fields": {
+                  "逆元 m⁻¹": {
+                    "kind": "PRIM",
+                    "text": "0 (mod 5)"
+                  },
+                  "解 x": {
+                    "kind": "PRIM",
+                    "text": "求解中"
+                  },
+                  "验算 mod m / mod n": {
+                    "kind": "PRIM",
+                    "text": "—"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "扩展欧几里得 + CRT",
+          "grids": [
+            {
+              "id": "table",
+              "label": "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1",
+                "0",
+                "2",
+                "-5",
+                "-1",
+                "3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "crt",
+              "label": "CRT 演算栏（x≡2 mod 3，x≡3 mod 5）",
+              "rows": 4,
+              "cols": 1,
+              "values": [
+                "",
+                "",
+                "",
+                ""
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "商 q=2 → (1,0)·(2,-5)·(-1,3)"
+        }
+      ],
+      "intent": {
+        "why": "同一套「除→减」操作同步作用在 (m,n)、(1,0)、(0,1) 三行——不变式 ms+nt=旧 gcd 全程成立",
+        "invariant": "Bézout 恒等式 ms+nt=gcd(m,n)；gcd=1 → s 就是 m 在 mod n 下的逆元——「除法」在模世界存在；互质模数下 CRT 恰有一解（mod mn）：两个余数唯一确定一个数"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "gcd=1 的瞬间，s 就是 m 的逆元——「1/m」在模世界里有了身份证"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "crt",
+              "locals": {
+                "方程组": {
+                  "kind": "PRIM",
+                  "text": "x≡2(3), x≡3(5)"
+                },
+                "逆元": {
+                  "kind": "PRIM",
+                  "text": "3⁻¹≡2 (mod 5)"
+                },
+                "k / x": {
+                  "kind": "PRIM",
+                  "text": "0 / 0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "crt",
+                "type": "CongruenceState",
+                "fields": {
+                  "逆元 m⁻¹": {
+                    "kind": "PRIM",
+                    "text": "2 (mod 5)"
+                  },
+                  "解 x": {
+                    "kind": "PRIM",
+                    "text": "求解中"
+                  },
+                  "验算 mod m / mod n": {
+                    "kind": "PRIM",
+                    "text": "—"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "扩展欧几里得 + CRT",
+          "grids": [
+            {
+              "id": "table",
+              "label": "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1",
+                "0",
+                "2",
+                "-5",
+                "-1",
+                "3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "crt",
+              "label": "CRT 演算栏（x≡2 mod 3，x≡3 mod 5）",
+              "rows": 4,
+              "cols": 1,
+              "values": [
+                "",
+                "",
+                "",
+                ""
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "r=0 → gcd=1，s=2：3·2+5·-1=1，即 3⁻¹ ≡ 2 (mod 5)"
+        }
+      ],
+      "intent": {
+        "why": "gcd=1 的瞬间，s 就是 m 的逆元——「1/m」在模世界里有了身份证",
+        "invariant": "Bézout 恒等式 ms+nt=gcd(m,n)；gcd=1 → s 就是 m 在 mod n 下的逆元——「除法」在模世界存在；互质模数下 CRT 恰有一解（mod mn）：两个余数唯一确定一个数"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "第一个方程给出通解形式 x = a + mk：所有候选数排成一条等差链"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "crt",
+              "locals": {
+                "方程组": {
+                  "kind": "PRIM",
+                  "text": "x≡2(3), x≡3(5)"
+                },
+                "逆元": {
+                  "kind": "PRIM",
+                  "text": "3⁻¹≡2 (mod 5)"
+                },
+                "k / x": {
+                  "kind": "PRIM",
+                  "text": "0 / 0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "crt",
+                "type": "CongruenceState",
+                "fields": {
+                  "逆元 m⁻¹": {
+                    "kind": "PRIM",
+                    "text": "2 (mod 5)"
+                  },
+                  "解 x": {
+                    "kind": "PRIM",
+                    "text": "求解中"
+                  },
+                  "验算 mod m / mod n": {
+                    "kind": "PRIM",
+                    "text": "—"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "扩展欧几里得 + CRT",
+          "grids": [
+            {
+              "id": "table",
+              "label": "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1",
+                "0",
+                "2",
+                "-5",
+                "-1",
+                "3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "crt",
+              "label": "CRT 演算栏（x≡2 mod 3，x≡3 mod 5）",
+              "rows": 4,
+              "cols": 1,
+              "values": [
+                "x = 2 + 3k",
+                "",
+                "",
+                ""
+              ],
+              "activeCells": [
+                0
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [],
+          "detail": "同余组：x≡2 (mod 3) 与 x≡3 (mod 5)——代入 x = 2 + 3k"
+        }
+      ],
+      "intent": {
+        "why": "第一个方程给出通解形式 x = a + mk：所有候选数排成一条等差链",
+        "invariant": "Bézout 恒等式 ms+nt=gcd(m,n)；gcd=1 → s 就是 m 在 mod n 下的逆元——「除法」在模世界存在；互质模数下 CRT 恰有一解（mod mn）：两个余数唯一确定一个数"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "逆元登场：「除以 m」=「乘 m 的逆元」——第一幕的系数在这里兑成现金"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "crt",
+              "locals": {
+                "方程组": {
+                  "kind": "PRIM",
+                  "text": "x≡2(3), x≡3(5)"
+                },
+                "逆元": {
+                  "kind": "PRIM",
+                  "text": "3⁻¹≡2 (mod 5)"
+                },
+                "k / x": {
+                  "kind": "PRIM",
+                  "text": "2 / 0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "crt",
+                "type": "CongruenceState",
+                "fields": {
+                  "逆元 m⁻¹": {
+                    "kind": "PRIM",
+                    "text": "2 (mod 5)"
+                  },
+                  "解 x": {
+                    "kind": "PRIM",
+                    "text": "求解中"
+                  },
+                  "验算 mod m / mod n": {
+                    "kind": "PRIM",
+                    "text": "—"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "扩展欧几里得 + CRT",
+          "grids": [
+            {
+              "id": "table",
+              "label": "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1",
+                "0",
+                "2",
+                "-5",
+                "-1",
+                "3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "crt",
+              "label": "CRT 演算栏（x≡2 mod 3，x≡3 mod 5）",
+              "rows": 4,
+              "cols": 1,
+              "values": [
+                "x = 2 + 3k",
+                "3k ≡ 1 (mod 5)",
+                "k ≡ 1·2 ≡ 2 (mod 5)",
+                ""
+              ],
+              "activeCells": [
+                0,
+                1,
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "代入：3k ≡ 1 (mod 5) → k ≡ (1)·3⁻¹ ≡ 2 (mod 5)"
+        }
+      ],
+      "intent": {
+        "why": "逆元登场：「除以 m」=「乘 m 的逆元」——第一幕的系数在这里兑成现金",
+        "invariant": "Bézout 恒等式 ms+nt=gcd(m,n)；gcd=1 → s 就是 m 在 mod n 下的逆元——「除法」在模世界存在；互质模数下 CRT 恰有一解（mod mn）：两个余数唯一确定一个数"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "mod mn = 15 内解唯一：两个余数像经纬度一样把 x 钉死"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "crt",
+              "locals": {
+                "方程组": {
+                  "kind": "PRIM",
+                  "text": "x≡2(3), x≡3(5)"
+                },
+                "逆元": {
+                  "kind": "PRIM",
+                  "text": "3⁻¹≡2 (mod 5)"
+                },
+                "k / x": {
+                  "kind": "PRIM",
+                  "text": "2 / 8"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "crt",
+                "type": "CongruenceState",
+                "fields": {
+                  "逆元 m⁻¹": {
+                    "kind": "PRIM",
+                    "text": "2 (mod 5)"
+                  },
+                  "解 x": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "验算 mod m / mod n": {
+                    "kind": "PRIM",
+                    "text": "2 / 3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "扩展欧几里得 + CRT",
+          "grids": [
+            {
+              "id": "table",
+              "label": "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1",
+                "0",
+                "2",
+                "-5",
+                "-1",
+                "3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "crt",
+              "label": "CRT 演算栏（x≡2 mod 3，x≡3 mod 5）",
+              "rows": 4,
+              "cols": 1,
+              "values": [
+                "x = 2 + 3k",
+                "3k ≡ 1 (mod 5)",
+                "k ≡ 2 (mod 5)",
+                "x = 2 + 3×2 = 8"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "x = 8：验算 x mod 3 = 2 ✓，x mod 5 = 3 ✓——双同余同时成立"
+        }
+      ],
+      "intent": {
+        "why": "mod mn = 15 内解唯一：两个余数像经纬度一样把 x 钉死",
+        "invariant": "Bézout 恒等式 ms+nt=gcd(m,n)；gcd=1 → s 就是 m 在 mod n 下的逆元——「除法」在模世界存在；互质模数下 CRT 恰有一解（mod mn）：两个余数唯一确定一个数"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": " RSA 解密、快速傅里叶卷积、多精度运算全靠 CRT 拆装——古人娱乐题成了现代密码学的承重墙"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "crt",
+              "locals": {
+                "方程组": {
+                  "kind": "PRIM",
+                  "text": "x≡2(3), x≡3(5)"
+                },
+                "逆元": {
+                  "kind": "PRIM",
+                  "text": "3⁻¹≡2 (mod 5)"
+                },
+                "k / x": {
+                  "kind": "PRIM",
+                  "text": "2 / 8"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "crt",
+                "type": "CongruenceState",
+                "fields": {
+                  "逆元 m⁻¹": {
+                    "kind": "PRIM",
+                    "text": "2 (mod 5)"
+                  },
+                  "解 x": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "验算 mod m / mod n": {
+                    "kind": "PRIM",
+                    "text": "2 / 3"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "扩展欧几里得 + CRT",
+          "grids": [
+            {
+              "id": "table",
+              "label": "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+              "rows": 3,
+              "cols": 2,
+              "values": [
+                "1",
+                "0",
+                "2",
+                "-5",
+                "-1",
+                "3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "crt",
+              "label": "CRT 演算栏（x≡2 mod 3，x≡3 mod 5）",
+              "rows": 4,
+              "cols": 1,
+              "values": [
+                "x = 2 + 3k",
+                "3k ≡ 1 (mod 5)",
+                "k ≡ 2 (mod 5)",
+                "x = 2 + 3×2 = 8"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "「物不知数」出自《孙子算经》（约 4 世纪）：今有物不知其数，三三数之剩二……——CRT 比欧洲早了一千多年"
+        }
+      ],
+      "intent": {
+        "why": " RSA 解密、快速傅里叶卷积、多精度运算全靠 CRT 拆装——古人娱乐题成了现代密码学的承重墙",
+        "invariant": "Bézout 恒等式 ms+nt=gcd(m,n)；gcd=1 → s 就是 m 在 mod n 下的逆元——「除法」在模世界存在；互质模数下 CRT 恰有一解（mod mn）：两个余数唯一确定一个数"
+      }
+    }
+  ]
+}

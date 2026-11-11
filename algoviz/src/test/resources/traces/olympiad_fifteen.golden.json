@@ -1,0 +1,2368 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "olympiad.fifteen",
+    "title": "不变量·15谜题可解性",
+    "codeResource": "/code/FifteenPuzzleDemo.java",
+    "input": "打乱种子 7",
+    "inputSize": 26
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "1879 年「15 谜题风暴」：全美疯玩一局换两牌的赝品——没人滑得回去，数学最终出庭作证"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "偶（无解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "局面 A：合法滑动打乱而来（60 步）——它能滑回 1..15 吗？先数逆序数"
+        }
+      ],
+      "intent": {
+        "why": "1879 年「15 谜题风暴」：全美疯玩一局换两牌的赝品——没人滑得回去，数学最终出庭作证",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 2 为基准：后面比它小的有 1 个 → 逆序数累计 1"
+        }
+      ],
+      "intent": {
+        "why": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "数到一半了：逆序数就是「打乱程度」的精确度量"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "偶（无解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 3 为基准：后面比它小的有 1 个 → 逆序数累计 2"
+        }
+      ],
+      "intent": {
+        "why": "数到一半了：逆序数就是「打乱程度」的精确度量",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 8 为基准：后面比它小的有 5 个 → 逆序数累计 7"
+        }
+      ],
+      "intent": {
+        "why": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "数到一半了：逆序数就是「打乱程度」的精确度量"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 7 为基准：后面比它小的有 4 个 → 逆序数累计 11"
+        }
+      ],
+      "intent": {
+        "why": "数到一半了：逆序数就是「打乱程度」的精确度量",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "13"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "13"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 5 为基准：后面比它小的有 2 个 → 逆序数累计 13"
+        }
+      ],
+      "intent": {
+        "why": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "数到一半了：逆序数就是「打乱程度」的精确度量"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "15"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 6 为基准：后面比它小的有 2 个 → 逆序数累计 15"
+        }
+      ],
+      "intent": {
+        "why": "数到一半了：逆序数就是「打乱程度」的精确度量",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "19"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "19"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 11 为基准：后面比它小的有 4 个 → 逆序数累计 19"
+        }
+      ],
+      "intent": {
+        "why": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "数到一半了：逆序数就是「打乱程度」的精确度量"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "20"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "20"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "偶（无解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 4 为基准：后面比它小的有 1 个 → 逆序数累计 20"
+        }
+      ],
+      "intent": {
+        "why": "数到一半了：逆序数就是「打乱程度」的精确度量",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "24"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "24"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "偶（无解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 13 为基准：后面比它小的有 4 个 → 逆序数累计 24"
+        }
+      ],
+      "intent": {
+        "why": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "数到一半了：逆序数就是「打乱程度」的精确度量"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "25"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "25"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 9 为基准：后面比它小的有 1 个 → 逆序数累计 25"
+        }
+      ],
+      "intent": {
+        "why": "数到一半了：逆序数就是「打乱程度」的精确度量",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "27"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "27"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 12 为基准：后面比它小的有 2 个 → 逆序数累计 27"
+        }
+      ],
+      "intent": {
+        "why": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "数到一半了：逆序数就是「打乱程度」的精确度量"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "27"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "27"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 1 为基准：后面比它小的有 0 个 → 逆序数累计 27"
+        }
+      ],
+      "intent": {
+        "why": "数到一半了：逆序数就是「打乱程度」的精确度量",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "27"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "27"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 10 为基准：后面比它小的有 0 个 → 逆序数累计 27"
+        }
+      ],
+      "intent": {
+        "why": "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "数到一半了：逆序数就是「打乱程度」的精确度量"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "27"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "27"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [],
+          "detail": "以 14 为基准：后面比它小的有 0 个 → 逆序数累计 27"
+        }
+      ],
+      "intent": {
+        "why": "数到一半了：逆序数就是「打乱程度」的精确度量",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "判据：宽为偶时「逆序数+空格行」必须为奇——这就是从初始到终点全部合法移动的指纹和"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "27"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "可解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "27"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "奇（可解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "2",
+                "3",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "局面 A：逆序数 27（偶/奇判定），空格在第 2 行（自底）→ 和为 29 → 奇 → 可解！"
+        }
+      ],
+      "intent": {
+        "why": "判据：宽为偶时「逆序数+空格行」必须为奇——这就是从初始到终点全部合法移动的指纹和",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "对换 = 奇偶粉碎机：所有合法移动都保奇偶，唯独这一步在指纹之外"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "28"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "28"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "偶（无解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "3",
+                "2",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "3",
+                "2",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SWAP",
+          "targets": [],
+          "detail": "局面 B：对换两枚牌（2 与 3）——注意：任何合法滑动都做不到这件事！"
+        }
+      ],
+      "intent": {
+        "why": "对换 = 奇偶粉碎机：所有合法移动都保奇偶，唯独这一步在指纹之外",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "数学判决：赝品局的「无解」不是你手笨，是奇偶不变量把门焊死了"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "28"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "28"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "偶（无解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "3",
+                "2",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "3",
+                "2",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "局面 B：逆序数 27 → 28（已翻转），奇偶翻转 → 无解——无论怎么滑都回不去"
+        }
+      ],
+      "intent": {
+        "why": "数学判决：赝品局的「无解」不是你手笨，是奇偶不变量把门焊死了",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    },
+    {
+      "index": 18,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "同样的思想判死了五色地图的六色情形、判活了棋盘残局——不变量是组合数学的指纹鉴定科"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "fifteen",
+              "locals": {
+                "逆序数": {
+                  "kind": "PRIM",
+                  "text": "28"
+                },
+                "空格行(自底)": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "判定": {
+                  "kind": "PRIM",
+                  "text": "无解"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "fifteen",
+                "type": "ParityState",
+                "fields": {
+                  "逆序数": {
+                    "kind": "PRIM",
+                    "text": "28"
+                  },
+                  "奇偶指纹": {
+                    "kind": "PRIM",
+                    "text": "偶（无解世界）"
+                  },
+                  "判据": {
+                    "kind": "PRIM",
+                    "text": "逆序数+空格行 为奇 ⇔ 可解"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "15 谜题奇偶判决",
+          "grids": [
+            {
+              "id": "board",
+              "label": "4×4 滑块局面（空格=空白）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "3",
+                "2",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "flat",
+              "label": "扁平行（忽略空格，数逆序用）",
+              "rows": 1,
+              "cols": 15,
+              "values": [
+                "3",
+                "2",
+                "8",
+                "7",
+                "5",
+                "6",
+                "11",
+                "4",
+                "13",
+                "9",
+                "12",
+                "1",
+                "10",
+                "14",
+                "15"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "不变量方法论：找一个「所有操作都改不动」的量——局面分成两个永不相通的世界"
+        }
+      ],
+      "intent": {
+        "why": "同样的思想判死了五色地图的六色情形、判活了棋盘残局——不变量是组合数学的指纹鉴定科",
+        "invariant": "横移不改变逆序数；竖移跳过 3 个中间格 → 逆序数变化为偶——「逆序数+空格行」的奇偶是合法移动的不变量；对换两枚牌把奇偶翻转 → 那些局面无论怎么滑都到不了"
+      }
+    }
+  ]
+}

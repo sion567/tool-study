@@ -162,6 +162,10 @@ public final class AlgorithmRegistry {
             new Entry("物理", "热与分子", new com.algoviz.engine.physics.HeatDemo()),
             new Entry("物理", "热与分子", new com.algoviz.engine.physics.GasDemo()),
             new Entry("物理", "天体", new com.algoviz.engine.physics.NBodyDemo()),
+            new Entry("奥数", "组合构造", new com.algoviz.engine.olympiad.KnightsTourDemo()),
+            new Entry("奥数", "组合构造", new com.algoviz.engine.olympiad.JosephusDemo()),
+            new Entry("奥数", "数论", new com.algoviz.engine.olympiad.CrtDemo()),
+            new Entry("奥数", "不变量", new com.algoviz.engine.olympiad.FifteenPuzzleDemo()),
             new Entry("数学", "数与计算", new com.algoviz.engine.math.KaratsubaDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.TreeSerializeDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.BPlusTreeDemo()),
@@ -326,6 +330,26 @@ public final class AlgorithmRegistry {
                     20 + r.nextInt(11), 30 + r.nextInt(31));   // v₀ 20~30，θ 30°~60°
             case "physics.nbody" -> new com.algoviz.engine.physics.NBodyDemo(1L + r.nextInt(9999));
             case "physics.gas" -> new com.algoviz.engine.physics.GasDemo(1L + r.nextInt(9999));
+            // ---- 奥数名题 ----
+            case "olympiad.knights" -> {
+                int[][] starts = {{0, 0}, {0, 7}, {7, 0}, {7, 7}};   // 四角起点（验证可走完全程）
+                int[] s = starts[r.nextInt(starts.length)];
+                yield new com.algoviz.engine.olympiad.KnightsTourDemo(s[0], s[1]);
+            }
+            case "olympiad.josephus" -> new com.algoviz.engine.olympiad.JosephusDemo(
+                    8 + r.nextInt(7), 2 + r.nextInt(3));               // n 8~14，k 2~4
+            case "olympiad.crt" -> {
+                int[] primes = {3, 5, 7, 11};
+                int i1 = r.nextInt(primes.length);
+                int i2 = r.nextInt(primes.length);
+                while (i2 == i1) {
+                    i2 = r.nextInt(primes.length);   // 两模数必须不同（互质素数 → CRT 解恒存在）
+                }
+                int p1 = primes[i1], p2 = primes[i2];
+                int aa = 1 + r.nextInt(p1 - 1), bb = 1 + r.nextInt(p2 - 1);
+                yield new com.algoviz.engine.olympiad.CrtDemo(aa, p1, bb, p2);
+            }
+            case "olympiad.fifteen" -> new com.algoviz.engine.olympiad.FifteenPuzzleDemo(1L + r.nextInt(9999));
             default -> null;
         };
     }

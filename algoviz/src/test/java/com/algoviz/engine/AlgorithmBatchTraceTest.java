@@ -108,6 +108,11 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"physics_heat", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.physics.HeatDemo::new},
                 new Object[]{"physics_nbody", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.physics.NBodyDemo::new},
                 new Object[]{"physics_gas", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.physics.GasDemo::new},
+                // ---- 第十八批：奥数名题四连（骑士巡游/约瑟夫环/exGCD+CRT/15谜题不变量）----
+                new Object[]{"olympiad_knights", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.olympiad.KnightsTourDemo::new},
+                new Object[]{"olympiad_josephus", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.olympiad.JosephusDemo::new},
+                new Object[]{"olympiad_crt", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.olympiad.CrtDemo::new},
+                new Object[]{"olympiad_fifteen", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.olympiad.FifteenPuzzleDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -928,5 +933,42 @@ class AlgorithmBatchTraceTest {
     /** "63.78m" / "1.665（恒定）" / "0.0137%" → 63.78 / 1.665 / 0.0137。 */
     private static double parseNum(String text) {
         return Double.parseDouble(text.replaceAll("[^0-9.eE+-].*$", "").trim());
+    }
+
+    /** 行为：奥数四连——骑士全覆盖/约瑟夫双解握手/CRT 双同余/15谜题奇偶判决。 */
+    @org.junit.jupiter.api.Test
+    void olympiadFourBehave() throws Exception {
+        // 骑士巡游：64 格全覆盖不重复（0 起点 Warnsdorff 成功）
+        var kt = new com.algoviz.engine.olympiad.KnightsTourDemo().produce().steps();
+        var ktGrid = kt.get(kt.size() - 1).math().grids().get(0);
+        java.util.Set<Integer> seen = new java.util.HashSet<>();
+        for (String v : ktGrid.values()) {
+            int n = Integer.parseInt(v);
+            assertTrue2(n >= 1 && n <= 64 && seen.add(n), "巡游序号必须 1..64 不重不漏，发现 " + n);
+        }
+        // 约瑟夫：模拟幸存者 == 递推 f+1（默认 n=12 k=3 → 幸存者 11 号）
+        var js = new com.algoviz.engine.olympiad.JosephusDemo().produce().steps();
+        String sim = fieldLast(js, "幸存者（模拟）");
+        assertTrue2(sim.contains("10"), "n=12 k=3 模拟幸存者应为 10 号（递推 f(12)=9 → 10 号位），实际 " + sim);
+        boolean handshake = js.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("握手言和"));
+        assertTrue2(handshake, "模拟与公式必须给出同一幸存者（握手言和事件缺失）");
+        // CRT：x=8 同时满足 x≡2(3) 与 x≡3(5)
+        var ct = new com.algoviz.engine.olympiad.CrtDemo().produce().steps();
+        String check = fieldLast(ct, "验算 mod m / mod n");
+        assertEquals("2 / 3", check, "x=8 验算应为 2/3（mod 3 / mod 5）");
+        boolean xFound = ct.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().startsWith("x = 8"));
+        assertTrue2(xFound, "CRT 解应为 x=8（解落地事件缺失）");
+        // 15 谜题：局面 A（合法打乱）必可解；局面 B（对换）必无解——奇偶不变量
+        var fp = new com.algoviz.engine.olympiad.FifteenPuzzleDemo().produce().steps();
+        String fpText = fp.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        assertTrue2(fpText.contains("奇 → 可解"), "局面 A 由合法打乱而来，必判可解");
+        assertTrue2(fpText.contains("已翻转") && fpText.contains("无解"), "局面 B 对换后奇偶翻转必判无解");
+        // 扁平行恒 15 格且非空
+        var fpFlat = fp.get(fp.size() - 1).math().grids().get(1);
+        assertEquals(15, fpFlat.values().size());
+        assertTrue2(fpFlat.values().stream().noneMatch(String::isEmpty), "扁平行不应含空格");
     }
 }
