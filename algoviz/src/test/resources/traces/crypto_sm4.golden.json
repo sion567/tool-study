@@ -1,0 +1,1284 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "crypto.sm4",
+    "title": "对称·SM4",
+    "codeResource": "/code/Sm4Demo.java",
+    "input": "国标示例 key/plain",
+    "inputSize": 28
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "轮密钥与加密同源：一套 S 盒两条线性层——国标把硬件面积压到一半"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "00000000"
+                },
+                "rk0": {
+                  "kind": "PRIM",
+                  "text": "f12186f9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "rk0": {
+                    "kind": "PRIM",
+                    "text": "f12186f9"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "00000000",
+                "00000000",
+                "00000000",
+                "00000000"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "f12186f9",
+                "41662b61",
+                "5a6ab19a",
+                "7ba92077"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "密钥扩展完成：MK ⊕ FK 起步，CK 常数列逐轮发酵出 rk0..rk31（L′ 线性层比加密的 L 少两圈旋转）"
+        }
+      ],
+      "intent": {
+        "why": "轮密钥与加密同源：一套 S 盒两条线性层——国标把硬件面积压到一半",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "差分与线性分析全部瞄准 S 盒：AES 的 S 盒有代数式，SM4 的 S 盒是黑盒查表"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "00000000"
+                },
+                "rk0": {
+                  "kind": "PRIM",
+                  "text": "f12186f9"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "rk0": {
+                    "kind": "PRIM",
+                    "text": "f12186f9"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "00000000",
+                "00000000",
+                "00000000",
+                "00000000"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "f12186f9",
+                "41662b61",
+                "5a6ab19a",
+                "7ba92077"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [],
+          "detail": "τ 非线性：把 X1⊕X2⊕X3⊕rk 的 4 个字节各自过 S 盒——查表替换，唯一的非线性步骤"
+        }
+      ],
+      "intent": {
+        "why": "差分与线性分析全部瞄准 S 盒：AES 的 S 盒有代数式，SM4 的 S 盒是黑盒查表",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "27fad345"
+                },
+                "rk3": {
+                  "kind": "PRIM",
+                  "text": "7ba92077"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "rk3": {
+                    "kind": "PRIM",
+                    "text": "7ba92077"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "27fad345",
+                "a18b4cb2",
+                "11c1e22a",
+                "cc13e2ee"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "7ba92077",
+                "367360f4",
+                "776a0c61",
+                "b6bb89b3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 0~3：X 状态被轮函数推进（rk0..rk3 参与）"
+        }
+      ],
+      "intent": {
+        "why": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "7"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "f87c5bd5"
+                },
+                "rk7": {
+                  "kind": "PRIM",
+                  "text": "24763151"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "rk7": {
+                    "kind": "PRIM",
+                    "text": "24763151"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "f87c5bd5",
+                "33220757",
+                "77f4c297",
+                "7a96f2eb"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "24763151",
+                "a520307c",
+                "b7584dbd",
+                "c30753ed"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 4~7：X 状态被轮函数推进（rk4..rk7 参与）"
+        }
+      ],
+      "intent": {
+        "why": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "11"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "27dac07f"
+                },
+                "rk11": {
+                  "kind": "PRIM",
+                  "text": "7ee55b57"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "11"
+                  },
+                  "rk11": {
+                    "kind": "PRIM",
+                    "text": "7ee55b57"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "27dac07f",
+                "42dd0f19",
+                "b8a5da02",
+                "907127fa"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "7ee55b57",
+                "6988608c",
+                "30d895b7",
+                "44ba14af"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 8~11：X 状态被轮函数推进（rk8..rk11 参与）"
+        }
+      ],
+      "intent": {
+        "why": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "15"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "8b952b83"
+                },
+                "rk15": {
+                  "kind": "PRIM",
+                  "text": "104495a1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "15"
+                  },
+                  "rk15": {
+                    "kind": "PRIM",
+                    "text": "104495a1"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "8b952b83",
+                "d42b7c59",
+                "2ffc5831",
+                "f69e6888"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "104495a1",
+                "d120b428",
+                "73b55fa3",
+                "cc874966"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 12~15：X 状态被轮函数推进（rk12..rk15 参与）"
+        }
+      ],
+      "intent": {
+        "why": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "19"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "af2432c4"
+                },
+                "rk19": {
+                  "kind": "PRIM",
+                  "text": "92244439"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "19"
+                  },
+                  "rk19": {
+                    "kind": "PRIM",
+                    "text": "92244439"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "af2432c4",
+                "ed1ec85e",
+                "55a3ba22",
+                "124b18aa"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "92244439",
+                "e89e641f",
+                "98ca015a",
+                "c7159060"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 16~19：X 状态被轮函数推进（rk16..rk19 参与）"
+        }
+      ],
+      "intent": {
+        "why": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "23"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "6ae7725f"
+                },
+                "rk23": {
+                  "kind": "PRIM",
+                  "text": "99e1fd2e"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "23"
+                  },
+                  "rk23": {
+                    "kind": "PRIM",
+                    "text": "99e1fd2e"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "6ae7725f",
+                "f4cba1f9",
+                "1dcdfa10",
+                "2ff60603"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "99e1fd2e",
+                "b79bd80c",
+                "1d2115b0",
+                "0e228aeb"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 20~23：X 状态被轮函数推进（rk20..rk23 参与）"
+        }
+      ],
+      "intent": {
+        "why": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "27"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "eff24fdc"
+                },
+                "rk27": {
+                  "kind": "PRIM",
+                  "text": "f1780c81"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "27"
+                  },
+                  "rk27": {
+                    "kind": "PRIM",
+                    "text": "f1780c81"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "eff24fdc",
+                "6fe46b75",
+                "893450ad",
+                "7b938f4c"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "f1780c81",
+                "428d3654",
+                "62293496",
+                "01cf72e5"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 24~27：X 状态被轮函数推进（rk24..rk27 参与）"
+        }
+      ],
+      "intent": {
+        "why": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "31"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "536e4246"
+                },
+                "rk31": {
+                  "kind": "PRIM",
+                  "text": "9124a012"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "rk31": {
+                    "kind": "PRIM",
+                    "text": "9124a012"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "536e4246",
+                "86b3e94f",
+                "d206965e",
+                "681edf34"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "9124a012",
+                "9124a012",
+                "9124a012",
+                "9124a012"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "轮 28~31：X 状态被轮函数推进（rk28..rk31 参与）"
+        }
+      ],
+      "intent": {
+        "why": "每轮只动一个字：X0 退场、新字补位——不均衡 Feistel 的流水线",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 24,
+        "endLine": 24,
+        "note": "解密 = rk31..rk0 倒序走同样的 32 轮：加密器就是解密器"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "31"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "536e4246"
+                },
+                "rk31": {
+                  "kind": "PRIM",
+                  "text": "9124a012"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "rk31": {
+                    "kind": "PRIM",
+                    "text": "9124a012"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "536e4246",
+                "86b3e94f",
+                "d206965e",
+                "681edf34"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "9124a012",
+                "9124a012",
+                "9124a012",
+                "9124a012"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "反转 R：输出 (X35,X34,X33,X32) = 681edf34 d206965e 86b3e94f 536e4246"
+        }
+      ],
+      "intent": {
+        "why": "解密 = rk31..rk0 倒序走同样的 32 轮：加密器就是解密器",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 27,
+        "endLine": 27,
+        "note": "SM4 顶替 AES 的位置：无线局域网 WAPI、银行卡、政务系统——国密对称的中坚"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "sm4",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "31"
+                },
+                "X0": {
+                  "kind": "PRIM",
+                  "text": "536e4246"
+                },
+                "rk31": {
+                  "kind": "PRIM",
+                  "text": "9124a012"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "sm4",
+                "type": "CipherState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "01234567 89abcdef fedcba98 76543210"
+                  },
+                  "当前轮": {
+                    "kind": "PRIM",
+                    "text": "31"
+                  },
+                  "rk31": {
+                    "kind": "PRIM",
+                    "text": "9124a012"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "SM4 轮函数现场",
+          "grids": [
+            {
+              "id": "X",
+              "label": "状态字 X0..X3（每帧 4 轮，一字退场一字补位）",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "536e4246",
+                "86b3e94f",
+                "d206965e",
+                "681edf34"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "rk",
+              "label": "本轮起的轮密钥 rk",
+              "rows": 1,
+              "cols": 4,
+              "values": [
+                "9124a012",
+                "9124a012",
+                "9124a012",
+                "9124a012"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "国标示例验证：密文 = 681edf34 d206965e 86b3e94f 536e4246"
+        }
+      ],
+      "intent": {
+        "why": "SM4 顶替 AES 的位置：无线局域网 WAPI、银行卡、政务系统——国密对称的中坚",
+        "invariant": "32 轮全走同一轮函数 T = L∘τ：S 盒是唯一的非线性（差分分析的靶心），L 让 1 字节改动散满 4 字——解密 = rk 倒序重放：加密解密共用一套代码，硬件只做一半"
+      }
+    }
+  ]
+}

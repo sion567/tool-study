@@ -170,6 +170,9 @@ public final class AlgorithmRegistry {
             new Entry("化学", "反应过程", new com.algoviz.engine.chem.EquilibriumDemo()),
             new Entry("化学", "反应过程", new com.algoviz.engine.chem.TitrationDemo()),
             new Entry("化学", "分子结构", new com.algoviz.engine.chem.IsomerDemo()),
+            new Entry("密码学", "哈希", new com.algoviz.engine.crypto.Sm3Demo()),
+            new Entry("密码学", "对称", new com.algoviz.engine.crypto.Sm4Demo()),
+            new Entry("密码学", "非对称", new com.algoviz.engine.crypto.Sm2Demo()),
             new Entry("数学", "数与计算", new com.algoviz.engine.math.KaratsubaDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.TreeSerializeDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.BPlusTreeDemo()),
@@ -363,6 +366,17 @@ public final class AlgorithmRegistry {
                     new double[]{0.05, 0.10, 0.20}[r.nextInt(3)]);     // 酸浓度档位
             case "chem.isomer" -> new com.algoviz.engine.chem.IsomerDemo(
                     1 + r.nextInt(3));                                 // C₅ 三兄弟随机出场
+            // ---- 密码学 ----
+            case "crypto.sm3" -> new com.algoviz.engine.crypto.Sm3Demo(
+                    new String[]{"abc", "国密算法", "SM3 test"}[r.nextInt(3)]);
+            case "crypto.sm4" -> {
+                int[] kb = new int[16];
+                for (int i = 0; i < 16; i++) {
+                    kb[i] = r.nextInt(256);                        // 随机 16 字节密钥
+                }
+                yield new com.algoviz.engine.crypto.Sm4Demo(kb);
+            }
+            case "crypto.sm2" -> new com.algoviz.engine.crypto.Sm2Demo();
             default -> null;
         };
     }

@@ -118,6 +118,10 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"chem_equilibrium", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.chem.EquilibriumDemo::new},
                 new Object[]{"chem_titration", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.chem.TitrationDemo::new},
                 new Object[]{"chem_isomer", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.chem.IsomerDemo::new},
+                // ---- 第二十批：国密三件套（SM3/SM4/SM2，国标向量断言）----
+                new Object[]{"crypto_sm3", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sm3Demo::new},
+                new Object[]{"crypto_sm4", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sm4Demo::new},
+                new Object[]{"crypto_sm2", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sm2Demo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -1019,5 +1023,37 @@ class AlgorithmBatchTraceTest {
     private static void assertArrayEqualsMsg(int[] expected, int[] actual, String msg) {
         org.junit.jupiter.api.Assertions.assertArrayEquals(expected, actual, msg + "：实际 "
                 + java.util.Arrays.toString(actual));
+    }
+
+    /** 行为：国密三件套——SM3/SM4 终值 == 国标向量，SM2 教学曲线群闭合。 */
+    @org.junit.jupiter.api.Test
+    void cryptoThreeBehave() throws Exception {
+        // SM3("abc") 逐字命中国标向量（GB/T 32905-2016）
+        var s3 = new com.algoviz.engine.crypto.Sm3Demo().produce().steps();
+        java.util.List<String> want3 = java.util.List.of("66c7f0f4", "62eeedd9", "d1f2d46b", "dc10e4e2",
+                "4167c487", "5cf2f7a2", "297da02b", "8f4ba8e0");
+        var grid3 = s3.get(s3.size() - 1).math().grids().stream()
+                .filter(g -> g.id().equals("V")).findFirst().orElseThrow();
+        for (int i = 0; i < 8; i++) {
+            assertEquals(want3.get(i), grid3.value(0, i), "SM3 摘要 V" + i + " 必须与国标向量一致");
+        }
+        assertTrue2(s3.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("国标示例验证")), "收尾应引用国标向量");
+        // SM4 密文 == 标准向量（GB/T 32907-2016）
+        var s4 = new com.algoviz.engine.crypto.Sm4Demo().produce().steps();
+        boolean cipherOk = s4.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null
+                        && e.detail().contains("681edf34") && e.detail().contains("536e4246"));
+        assertTrue2(cipherOk, "SM4 密文必须命中国标向量 681edf34…536e4246");
+        assertTrue2(s4.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("τ 非线性")), "必须有 S 盒非线性演示帧");
+        // SM2：教学曲线 mod 17，G=(6,3) 生成 19 阶群（18 仿射点 + O）
+        var s2 = new com.algoviz.engine.crypto.Sm2Demo().produce().steps();
+        String verdict = s2.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull)
+                .filter(t -> t.contains("阶循环群")).findFirst().orElse("");
+        assertTrue2(verdict.contains("19 阶"), "G 应生成 19 阶循环群，实际：" + verdict);
+        assertTrue2(s2.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("8G")), "应有 8G 标量乘演算帧");
     }
 }
