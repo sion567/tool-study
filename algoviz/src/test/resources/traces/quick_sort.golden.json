@@ -308,6 +308,8 @@
             1,
             5
           ],
+          "compareA": 0,
+          "compareB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -423,6 +425,8 @@
             1,
             5
           ],
+          "compareA": 1,
+          "compareB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -538,6 +542,8 @@
             1,
             5
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -653,6 +659,8 @@
             1,
             5
           ],
+          "compareA": 2,
+          "compareB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -768,6 +776,8 @@
             1,
             5
           ],
+          "compareA": 3,
+          "compareB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -883,6 +893,8 @@
             5,
             5
           ],
+          "swapA": 1,
+          "swapB": 3,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -998,6 +1010,8 @@
             5,
             9
           ],
+          "swapA": 2,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -1113,6 +1127,8 @@
             5,
             9
           ],
+          "swapA": 2,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -1203,6 +1219,8 @@
             5,
             9
           ],
+          "swapA": 2,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -1295,6 +1313,8 @@
             5,
             9
           ],
+          "swapA": 2,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -1403,6 +1423,8 @@
             5,
             9
           ],
+          "swapA": 2,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -1533,6 +1555,8 @@
             5,
             9
           ],
+          "swapA": 2,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -1665,6 +1689,8 @@
             5,
             9
           ],
+          "compareA": 0,
+          "compareB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -1798,6 +1824,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -1931,6 +1959,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -2039,6 +2069,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -2149,6 +2181,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -2275,6 +2309,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -2401,6 +2437,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -2527,6 +2565,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -2635,6 +2675,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -2761,6 +2803,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -2887,6 +2931,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -3013,6 +3059,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -3121,6 +3169,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -3211,6 +3261,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -3319,6 +3371,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -3449,6 +3503,8 @@
             5,
             9
           ],
+          "swapA": 0,
+          "swapB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -3581,6 +3637,8 @@
             5,
             9
           ],
+          "compareA": 3,
+          "compareB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -3714,6 +3772,8 @@
             5,
             9
           ],
+          "swapA": 3,
+          "swapB": 3,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -3847,6 +3907,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -3980,6 +4042,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -4088,6 +4152,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -4198,6 +4264,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -4324,6 +4392,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -4450,6 +4520,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -4576,6 +4648,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -4684,6 +4758,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -4810,6 +4886,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -4936,6 +5014,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -5062,6 +5142,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -5170,6 +5252,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -5260,6 +5344,8 @@
             5,
             9
           ],
+          "swapA": 4,
+          "swapB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }

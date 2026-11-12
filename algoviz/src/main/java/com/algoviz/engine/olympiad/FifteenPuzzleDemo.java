@@ -50,6 +50,8 @@ public final class FifteenPuzzleDemo implements Algorithm {
     private final List<String> flatRow = new ArrayList<>();
     private int inversions, blankRowFromBottom;
     private boolean solvable;
+    private int curBase = -1;                          // 数逆序当前基准下标（黄圈）
+    private int swapA = -1, swapB = -1;                // 对换的两格（黄圈）
 
     public FifteenPuzzleDemo() {
         this(7);
@@ -75,6 +77,7 @@ public final class FifteenPuzzleDemo implements Algorithm {
                 "1879 年「15 谜题风暴」：全美疯玩一局换两牌的赝品——没人滑得回去，数学最终出庭作证");
         setFlat();
         inversions = 0;
+        curBase = -1;
         for (int i = 0; i < flatRow.size() - 1; i++) {
             int mine = Integer.parseInt(flatRow.get(i));
             int smaller = 0;
@@ -84,11 +87,13 @@ public final class FifteenPuzzleDemo implements Algorithm {
                 }
             }
             inversions += smaller;
+            curBase = i;   // 黄圈 = 当前基准格：画面每帧都在推进
             emit(12, List.of(VizEvent.of(VizEvent.EventType.COMPARE,
                     String.format("以 %d 为基准：后面比它小的有 %d 个 → 逆序数累计 %d", mine, smaller, inversions))),
                     i % 2 == 0 ? "逐个数「后面的更小对」——O(n²) 但看得见，代价换透明"
                             : "数到一半了：逆序数就是「打乱程度」的精确度量");
         }
+        curBase = -1;
         blankRowFromBottom = N - (blankPos() / N);
         solvable = (inversions + blankRowFromBottom) % 2 == 1;
         emit(13, List.of(VizEvent.of(VizEvent.EventType.MARK_SORTED,
@@ -101,6 +106,8 @@ public final class FifteenPuzzleDemo implements Algorithm {
         int tmp = board[p1];
         board[p1] = board[p2];
         board[p2] = tmp;
+        swapA = p1;
+        swapB = p2;   // 对换的两格高亮（黄圈）——画面从这一帧起明确变化
         int before = inversions;
         inversions = countInversions();
         boolean swapSolvable = (inversions + blankRowFromBottom) % 2 == 1;
@@ -230,11 +237,19 @@ public final class FifteenPuzzleDemo implements Algorithm {
         for (int v : board) {
             values.add(v == 0 ? "" : String.valueOf(v));
         }
-        Set<Integer> active = new LinkedHashSet<>();
-        MathView.Grid boardGrid = new MathView.Grid("board", "4×4 滑块局面（空格=空白）",
-                N, N, values, null, null, active, Set.of());
-        MathView.Grid flatGrid = new MathView.Grid("flat", "扁平行（忽略空格，数逆序用）",
-                1, 15, List.copyOf(flatRow), null, null, Set.of(), Set.of());
+        Set<Integer> boardActive = new LinkedHashSet<>();
+        if (swapA >= 0) {   // 第二幕：对换的两格高亮
+            boardActive.add(swapA);
+            boardActive.add(swapB);
+        }
+        MathView.Grid boardGrid = new MathView.Grid("board", "4×4 滑块局面（空格=空白；黄圈=被对换的牌）",
+                N, N, values, null, null, boardActive, Set.of());
+        Set<Integer> flatActive = new LinkedHashSet<>();
+        if (curBase >= 0) {   // 数逆序：当前基准格推进
+            flatActive.add(curBase);
+        }
+        MathView.Grid flatGrid = new MathView.Grid("flat", "扁平行（忽略空格，数逆序用；黄圈=当前基准）",
+                1, 15, List.copyOf(flatRow), null, null, flatActive, Set.of());
         return new MathView("15 谜题奇偶判决", List.of(boardGrid, flatGrid));
     }
 

@@ -47,6 +47,7 @@ public final class QuickSort implements Algorithm {
 
     private final int[] input;
     private int[] a;                                   // 工作副本（快照的数据源）
+    private Integer cmpA, cmpB, swpA, swpB;            // 本步高亮：比较（黄）/交换（红）
     private final List<Step> steps = new ArrayList<>();
     private final List<StackFrame> frames = new ArrayList<>();   // 调用栈，bottom→top
 
@@ -110,11 +111,17 @@ public final class QuickSort implements Algorithm {
                 "选基准：最后一个元素（Lomuto 方案）");
         int i = lo;
         for (int j = lo; j < hi; j++) {
+            cmpA = j;
+            cmpB = hi;
+            swpA = swpB = null;
             emit(L_CMP, List.of(VizEvent.of(VizEvent.EventType.COMPARE,
                     "a[" + j + "]=" + a[j] + (a[j] < a[hi] ? " < " : " ≥ ") + "pivot=" + a[hi],
                     "a[" + j + "]", "a[" + hi + "]")),
                     "a[j] 和 pivot 比大小——决定去左区还是留在右区");
             if (a[j] < a[hi]) {
+                cmpA = cmpB = null;
+                swpA = i;
+                swpB = j;
                 int t = a[i];
                 a[i] = a[j];
                 a[j] = t;
@@ -128,6 +135,9 @@ public final class QuickSort implements Algorithm {
         int t = a[i];
         a[i] = a[hi];
         a[hi] = t;
+        swpA = i;
+        swpB = hi;
+        cmpA = cmpB = null;
         emit(L_FIX, List.of(VizEvent.of(VizEvent.EventType.SWAP,
                 "swap a[" + i + "] ↔ a[" + hi + "]：pivot 归位", "a[" + i + "]", "a[" + hi + "]")),
                 "把 pivot 从队尾换到它的最终位置");
@@ -155,8 +165,7 @@ public final class QuickSort implements Algorithm {
         return m;
     }
 
-    private void emit(int line, List<VizEvent> events, String why) {
-        Map<String, Layer> layers = new LinkedHashMap<>();
+    private void emit(int line, List<VizEvent> events, String why) {        Map<String, Layer> layers = new LinkedHashMap<>();
         layers.put("mem.stack", new StackLayer(List.copyOf(frames)));
         layers.put("mem.heap", new HeapLayer(snapshotHeap()));
         layers.put("ds.array", snapshotArray());
@@ -181,7 +190,7 @@ public final class QuickSort implements Algorithm {
         for (int v : a) {
             vals.add(v);
         }
-        return new ArrayView("@1", "a", List.copyOf(vals), null, null, null, null, a.length, -1);
+        return new ArrayView("@1", "a", List.copyOf(vals), cmpA, cmpB, swpA, swpB, a.length, -1);
     }
 
     private Trace.TraceMeta meta() {

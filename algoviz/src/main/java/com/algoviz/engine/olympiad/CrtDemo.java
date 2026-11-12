@@ -159,7 +159,7 @@ public final class CrtDemo implements Algorithm {
 
     private MathView snapshotMath() {
         MathView.Grid tableGrid = new MathView.Grid("table",
-                "exGCD 迭代表（行1=(old_r,r) 行2=(old_s,s) 行3=(old_t,t)）",
+                "exGCD 迭代表：old_r/r / old_s/s / old_t/t",
                 3, 2, List.copyOf(table), null, null, Set.of(), Set.of());
         Set<Integer> active = new LinkedHashSet<>();
         for (int i = 0; i < crtRows.size(); i++) {
@@ -167,7 +167,7 @@ public final class CrtDemo implements Algorithm {
                 active.add(i);
             }
         }
-        MathView.Grid crtGrid = new MathView.Grid("crt", "CRT 演算栏（x≡" + a + " mod " + m + "，x≡" + b + " mod " + n + "）",
+        MathView.Grid crtGrid = new MathView.Grid("crt", "CRT 演算栏",
                 4, 1, List.copyOf(crtRows), null, null, active, Set.of());
         return new MathView("扩展欧几里得 + CRT", List.of(tableGrid, crtGrid));
     }

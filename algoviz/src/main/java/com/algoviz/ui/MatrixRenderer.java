@@ -107,17 +107,19 @@ public final class MatrixRenderer {
             bh[i] = grid.rows() * base + 26;   // 含 label 行
         }
         double x = margin;
-        double y = top;
+        double y = h * 0.10;
         double rowH = 0;
         for (int i = 0; i < n; i++) {
             MathView.Grid grid = mv.grids().get(i);
-            double blockW = grid.cols() * cw[i];
+            double labelW = grid.label().length() * 12.0 * 0.62;   // label 估宽（中英混排近似）
+            double blockW = Math.max(grid.cols() * cw[i], labelW); // label 计入块宽——长 label 不与右侧网格重叠
             if (x + blockW > w - margin && x > margin) {   // 换行
                 x = margin;
                 y += rowH + 34;
                 rowH = 0;
             }
-            pos[i][0] = x;
+            double cellX = x + (blockW - grid.cols() * cw[i]) / 2;   // 格子在块内居中（label 居中对齐）
+            pos[i][0] = cellX;
             pos[i][1] = y;
             pos[i][2] = cw[i];
             pos[i][3] = base;

@@ -47,6 +47,7 @@ public final class MergeSort implements Algorithm {
     private final int[] input;
     private int[] a;          // 工作副本
     private int[] tmp;        // 辅助数组（画面第二排）
+    private Integer cmpA, cmpB;   // 本步双指针高亮（黄）
     private final List<Step> steps = new ArrayList<>();
     private final List<StackFrame> frames = new ArrayList<>();
 
@@ -110,6 +111,8 @@ public final class MergeSort implements Algorithm {
                 "合并 [" + lo + "," + mid + "] + [" + (mid + 1) + "," + hi + "] → tmp")),
                 "双指针比小：i 指左半，j 指右半，谁小谁先进 tmp");
         while (i <= mid && j <= hi) {
+            cmpA = i;
+            cmpB = j;
             if (a[i] <= a[j]) {
                 tmp[k++] = a[i++];
                 emit(L_MERGE, List.of(VizEvent.of(VizEvent.EventType.COMPARE,
@@ -126,6 +129,7 @@ public final class MergeSort implements Algorithm {
                         "右边的先进");
             }
         }
+        cmpA = cmpB = null;
         while (i <= mid) {
             tmp[k++] = a[i++];
             emit(L_MERGE, List.of(VizEvent.of(VizEvent.EventType.SET,
@@ -189,7 +193,7 @@ public final class MergeSort implements Algorithm {
         List<Integer> vals = new ArrayList<>();
         for (int v : a) vals.add(v);
         return new ArrayView("@1", "a", List.copyOf(vals),
-                null, null, null, null, a.length, -1);
+                cmpA, cmpB, null, null, a.length, -1);
     }
 
     private Trace.TraceMeta meta() {

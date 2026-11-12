@@ -256,7 +256,7 @@ public final class AlgorithmRegistry {
             case "sort.insertion" -> new InsertionSort(randArray(r, n));
             case "sort.quick" -> new QuickSort(randArray(r, n));
             case "search.binary" -> {
-                int[] a = randArray(r, 7);
+                int[] a = randDistinct(r, 7, 2, 200);   // 稀疏取值：间距自然、不像等差（二分前提：有序）
                 java.util.Arrays.sort(a);
                 yield new BinarySearch(a, a[r.nextInt(a.length)]);   // 目标必存在
             }

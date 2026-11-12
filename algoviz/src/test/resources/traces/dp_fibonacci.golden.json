@@ -81,7 +81,7 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "dp",
+          "name": "调用次数",
           "values": [
             0,
             0,
@@ -101,7 +101,7 @@
         {
           "type": "INIT",
           "targets": [],
-          "detail": "递归版：fib(7)——注意重复子问题（红圈标出）"
+          "detail": "递归版：fib(7)——注意重复子问题（柱子 = 被调用次数）"
         }
       ],
       "intent": {
@@ -182,16 +182,16 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "dp",
+          "name": "调用次数",
           "values": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            8,
+            13,
+            8,
+            5,
+            3,
+            2,
+            1,
+            1
           ],
           "compareA": 7,
           "sortedFrom": 8,
@@ -202,7 +202,7 @@
         {
           "type": "MARK_SORTED",
           "targets": [],
-          "detail": "递归完成：总共 100 次函数调用（O(2ⁿ)）"
+          "detail": "递归完成：总共 41 次函数调用（O(2ⁿ)）"
         }
       ],
       "intent": {
@@ -283,16 +283,16 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "dp",
+          "name": "调用次数",
           "values": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            8,
+            13,
+            8,
+            5,
+            3,
+            2,
+            1,
+            1
           ],
           "compareA": 0,
           "sortedFrom": 8,
@@ -305,7 +305,7 @@
           "targets": [
             "dp:0"
           ],
-          "detail": "fib(0) 被调用 0 次"
+          "detail": "fib(0) 被调用 8 次"
         }
       ],
       "intent": {
@@ -386,16 +386,16 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "dp",
+          "name": "调用次数",
           "values": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            8,
+            13,
+            8,
+            5,
+            3,
+            2,
+            1,
+            1
           ],
           "compareA": 1,
           "sortedFrom": 8,
@@ -408,7 +408,7 @@
           "targets": [
             "dp:1"
           ],
-          "detail": "fib(1) 被调用 0 次"
+          "detail": "fib(1) 被调用 13 次"
         }
       ],
       "intent": {
@@ -489,16 +489,16 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "dp",
+          "name": "调用次数",
           "values": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            8,
+            13,
+            8,
+            5,
+            3,
+            2,
+            1,
+            1
           ],
           "compareA": 2,
           "sortedFrom": 8,
@@ -511,7 +511,7 @@
           "targets": [
             "dp:2"
           ],
-          "detail": "fib(2) 被调用 0 次"
+          "detail": "fib(2) 被调用 8 次"
         }
       ],
       "intent": {
@@ -592,16 +592,16 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "dp",
+          "name": "调用次数",
           "values": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            8,
+            13,
+            8,
+            5,
+            3,
+            2,
+            1,
+            1
           ],
           "compareA": 3,
           "sortedFrom": 8,
@@ -614,7 +614,7 @@
           "targets": [
             "dp:3"
           ],
-          "detail": "fib(3) 被调用 0 次"
+          "detail": "fib(3) 被调用 5 次"
         }
       ],
       "intent": {
@@ -695,16 +695,16 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "dp",
+          "name": "调用次数",
           "values": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            8,
+            13,
+            8,
+            5,
+            3,
+            2,
+            1,
+            1
           ],
           "compareA": 4,
           "sortedFrom": 8,
@@ -717,7 +717,7 @@
           "targets": [
             "dp:4"
           ],
-          "detail": "fib(4) 被调用 0 次"
+          "detail": "fib(4) 被调用 3 次"
         }
       ],
       "intent": {
@@ -798,16 +798,16 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "dp",
+          "name": "调用次数",
           "values": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            8,
+            13,
+            8,
+            5,
+            3,
+            2,
+            1,
+            1
           ],
           "compareA": 5,
           "sortedFrom": 8,
@@ -820,7 +820,7 @@
           "targets": [
             "dp:5"
           ],
-          "detail": "fib(5) 被调用 0 次"
+          "detail": "fib(5) 被调用 2 次"
         }
       ],
       "intent": {
@@ -901,16 +901,16 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "dp",
+          "name": "调用次数",
           "values": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            8,
+            13,
+            8,
+            5,
+            3,
+            2,
+            1,
+            1
           ],
           "compareA": 6,
           "sortedFrom": 8,
@@ -923,7 +923,7 @@
           "targets": [
             "dp:6"
           ],
-          "detail": "fib(6) 被调用 0 次"
+          "detail": "fib(6) 被调用 1 次"
         }
       ],
       "intent": {
@@ -1004,16 +1004,16 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "dp",
+          "name": "调用次数",
           "values": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
+            8,
+            13,
+            8,
+            5,
+            3,
+            2,
+            1,
+            1
           ],
           "compareA": 7,
           "sortedFrom": 8,
@@ -1026,7 +1026,7 @@
           "targets": [
             "dp:7"
           ],
-          "detail": "fib(7) 被调用 0 次"
+          "detail": "fib(7) 被调用 1 次"
         }
       ],
       "intent": {

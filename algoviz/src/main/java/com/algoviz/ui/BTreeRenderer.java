@@ -47,14 +47,19 @@ public final class BTreeRenderer {
             return;
         }
         double w = canvas.getWidth(), h = canvas.getHeight();
-        Map<String, double[]> pos = layout(tv, w, h);
-        double nodeW = MAX_KEYS * SLOT_W + 12;
-        double nodeH = SLOT_H + 10;
+        Layout ly = layout(tv, w, h);
+        Map<String, double[]> pos = ly.pos();
+        double s = ly.scale();
+        double nodeW = (MAX_KEYS * SLOT_W + 12) * s;   // 盒子随 scale 统一缩放——列距缩了盒子跟着缩，不再粘连
+        double nodeH = (SLOT_H + 10) * s;
+        double slotW = SLOT_W * s;
+        double pad = 4 * s;
 
         // 1. 父子箭（从父盒底部中点到子盒顶部中点）
         for (BTreeView.BNode nd : tv.nodes()) {
             if (nd.childIds() == null) continue;
             double[] from = pos.get(nd.nodeId());
+            if (from == null) continue;   // 不可达节点（分裂旧根）
             for (String cid : nd.childIds()) {
                 double[] to = pos.get(cid);
                 if (to == null) continue;
@@ -86,6 +91,7 @@ public final class BTreeRenderer {
         for (int i = 0; i < tv.nodes().size(); i++) {
             BTreeView.BNode nd = tv.nodes().get(i);
             double[] p = pos.get(nd.nodeId());
+            if (p == null) continue;   // 不可达节点（分裂旧根）跳过
             boolean onstack = "onstack".equals(nd.state());
             boolean fresh = "fresh".equals(nd.state());
             Color base = nd.leaf() ? LEAF_C : INNER_C;
@@ -104,17 +110,17 @@ public final class BTreeRenderer {
                 g.setLineDashes();
             }
             for (int k = 0; k < MAX_KEYS; k++) {
-                double sx = p[0] + 4 + k * SLOT_W;
+                double sx = p[0] + pad + k * slotW;
                 boolean hasKey = k < nd.keys().size();
                 // 槽底
                 g.setStroke(hasKey ? Color.web("#ffffff55") : Color.web("#ffffff33"));
                 g.setLineWidth(1);
-                g.strokeRect(sx, p[1] + 5, SLOT_W - 4, SLOT_H - 10);
+                g.strokeRect(sx, p[1] + 5 * s, slotW - 4 * s, nodeH - 10 * s);
                 if (hasKey) {
                     boolean active = nd.activeKey() != null && nd.activeKey() == nd.keys().get(k);
                     g.setFill(active ? Color.web("#fde047") : Color.WHITE);
-                    g.setFont(Font.font(active ? 14 : 13));
-                    g.fillText(String.valueOf(nd.keys().get(k)), sx + (SLOT_W - 4) / 2, p[1] + SLOT_H - 4);
+                    g.setFont(Font.font(Math.max(8, (active ? 14 : 13) * s)));
+                    g.fillText(String.valueOf(nd.keys().get(k)), sx + (slotW - 4 * s) / 2, p[1] + nodeH - 4 * s);
                 }
             }
         }
@@ -136,9 +142,10 @@ public final class BTreeRenderer {
             return -1;
         }
         double w = canvas.getWidth(), h = canvas.getHeight();
-        Map<String, double[]> pos = layout(tv, w, h);
-        double nodeW = MAX_KEYS * SLOT_W + 12;
-        double nodeH = SLOT_H + 10;
+        Layout ly = layout(tv, w, h);
+        Map<String, double[]> pos = ly.pos();
+        double nodeW = (MAX_KEYS * SLOT_W + 12) * ly.scale();
+        double nodeH = (SLOT_H + 10) * ly.scale();
         for (int i = 0; i < tv.nodes().size(); i++) {
             double[] p = pos.get(tv.nodes().get(i).nodeId());
             if (x >= p[0] - 4 && x <= p[0] + nodeW + 4 && y >= p[1] - 4 && y <= p[1] + nodeH + 4) {
@@ -169,7 +176,11 @@ public final class BTreeRenderer {
 
     // ---------- 布局：递归子树宽度，自底向上定 x ----------
 
-    private static Map<String, double[]> layout(BTreeView tv, double w, double h) {
+    /** 布局结果：节点坐标 + 统一缩放系数（叶子多时盒子/字号一起缩，不再粘连）。 */
+    private record Layout(Map<String, double[]> pos, double scale) {
+    }
+
+    private static Layout layout(BTreeView tv, double w, double h) {
         Map<String, BTreeView.BNode> byId = new LinkedHashMap<>();
         for (BTreeView.BNode nd : tv.nodes()) byId.put(nd.nodeId(), nd);
         Map<String, List<String>> childrenOf = new LinkedHashMap<>();
@@ -192,36 +203,48 @@ public final class BTreeRenderer {
             }
         }
         // 叶子层宽 = 叶数 × (nodeW + 24)；每个叶子占一列，内部节点居中于孩子
-        double nodeW = MAX_KEYS * SLOT_W + 12;
+        double baseNodeW = MAX_KEYS * SLOT_W + 12;
         List<String> leaves = tv.leafChainIds();
-        double slotW = nodeW + 24;
+        double slotW = baseNodeW + 24;
         double totalW = Math.max(leaves.size() * slotW, 220);
         double scale = Math.min(1.0, (w - 60) / totalW);
+        double nodeW = baseNodeW * scale;
         double x0 = (w - totalW * scale) / 2;
         Map<String, double[]> pos = new LinkedHashMap<>();
         // 叶子按链顺序铺
         for (int i = 0; i < leaves.size(); i++) {
             pos.put(leaves.get(i), new double[]{x0 + (i + 0.5) * slotW * scale - nodeW / 2, 0});
         }
-        // 自底向上：内部节点 x = 孩子 x 的平均
+        // 自底向上：内部节点 x = 孩子 x 的平均（分裂瞬间的旧根等不可达节点跳过——BFS 深度表外）
         int maxDepth = 0;
         for (int d : depth.values()) maxDepth = Math.max(maxDepth, d);
         for (int d = maxDepth - 1; d >= 0; d--) {
             for (BTreeView.BNode nd : tv.nodes()) {
-                if (depth.get(nd.nodeId()) != d) continue;
+                Integer dd = depth.get(nd.nodeId());
+                if (dd == null || dd != d) continue;
                 double sum = 0;
-                List<String> ch = childrenOf.get(nd.nodeId());
-                for (String c : ch) sum += pos.get(c)[0];
-                pos.put(nd.nodeId(), new double[]{sum / ch.size(), 0});
+                int cnt = 0;
+                for (String c : childrenOf.getOrDefault(nd.nodeId(), List.of())) {
+                    double[] cp = pos.get(c);
+                    if (cp == null) continue;
+                    sum += cp[0];
+                    cnt++;
+                }
+                if (cnt > 0) {
+                    pos.put(nd.nodeId(), new double[]{sum / cnt, 0});
+                }
             }
         }
         // y：按深度铺
         double top = 40;
         double rowH = Math.min(110, (h - top - 60) / Math.max(1, maxDepth));
         for (BTreeView.BNode nd : tv.nodes()) {
-            pos.get(nd.nodeId())[1] = top + depth.get(nd.nodeId()) * rowH;
+            double[] p = pos.get(nd.nodeId());
+            Integer dd = depth.get(nd.nodeId());
+            if (p == null || dd == null) continue;   // 不可达节点（分裂旧根）不画
+            p[1] = top + dd * rowH;
         }
-        return pos;
+        return new Layout(pos, scale);
     }
 
     private static void arrowHead(GraphicsContext g, double x, double y, double angle) {

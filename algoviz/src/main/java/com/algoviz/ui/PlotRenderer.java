@@ -102,6 +102,14 @@ public final class PlotRenderer {
         g.setStroke(Color.web("#d1d5db"));
         g.strokeLine(waveX0, waveMidY - waveAmp, waveX1, waveMidY - waveAmp);
         g.strokeLine(waveX0, waveMidY + waveAmp, waveX1, waveMidY + waveAmp);
+        // 方格背景（竖刻度）——与黄金螺旋同款读感，缩放时有参照
+        g.setStroke(Color.web("#eef2f7"));
+        g.setLineWidth(1);
+        int vLines = 8;
+        for (int i = 1; i < vLines; i++) {
+            double vx = waveX0 + (waveX1 - waveX0) * i / vLines;
+            g.strokeLine(vx, waveMidY - waveAmp, vx, waveMidY + waveAmp);
+        }
         g.setFill(Color.web("#9ca3af"));
         g.setFont(Font.font(10));
         g.fillText("1", waveX0 - 10, waveMidY - waveAmp + 4);
@@ -340,10 +348,7 @@ public final class PlotRenderer {
         // 注解
         g.setTextAlign(TextAlignment.LEFT);
         g.setFont(Font.font(12));
-        for (int i = 0; i < pv.labels().size(); i++) {
-            g.setFill(i == 0 ? Color.web("#374151") : Color.web("#6b7280"));
-            g.fillText(pv.labels().get(i), x0 + 8, yTop + 16 + i * 18);
-        }
+        drawLabelsWithBackdrop(g, pv, x0 + 8, yTop + 16);
     }
 
     // ==================== kind = cartesian（笛卡尔直角坐标平面）====================
@@ -404,17 +409,14 @@ public final class PlotRenderer {
         double cx = sx.applyAsDouble(pv.pointX()), cy = sy.applyAsDouble(pv.pointY());
         g.setFill(Color.web("#ea580c"));
         g.fillOval(cx - 6, cy - 6, 12, 12);
-        g.setStroke(Color.web("#f59e0b"));
-        g.setLineWidth(1.5);
-        g.strokeLine(sx.applyAsDouble(0), sy.applyAsDouble(0), cx, cy);   // 极径线（原点→动点）
+        g.setStroke(Color.web("#f59e0b", 0.35));   // 极径线弱化：极坐标演示（心形线）的参考，直角坐标里降为淡线
+        g.setLineWidth(1);
+        g.strokeLine(sx.applyAsDouble(0), sy.applyAsDouble(0), cx, cy);
 
         // 注解
         g.setTextAlign(TextAlignment.LEFT);
         g.setFont(Font.font(12));
-        for (int i = 0; i < pv.labels().size(); i++) {
-            g.setFill(i == 0 ? Color.web("#374151") : Color.web("#6b7280"));
-            g.fillText(pv.labels().get(i), x0 + 8, yTop + 16 + i * 18);
-        }
+        drawLabelsWithBackdrop(g, pv, x0 + 8, yTop + 16);
     }
 
 
@@ -458,10 +460,7 @@ public final class PlotRenderer {
         // 注解
         g.setTextAlign(TextAlignment.LEFT);
         g.setFont(Font.font(12));
-        for (int i = 0; i < pv.labels().size(); i++) {
-            g.setFill(i == 0 ? Color.web("#374151") : Color.web("#6b7280"));
-            g.fillText(pv.labels().get(i), x0 + 8, yTop + 16 + i * 18);
-        }
+        drawLabelsWithBackdrop(g, pv, x0 + 8, yTop + 16);
     }
 
     // ==================== kind = doublePendulum（双摆混沌）====================
@@ -534,9 +533,22 @@ public final class PlotRenderer {
     private static void drawLabels(GraphicsContext g, PlotView pv, double lx, double ly) {
         g.setTextAlign(TextAlignment.LEFT);
         g.setFont(Font.font(12));
+        drawLabelsWithBackdrop(g, pv, lx, ly);
+    }
+
+    /** 注解统一加白色半透明底条——密集点云/曲线上文字不再被挡（蒙特卡洛等）。 */
+    private static void drawLabelsWithBackdrop(GraphicsContext g, PlotView pv, double lx, double ly) {
+        g.setTextAlign(TextAlignment.LEFT);
+        g.setFont(Font.font(12));
+        double lineH = 18;
+        double pad = 4;
         for (int i = 0; i < pv.labels().size(); i++) {
+            String text = pv.labels().get(i);
+            double tw = text.length() * 12.0 * 0.62 + 8;   // 估宽（中英混排近似）
+            g.setFill(Color.web("#ffffff", 0.78));
+            g.fillRoundRect(lx - pad, ly + i * lineH - 12, tw, lineH - 2, 4, 4);
             g.setFill(i == 0 ? Color.web("#374151") : Color.web("#6b7280"));
-            g.fillText(pv.labels().get(i), lx, ly + i * 18);
+            g.fillText(text, lx, ly + i * lineH);
         }
     }
 

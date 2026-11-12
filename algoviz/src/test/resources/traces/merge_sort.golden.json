@@ -2696,6 +2696,8 @@
             1,
             5
           ],
+          "compareA": 0,
+          "compareB": 1,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -4470,6 +4472,8 @@
             1,
             5
           ],
+          "compareA": 0,
+          "compareB": 2,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -4619,6 +4623,8 @@
             1,
             5
           ],
+          "compareA": 1,
+          "compareB": 2,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -7223,6 +7229,8 @@
             1,
             5
           ],
+          "compareA": 3,
+          "compareB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -8183,6 +8191,8 @@
             1,
             5
           ],
+          "compareA": 0,
+          "compareB": 3,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -8309,6 +8319,8 @@
             1,
             5
           ],
+          "compareA": 0,
+          "compareB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -8435,6 +8447,8 @@
             1,
             5
           ],
+          "compareA": 1,
+          "compareB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }
@@ -8561,6 +8575,8 @@
             1,
             5
           ],
+          "compareA": 2,
+          "compareB": 4,
           "sortedFrom": 5,
           "sortedTo": -1
         }

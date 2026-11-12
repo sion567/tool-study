@@ -69,7 +69,7 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "A_bits",
+          "name": "bits",
           "values": [
             1,
             1,
@@ -153,10 +153,10 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "A_bits",
+          "name": "bits",
           "values": [
             1,
-            1,
+            0,
             0,
             0
           ],
@@ -239,11 +239,11 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "A_bits",
+          "name": "bits",
           "values": [
             1,
             1,
-            0,
+            1,
             0
           ],
           "sortedFrom": 4,
@@ -325,11 +325,11 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "A_bits",
+          "name": "bits",
           "values": [
-            1,
-            1,
             0,
+            1,
+            1,
             0
           ],
           "sortedFrom": 4,
@@ -411,14 +411,15 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "A_bits",
+          "name": "bits",
           "values": [
             1,
             1,
             0,
+            0,
             0
           ],
-          "sortedFrom": 4,
+          "sortedFrom": 5,
           "sortedTo": -1
         }
       },
@@ -495,7 +496,7 @@
         },
         "ds.array": {
           "arrayId": "@1",
-          "name": "A_bits",
+          "name": "bits",
           "values": [
             1,
             1,

@@ -158,14 +158,18 @@ public final class TaylorDemo implements Algorithm {
         // 真实 sin 曲线 + 当前项数的近似曲线
         List<List<Double>> real = new ArrayList<>();
         List<List<Double>> approx = new ArrayList<>();
+        double peak = 1;   // 域自适应：低次近似在远端爆冲，域必须包住它（缩放前后都完整可见）
         for (int i = 0; i <= (int) SAMPLES; i++) {
             double x = i / SAMPLES * X_MAX;
+            double ya = approx(x, termCount);
+            peak = Math.max(peak, Math.abs(ya));
             real.add(List.of(x, cosMode ? Math.cos(x) : Math.sin(x)));
-            approx.add(List.of(x, approx(x, termCount)));
+            approx.add(List.of(x, ya));
         }
+        double lim = peak * 1.15;
         return new PlotView(PlotView.UNIT_CIRCLE, "泰勒展开逼近 " + fn(), termCount,
                 termCount, maxError,
-                0, X_MAX, -1.4, 1.4,
+                0, X_MAX, -lim, lim,
                 Collections.unmodifiableList(real),      // 真实曲线
                 Collections.unmodifiableList(approx),    // 近似曲线
                 List.of(), List.of(), List.of("真实 " + fn(), termCount + " 次幂近似"));

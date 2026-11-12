@@ -90,6 +90,7 @@ public class MainApp extends Application {
     private Button randBtn;
     private Label stepLabel;
     private Button playBtn;
+    private final java.util.List<javafx.scene.control.ToggleButton> levelBtns = new java.util.ArrayList<>();
 
     // 画布视图变换：拖动平移 + 缩放（滚轮/按钮），围绕画布中心
     private double viewZoom = 1, viewPanX = 0, viewPanY = 0;
@@ -142,7 +143,14 @@ public class MainApp extends Application {
         });
         canvas.setOnScroll(e -> {
             double f = e.getDeltaY() > 0 ? 1.1 : 1 / 1.1;
-            viewZoom = Math.max(0.4, Math.min(6, viewZoom * f));
+            double newZoom = Math.max(0.4, Math.min(6, viewZoom * f));
+            // 以鼠标位置为锚缩放：光标下的内容保持不动（白板体感）
+            double mx = e.getX() - canvas.getWidth() / 2.0;
+            double my = e.getY() - canvas.getHeight() / 2.0;
+            double ratio = newZoom / viewZoom;
+            viewPanX = mx * (1 - ratio) + viewPanX * ratio;
+            viewPanY = my * (1 - ratio) + viewPanY * ratio;
+            viewZoom = newZoom;
             render();
             e.consume();
         });
@@ -288,11 +296,12 @@ public class MainApp extends Application {
     }
 
     private HBox buildControls() {
-        Button first = new Button("⏮");
-        Button prev = new Button("◀");
-        playBtn = new Button("▶");
-        Button next = new Button("▶|");
-        Button last = new Button("⏭");
+        // 纯 ASCII 按钮文字：⏮◀▶⏭ 等 Unicode 符号在部分 Windows 字体缺字形（渲染成方框/怪字符）
+        Button first = new Button("|<");
+        Button prev = new Button("<");
+        playBtn = new Button(">");
+        Button next = new Button(">|");
+        Button last = new Button(">>|");
         Button themeBtn = new Button(Theme.isDark() ? "☀" : "🌙");
         themeBtn.setOnAction(e -> {
             boolean dark = Theme.toggle();
@@ -329,6 +338,21 @@ public class MainApp extends Application {
         nLabel.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
         dataNSlider = nSlider;
 
+        // 难度三档（需求 3）：简单/中等/复杂 = n 5/10/15——复用 regenerateWithN 管线；固定剧本类置灰
+        javafx.scene.control.ToggleGroup levelGroup = new javafx.scene.control.ToggleGroup();
+        for (int[] lv : new int[][]{{0, 5}, {1, 10}, {2, 15}}) {
+            javafx.scene.control.ToggleButton tb = new javafx.scene.control.ToggleButton(
+                    new String[]{"简单", "中等", "复杂"}[lv[0]]);
+            tb.setToggleGroup(levelGroup);
+            tb.setUserData(lv[1]);
+            tb.setStyle("-fx-font-size: 11px; -fx-padding: 2 7 2 7;");
+            tb.setOnAction(e -> regenerateWithN((int) tb.getUserData()));
+            levelBtns.add(tb);
+        }
+        levelGroup.getToggles().get(0).setSelected(true);
+        javafx.scene.layout.HBox levelBox = new javafx.scene.layout.HBox(2,
+                levelBtns.get(0), levelBtns.get(1), levelBtns.get(2));
+
         first.setOnAction(e -> navigate(0));
         prev.setOnAction(e -> navigate(playback.index() - 1));
         next.setOnAction(e -> navigate(playback.index() + 1));
@@ -340,7 +364,7 @@ public class MainApp extends Application {
         slider.valueProperty().addListener((o, ov, nv) -> navigate((int) Math.round(nv.doubleValue())));
 
         stepLabel = new Label("0 / 0");
-        HBox bar = new HBox(8, first, prev, playBtn, next, last, randBtn, nLabel, themeBtn, slider, stepLabel);
+        HBox bar = new HBox(8, first, prev, playBtn, next, last, randBtn, levelBox, nLabel, themeBtn, slider, stepLabel);
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setPadding(new Insets(4, 0, 4, 0));
         return bar;
@@ -352,7 +376,7 @@ public class MainApp extends Application {
             return;
         }
         playing = true;
-        playBtn.setText("⏸");
+        playBtn.setText("||");
         if (timer == null) {
             // 到尾即停：直接停表，不递归 togglePlay（避免与按钮/空格的重入竞态）
             timer = new Timeline(new KeyFrame(Duration.millis(350), e -> {
@@ -375,7 +399,7 @@ public class MainApp extends Application {
 
     private void stopPlayback() {
         playing = false;
-        playBtn.setText("▶");
+        playBtn.setText(">");
         if (timer != null) {
             timer.stop();
         }
@@ -458,6 +482,9 @@ public class MainApp extends Application {
         randBtn.setDisable(!canRoll);
         randBtn.setText(canRoll ? "🎲" : "🎲🚫");
         dataNSlider.setDisable(!canRoll);
+        for (javafx.scene.control.ToggleButton tb : levelBtns) {   // 难度三档同步置灰
+            tb.setDisable(!canRoll);
+        }
     }
 
     // ---------- 预测模式（蓝图 §2.5-A） ----------

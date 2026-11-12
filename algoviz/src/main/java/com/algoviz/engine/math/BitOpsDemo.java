@@ -35,6 +35,7 @@ public final class BitOpsDemo implements Algorithm {
 
     private static final int A = 0b1100;   // 12
     private static final int B = 0b1010;   // 10
+    private int display = A;               // 当前画面展示的位模式（每步运算结果在变）
 
     private final List<Step> steps = new ArrayList<>();
 
@@ -47,22 +48,26 @@ public final class BitOpsDemo implements Algorithm {
     public Trace produce() {
         String binA = Integer.toBinaryString(A);
         String binB = Integer.toBinaryString(B);
+        display = A;                                   // 初始画面 = A 的位
         emit(2, List.of(VizEvent.of(VizEvent.EventType.INIT,
                 "A = " + binA + " (" + A + "),  B = " + binB + " (" + B + ")")),
                 "先把两个数转成二进制——位运算就是逐位操作");
-        bitOp("AND &", A & B, binA, binB, "&", "同 1 才 1（用来提取/掩码）");
-        bitOp("OR |", A | B, binA, binB, "|", "有 1 就 1（用来合并/设位）");
-        bitOp("XOR ^", A ^ B, binA, binB, "^", "不同才 1（用来翻转/找不同）");
+        bitOp("AND &", A & B, "同 1 才 1（用来提取/掩码）");
+        bitOp("OR |", A | B, "有 1 就 1（用来合并/设位）");
+        bitOp("XOR ^", A ^ B, "不同才 1（用来翻转/找不同）");
+        display = A << 1;
         emit(6, List.of(VizEvent.of(VizEvent.EventType.SET,
                 "<< 1: " + A + " << 1 = " + (A << 1) + "（×2）\n>> 1: " + A + " >> 1 = " + (A >> 1) + "（÷2）")),
                 "左移 = ×2，右移 = ÷2——比乘除法快（CPU 原生指令）");
+        display = A;
         emit(8, List.of(VizEvent.of(VizEvent.EventType.RETURN,
                 "技巧：n & (n-1) 消最低位 1 → 判断 2 的幂；n ^ n = 0 → 找只出现一次的数")),
                 "位运算的本质：把布尔逻辑并行应用到每一位");
         return new Trace(SCHEMA, meta(), steps);
     }
 
-    private void bitOp(String name, int result, String ba, String bb, String op, String explain) {
+    private void bitOp(String name, int result, String explain) {
+        display = result;                              // 画面 = 本步运算结果位（每帧都在变）
         String binR = String.format("%4s", Integer.toBinaryString(result)).replace(' ', '0');
         emit(3, List.of(VizEvent.of(VizEvent.EventType.SET,
                 name + " → " + binR + " (" + result + ")", binR)),
@@ -95,9 +100,9 @@ public final class BitOpsDemo implements Algorithm {
 
     private ArrayView snapshotArray() {
         List<Integer> vals = new ArrayList<>();
-        String binA = String.format("%4s", Integer.toBinaryString(A)).replace(' ', '0');
-        for (char c : binA.toCharArray()) vals.add(c - '0');
-        return new ArrayView("@1", "A_bits", List.copyOf(vals),
+        String bin = String.format("%4s", Integer.toBinaryString(display)).replace(' ', '0');
+        for (char c : bin.toCharArray()) vals.add(c - '0');
+        return new ArrayView("@1", "bits", List.copyOf(vals),
                 null, null, null, null, vals.size(), -1);
     }
 

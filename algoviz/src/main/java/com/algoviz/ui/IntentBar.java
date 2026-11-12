@@ -30,6 +30,6 @@ public final class IntentBar extends HBox {
             label.setText("");
             return;
         }
-        label.setText("🧭 不变量：" + step.intent().invariant() + "　｜　本步：" + step.intent().why());
+        label.setText("不变量：" + step.intent().invariant() + "　｜　本步：" + step.intent().why());
     }
 }

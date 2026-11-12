@@ -53,13 +53,17 @@ public final class FibonacciDemo implements Algorithm {
         java.util.Arrays.fill(memo, false);
         callCounts = new int[N + 1];
 
-        // ===== 版本一：纯递归（展示重复调用） =====
+        // ===== 版本一：纯递归（真实递归计数——柱子 = 每个子问题被调用的次数） =====
         versionTag = "递归 O(2ⁿ)";
         curIdx = N;
         emit(4, List.of(VizEvent.of(VizEvent.EventType.INIT,
-                "递归版：fib(" + N + ")——注意重复子问题（红圈标出）")),
+                "递归版：fib(" + N + ")——注意重复子问题（柱子 = 被调用次数）")),
                 "递归版：fib(5) 算了 2 次、fib(4) 算了 3 次、fib(3) 算了 5 次——大量浪费");
-        int calls = countCalls(N);
+        recCount(N);
+        int calls = 0;
+        for (int c : callCounts) {
+            calls += c;
+        }
         emit(6, List.of(VizEvent.of(VizEvent.EventType.MARK_SORTED,
                 "递归完成：总共 " + calls + " 次函数调用（O(2ⁿ)）")),
                 "指数爆炸：fib(n) 的调用次数 ≈ 2 × fib(n-1) 的调用次数");
@@ -119,15 +123,13 @@ public final class FibonacciDemo implements Algorithm {
         return dp[i];
     }
 
-    private int countCalls(int n) {
-        // fib(n) 的调用次数 = 2 * fib(n+1) - 1（标准公式）
-        // 简化：用递推计数
-        int[] calls = new int[N + 2];
-        calls[0] = 1; calls[1] = 1;
-        for (int i = 2; i <= N; i++) calls[i] = calls[i - 1] + calls[i - 2] + 1;
-        int total = 0;
-        for (int i = 0; i <= N; i++) total += calls[i];
-        return total;
+    /** 递归版真实递归：每个 fib(k) 调用都计数（不缓存——让重复可见）。 */
+    private int recCount(int i) {
+        callCounts[i]++;
+        if (i <= 1) {
+            return i;
+        }
+        return recCount(i - 1) + recCount(i - 2);
     }
 
     private void showCallCounts() {
@@ -163,10 +165,12 @@ public final class FibonacciDemo implements Algorithm {
     }
 
     private ArrayView snapshotArray() {
+        boolean counting = versionTag.contains("递归");   // 递归两幕：柱子 = 被调用次数（不是全 0 的 dp）
+        int[] src = counting ? callCounts : dp;
         List<Integer> vals = new ArrayList<>();
-        for (int v : dp) vals.add(v);
-        return new ArrayView("@1", "dp", List.copyOf(vals),
-                curIdx >= 0 ? curIdx : null, null, null, null, dp.length, -1);
+        for (int v : src) vals.add(v);
+        return new ArrayView("@1", counting ? "调用次数" : "dp", List.copyOf(vals),
+                curIdx >= 0 ? curIdx : null, null, null, null, src.length, -1);
     }
 
     private Trace.TraceMeta meta() {

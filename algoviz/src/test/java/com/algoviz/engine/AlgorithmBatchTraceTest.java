@@ -1025,6 +1025,26 @@ class AlgorithmBatchTraceTest {
                 + java.util.Arrays.toString(actual));
     }
 
+    /** 行为：快排/归并高亮字段（红黄绿）非空——画面对比度的引擎级保证。 */
+    @org.junit.jupiter.api.Test
+    void sortHighlightFieldsPresent() {
+        long cmpQ = new QuickSort(new int[]{5, 2, 9, 1, 5}).produce().steps().stream()
+                .filter(s -> s.array().compareA() != null).count();
+        assertTrue2(cmpQ >= 3, "快排应有 ≥3 帧比较高亮（黄），实际 " + cmpQ);
+        long swpQ = new QuickSort(new int[]{5, 2, 9, 1, 5}).produce().steps().stream()
+                .filter(s -> s.array().swapA() != null).count();
+        assertTrue2(swpQ >= 2, "快排应有 ≥2 帧交换高亮（红），实际 " + swpQ);
+        long cmpM = new com.algoviz.engine.sort.MergeSort(new int[]{5, 2, 9, 1, 5}).produce().steps().stream()
+                .filter(s -> s.array().compareA() != null).count();
+        assertTrue2(cmpM >= 3, "归并应有 ≥3 帧双指针高亮（黄），实际 " + cmpM);
+        // 斐波那契：递归阶段柱子 = 调用次数（非全 0）
+        var fib = new com.algoviz.engine.dp.FibonacciDemo().produce().steps();
+        var arr = fib.get(2).array();
+        long nonzero = arr.values().stream().filter(v -> v != 0).count();
+        assertTrue2(nonzero > 0, "斐波那契递归阶段柱子应显示调用次数（非全 0）");
+        assertTrue2("调用次数".equals(arr.name()), "递归阶段数组名应为「调用次数」，实际 " + arr.name());
+    }
+
     /** 行为：国密三件套——SM3/SM4 终值 == 国标向量，SM2 教学曲线群闭合。 */
     @org.junit.jupiter.api.Test
     void cryptoThreeBehave() throws Exception {

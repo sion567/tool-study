@@ -211,7 +211,7 @@ public final class Sm2Demo implements Algorithm {
         labels.add(String.format("G=(%d,%d)——当前点 (%d,%d)", GX, GY, (int) px, (int) py));
         labels.add(hasChord ? "绿虚线 = 弦线：交第三点后取反" : "SM2 = 256 位大曲线上的同一套公式");
         return new PlotView(PlotView.CARTESIAN, "椭圆曲线弦切法", 0, px, py,
-                -1.2, 6.8, -9.5, 9.5,
+                -1.2, 17.6, -16.6, 16.6,   // 域包住点云（y 到 16）与整条曲线——不再裁线
                 Collections.unmodifiableList(curve),
                 Collections.unmodifiableList(chord), List.of(),
                 Collections.unmodifiableList(dots),
