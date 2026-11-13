@@ -1,0 +1,740 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dl.backprop",
+    "title": "反向传播逐层演算",
+    "codeResource": "/code/BackpropDemo.java",
+    "input": "x=1 t=1 lr=0.5",
+    "inputSize": 27
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "前向 = 把输入沿权重'推'到输出：每一步只是乘加 + sigmoid"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backprop",
+              "locals": {
+                "L": {
+                  "kind": "PRIM",
+                  "text": "0.5906"
+                },
+                "lr": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "net",
+                "type": "TinyNet",
+                "fields": {
+                  "w1": {
+                    "kind": "PRIM",
+                    "text": "[0.5, -0.3]"
+                  },
+                  "w2": {
+                    "kind": "PRIM",
+                    "text": "[0.8, -0.6]"
+                  },
+                  "学习率": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "反向传播",
+          "grids": [
+            {
+              "id": "fwd",
+              "label": "前向值（黄圈 = 损失与输出）",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "x=1.0",
+                "h_a=0.646",
+                "h_b=0.475",
+                "y=0.232",
+                "L=0.5906"
+              ],
+              "activeCells": [
+                3,
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "grad",
+              "label": "梯度表（链式法则逐格算出）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "dLdy=-1.537",
+                "dLdw2=[-0.992,-0.730]",
+                "dLdw1=[-0.2813,0.2300]"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "前向：h=σ(w1·x+b1)=[0.646, 0.475]，y=w2·h=0.232，目标 t=1.0 → L=(y−t)²=0.5906"
+        }
+      ],
+      "intent": {
+        "why": "前向 = 把输入沿权重'推'到输出：每一步只是乘加 + sigmoid",
+        "invariant": "链式法则：∂L/∂w2=∂L/∂y·h、∂L/∂w1=∂L/∂y·w2·h(1−h)·x——每层的梯度由后一层乘局部导数；更新 w ← w − lr·∂L/∂w 后损失必然下降（学习率合适时）"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "链式法则的第一环：平方损失的导数 2(y-t)：错得越多推得越狠"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backprop",
+              "locals": {
+                "L": {
+                  "kind": "PRIM",
+                  "text": "0.5906"
+                },
+                "lr": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "net",
+                "type": "TinyNet",
+                "fields": {
+                  "w1": {
+                    "kind": "PRIM",
+                    "text": "[0.5, -0.3]"
+                  },
+                  "w2": {
+                    "kind": "PRIM",
+                    "text": "[0.8, -0.6]"
+                  },
+                  "学习率": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "反向传播",
+          "grids": [
+            {
+              "id": "fwd",
+              "label": "前向值（黄圈 = 损失与输出）",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "x=1.0",
+                "h_a=0.646",
+                "h_b=0.475",
+                "y=0.232",
+                "L=0.5906"
+              ],
+              "activeCells": [
+                3,
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "grad",
+              "label": "梯度表（链式法则逐格算出）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "dLdy=-1.537",
+                "dLdw2=[-0.992,-0.730]",
+                "dLdw1=[-0.2813,0.2300]"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [],
+          "detail": "反向起步：∂L/∂y = 2(y-t) = -1.537——损失对输出的斜率"
+        }
+      ],
+      "intent": {
+        "why": "链式法则的第一环：平方损失的导数 2(y-t)：错得越多推得越狠",
+        "invariant": "链式法则：∂L/∂w2=∂L/∂y·h、∂L/∂w1=∂L/∂y·w2·h(1−h)·x——每层的梯度由后一层乘局部导数；更新 w ← w − lr·∂L/∂w 后损失必然下降（学习率合适时）"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "链式法则第二环：乘上'本步的局部导数'——w2 的梯度乘 h、传给隐层乘 w2"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backprop",
+              "locals": {
+                "L": {
+                  "kind": "PRIM",
+                  "text": "0.5906"
+                },
+                "lr": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "net",
+                "type": "TinyNet",
+                "fields": {
+                  "w1": {
+                    "kind": "PRIM",
+                    "text": "[0.5, -0.3]"
+                  },
+                  "w2": {
+                    "kind": "PRIM",
+                    "text": "[0.8, -0.6]"
+                  },
+                  "学习率": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "反向传播",
+          "grids": [
+            {
+              "id": "fwd",
+              "label": "前向值（黄圈 = 损失与输出）",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "x=1.0",
+                "h_a=0.646",
+                "h_b=0.475",
+                "y=0.232",
+                "L=0.5906"
+              ],
+              "activeCells": [
+                3,
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "grad",
+              "label": "梯度表（链式法则逐格算出）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "dLdy=-1.537",
+                "dLdw2=[-0.992,-0.730]",
+                "dLdw1=[-0.2813,0.2300]"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "∂L/∂w2 = ∂L/∂y·h = [-0.992, -0.730]；∂L/∂h = ∂L/∂y·w2 = [-1.230, 0.922]"
+        }
+      ],
+      "intent": {
+        "why": "链式法则第二环：乘上'本步的局部导数'——w2 的梯度乘 h、传给隐层乘 w2",
+        "invariant": "链式法则：∂L/∂w2=∂L/∂y·h、∂L/∂w1=∂L/∂y·w2·h(1−h)·x——每层的梯度由后一层乘局部导数；更新 w ← w − lr·∂L/∂w 后损失必然下降（学习率合适时）"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "sigmoid 的局部导数 h(1−h) ≤ 0.25——乘得越多越小，这就是深层的'梯度消失'"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backprop",
+              "locals": {
+                "L": {
+                  "kind": "PRIM",
+                  "text": "0.5906"
+                },
+                "lr": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "net",
+                "type": "TinyNet",
+                "fields": {
+                  "w1": {
+                    "kind": "PRIM",
+                    "text": "[0.5, -0.3]"
+                  },
+                  "w2": {
+                    "kind": "PRIM",
+                    "text": "[0.8, -0.6]"
+                  },
+                  "学习率": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "反向传播",
+          "grids": [
+            {
+              "id": "fwd",
+              "label": "前向值（黄圈 = 损失与输出）",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "x=1.0",
+                "h_a=0.646",
+                "h_b=0.475",
+                "y=0.232",
+                "L=0.5906"
+              ],
+              "activeCells": [
+                3,
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "grad",
+              "label": "梯度表（链式法则逐格算出）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "dLdy=-1.537",
+                "dLdw2=[-0.992,-0.730]",
+                "dLdw1=[-0.2813,0.2300]"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "∂L/∂w1 = ∂L/∂h·h(1−h)·x = [-0.2813, 0.2300]（sigmoid 局部导数 h(1−h)）"
+        }
+      ],
+      "intent": {
+        "why": "sigmoid 的局部导数 h(1−h) ≤ 0.25——乘得越多越小，这就是深层的'梯度消失'",
+        "invariant": "链式法则：∂L/∂w2=∂L/∂y·h、∂L/∂w1=∂L/∂y·w2·h(1−h)·x——每层的梯度由后一层乘局部导数；更新 w ← w − lr·∂L/∂w 后损失必然下降（学习率合适时）"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 22,
+        "endLine": 22,
+        "note": "梯度下降：沿负梯度挪一小步——lr 是步长，太大震荡太小爬得慢"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backprop",
+              "locals": {
+                "L": {
+                  "kind": "PRIM",
+                  "text": "0.5906"
+                },
+                "lr": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "net",
+                "type": "TinyNet",
+                "fields": {
+                  "w1": {
+                    "kind": "PRIM",
+                    "text": "[0.5, -0.3]"
+                  },
+                  "w2": {
+                    "kind": "PRIM",
+                    "text": "[0.8, -0.6]"
+                  },
+                  "学习率": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "反向传播",
+          "grids": [
+            {
+              "id": "fwd",
+              "label": "前向值（黄圈 = 损失与输出）",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "x=1.0",
+                "h_a=0.646",
+                "h_b=0.475",
+                "y=0.232",
+                "L=0.5906"
+              ],
+              "activeCells": [
+                3,
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "grad",
+              "label": "梯度表（链式法则逐格算出）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "dLdy=-1.537",
+                "dLdw2=[-0.992,-0.730]",
+                "dLdw1=[-0.2813,0.2300]"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "更新：w ← w − lr·∂L/∂w（lr=0.5）→ w2=[1.296, -0.235]，w1=[0.641, -0.415]"
+        }
+      ],
+      "intent": {
+        "why": "梯度下降：沿负梯度挪一小步——lr 是步长，太大震荡太小爬得慢",
+        "invariant": "链式法则：∂L/∂w2=∂L/∂y·h、∂L/∂w1=∂L/∂y·w2·h(1−h)·x——每层的梯度由后一层乘局部导数；更新 w ← w − lr·∂L/∂w 后损失必然下降（学习率合适时）"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 25,
+        "endLine": 25,
+        "note": "一步更新就有可见的损失下降——千万个这样的小步就是'训练'"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backprop",
+              "locals": {
+                "L": {
+                  "kind": "PRIM",
+                  "text": "0.0516"
+                },
+                "lr": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "net",
+                "type": "TinyNet",
+                "fields": {
+                  "w1": {
+                    "kind": "PRIM",
+                    "text": "[0.5, -0.3]"
+                  },
+                  "w2": {
+                    "kind": "PRIM",
+                    "text": "[0.8, -0.6]"
+                  },
+                  "学习率": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "反向传播",
+          "grids": [
+            {
+              "id": "fwd",
+              "label": "前向值（黄圈 = 损失与输出）",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "x=1.0",
+                "h_a=0.646",
+                "h_b=0.475",
+                "y=0.232",
+                "L=0.5906"
+              ],
+              "activeCells": [
+                3,
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "grad",
+              "label": "梯度表（链式法则逐格算出）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "dLdy=-1.537",
+                "dLdw2=[-0.992,-0.730]",
+                "dLdw1=[-0.2813,0.2300]"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "二次前向：y=0.773 → L=0.0516（原 0.5906，降 91.3%）"
+        }
+      ],
+      "intent": {
+        "why": "一步更新就有可见的损失下降——千万个这样的小步就是'训练'",
+        "invariant": "链式法则：∂L/∂w2=∂L/∂y·h、∂L/∂w1=∂L/∂y·w2·h(1−h)·x——每层的梯度由后一层乘局部导数；更新 w ← w − lr·∂L/∂w 后损失必然下降（学习率合适时）"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 27,
+        "endLine": 27,
+        "note": "1986 年 Rumelhart 让反向传播成名：深度学习的'引擎'直到今天仍是它"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "backprop",
+              "locals": {
+                "L": {
+                  "kind": "PRIM",
+                  "text": "0.0516"
+                },
+                "lr": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "net",
+                "type": "TinyNet",
+                "fields": {
+                  "w1": {
+                    "kind": "PRIM",
+                    "text": "[0.5, -0.3]"
+                  },
+                  "w2": {
+                    "kind": "PRIM",
+                    "text": "[0.8, -0.6]"
+                  },
+                  "学习率": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "反向传播",
+          "grids": [
+            {
+              "id": "fwd",
+              "label": "前向值（黄圈 = 损失与输出）",
+              "rows": 1,
+              "cols": 5,
+              "values": [
+                "x=1.0",
+                "h_a=0.646",
+                "h_b=0.475",
+                "y=0.232",
+                "L=0.5906"
+              ],
+              "activeCells": [
+                3,
+                4
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "grad",
+              "label": "梯度表（链式法则逐格算出）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "dLdy=-1.537",
+                "dLdw2=[-0.992,-0.730]",
+                "dLdw1=[-0.2813,0.2300]"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "反向传播 = 链式法则 + 动态规划：每层的梯度只依赖后一层——一次反向遍历算完全部梯度"
+        }
+      ],
+      "intent": {
+        "why": "1986 年 Rumelhart 让反向传播成名：深度学习的'引擎'直到今天仍是它",
+        "invariant": "链式法则：∂L/∂w2=∂L/∂y·h、∂L/∂w1=∂L/∂y·w2·h(1−h)·x——每层的梯度由后一层乘局部导数；更新 w ← w − lr·∂L/∂w 后损失必然下降（学习率合适时）"
+      }
+    }
+  ]
+}

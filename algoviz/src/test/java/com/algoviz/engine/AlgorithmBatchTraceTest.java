@@ -126,6 +126,9 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"crypto_sha256", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sha256Demo::new},
                 new Object[]{"concurrent_vis", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentVisDemo::new},
                 new Object[]{"concurrent_deadlock", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentDeadlockDemo::new},
+                new Object[]{"dl_lstm", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.LstmDemo::new},
+                new Object[]{"dl_backprop", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.BackpropDemo::new},
+                new Object[]{"dl_word2vec", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.Word2VecDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -1105,5 +1108,45 @@ class AlgorithmBatchTraceTest {
                 .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
         assertTrue2(dlText.contains("死锁定格") && dlText.contains("锁排序") && dlText.contains("tryLock"),
                 "死锁演示应有定格点与两类破解");
+    }
+
+    /** 行为：DL 延伸三连——LSTM 门值/c 演化、backprop 损失下降、word2vec 词点聚拢。 */
+    @org.junit.jupiter.api.Test
+    void dlThreeBehave() throws Exception {
+        // LSTM：门值 ∈ (0,1)、c 逐步演化（对照 RNN 的 h 滚动）
+        var lm = new com.algoviz.engine.dl.LstmDemo().produce().steps();
+        var lmGrid = lm.get(lm.size() - 3).math().grids().get(0);   // 最后时间步帧（MARK 帧 curT=-1 全格问号）
+        for (int t = 0; t < 5; t++) {
+            double f = Double.parseDouble(lmGrid.value(t, 5).split("/")[0].replace("门", ""));
+            assertTrue2(f > 0 && f < 1, "遗忘门值必须在 (0,1)，t=" + t + " 实际 " + f);
+        }
+        double c1 = Double.parseDouble(lmGrid.value(0, 2));
+        double c5 = Double.parseDouble(lmGrid.value(4, 2));
+        assertTrue2(c1 != c5, "细胞状态 c 应逐步演化（传送带在动）");
+        // 反向传播：二次前向损失下降（数值在事件文本里）
+        var bp = new com.algoviz.engine.dl.BackpropDemo().produce().steps();
+        String bpText = bp.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        String lossNew = java.util.regex.Pattern.compile("L=([0-9.]+)（原 ([0-9.]+)").matcher(bpText).results().findFirst()
+                .map(m -> m.group(1)).orElse("");
+        assertTrue2(!lossNew.isEmpty(), "应有二次前向损失值");
+        double newLoss = Double.parseDouble(lossNew);
+        double oldLoss = Double.parseDouble(java.util.regex.Pattern.compile("原 ([0-9.]+)").matcher(bpText).results().findFirst().orElseThrow().group(1));
+        assertTrue2(newLoss < oldLoss, "一步更新后损失必须下降：新 " + newLoss + " vs 原 " + oldLoss);
+        // Word2Vec：cat 与 mat 的距离（训练后）比初始（2,2 vs 0.5,0.5）更近——从堆坐标计算
+        var wv = new com.algoviz.engine.dl.Word2VecDemo().produce().steps();
+        var fields = wv.get(wv.size() - 2).heap().heap().objects().get("@1").fields();
+        double dCatMat = distOf(fields.get("cat").text(), fields.get("mat").text());
+        assertTrue2(dCatMat < 4.24, "训练后 cat↔mat 距离应比初始四角距离（4.24）更近，实际 " + dCatMat);
+    }
+
+    private static double distOf(String a, String b) {
+        double[] pa = parseXY(a), pb = parseXY(b);
+        return Math.hypot(pa[0] - pb[0], pa[1] - pb[1]);
+    }
+
+    private static double[] parseXY(String text) {
+        String[] parts = text.replaceAll("[()]", "").split(", ");
+        return new double[]{Double.parseDouble(parts[0]), Double.parseDouble(parts[1])};
     }
 }

@@ -1,0 +1,1109 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dl.lstm",
+    "title": "LSTM 门控",
+    "codeResource": "/code/LstmDemo.java",
+    "input": "5 步 三门",
+    "inputSize": 5
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "LSTM = RNN + 三道门 + 一条细胞状态传送带 c：门值 ∈ (0,1) 是 sigmoid 出来的'阀门开度'"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lstm",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "c_t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "LstmCell",
+                "fields": {
+                  "门权重 f/i/o": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.4 / 0.6"
+                  },
+                  "当前 c": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "LSTM",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → 三门 → c 传送带 → h 读出）",
+              "rows": 5,
+              "cols": 6,
+              "values": [
+                "1",
+                "c1",
+                "?",
+                "h1",
+                "?",
+                "门?/?/?",
+                "0",
+                "c2",
+                "?",
+                "h2",
+                "?",
+                "门?/?/?",
+                "1",
+                "c3",
+                "?",
+                "h3",
+                "?",
+                "门?/?/?",
+                "1",
+                "c4",
+                "?",
+                "h4",
+                "?",
+                "门?/?/?",
+                "0",
+                "c5",
+                "?",
+                "h5",
+                "?",
+                "门?/?/?"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "weights",
+              "label": "门权重（sigmoid 出 0~1 开度）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "wf=0.5",
+                "wi=0.4",
+                "wo=0.6"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "同一序列 [1,0,1,1,0]：三门权重 f=0.5 / i=0.4 / o=0.6，c₀=0——对照 dl.rnn 的普通 h 滚动"
+        }
+      ],
+      "intent": {
+        "why": "LSTM = RNN + 三道门 + 一条细胞状态传送带 c：门值 ∈ (0,1) 是 sigmoid 出来的'阀门开度'",
+        "invariant": "c_t = f⊙c_{t-1} + i⊙c̃：遗忘门决定'留多少旧记忆'、输入门决定'写多少新内容'、输出门决定'露多少给 h'——梯度沿 c 传送带直通，RNN 的消失问题在此被门控解药治愈"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "三门各司其职：f 决定旧记忆留多少、i 决定新内容写多少、o 决定露出多少"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lstm",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "c_t": {
+                  "kind": "PRIM",
+                  "text": "0.456"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0.276"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "LstmCell",
+                "fields": {
+                  "门权重 f/i/o": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.4 / 0.6"
+                  },
+                  "当前 c": {
+                    "kind": "PRIM",
+                    "text": "0.456"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0.276"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "LSTM",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → 三门 → c 传送带 → h 读出）",
+              "rows": 5,
+              "cols": 6,
+              "values": [
+                "1",
+                "c1",
+                "0.46",
+                "h1",
+                "0.28",
+                "门0.62/0.60/0.65",
+                "0",
+                "c2",
+                "?",
+                "h2",
+                "?",
+                "门?/?/?",
+                "1",
+                "c3",
+                "?",
+                "h3",
+                "?",
+                "门?/?/?",
+                "1",
+                "c4",
+                "?",
+                "h4",
+                "?",
+                "门?/?/?",
+                "0",
+                "c5",
+                "?",
+                "h5",
+                "?",
+                "门?/?/?"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "weights",
+              "label": "门权重（sigmoid 出 0~1 开度）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "wf=0.5",
+                "wi=0.4",
+                "wo=0.6"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "T1"
+          ],
+          "detail": "t=0：x=1 → f=0.62 i=0.60 o=0.65 | c=0.456（f·0.00+i·0.76）| h=0.276"
+        }
+      ],
+      "intent": {
+        "why": "三门各司其职：f 决定旧记忆留多少、i 决定新内容写多少、o 决定露出多少",
+        "invariant": "c_t = f⊙c_{t-1} + i⊙c̃：遗忘门决定'留多少旧记忆'、输入门决定'写多少新内容'、输出门决定'露多少给 h'——梯度沿 c 传送带直通，RNN 的消失问题在此被门控解药治愈"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "三门各司其职：f 决定旧记忆留多少、i 决定新内容写多少、o 决定露出多少"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lstm",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "1"
+                },
+                "c_t": {
+                  "kind": "PRIM",
+                  "text": "0.385"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0.199"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "LstmCell",
+                "fields": {
+                  "门权重 f/i/o": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.4 / 0.6"
+                  },
+                  "当前 c": {
+                    "kind": "PRIM",
+                    "text": "0.385"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0.199"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "LSTM",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → 三门 → c 传送带 → h 读出）",
+              "rows": 5,
+              "cols": 6,
+              "values": [
+                "1",
+                "c1",
+                "0.46",
+                "h1",
+                "0.28",
+                "门0.62/0.60/0.65",
+                "0",
+                "c2",
+                "0.39",
+                "h2",
+                "0.20",
+                "门0.53/0.53/0.54",
+                "1",
+                "c3",
+                "?",
+                "h3",
+                "?",
+                "门?/?/?",
+                "1",
+                "c4",
+                "?",
+                "h4",
+                "?",
+                "门?/?/?",
+                "0",
+                "c5",
+                "?",
+                "h5",
+                "?",
+                "门?/?/?"
+              ],
+              "activeCells": [
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+              ],
+              "doneCells": [
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "id": "weights",
+              "label": "门权重（sigmoid 出 0~1 开度）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "wf=0.5",
+                "wi=0.4",
+                "wo=0.6"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "T2"
+          ],
+          "detail": "t=1：x=0 → f=0.53 i=0.53 o=0.54 | c=0.385（f·0.46+i·0.27）| h=0.199"
+        }
+      ],
+      "intent": {
+        "why": "三门各司其职：f 决定旧记忆留多少、i 决定新内容写多少、o 决定露出多少",
+        "invariant": "c_t = f⊙c_{t-1} + i⊙c̃：遗忘门决定'留多少旧记忆'、输入门决定'写多少新内容'、输出门决定'露多少给 h'——梯度沿 c 传送带直通，RNN 的消失问题在此被门控解药治愈"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "三门各司其职：f 决定旧记忆留多少、i 决定新内容写多少、o 决定露出多少"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lstm",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "c_t": {
+                  "kind": "PRIM",
+                  "text": "0.764"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0.432"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "LstmCell",
+                "fields": {
+                  "门权重 f/i/o": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.4 / 0.6"
+                  },
+                  "当前 c": {
+                    "kind": "PRIM",
+                    "text": "0.764"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0.432"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "LSTM",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → 三门 → c 传送带 → h 读出）",
+              "rows": 5,
+              "cols": 6,
+              "values": [
+                "1",
+                "c1",
+                "0.46",
+                "h1",
+                "0.28",
+                "门0.62/0.60/0.65",
+                "0",
+                "c2",
+                "0.39",
+                "h2",
+                "0.20",
+                "门0.53/0.53/0.54",
+                "1",
+                "c3",
+                "0.76",
+                "h3",
+                "0.43",
+                "门0.65/0.62/0.67",
+                "1",
+                "c4",
+                "?",
+                "h4",
+                "?",
+                "门?/?/?",
+                "0",
+                "c5",
+                "?",
+                "h5",
+                "?",
+                "门?/?/?"
+              ],
+              "activeCells": [
+                12,
+                13,
+                14,
+                15,
+                16,
+                17
+              ],
+              "doneCells": [
+                2,
+                3,
+                4,
+                5,
+                8,
+                9,
+                10,
+                11
+              ]
+            },
+            {
+              "id": "weights",
+              "label": "门权重（sigmoid 出 0~1 开度）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "wf=0.5",
+                "wi=0.4",
+                "wo=0.6"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "T3"
+          ],
+          "detail": "t=2：x=1 → f=0.65 i=0.62 o=0.67 | c=0.764（f·0.39+i·0.83）| h=0.432"
+        }
+      ],
+      "intent": {
+        "why": "三门各司其职：f 决定旧记忆留多少、i 决定新内容写多少、o 决定露出多少",
+        "invariant": "c_t = f⊙c_{t-1} + i⊙c̃：遗忘门决定'留多少旧记忆'、输入门决定'写多少新内容'、输出门决定'露多少给 h'——梯度沿 c 传送带直通，RNN 的消失问题在此被门控解药治愈"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "三门各司其职：f 决定旧记忆留多少、i 决定新内容写多少、o 决定露出多少"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lstm",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "c_t": {
+                  "kind": "PRIM",
+                  "text": "1.083"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0.558"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "LstmCell",
+                "fields": {
+                  "门权重 f/i/o": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.4 / 0.6"
+                  },
+                  "当前 c": {
+                    "kind": "PRIM",
+                    "text": "1.083"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0.558"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "LSTM",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → 三门 → c 传送带 → h 读出）",
+              "rows": 5,
+              "cols": 6,
+              "values": [
+                "1",
+                "c1",
+                "0.46",
+                "h1",
+                "0.28",
+                "门0.62/0.60/0.65",
+                "0",
+                "c2",
+                "0.39",
+                "h2",
+                "0.20",
+                "门0.53/0.53/0.54",
+                "1",
+                "c3",
+                "0.76",
+                "h3",
+                "0.43",
+                "门0.65/0.62/0.67",
+                "1",
+                "c4",
+                "1.08",
+                "h4",
+                "0.56",
+                "门0.67/0.64/0.70",
+                "0",
+                "c5",
+                "?",
+                "h5",
+                "?",
+                "门?/?/?"
+              ],
+              "activeCells": [
+                18,
+                19,
+                20,
+                21,
+                22,
+                23
+              ],
+              "doneCells": [
+                2,
+                3,
+                4,
+                5,
+                8,
+                9,
+                10,
+                11,
+                14,
+                15,
+                16,
+                17
+              ]
+            },
+            {
+              "id": "weights",
+              "label": "门权重（sigmoid 出 0~1 开度）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "wf=0.5",
+                "wi=0.4",
+                "wo=0.6"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "T4"
+          ],
+          "detail": "t=3：x=1 → f=0.67 i=0.64 o=0.70 | c=1.083（f·0.76+i·0.89）| h=0.558"
+        }
+      ],
+      "intent": {
+        "why": "三门各司其职：f 决定旧记忆留多少、i 决定新内容写多少、o 决定露出多少",
+        "invariant": "c_t = f⊙c_{t-1} + i⊙c̃：遗忘门决定'留多少旧记忆'、输入门决定'写多少新内容'、输出门决定'露多少给 h'——梯度沿 c 传送带直通，RNN 的消失问题在此被门控解药治愈"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "c₅=0.898 h₅=0.417：长期记忆活在 c 传送带上，h 只是被输出门过滤的'读出'"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lstm",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "c_t": {
+                  "kind": "PRIM",
+                  "text": "0.898"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0.417"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "LstmCell",
+                "fields": {
+                  "门权重 f/i/o": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.4 / 0.6"
+                  },
+                  "当前 c": {
+                    "kind": "PRIM",
+                    "text": "0.898"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0.417"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "LSTM",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → 三门 → c 传送带 → h 读出）",
+              "rows": 5,
+              "cols": 6,
+              "values": [
+                "1",
+                "c1",
+                "0.46",
+                "h1",
+                "0.28",
+                "门0.62/0.60/0.65",
+                "0",
+                "c2",
+                "0.39",
+                "h2",
+                "0.20",
+                "门0.53/0.53/0.54",
+                "1",
+                "c3",
+                "0.76",
+                "h3",
+                "0.43",
+                "门0.65/0.62/0.67",
+                "1",
+                "c4",
+                "1.08",
+                "h4",
+                "0.56",
+                "门0.67/0.64/0.70",
+                "0",
+                "c5",
+                "0.90",
+                "h5",
+                "0.42",
+                "门0.57/0.56/0.58"
+              ],
+              "activeCells": [
+                24,
+                25,
+                26,
+                27,
+                28,
+                29
+              ],
+              "doneCells": [
+                2,
+                3,
+                4,
+                5,
+                8,
+                9,
+                10,
+                11,
+                14,
+                15,
+                16,
+                17,
+                20,
+                21,
+                22,
+                23
+              ]
+            },
+            {
+              "id": "weights",
+              "label": "门权重（sigmoid 出 0~1 开度）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "wf=0.5",
+                "wi=0.4",
+                "wo=0.6"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "T5"
+          ],
+          "detail": "t=4：x=0 → f=0.57 i=0.56 o=0.58 | c=0.898（f·1.08+i·0.51）| h=0.417"
+        }
+      ],
+      "intent": {
+        "why": "c₅=0.898 h₅=0.417：长期记忆活在 c 传送带上，h 只是被输出门过滤的'读出'",
+        "invariant": "c_t = f⊙c_{t-1} + i⊙c̃：遗忘门决定'留多少旧记忆'、输入门决定'写多少新内容'、输出门决定'露多少给 h'——梯度沿 c 传送带直通，RNN 的消失问题在此被门控解药治愈"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "遗忘门是可学习的：网络自己决定'记住多久'——长序列不再一键失忆"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lstm",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "c_t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "LstmCell",
+                "fields": {
+                  "门权重 f/i/o": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.4 / 0.6"
+                  },
+                  "当前 c": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "LSTM",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → 三门 → c 传送带 → h 读出）",
+              "rows": 5,
+              "cols": 6,
+              "values": [
+                "1",
+                "c1",
+                "?",
+                "h1",
+                "?",
+                "门?/?/?",
+                "0",
+                "c2",
+                "?",
+                "h2",
+                "?",
+                "门?/?/?",
+                "1",
+                "c3",
+                "?",
+                "h3",
+                "?",
+                "门?/?/?",
+                "1",
+                "c4",
+                "?",
+                "h4",
+                "?",
+                "门?/?/?",
+                "0",
+                "c5",
+                "?",
+                "h5",
+                "?",
+                "门?/?/?"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "weights",
+              "label": "门权重（sigmoid 出 0~1 开度）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "wf=0.5",
+                "wi=0.4",
+                "wo=0.6"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "梯度直通：∂c₅/∂c₄ = f₅（门值 ~0.5-0.9）——对照 RNN 的 w_h⁴=0.41，衰减被门控「放行」"
+        }
+      ],
+      "intent": {
+        "why": "遗忘门是可学习的：网络自己决定'记住多久'——长序列不再一键失忆",
+        "invariant": "c_t = f⊙c_{t-1} + i⊙c̃：遗忘门决定'留多少旧记忆'、输入门决定'写多少新内容'、输出门决定'露多少给 h'——梯度沿 c 传送带直通，RNN 的消失问题在此被门控解药治愈"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "1997 年提出的架构撑起了 2017 年之前的全部序列建模——机器翻译/语音识别的第一代引擎"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "lstm",
+              "locals": {
+                "t": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "c_t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "h_t": {
+                  "kind": "PRIM",
+                  "text": "0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "cell",
+                "type": "LstmCell",
+                "fields": {
+                  "门权重 f/i/o": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.4 / 0.6"
+                  },
+                  "当前 c": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "当前 h": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "LSTM",
+          "grids": [
+            {
+              "id": "timeline",
+              "label": "时间线（x → 三门 → c 传送带 → h 读出）",
+              "rows": 5,
+              "cols": 6,
+              "values": [
+                "1",
+                "c1",
+                "?",
+                "h1",
+                "?",
+                "门?/?/?",
+                "0",
+                "c2",
+                "?",
+                "h2",
+                "?",
+                "门?/?/?",
+                "1",
+                "c3",
+                "?",
+                "h3",
+                "?",
+                "门?/?/?",
+                "1",
+                "c4",
+                "?",
+                "h4",
+                "?",
+                "门?/?/?",
+                "0",
+                "c5",
+                "?",
+                "h5",
+                "?",
+                "门?/?/?"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "weights",
+              "label": "门权重（sigmoid 出 0~1 开度）",
+              "rows": 1,
+              "cols": 3,
+              "values": [
+                "wf=0.5",
+                "wi=0.4",
+                "wo=0.6"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "LSTM 三门 = 输入Gate/遗忘Gate/输出Gate：GRU 合并其中两门、Transformer 用注意力替代循环"
+        }
+      ],
+      "intent": {
+        "why": "1997 年提出的架构撑起了 2017 年之前的全部序列建模——机器翻译/语音识别的第一代引擎",
+        "invariant": "c_t = f⊙c_{t-1} + i⊙c̃：遗忘门决定'留多少旧记忆'、输入门决定'写多少新内容'、输出门决定'露多少给 h'——梯度沿 c 传送带直通，RNN 的消失问题在此被门控解药治愈"
+      }
+    }
+  ]
+}

@@ -156,6 +156,9 @@ public final class AlgorithmRegistry {
             new Entry("深度学习", null, new com.algoviz.engine.dl.GnnDemo()),
             new Entry("深度学习", null, new com.algoviz.engine.dl.GanDemo()),
             new Entry("深度学习", null, new com.algoviz.engine.dl.AttentionDemo()),
+            new Entry("深度学习", null, new com.algoviz.engine.dl.LstmDemo()),
+            new Entry("深度学习", null, new com.algoviz.engine.dl.BackpropDemo()),
+            new Entry("深度学习", null, new com.algoviz.engine.dl.Word2VecDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.ProjectileDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.SpringDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.DoublePendulumDemo()),
@@ -390,6 +393,9 @@ public final class AlgorithmRegistry {
             }
             case "crypto.sha256" -> new com.algoviz.engine.crypto.Sha256Demo(
                     new String[]{"abc", "SHA-256", "哈希对照"}[r.nextInt(3)]);
+            case "dl.lstm" -> new com.algoviz.engine.dl.LstmDemo();
+            case "dl.backprop" -> new com.algoviz.engine.dl.BackpropDemo();
+            case "dl.word2vec" -> new com.algoviz.engine.dl.Word2VecDemo();
             default -> null;
         };
     }
