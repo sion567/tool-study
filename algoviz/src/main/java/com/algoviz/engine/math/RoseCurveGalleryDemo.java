@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * 玫瑰线画廊：r = cos(kθ)，一个参数 k 决定花瓣数——k 奇 = k 瓣，k 偶 = 2k 瓣。
- * 三幅展品：四叶（k=2）→ 三叶（k=3）→ 五叶（k=5）；同一套采样代码，换一个字母换一朵花。
+ * 五幅展品：四叶（k=2）→ 三叶（k=3）→ 五叶（k=5）→ 八叶（k=4）→ 七叶（k=7）；同一套采样代码，换一个字母换一朵花。
  */
 public final class RoseCurveGalleryDemo implements Algorithm {
 
@@ -56,10 +56,12 @@ public final class RoseCurveGalleryDemo implements Algorithm {
         show(K_2, 6, "四叶（k=2：偶数 → 2k 瓣）——负半径翻到对面，两两重合成四瓣");
         show(K_3, 8, "三叶（k=3：奇数 → k 瓣）——转 π 就闭合，省了一半路程");
         show(K_5, 10, "五叶（k=5：奇数 → k 瓣）——五重旋转对称，与五边形同宗");
-        emit(12, List.of(VizEvent.of(VizEvent.EventType.MARK_SORTED,
+        show(4, 11, "八叶（k=4：偶数 → 2k 瓣）——偶数族再添一员：2×4=8 瓣");
+        show(7, 12, "七叶（k=7：奇数 → k 瓣）——七重对称，素数 k 最'纯粹'");
+        emit(13, List.of(VizEvent.of(VizEvent.EventType.MARK_SORTED,
                 "规律入袋：瓣数 = k（奇）/ 2k（偶）；花瓣长短 = |cos| 的极值 1")),
                 "同一个采样循环画遍所有玫瑰线——参数化方程的'一码多花'");
-        emit(14, List.of(VizEvent.of(VizEvent.EventType.RETURN,
+        emit(15, List.of(VizEvent.of(VizEvent.EventType.RETURN,
                 "延伸：r=cos(2θ) 若改 sin(2θ) 花瓣转 45°；r=cos(3θ) 改 sin 旋转 30°")),
                 "数学的'免费午餐'：旋转 = 方程里加一个相位，不必重算");
         return new Trace(SCHEMA, meta(), steps);
@@ -129,7 +131,7 @@ public final class RoseCurveGalleryDemo implements Algorithm {
     }
 
     private Trace.TraceMeta meta() {
-        return new Trace.TraceMeta(id(), title(), codeResource(), "k=2,3,5", 3);
+        return new Trace.TraceMeta(id(), title(), codeResource(), "k=2,3,5,4,7", 3);
     }
 
     @Override

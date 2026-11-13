@@ -587,8 +587,9 @@ class AlgorithmBatchTraceTest {
         var rose = new com.algoviz.engine.math.RoseCurveGalleryDemo().produce().steps();
         String roseText = rose.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
                 .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
-        assertTrue2(roseText.contains("4 瓣") && roseText.contains("3 瓣") && roseText.contains("5 瓣"),
-                "三朵展品齐：4 瓣/3 瓣/5 瓣");
+        assertTrue2(roseText.contains("4 瓣") && roseText.contains("3 瓣") && roseText.contains("5 瓣")
+                && roseText.contains("8 瓣") && roseText.contains("7 瓣"),
+                "五朵展品齐：4 瓣/3 瓣/5 瓣/8 瓣/7 瓣");
         // 2D 旋转：180° 后顶点 A (2,0) → (−2,0)
         var rot = new com.algoviz.engine.math.Rotation2DDemo().produce().steps();
         var rotPlot = rot.get(rot.size() - 2).plot();
@@ -1182,6 +1183,32 @@ class AlgorithmBatchTraceTest {
         var gdFields = gd.get(gd.size() - 1).heap().heap().objects().get("@1").fields();
         double momEnd = Double.parseDouble(gdFields.get("动量 GD 终点").text().replace("x=", ""));
         assertTrue2(Math.abs(momEnd - 2.24) < 1.0, "动量 GD 应抵达全局谷附近（x≈2.24），实际 " + momEnd);
+    }
+
+    /** 行为：数学馆补全——梯形/辛普森误差阶、大数竖式、玫瑰五展品。 */
+    @org.junit.jupiter.api.Test
+    void mathMuseumBehave() throws Exception {
+        // 梯形/辛普森：n 翻倍时梯形误差 ≈ 1/4（O(1/n²)），辛普森误差 < 梯形
+        var tp = new com.algoviz.engine.math.TrapezoidDemo().produce().steps();
+        var tpGrid = tp.get(tp.size() - 3).math().grids().get(0);   // n=32 帧（MARK 帧 curN=-1 全问号）
+        double trapN8 = Double.parseDouble(tpGrid.value(2, 2));
+        double trapN16 = Double.parseDouble(tpGrid.value(3, 2));
+        double ratio = trapN8 / trapN16;
+        assertTrue2(ratio > 2 && ratio < 8, "梯形误差阶 O(1/n²)：n 翻倍误差应缩 ~4 倍，实际比值 " + ratio);
+        double simp = Double.parseDouble(tpGrid.value(3, 3).toLowerCase().replace("e", "e"));
+        assertTrue2(simp < trapN16, "辛普森误差应远小于梯形（O(1/n⁴)）");
+        // 大数竖式：加法和 = 777777、乘积 = 80779853376
+        var bi = new com.algoviz.engine.math.BigIntDemo().produce().steps();
+        var biFields = bi.get(bi.size() - 1).heap().heap().objects().get("@1").fields();
+        assertEquals("777777", biFields.get("加法和").text(), "123456+654321=777777");
+        assertEquals("80779853376", biFields.get("乘积").text(), "123456×654321=80779853376");
+        assertTrue2(bi.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("部分积")), "应有乘法部分积帧");
+        // 玫瑰五展品：八瓣与七瓣出现（事件文本）
+        var rose = new com.algoviz.engine.math.RoseCurveGalleryDemo().produce().steps();
+        String roseText = rose.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        assertTrue2(roseText.contains("8 瓣") && roseText.contains("7 瓣"), "k=4 八瓣与 k=7 七瓣展品应在场");
     }
 
     private static double distOf(String a, String b) {

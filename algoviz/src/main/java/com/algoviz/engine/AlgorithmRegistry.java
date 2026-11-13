@@ -184,6 +184,8 @@ public final class AlgorithmRegistry {
             new Entry("密码学", "对称", new com.algoviz.engine.crypto.AesDemo()),
             new Entry("密码学", "哈希", new com.algoviz.engine.crypto.Sha256Demo()),
             new Entry("数学", "数与计算", new com.algoviz.engine.math.KaratsubaDemo()),
+            new Entry("数学", "微积分", new com.algoviz.engine.math.TrapezoidDemo()),
+            new Entry("数学", "数与计算", new com.algoviz.engine.math.BigIntDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.TreeSerializeDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.BPlusTreeDemo()),
             new Entry("SOLID 原则", null, new com.algoviz.engine.pattern.SolidSrpDemo()),
@@ -406,6 +408,8 @@ public final class AlgorithmRegistry {
             case "dl.batchnorm" -> new com.algoviz.engine.dl.BatchNormDemo();
             case "dl.kmeans" -> new com.algoviz.engine.dl.KMeansDemo();
             case "dl.gradient" -> new com.algoviz.engine.dl.GradientDescentDemo();
+            case "math.trapezoid" -> new com.algoviz.engine.math.TrapezoidDemo();
+            case "math.bigint" -> new com.algoviz.engine.math.BigIntDemo();
             default -> null;
         };
     }

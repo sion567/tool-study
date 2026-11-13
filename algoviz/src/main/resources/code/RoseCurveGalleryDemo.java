@@ -1,6 +1,6 @@
 public class RoseCurveGalleryDemo {
     public static void main(String[] args) {
-        int[] ks = {2, 3, 5};   //@DATA
+        int[] ks = {2, 3, 5, 4, 7};   //@DATA 五幅展品（偶 2k 瓣 / 奇 k 瓣）
         for (int k : ks) {
             int petals = (k % 2 == 1) ? k : 2 * k;   // 奇 k=k 瓣；偶 k=2k 瓣
             System.out.println("r = cos(" + k + "θ) → " + petals + " 瓣玫瑰");
