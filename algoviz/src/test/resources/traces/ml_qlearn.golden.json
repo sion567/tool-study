@@ -1,0 +1,1563 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "ml.qlearn",
+    "title": "强化学习·Q-Learning",
+    "codeResource": "/code/QlearnDemo.java",
+    "input": "5×4 迷宫 lr=0.5",
+    "inputSize": 15
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "Q-Learning 不需要环境模型：'试出来的经验'就是唯一的老师——无模型的强化学习"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(0,0)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "5×4 迷宫：S=(0,0)→G=(4,3)，墙×2；Q 表全 0——奖励还没被'传播'到任何格子"
+        }
+      ],
+      "intent": {
+        "why": "Q-Learning 不需要环境模型：'试出来的经验'就是唯一的老师——无模型的强化学习",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "0.50"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.50",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮1"
+          ],
+          "detail": "step7：s(4,2) 动作1 → r=1.00，Q ← 0.00 + 0.5·(1.00+0.9·0.00−0.00)=0.50"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "0.75"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.20",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.75",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮2"
+          ],
+          "detail": "step14：s(4,2) 动作1 → r=1.00，Q ← 0.50 + 0.5·(1.00+0.9·0.00−0.50)=0.75"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "0.88"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.05",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.42",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.88",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮3"
+          ],
+          "detail": "step21：s(4,2) 动作1 → r=1.00，Q ← 0.75 + 0.5·(1.00+0.9·0.00−0.75)=0.88"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "0.94"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.19",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.58",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.94",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮4"
+          ],
+          "detail": "step28：s(4,2) 动作1 → r=1.00，Q ← 0.88 + 0.5·(1.00+0.9·0.00−0.88)=0.94"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "0.97"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.06",
+                "0.34",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.69",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.97",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮5"
+          ],
+          "detail": "step35：s(4,2) 动作1 → r=1.00，Q ← 0.94 + 0.5·(1.00+0.9·0.00−0.94)=0.97"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "0.98"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.16",
+                "0.46",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.76",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.98",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮6"
+          ],
+          "detail": "step42：s(4,2) 动作1 → r=1.00，Q ← 0.97 + 0.5·(1.00+0.9·0.00−0.97)=0.98"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "0.99"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.05",
+                "0.27",
+                "0.55",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.80",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "0.99",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮7"
+          ],
+          "detail": "step49：s(4,2) 动作1 → r=1.00，Q ← 0.98 + 0.5·(1.00+0.9·0.00−0.98)=0.99"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "1.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.00",
+                "0.12",
+                "0.36",
+                "0.62",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.83",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "1.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮8"
+          ],
+          "detail": "step56：s(4,2) 动作1 → r=1.00，Q ← 0.99 + 0.5·(1.00+0.9·0.00−0.99)=1.00"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "1.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.03",
+                "0.21",
+                "0.44",
+                "0.66",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.84",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "1.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮9"
+          ],
+          "detail": "step63：s(4,2) 动作1 → r=1.00，Q ← 1.00 + 0.5·(1.00+0.9·0.00−1.00)=1.00"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "1.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.09",
+                "0.28",
+                "0.50",
+                "0.69",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.85",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "1.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮10"
+          ],
+          "detail": "step70：s(4,2) 动作1 → r=1.00，Q ← 1.00 + 0.5·(1.00+0.9·0.00−1.00)=1.00"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "1.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.00",
+                "0.15",
+                "0.34",
+                "0.54",
+                "0.71",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.85",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "1.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮11"
+          ],
+          "detail": "step77：s(4,2) 动作1 → r=1.00，Q ← 1.00 + 0.5·(1.00+0.9·0.00−1.00)=1.00"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,2)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "1.00"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.05",
+                "0.21",
+                "0.39",
+                "0.57",
+                "0.72",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.86",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "1.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                14
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "轮12"
+          ],
+          "detail": "step84：s(4,2) 动作1 → r=1.00，Q ← 1.00 + 0.5·(1.00+0.9·0.00−1.00)=1.00"
+        }
+      ],
+      "intent": {
+        "why": "+1 奖励入账：终点格子被点亮，奖励开始沿经验倒灌",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "Q 值 = '从这里出发的未来总奖励期望'——max Q 一路指向 G，路径自己浮出来"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,3)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.05",
+                "0.21",
+                "0.39",
+                "0.57",
+                "0.72",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.86",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "1.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                9,
+                14,
+                19
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "贪婪路径：从 S 沿 max Q 走——奖励已从终点倒灌到起点"
+        }
+      ],
+      "intent": {
+        "why": "Q 值 = '从这里出发的未来总奖励期望'——max Q 一路指向 G，路径自己浮出来",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "Q-Learning(1989) → Deep Q-Network(2013)：同一个 Q 函数，用神经网络代替表格就登上了 Atari"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "qlearn",
+              "locals": {
+                "位置": {
+                  "kind": "PRIM",
+                  "text": "(4,3)"
+                },
+                "本步 Q": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "qlearn",
+                "type": "QTable",
+                "fields": {
+                  "lr / γ": {
+                    "kind": "PRIM",
+                    "text": "0.5 / 0.9"
+                  },
+                  "Q 表大小": {
+                    "kind": "PRIM",
+                    "text": "20 格 × 4 动作"
+                  },
+                  "终点奖励": {
+                    "kind": "PRIM",
+                    "text": "+1（步 −0.04 / 撞墙 −1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Q-Learning",
+          "grids": [
+            {
+              "id": "maze",
+              "label": "迷宫 max Q（格值 = 未来奖励期望；# 墙；G 终点）",
+              "rows": 4,
+              "cols": 5,
+              "values": [
+                "0.05",
+                "0.21",
+                "0.39",
+                "0.57",
+                "0.72",
+                "0.00",
+                "0.00",
+                "#",
+                "0.00",
+                "0.86",
+                "0.00",
+                "0.00",
+                "0.00",
+                "#",
+                "1.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "0.00",
+                "G"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                9,
+                14,
+                19
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "ε-贪婪探索：训练期以 ε 概率随机走（保证没走过的格子也有机会）—— exploitation vs exploration 的永恒平衡"
+        }
+      ],
+      "intent": {
+        "why": "Q-Learning(1989) → Deep Q-Network(2013)：同一个 Q 函数，用神经网络代替表格就登上了 Atari",
+        "invariant": "Q(s,a) ← Q(s,a) + lr·(r + γ·max Q(s') − Q(s,a))：TD 误差把奖励沿经验反向传播——γ<1 让远处的奖励打折，贪婪策略沿 max Q 走；探索(ε)保证没走过的格子也有机会"
+      }
+    }
+  ]
+}

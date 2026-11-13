@@ -164,6 +164,9 @@ public final class AlgorithmRegistry {
             new Entry("深度学习", null, new com.algoviz.engine.dl.BatchNormDemo()),
             new Entry("深度学习", null, new com.algoviz.engine.dl.KMeansDemo()),
             new Entry("深度学习", null, new com.algoviz.engine.dl.GradientDescentDemo()),
+            new Entry("机器学习", null, new com.algoviz.engine.ml.QlearnDemo()),
+            new Entry("机器学习", null, new com.algoviz.engine.ml.DtreeDemo()),
+            new Entry("机器学习", null, new com.algoviz.engine.ml.NaiveBayesDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.ProjectileDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.SpringDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.DoublePendulumDemo()),
@@ -410,6 +413,9 @@ public final class AlgorithmRegistry {
             case "dl.gradient" -> new com.algoviz.engine.dl.GradientDescentDemo();
             case "math.trapezoid" -> new com.algoviz.engine.math.TrapezoidDemo();
             case "math.bigint" -> new com.algoviz.engine.math.BigIntDemo();
+            case "ml.qlearn" -> new com.algoviz.engine.ml.QlearnDemo();
+            case "ml.dtree" -> new com.algoviz.engine.ml.DtreeDemo();
+            case "ml.naivebayes" -> new com.algoviz.engine.ml.NaiveBayesDemo();
             default -> null;
         };
     }

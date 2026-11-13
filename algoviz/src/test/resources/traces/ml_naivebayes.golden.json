@@ -1,0 +1,800 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "ml.naivebayes",
+    "title": "朴素贝叶斯分类",
+    "codeResource": "/code/NaiveBayesDemo.java",
+    "input": "10 封 训练",
+    "inputSize": 6
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "先验 = '不看内容时押谁'——后面每个词都在修正这个押注"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "naivebayes",
+              "locals": {
+                "邮件": {
+                  "kind": "PRIM",
+                  "text": "「免费 中奖」"
+                },
+                "score_spam": {
+                  "kind": "PRIM",
+                  "text": "0.6000"
+                },
+                "score_ham": {
+                  "kind": "PRIM",
+                  "text": "0.4000"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "nb",
+                "type": "BayesState",
+                "fields": {
+                  "先验": {
+                    "kind": "PRIM",
+                    "text": "P(spam)=0.6 P(ham)=0.4"
+                  },
+                  "score_spam": {
+                    "kind": "PRIM",
+                    "text": "0.6000"
+                  },
+                  "score_ham": {
+                    "kind": "PRIM",
+                    "text": "0.4000"
+                  },
+                  "判定": {
+                    "kind": "PRIM",
+                    "text": "演算中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "朴素贝叶斯",
+          "grids": [
+            {
+              "id": "prob",
+              "label": "概率表（拉普拉斯平滑；黄 = 参与乘法链的词）",
+              "rows": 6,
+              "cols": 3,
+              "values": [
+                "词",
+                "P|spam",
+                "P|ham",
+                "免费 ✓",
+                "0.400",
+                "0.125",
+                "中奖 ✓",
+                "0.300",
+                "0.125",
+                "会议",
+                "0.100",
+                "0.500",
+                "报告",
+                "0.200",
+                "0.375",
+                "判定",
+                "…",
+                "1.50"
+              ],
+              "activeCells": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "训练 10 封（6 spam / 4 ham）：先验 P(spam)=0.6、P(ham)=0.4——未知邮件「免费 中奖」"
+        }
+      ],
+      "intent": {
+        "why": "先验 = '不看内容时押谁'——后面每个词都在修正这个押注",
+        "invariant": "P(类|邮件) ∝ P(类)·Π P(词|类)：'朴素'假设词与词条件独立——乘法链把每封信压成一个分数；拉普拉斯平滑 +1 让没见过的词有非零概率（不会一票否决）"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "在邮件里的词参与乘法链——'免费'在 spam 中常见而 ham 从未出现，分数比被撕开"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "naivebayes",
+              "locals": {
+                "邮件": {
+                  "kind": "PRIM",
+                  "text": "「免费 中奖」"
+                },
+                "score_spam": {
+                  "kind": "PRIM",
+                  "text": "0.2400"
+                },
+                "score_ham": {
+                  "kind": "PRIM",
+                  "text": "0.0500"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "nb",
+                "type": "BayesState",
+                "fields": {
+                  "先验": {
+                    "kind": "PRIM",
+                    "text": "P(spam)=0.6 P(ham)=0.4"
+                  },
+                  "score_spam": {
+                    "kind": "PRIM",
+                    "text": "0.2400"
+                  },
+                  "score_ham": {
+                    "kind": "PRIM",
+                    "text": "0.0500"
+                  },
+                  "判定": {
+                    "kind": "PRIM",
+                    "text": "演算中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "朴素贝叶斯",
+          "grids": [
+            {
+              "id": "prob",
+              "label": "概率表（拉普拉斯平滑；黄 = 参与乘法链的词）",
+              "rows": 6,
+              "cols": 3,
+              "values": [
+                "词",
+                "P|spam",
+                "P|ham",
+                "免费 ✓",
+                "0.400",
+                "0.125",
+                "中奖 ✓",
+                "0.300",
+                "0.125",
+                "会议",
+                "0.100",
+                "0.500",
+                "报告",
+                "0.200",
+                "0.375",
+                "判定",
+                "…",
+                "4.80"
+              ],
+              "activeCells": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "「免费」在邮件中：P|spam=0.400，P|ham=0.125 → 累计 score_spam=0.2400 vs score_ham=0.0500"
+        }
+      ],
+      "intent": {
+        "why": "在邮件里的词参与乘法链——'免费'在 spam 中常见而 ham 从未出现，分数比被撕开",
+        "invariant": "P(类|邮件) ∝ P(类)·Π P(词|类)：'朴素'假设词与词条件独立——乘法链把每封信压成一个分数；拉普拉斯平滑 +1 让没见过的词有非零概率（不会一票否决）"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "在邮件里的词参与乘法链——'免费'在 spam 中常见而 ham 从未出现，分数比被撕开"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "naivebayes",
+              "locals": {
+                "邮件": {
+                  "kind": "PRIM",
+                  "text": "「免费 中奖」"
+                },
+                "score_spam": {
+                  "kind": "PRIM",
+                  "text": "0.0720"
+                },
+                "score_ham": {
+                  "kind": "PRIM",
+                  "text": "0.0063"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "nb",
+                "type": "BayesState",
+                "fields": {
+                  "先验": {
+                    "kind": "PRIM",
+                    "text": "P(spam)=0.6 P(ham)=0.4"
+                  },
+                  "score_spam": {
+                    "kind": "PRIM",
+                    "text": "0.0720"
+                  },
+                  "score_ham": {
+                    "kind": "PRIM",
+                    "text": "0.0063"
+                  },
+                  "判定": {
+                    "kind": "PRIM",
+                    "text": "演算中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "朴素贝叶斯",
+          "grids": [
+            {
+              "id": "prob",
+              "label": "概率表（拉普拉斯平滑；黄 = 参与乘法链的词）",
+              "rows": 6,
+              "cols": 3,
+              "values": [
+                "词",
+                "P|spam",
+                "P|ham",
+                "免费 ✓",
+                "0.400",
+                "0.125",
+                "中奖 ✓",
+                "0.300",
+                "0.125",
+                "会议",
+                "0.100",
+                "0.500",
+                "报告",
+                "0.200",
+                "0.375",
+                "判定",
+                "…",
+                "11.52"
+              ],
+              "activeCells": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "「中奖」在邮件中：P|spam=0.300，P|ham=0.125 → 累计 score_spam=0.0720 vs score_ham=0.0063"
+        }
+      ],
+      "intent": {
+        "why": "在邮件里的词参与乘法链——'免费'在 spam 中常见而 ham 从未出现，分数比被撕开",
+        "invariant": "P(类|邮件) ∝ P(类)·Π P(词|类)：'朴素'假设词与词条件独立——乘法链把每封信压成一个分数；拉普拉斯平滑 +1 让没见过的词有非零概率（不会一票否决）"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "不在邮件里的词不参与乘法——朴素贝叶斯只看'出现了什么'"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "naivebayes",
+              "locals": {
+                "邮件": {
+                  "kind": "PRIM",
+                  "text": "「免费 中奖」"
+                },
+                "score_spam": {
+                  "kind": "PRIM",
+                  "text": "0.0720"
+                },
+                "score_ham": {
+                  "kind": "PRIM",
+                  "text": "0.0063"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "nb",
+                "type": "BayesState",
+                "fields": {
+                  "先验": {
+                    "kind": "PRIM",
+                    "text": "P(spam)=0.6 P(ham)=0.4"
+                  },
+                  "score_spam": {
+                    "kind": "PRIM",
+                    "text": "0.0720"
+                  },
+                  "score_ham": {
+                    "kind": "PRIM",
+                    "text": "0.0063"
+                  },
+                  "判定": {
+                    "kind": "PRIM",
+                    "text": "演算中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "朴素贝叶斯",
+          "grids": [
+            {
+              "id": "prob",
+              "label": "概率表（拉普拉斯平滑；黄 = 参与乘法链的词）",
+              "rows": 6,
+              "cols": 3,
+              "values": [
+                "词",
+                "P|spam",
+                "P|ham",
+                "免费 ✓",
+                "0.400",
+                "0.125",
+                "中奖 ✓",
+                "0.300",
+                "0.125",
+                "会议",
+                "0.100",
+                "0.500",
+                "报告",
+                "0.200",
+                "0.375",
+                "判定",
+                "…",
+                "11.52"
+              ],
+              "activeCells": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "「会议」不在：P|spam=0.100，P|ham=0.500 → 累计 score_spam=0.0720 vs score_ham=0.0063"
+        }
+      ],
+      "intent": {
+        "why": "不在邮件里的词不参与乘法——朴素贝叶斯只看'出现了什么'",
+        "invariant": "P(类|邮件) ∝ P(类)·Π P(词|类)：'朴素'假设词与词条件独立——乘法链把每封信压成一个分数；拉普拉斯平滑 +1 让没见过的词有非零概率（不会一票否决）"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 12,
+        "endLine": 12,
+        "note": "不在邮件里的词不参与乘法——朴素贝叶斯只看'出现了什么'"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "naivebayes",
+              "locals": {
+                "邮件": {
+                  "kind": "PRIM",
+                  "text": "「免费 中奖」"
+                },
+                "score_spam": {
+                  "kind": "PRIM",
+                  "text": "0.0720"
+                },
+                "score_ham": {
+                  "kind": "PRIM",
+                  "text": "0.0063"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "nb",
+                "type": "BayesState",
+                "fields": {
+                  "先验": {
+                    "kind": "PRIM",
+                    "text": "P(spam)=0.6 P(ham)=0.4"
+                  },
+                  "score_spam": {
+                    "kind": "PRIM",
+                    "text": "0.0720"
+                  },
+                  "score_ham": {
+                    "kind": "PRIM",
+                    "text": "0.0063"
+                  },
+                  "判定": {
+                    "kind": "PRIM",
+                    "text": "演算中"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "朴素贝叶斯",
+          "grids": [
+            {
+              "id": "prob",
+              "label": "概率表（拉普拉斯平滑；黄 = 参与乘法链的词）",
+              "rows": 6,
+              "cols": 3,
+              "values": [
+                "词",
+                "P|spam",
+                "P|ham",
+                "免费 ✓",
+                "0.400",
+                "0.125",
+                "中奖 ✓",
+                "0.300",
+                "0.125",
+                "会议",
+                "0.100",
+                "0.500",
+                "报告",
+                "0.200",
+                "0.375",
+                "判定",
+                "…",
+                "11.52"
+              ],
+              "activeCells": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "「报告」不在：P|spam=0.200，P|ham=0.375 → 累计 score_spam=0.0720 vs score_ham=0.0063"
+        }
+      ],
+      "intent": {
+        "why": "不在邮件里的词不参与乘法——朴素贝叶斯只看'出现了什么'",
+        "invariant": "P(类|邮件) ∝ P(类)·Π P(词|类)：'朴素'假设词与词条件独立——乘法链把每封信压成一个分数；拉普拉斯平滑 +1 让没见过的词有非零概率（不会一票否决）"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "分数比 = 似然比：>1 押 spam、<1 押 ham——归一化成百分比只是换个说法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "naivebayes",
+              "locals": {
+                "邮件": {
+                  "kind": "PRIM",
+                  "text": "「免费 中奖」"
+                },
+                "score_spam": {
+                  "kind": "PRIM",
+                  "text": "0.0720"
+                },
+                "score_ham": {
+                  "kind": "PRIM",
+                  "text": "0.0063"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "nb",
+                "type": "BayesState",
+                "fields": {
+                  "先验": {
+                    "kind": "PRIM",
+                    "text": "P(spam)=0.6 P(ham)=0.4"
+                  },
+                  "score_spam": {
+                    "kind": "PRIM",
+                    "text": "0.0720"
+                  },
+                  "score_ham": {
+                    "kind": "PRIM",
+                    "text": "0.0063"
+                  },
+                  "判定": {
+                    "kind": "PRIM",
+                    "text": "spam（垃圾邮件）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "朴素贝叶斯",
+          "grids": [
+            {
+              "id": "prob",
+              "label": "概率表（拉普拉斯平滑；黄 = 参与乘法链的词）",
+              "rows": 6,
+              "cols": 3,
+              "values": [
+                "词",
+                "P|spam",
+                "P|ham",
+                "免费 ✓",
+                "0.400",
+                "0.125",
+                "中奖 ✓",
+                "0.300",
+                "0.125",
+                "会议",
+                "0.100",
+                "0.500",
+                "报告",
+                "0.200",
+                "0.375",
+                "判定",
+                "spam（垃圾邮件）",
+                "11.52"
+              ],
+              "activeCells": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                15,
+                16
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "判定：spam（垃圾邮件）（score_spam=0.0720 vs score_ham=0.0063）"
+        }
+      ],
+      "intent": {
+        "why": "分数比 = 似然比：>1 押 spam、<1 押 ham——归一化成百分比只是换个说法",
+        "invariant": "P(类|邮件) ∝ P(类)·Π P(词|类)：'朴素'假设词与词条件独立——乘法链把每封信压成一个分数；拉普拉斯平滑 +1 让没见过的词有非零概率（不会一票否决）"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "朴素贝叶斯(1950s)至今仍是邮件过滤的基线：快、可解释、小数据也能跑"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "naivebayes",
+              "locals": {
+                "邮件": {
+                  "kind": "PRIM",
+                  "text": "「免费 中奖」"
+                },
+                "score_spam": {
+                  "kind": "PRIM",
+                  "text": "0.0720"
+                },
+                "score_ham": {
+                  "kind": "PRIM",
+                  "text": "0.0063"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "nb",
+                "type": "BayesState",
+                "fields": {
+                  "先验": {
+                    "kind": "PRIM",
+                    "text": "P(spam)=0.6 P(ham)=0.4"
+                  },
+                  "score_spam": {
+                    "kind": "PRIM",
+                    "text": "0.0720"
+                  },
+                  "score_ham": {
+                    "kind": "PRIM",
+                    "text": "0.0063"
+                  },
+                  "判定": {
+                    "kind": "PRIM",
+                    "text": "spam（垃圾邮件）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "朴素贝叶斯",
+          "grids": [
+            {
+              "id": "prob",
+              "label": "概率表（拉普拉斯平滑；黄 = 参与乘法链的词）",
+              "rows": 6,
+              "cols": 3,
+              "values": [
+                "词",
+                "P|spam",
+                "P|ham",
+                "免费 ✓",
+                "0.400",
+                "0.125",
+                "中奖 ✓",
+                "0.300",
+                "0.125",
+                "会议",
+                "0.100",
+                "0.500",
+                "报告",
+                "0.200",
+                "0.375",
+                "判定",
+                "spam（垃圾邮件）",
+                "11.52"
+              ],
+              "activeCells": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                15,
+                16
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "拉普拉斯平滑：没在垃圾邮件里出现过的'会议'获得 1/(6+4) 的非零概率——不会一票否决"
+        }
+      ],
+      "intent": {
+        "why": "朴素贝叶斯(1950s)至今仍是邮件过滤的基线：快、可解释、小数据也能跑",
+        "invariant": "P(类|邮件) ∝ P(类)·Π P(词|类)：'朴素'假设词与词条件独立——乘法链把每封信压成一个分数；拉普拉斯平滑 +1 让没见过的词有非零概率（不会一票否决）"
+      }
+    }
+  ]
+}

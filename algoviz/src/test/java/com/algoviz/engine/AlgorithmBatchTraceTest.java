@@ -134,6 +134,10 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"dl_batchnorm", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.BatchNormDemo::new},
                 new Object[]{"dl_kmeans", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.KMeansDemo::new},
                 new Object[]{"dl_gradient", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.GradientDescentDemo::new},
+                // ---- 第二十二批：机器学习三连（Q-Learning/决策树/朴素贝叶斯）----
+                new Object[]{"ml_qlearn", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.ml.QlearnDemo::new},
+                new Object[]{"ml_dtree", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.ml.DtreeDemo::new},
+                new Object[]{"ml_naivebayes", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.ml.NaiveBayesDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -1209,6 +1213,28 @@ class AlgorithmBatchTraceTest {
         String roseText = rose.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
                 .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
         assertTrue2(roseText.contains("8 瓣") && roseText.contains("7 瓣"), "k=4 八瓣与 k=7 七瓣展品应在场");
+    }
+
+    /** 行为：机器学习三连——Q-Learning 路径点亮/决策树根=天候/朴素贝叶斯判 spam。 */
+    @org.junit.jupiter.api.Test
+    void mlThreeBehave() throws Exception {
+        // Q-Learning：12 轮后奖励照亮路径（顶行 Q 递增指向 G）且贪婪路径含 G
+        var ql = new com.algoviz.engine.ml.QlearnDemo().produce().steps();
+        var qlGrid = ql.get(ql.size() - 2).math().grids().get(0);
+        double q0 = Double.parseDouble(qlGrid.value(0, 0));
+        double q4 = Double.parseDouble(qlGrid.value(0, 4).equals("G") ? qlGrid.value(0, 3) : qlGrid.value(0, 4));
+        assertTrue2(q4 > q0 && q0 > 0, String.format("奖励应沿路径反向传播：Q(0,0)=%.2f < Q(近 G)=%.2f", q0, q4));
+        // 决策树：根 = 天候（增益 0.311 最大）
+        var dt = new com.algoviz.engine.ml.DtreeDemo().produce().steps();
+        var dtFields = dt.get(dt.size() - 1).heap().heap().objects().get("@1").fields();
+        assertEquals("天候（增益 0.311）", dtFields.get("根").text(), "增益最大者当选根");
+        // 朴素贝叶斯：判定 spam 且 score_spam > score_ham
+        var nb = new com.algoviz.engine.ml.NaiveBayesDemo().produce().steps();
+        var nbFields = nb.get(nb.size() - 1).heap().heap().objects().get("@1").fields();
+        assertEquals("spam（垃圾邮件）", nbFields.get("判定").text(), "「免费 中奖」应判 spam");
+        double ss = Double.parseDouble(nbFields.get("score_spam").text());
+        double sh = Double.parseDouble(nbFields.get("score_ham").text());
+        assertTrue2(ss > sh, "score_spam 应 > score_ham：" + ss + " vs " + sh);
     }
 
     private static double distOf(String a, String b) {
