@@ -1,6 +1,6 @@
 public class SlidingWindow {
     public static void main(String[] args) {
-        int[] a = {2, 1, 3, 1, 4, 4, 2, 5};
+        int[] a = {2, 1, 3, 1, 4, 4, 2, 5};   //@DATA
         var seen = new java.util.HashSet<Integer>();
         int lo = 0, best = 0, bestLo = 0, bestHi = 0;
         for (int hi = 0; hi < a.length; hi++) {

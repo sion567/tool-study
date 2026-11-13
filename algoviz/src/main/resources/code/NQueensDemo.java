@@ -1,5 +1,5 @@
 public class NQueensDemo {
-    static int[] queens = new int[4];
+    static int[] queens = new int[4];   //@DATA
     public static void main(String[] args) {
         solve(0);
     }

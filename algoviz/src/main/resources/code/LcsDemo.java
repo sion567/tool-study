@@ -1,6 +1,6 @@
 public class LcsDemo {
     public static void main(String[] args) {
-        String s1 = "ABCBDAB", s2 = "BDCABA";
+        String s1 = "ABCBDAB", s2 = "BDCABA";   //@DATA
         int[][] dp = new int[s1.length() + 1][s2.length() + 1];
         for (int i = 1; i <= s1.length(); i++) {
             for (int j = 1; j <= s2.length(); j++) {

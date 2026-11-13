@@ -1,5 +1,5 @@
 public class PermutationDemo {
-    static int[] input = {1, 2, 3};
+    static int[] input = {1, 2, 3};   //@DATA
     static boolean[] used = new boolean[input.length];
     static List<Integer> current = new java.util.ArrayList<>();
     static int count = 0;

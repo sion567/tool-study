@@ -151,7 +151,7 @@ public final class PermutationDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(INPUT));
+        return java.util.List.of("static " + Algorithm.joinArray(INPUT).replace("a =", "input =") + "   //@DATA");
     }
 
     @Override

@@ -1,6 +1,6 @@
 public class FibonacciDemo {
     public static void main(String[] args) {
-        int n = 7;
+        int n = 7;   //@DATA
         // 版本一：纯递归 O(2ⁿ)——大量重复子问题
         System.out.println("递归: " + fibRec(n));
         // 版本二：备忘录 O(n)——缓存已算过的结果

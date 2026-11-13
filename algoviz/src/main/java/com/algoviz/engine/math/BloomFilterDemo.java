@@ -136,7 +136,7 @@ public final class BloomFilterDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("int bits = " + BITS + ";");
+        return java.util.List.of("boolean[] bits = new boolean[" + BITS + "];   //@DATA");
     }
 
     @Override

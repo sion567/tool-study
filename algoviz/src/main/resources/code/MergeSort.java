@@ -17,7 +17,7 @@ public class MergeSort {
         for (int t = 0; t < tmp.length; t++) a[lo + t] = tmp[t];
     }
     public static void main(String[] args) {
-        int[] a = {5, 2, 9, 1, 5};
+        int[] a = {5, 2, 9, 1, 5};   //@DATA
         ms(a, 0, a.length - 1);
         System.out.println(java.util.Arrays.toString(a));
     }

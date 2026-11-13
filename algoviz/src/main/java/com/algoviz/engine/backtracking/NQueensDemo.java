@@ -159,7 +159,7 @@ public final class NQueensDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("int n = " + N + ";");
+        return java.util.List.of("static int[] queens = new int[" + N + "];   //@DATA");
     }
 
     @Override

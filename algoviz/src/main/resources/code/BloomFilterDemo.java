@@ -1,6 +1,6 @@
 public class BloomFilterDemo {
     public static void main(String[] args) {
-        boolean[] bits = new boolean[16];
+        boolean[] bits = new boolean[16];   //@DATA
         // 添加
         for (String s : new String[]{"apple", "banana"}) {
             bits[Math.abs(s.hashCode()) % 16] = true;

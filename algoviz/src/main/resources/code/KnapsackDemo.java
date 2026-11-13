@@ -1,6 +1,6 @@
 public class KnapsackDemo {
     public static void main(String[] args) {
-        int[] weights = {1, 3, 4};
+        int[] weights = {1, 3, 4};   //@DATA
         int[] values = {15, 20, 30};
         int capacity = 4;
         int[][] dp = new int[N + 1][CAPACITY + 1];

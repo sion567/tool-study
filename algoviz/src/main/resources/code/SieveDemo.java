@@ -1,6 +1,6 @@
 public class SieveDemo {
     public static void main(String[] args) {
-        int limit = 20;
+        int limit = 20;   //@DATA
         boolean[] isComposite = new boolean[limit + 1];
         for (int p = 2; p * p <= limit; p++) {
             if (isComposite[p]) continue;

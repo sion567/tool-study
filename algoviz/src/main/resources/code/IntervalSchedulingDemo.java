@@ -1,6 +1,6 @@
 public class IntervalSchedulingDemo {
     public static void main(String[] args) {
-        int[][] intervals = {{1,3},{2,5},{4,7},{1,8},{5,9},{6,10}};
+        int[][] intervals = {{1,3},{2,5},{4,7},{1,8},{5,9},{6,10}};   //@DATA
         Integer[] order = new Integer[intervals.length];
         for (int i = 0; i < order.length; i++) order[i] = i;
         java.util.Arrays.sort(order, (a, b) -> intervals[a][1] - intervals[b][1]);

@@ -1,6 +1,6 @@
 public class BitOpsDemo {
     public static void main(String[] args) {
-        int a = 0b1100, b = 0b1010;
+        int a = 0b1100, b = 0b1010;   //@DATA
         System.out.println("A&B = " + (a & b));   // 8
         System.out.println("A|B = " + (a | b));   // 14
         System.out.println("A^B = " + (a ^ b));   // 6

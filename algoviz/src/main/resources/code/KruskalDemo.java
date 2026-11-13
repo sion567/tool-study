@@ -1,6 +1,6 @@
 public class KruskalDemo {
     public static void main(String[] args) {
-        int[][] edges = {{0,1,4},{0,2,2},{1,2,1},{1,3,5},{2,3,8},{2,4,10},{3,4,2},{3,5,6},{4,5,3}};
+        int[][] edges = {{0,1,4},{0,2,2},{1,2,1},{1,3,5},{2,3,8},{2,4,10},{3,4,2},{3,5,6},{4,5,3}};   //@DATA
         int n = 6;
         int[] parent = new int[n];
         for (int i = 0; i < n; i++) parent[i] = i;

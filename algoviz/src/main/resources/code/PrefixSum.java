@@ -1,6 +1,6 @@
 public class PrefixSum {
     public static void main(String[] args) {
-        int[] a = {3, 7, 2, 5, 1};
+        int[] a = {3, 7, 2, 5, 1};   //@DATA
         int[] prefix = new int[a.length];
         prefix[0] = a[0];
         for (int i = 1; i < a.length; i++) {
