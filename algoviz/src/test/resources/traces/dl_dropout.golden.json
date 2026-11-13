@@ -1,0 +1,523 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "dl.dropout",
+    "title": "Dropout 正则化",
+    "codeResource": "/code/DropoutDemo.java",
+    "input": "keep=0.5 6 神经元",
+    "inputSize": 6
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "Dropout(2012) 从防过拟合起家：让神经元不能抱团——'协同适应'被随机性拆散"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dropout",
+              "locals": {
+                "keep": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                },
+                "当前帧": {
+                  "kind": "PRIM",
+                  "text": "训练 0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "drop",
+                "type": "DropoutLayer",
+                "fields": {
+                  "keep": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  },
+                  "策略": {
+                    "kind": "PRIM",
+                    "text": "训练：随机置零 + 预缩放"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Dropout",
+          "grids": [
+            {
+              "id": "neurons",
+              "label": "神经元（灰 0 = 被置零；值已 ÷keep 预缩放）",
+              "rows": 1,
+              "cols": 6,
+              "values": [
+                "1.0",
+                "2.0",
+                "3.0",
+                "4.0",
+                "5.0",
+                "6.0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "6 神经元层，keep=0.5：训练时每帧随机杀一半（灰=置零），保留值 ÷0.5（期望不变）"
+        }
+      ],
+      "intent": {
+        "why": "Dropout(2012) 从防过拟合起家：让神经元不能抱团——'协同适应'被随机性拆散",
+        "invariant": "训练：每个神经元以 p=0.5 概率置零，保留值 ÷keep（期望不变）——'不能依赖任何特定邻居'；推理：全员上岗、无缩放（inverted 已在训练补）——随机性是正则化，不是噪声"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "每帧不同组合：网络被迫学'冗余表征'——任何一个特征都不能只依赖单一路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dropout",
+              "locals": {
+                "keep": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                },
+                "当前帧": {
+                  "kind": "PRIM",
+                  "text": "训练 1"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "drop",
+                "type": "DropoutLayer",
+                "fields": {
+                  "keep": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  },
+                  "策略": {
+                    "kind": "PRIM",
+                    "text": "训练：随机置零 + 预缩放"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Dropout",
+          "grids": [
+            {
+              "id": "neurons",
+              "label": "神经元（灰 0 = 被置零；值已 ÷keep 预缩放）",
+              "rows": 1,
+              "cols": 6,
+              "values": [
+                "0",
+                "0",
+                "6.0",
+                "0",
+                "0",
+                "12.0"
+              ],
+              "activeCells": [
+                2,
+                5
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "训练帧 1：mask=[0,0,1,0,0,1] → 活 2 个，保留值 ×2 倍（inverted 缩放）"
+        }
+      ],
+      "intent": {
+        "why": "每帧不同组合：网络被迫学'冗余表征'——任何一个特征都不能只依赖单一路径",
+        "invariant": "训练：每个神经元以 p=0.5 概率置零，保留值 ÷keep（期望不变）——'不能依赖任何特定邻居'；推理：全员上岗、无缩放（inverted 已在训练补）——随机性是正则化，不是噪声"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "每帧不同组合：网络被迫学'冗余表征'——任何一个特征都不能只依赖单一路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dropout",
+              "locals": {
+                "keep": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                },
+                "当前帧": {
+                  "kind": "PRIM",
+                  "text": "训练 2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "drop",
+                "type": "DropoutLayer",
+                "fields": {
+                  "keep": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  },
+                  "策略": {
+                    "kind": "PRIM",
+                    "text": "训练：随机置零 + 预缩放"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Dropout",
+          "grids": [
+            {
+              "id": "neurons",
+              "label": "神经元（灰 0 = 被置零；值已 ÷keep 预缩放）",
+              "rows": 1,
+              "cols": 6,
+              "values": [
+                "2.0",
+                "0",
+                "6.0",
+                "0",
+                "0",
+                "0"
+              ],
+              "activeCells": [
+                0,
+                2
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "训练帧 2：mask=[1,0,1,0,0,0] → 活 2 个，保留值 ×2 倍（inverted 缩放）"
+        }
+      ],
+      "intent": {
+        "why": "每帧不同组合：网络被迫学'冗余表征'——任何一个特征都不能只依赖单一路径",
+        "invariant": "训练：每个神经元以 p=0.5 概率置零，保留值 ÷keep（期望不变）——'不能依赖任何特定邻居'；推理：全员上岗、无缩放（inverted 已在训练补）——随机性是正则化，不是噪声"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 10,
+        "endLine": 10,
+        "note": "每帧不同组合：网络被迫学'冗余表征'——任何一个特征都不能只依赖单一路径"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dropout",
+              "locals": {
+                "keep": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                },
+                "当前帧": {
+                  "kind": "PRIM",
+                  "text": "训练 3"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "drop",
+                "type": "DropoutLayer",
+                "fields": {
+                  "keep": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  },
+                  "策略": {
+                    "kind": "PRIM",
+                    "text": "训练：随机置零 + 预缩放"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Dropout",
+          "grids": [
+            {
+              "id": "neurons",
+              "label": "神经元（灰 0 = 被置零；值已 ÷keep 预缩放）",
+              "rows": 1,
+              "cols": 6,
+              "values": [
+                "0",
+                "4.0",
+                "6.0",
+                "8.0",
+                "0",
+                "12.0"
+              ],
+              "activeCells": [
+                1,
+                2,
+                3,
+                5
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "训练帧 3：mask=[0,1,1,1,0,1] → 活 4 个，保留值 ×2 倍（inverted 缩放）"
+        }
+      ],
+      "intent": {
+        "why": "每帧不同组合：网络被迫学'冗余表征'——任何一个特征都不能只依赖单一路径",
+        "invariant": "训练：每个神经元以 p=0.5 概率置零，保留值 ÷keep（期望不变）——'不能依赖任何特定邻居'；推理：全员上岗、无缩放（inverted 已在训练补）——随机性是正则化，不是噪声"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "inverted dropout 的聪明处：缩放提前做进训练，推理路径零开销"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dropout",
+              "locals": {
+                "keep": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                },
+                "当前帧": {
+                  "kind": "PRIM",
+                  "text": "推理"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "drop",
+                "type": "DropoutLayer",
+                "fields": {
+                  "keep": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  },
+                  "策略": {
+                    "kind": "PRIM",
+                    "text": "推理：全开"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Dropout",
+          "grids": [
+            {
+              "id": "neurons",
+              "label": "神经元（灰 0 = 被置零；值已 ÷keep 预缩放）",
+              "rows": 1,
+              "cols": 6,
+              "values": [
+                "1.0",
+                "2.0",
+                "3.0",
+                "4.0",
+                "5.0",
+                "6.0"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "推理帧：全员上岗、无缩放——训练时的 ÷keep 让期望恒等，推理无需任何调整"
+        }
+      ],
+      "intent": {
+        "why": "inverted dropout 的聪明处：缩放提前做进训练，推理路径零开销",
+        "invariant": "训练：每个神经元以 p=0.5 概率置零，保留值 ÷keep（期望不变）——'不能依赖任何特定邻居'；推理：全员上岗、无缩放（inverted 已在训练补）——随机性是正则化，不是噪声"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 16,
+        "endLine": 16,
+        "note": "过拟合 = 背诵训练集；Dropout = 每帧换半个考官——逼你学会规律而不是背题"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "dropout",
+              "locals": {
+                "keep": {
+                  "kind": "PRIM",
+                  "text": "0.5"
+                },
+                "当前帧": {
+                  "kind": "PRIM",
+                  "text": "推理"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "drop",
+                "type": "DropoutLayer",
+                "fields": {
+                  "keep": {
+                    "kind": "PRIM",
+                    "text": "0.5"
+                  },
+                  "策略": {
+                    "kind": "PRIM",
+                    "text": "推理：全开"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "Dropout",
+          "grids": [
+            {
+              "id": "neurons",
+              "label": "神经元（灰 0 = 被置零；值已 ÷keep 预缩放）",
+              "rows": 1,
+              "cols": 6,
+              "values": [
+                "1.0",
+                "2.0",
+                "3.0",
+                "4.0",
+                "5.0",
+                "6.0"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "Dropout 与 BatchNorm 是正则化双子星：一个随机杀神经元、一个把分布拉回正态"
+        }
+      ],
+      "intent": {
+        "why": "过拟合 = 背诵训练集；Dropout = 每帧换半个考官——逼你学会规律而不是背题",
+        "invariant": "训练：每个神经元以 p=0.5 概率置零，保留值 ÷keep（期望不变）——'不能依赖任何特定邻居'；推理：全员上岗、无缩放（inverted 已在训练补）——随机性是正则化，不是噪声"
+      }
+    }
+  ]
+}

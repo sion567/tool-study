@@ -159,6 +159,11 @@ public final class AlgorithmRegistry {
             new Entry("深度学习", null, new com.algoviz.engine.dl.LstmDemo()),
             new Entry("深度学习", null, new com.algoviz.engine.dl.BackpropDemo()),
             new Entry("深度学习", null, new com.algoviz.engine.dl.Word2VecDemo()),
+            new Entry("深度学习", null, new com.algoviz.engine.dl.ResNetDemo()),
+            new Entry("深度学习", null, new com.algoviz.engine.dl.DropoutDemo()),
+            new Entry("深度学习", null, new com.algoviz.engine.dl.BatchNormDemo()),
+            new Entry("深度学习", null, new com.algoviz.engine.dl.KMeansDemo()),
+            new Entry("深度学习", null, new com.algoviz.engine.dl.GradientDescentDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.ProjectileDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.SpringDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.DoublePendulumDemo()),
@@ -396,6 +401,11 @@ public final class AlgorithmRegistry {
             case "dl.lstm" -> new com.algoviz.engine.dl.LstmDemo();
             case "dl.backprop" -> new com.algoviz.engine.dl.BackpropDemo();
             case "dl.word2vec" -> new com.algoviz.engine.dl.Word2VecDemo();
+            case "dl.resnet" -> new com.algoviz.engine.dl.ResNetDemo();
+            case "dl.dropout" -> new com.algoviz.engine.dl.DropoutDemo();
+            case "dl.batchnorm" -> new com.algoviz.engine.dl.BatchNormDemo();
+            case "dl.kmeans" -> new com.algoviz.engine.dl.KMeansDemo();
+            case "dl.gradient" -> new com.algoviz.engine.dl.GradientDescentDemo();
             default -> null;
         };
     }

@@ -129,6 +129,11 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"dl_lstm", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.LstmDemo::new},
                 new Object[]{"dl_backprop", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.BackpropDemo::new},
                 new Object[]{"dl_word2vec", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.Word2VecDemo::new},
+                new Object[]{"dl_resnet", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.ResNetDemo::new},
+                new Object[]{"dl_dropout", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.DropoutDemo::new},
+                new Object[]{"dl_batchnorm", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.BatchNormDemo::new},
+                new Object[]{"dl_kmeans", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.KMeansDemo::new},
+                new Object[]{"dl_gradient", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.GradientDescentDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -1138,6 +1143,45 @@ class AlgorithmBatchTraceTest {
         var fields = wv.get(wv.size() - 2).heap().heap().objects().get("@1").fields();
         double dCatMat = distOf(fields.get("cat").text(), fields.get("mat").text());
         assertTrue2(dCatMat < 4.24, "训练后 cat↔mat 距离应比初始四角距离（4.24）更近，实际 " + dCatMat);
+    }
+
+    /** 行为：DL 扩展四连——ResNet 梯度对照/Dropout mask/BatchNorm 归一/K-Means 收敛/动量赛跑。 */
+    @org.junit.jupiter.api.Test
+    void dlFourBehave() throws Exception {
+        // ResNet：残差列终值 > 普通列终值（梯度直通的数字证据）
+        var rn = new com.algoviz.engine.dl.ResNetDemo().produce().steps();
+        var rnGrid = rn.get(rn.size() - 3).math().grids().get(0);   // 最后层帧（MARK 帧 curT=-1 全问号）
+        double plainEnd = Double.parseDouble(rnGrid.value(9, 1).toLowerCase().replace("e", "e"));
+        double resEnd = Double.parseDouble(rnGrid.value(9, 2));
+        assertTrue2(resEnd > plainEnd, "残差列梯度应远大于普通列：" + resEnd + " vs " + plainEnd);
+        // Dropout：推理帧全员上岗（黄圈全亮）
+        var dp = new com.algoviz.engine.dl.DropoutDemo().produce().steps();
+        var dpGrid = dp.get(dp.size() - 1).math().grids().get(0);
+        assertTrue2(dpGrid.activeCells().size() == 6, "推理帧 6 神经元全员上岗");
+        // BatchNorm：标准化行均值 ≈ 0
+        var bn = new com.algoviz.engine.dl.BatchNormDemo().produce().steps();
+        var bnGrid = bn.get(bn.size() - 1).math().grids().get(0);
+        double sum = 0;
+        for (int i = 0; i < 4; i++) {
+            sum += Double.parseDouble(bnGrid.value(1, i));
+        }
+        assertEquals(0.0, sum, 0.01, "标准化行均值必须 ≈ 0");
+        // K-Means：质心最大移动距离递减（收敛不变量）
+        var km = new com.algoviz.engine.dl.KMeansDemo().produce().steps();
+        String kmText = km.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("质心最大移动 ([0-9.]+)").matcher(kmText);
+        java.util.List<Double> moves = new java.util.ArrayList<>();
+        while (m.find()) {
+            moves.add(Double.parseDouble(m.group(1)));
+        }
+        assertTrue2(moves.size() >= 3, "应有 ≥3 轮迭代记录");
+        assertTrue2(moves.get(moves.size() - 1) <= moves.get(0), "质心移动应递减（收敛）：" + moves);
+        // 梯度下降：动量终点离全局谷（2.24）更近
+        var gd = new com.algoviz.engine.dl.GradientDescentDemo().produce().steps();
+        var gdFields = gd.get(gd.size() - 1).heap().heap().objects().get("@1").fields();
+        double momEnd = Double.parseDouble(gdFields.get("动量 GD 终点").text().replace("x=", ""));
+        assertTrue2(Math.abs(momEnd - 2.24) < 1.0, "动量 GD 应抵达全局谷附近（x≈2.24），实际 " + momEnd);
     }
 
     private static double distOf(String a, String b) {
