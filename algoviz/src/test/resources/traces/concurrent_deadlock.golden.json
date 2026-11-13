@@ -1,0 +1,1175 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "concurrent.deadlock",
+    "title": "线程·死锁四要件",
+    "codeResource": "/code/DeadlockDemo.java",
+    "input": "锁 A/B 两线程",
+    "inputSize": 11
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "T1 先拿 A——同时 T2 拿 B（交错起点）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {},
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 0
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "线程 1",
+            "锁 A / 锁 B"
+          ],
+          "detail": "线程 1 → 锁 A / 锁 B：T1: lock(A) ✓"
+        }
+      ],
+      "intent": {
+        "why": "T1 先拿 A——同时 T2 拿 B（交错起点）",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "T2 拿 B——双方各握一角"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  }
+                },
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {},
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(B) ✓",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 1
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "线程 2",
+            "锁 A / 锁 B"
+          ],
+          "detail": "线程 2 → 锁 A / 锁 B：T2: lock(B) ✓"
+        }
+      ],
+      "intent": {
+        "why": "T2 拿 B——双方各握一角",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 5,
+        "endLine": 5,
+        "note": "T1 想要 B：但 B 在 T2 手里 → 挂起等待"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  }
+                },
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(B) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(B) —— 阻塞",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "线程 1",
+            "锁 A / 锁 B"
+          ],
+          "detail": "线程 1 → 锁 A / 锁 B：T1: lock(B) —— 阻塞"
+        }
+      ],
+      "intent": {
+        "why": "T1 想要 B：但 B 在 T2 手里 → 挂起等待",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "四要件核对：互斥 ✓ 占有且等待 ✓ 不可剥夺 ✓ 环路等待 ✓——死锁成立"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  }
+                },
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(B) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(B) —— 阻塞",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 2
+        }
+      },
+      "events": [
+        {
+          "type": "COMPARE",
+          "targets": [
+            "@a",
+            "@b"
+          ],
+          "detail": "T1 持 A 等 B；T2 持 B 等 A——环路形成，双双冻结"
+        }
+      ],
+      "intent": {
+        "why": "四要件核对：互斥 ✓ 占有且等待 ✓ 不可剥夺 ✓ 环路等待 ✓——死锁成立",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "T2 也在等 A——没有任何线程能前进"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  }
+                },
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(B) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(B) —— 阻塞",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) —— 阻塞（永远）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "线程 2",
+            "锁 A / 锁 B"
+          ],
+          "detail": "线程 2 → 锁 A / 锁 B：T2: lock(A) —— 阻塞（永远）"
+        }
+      ],
+      "intent": {
+        "why": "T2 也在等 A——没有任何线程能前进",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 7,
+        "endLine": 7,
+        "note": "死锁不耗 CPU：线程在锁队列里睡觉——监控上表现为'响应消失'而非'负载爆炸'"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  }
+                },
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(B) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(B) —— 阻塞",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) —— 阻塞（永远）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "@a",
+            "@b"
+          ],
+          "detail": "死锁定格：jstack 会看到两个线程互为 BLOCKED——这就是'程序卡死但 CPU 0%'的经典现场"
+        }
+      ],
+      "intent": {
+        "why": "死锁不耗 CPU：线程在锁队列里睡觉——监控上表现为'响应消失'而非'负载爆炸'",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "全局顺序拆掉'环路'要件：等 A 的线程永远不可能同时持有 B"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  }
+                },
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(B) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(B) —— 阻塞",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) —— 阻塞（永远）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 3
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "@a",
+            "@b"
+          ],
+          "detail": "破解一：锁排序——全程序约定先 A 后 B：T2 拿 B 之前必须先拿 A"
+        }
+      ],
+      "intent": {
+        "why": "全局顺序拆掉'环路'要件：等 A 的线程永远不可能同时持有 B",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "T2 按序先拿 A——与 T1 竞争 A，必有先后"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T1"
+                  }
+                },
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(B) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(B) —— 阻塞",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) —— 阻塞（永远）",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) ✓（按序）",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 4
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "线程 2",
+            "锁 A / 锁 B"
+          ],
+          "detail": "线程 2 → 锁 A / 锁 B：T2: lock(A) ✓（按序）"
+        }
+      ],
+      "intent": {
+        "why": "T2 按序先拿 A——与 T1 竞争 A，必有先后",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "破解二：tryLock 带超时——拿不到就放弃并释放自己持有的锁，退避重试"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T2（排序后）"
+                  }
+                },
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T2"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(B) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(B) —— 阻塞",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) —— 阻塞（永远）",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) ✓（按序）",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: tryLock(A) 超时失败 → 释放已有锁",
+              "kind": "CALL"
+            }
+          ],
+          "activeIndex": 5
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "线程 1",
+            "锁 A / 锁 B"
+          ],
+          "detail": "线程 1 → 锁 A / 锁 B：T1: tryLock(A) 超时失败 → 释放已有锁"
+        }
+      ],
+      "intent": {
+        "why": "破解二：tryLock 带超时——拿不到就放弃并释放自己持有的锁，退避重试",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "四要件破了'占有且等待'与'环路'两条——死锁从结构上不可能"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T2（排序后）"
+                  }
+                },
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "无（T2 用完即还）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(B) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(B) —— 阻塞",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) —— 阻塞（永远）",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) ✓（按序）",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: tryLock(A) 超时失败 → 释放已有锁",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2 完成 → 释放 A/B → T1 重试成功",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [
+            "线程 2",
+            "锁 A / 锁 B"
+          ],
+          "detail": "线程 2 → 锁 A / 锁 B：T2 完成 → 释放 A/B → T1 重试成功"
+        }
+      ],
+      "intent": {
+        "why": "四要件破了'占有且等待'与'环路'两条——死锁从结构上不可能",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 19,
+        "endLine": 19,
+        "note": "jstack / ThreadMXBean.findDeadlockedThreads 是线上排查死锁的第一工具"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "main",
+              "locals": {}
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@a": {
+                "id": "@a",
+                "label": "@a",
+                "type": "lock A",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "T2（排序后）"
+                  }
+                },
+                "elements": []
+              },
+              "@b": {
+                "id": "@b",
+                "label": "@b",
+                "type": "lock B",
+                "fields": {
+                  "持有者": {
+                    "kind": "PRIM",
+                    "text": "无（T2 用完即还）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "seq.main": {
+          "name": "pattern",
+          "participants": [
+            {
+              "id": "t1",
+              "label": "线程 1"
+            },
+            {
+              "id": "lx",
+              "label": "锁 A / 锁 B"
+            },
+            {
+              "id": "t2",
+              "label": "线程 2"
+            }
+          ],
+          "messages": [
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(A) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(B) ✓",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: lock(B) —— 阻塞",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) —— 阻塞（永远）",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2: lock(A) ✓（按序）",
+              "kind": "CALL"
+            },
+            {
+              "from": 0,
+              "to": 1,
+              "label": "T1: tryLock(A) 超时失败 → 释放已有锁",
+              "kind": "CALL"
+            },
+            {
+              "from": 2,
+              "to": 1,
+              "label": "T2 完成 → 释放 A/B → T1 重试成功",
+              "kind": "RETURN"
+            }
+          ],
+          "activeIndex": 6
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@a",
+            "@b"
+          ],
+          "detail": "排序 + tryLock 是生产代码的标配组合：一个拆环路、一个做兜底"
+        }
+      ],
+      "intent": {
+        "why": "jstack / ThreadMXBean.findDeadlockedThreads 是线上排查死锁的第一工具",
+        "invariant": "死锁四要件：互斥、占有且等待、不可剥夺、环路等待——缺一不可，也只需破坏其一即可破解；锁排序是最便宜的破解（环路结构被全局顺序拆掉）"
+      }
+    }
+  ]
+}

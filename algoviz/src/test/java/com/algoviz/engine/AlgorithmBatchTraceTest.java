@@ -122,6 +122,10 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"crypto_sm3", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sm3Demo::new},
                 new Object[]{"crypto_sm4", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sm4Demo::new},
                 new Object[]{"crypto_sm2", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sm2Demo::new},
+                new Object[]{"crypto_aes", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.AesDemo::new},
+                new Object[]{"crypto_sha256", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sha256Demo::new},
+                new Object[]{"concurrent_vis", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentVisDemo::new},
+                new Object[]{"concurrent_deadlock", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentDeadlockDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -1075,5 +1079,31 @@ class AlgorithmBatchTraceTest {
         assertTrue2(verdict.contains("19 阶"), "G 应生成 19 阶循环群，实际：" + verdict);
         assertTrue2(s2.stream().flatMap(s -> s.events().stream())
                 .anyMatch(e -> e.detail() != null && e.detail().contains("8G")), "应有 8G 标量乘演算帧");
+        // AES-128 密文 == FIPS-197 C.1 向量
+        var ae = new com.algoviz.engine.crypto.AesDemo().produce().steps();
+        assertTrue2(ae.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("69c4e0d8")
+                        && e.detail().contains("70b4c55a")), "AES 密文必须命中 FIPS-197 C.1 向量");
+        // SHA-256 摘要 == NIST 向量（网格逐字）
+        var s25 = new com.algoviz.engine.crypto.Sha256Demo().produce().steps();
+        java.util.List<String> want25 = java.util.List.of("ba7816bf", "8f01cfea", "414140de", "5dae2223",
+                "b00361a3", "96177a9c", "b410ff61", "f20015ad");
+        var grid25 = s25.get(s25.size() - 1).math().grids().stream()
+                .filter(g -> g.id().equals("H")).findFirst().orElseThrow();
+        for (int i = 0; i < 8; i++) {
+            assertEquals(want25.get(i), grid25.value(0, i), "SHA-256 H" + i + " 必须与 NIST 向量一致");
+        }
+        // 线程可见性：三幕齐全（可见性消失/volatile/CAS 自旋）
+        var cv = new com.algoviz.engine.pattern.ConcurrentVisDemo().produce().steps();
+        String cvText = cv.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        assertTrue2(cvText.contains("可见性消失") && cvText.contains("volatile") && cvText.contains("乐观并发"),
+                "可见性三幕应齐全（消失/volatile/CAS 自旋）");
+        // 死锁：死锁定格 + 两类破解
+        var dl = new com.algoviz.engine.pattern.ConcurrentDeadlockDemo().produce().steps();
+        String dlText = dl.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        assertTrue2(dlText.contains("死锁定格") && dlText.contains("锁排序") && dlText.contains("tryLock"),
+                "死锁演示应有定格点与两类破解");
     }
 }

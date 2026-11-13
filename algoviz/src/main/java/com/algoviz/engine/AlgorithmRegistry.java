@@ -173,6 +173,8 @@ public final class AlgorithmRegistry {
             new Entry("密码学", "哈希", new com.algoviz.engine.crypto.Sm3Demo()),
             new Entry("密码学", "对称", new com.algoviz.engine.crypto.Sm4Demo()),
             new Entry("密码学", "非对称", new com.algoviz.engine.crypto.Sm2Demo()),
+            new Entry("密码学", "对称", new com.algoviz.engine.crypto.AesDemo()),
+            new Entry("密码学", "哈希", new com.algoviz.engine.crypto.Sha256Demo()),
             new Entry("数学", "数与计算", new com.algoviz.engine.math.KaratsubaDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.TreeSerializeDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.BPlusTreeDemo()),
@@ -187,6 +189,8 @@ public final class AlgorithmRegistry {
             new Entry("并发模式", null, new com.algoviz.engine.pattern.ConcurrentProdConsDemo()),
             new Entry("并发模式", null, new com.algoviz.engine.pattern.ConcurrentRwLockDemo()),
             new Entry("并发模式", null, new com.algoviz.engine.pattern.ConcurrentPoolDemo()),
+            new Entry("并发模式", null, new com.algoviz.engine.pattern.ConcurrentVisDemo()),
+            new Entry("并发模式", null, new com.algoviz.engine.pattern.ConcurrentDeadlockDemo()),
             new Entry("分布式模式", null, new com.algoviz.engine.pattern.DistBreakerDemo()),
             new Entry("分布式模式", null, new com.algoviz.engine.pattern.DistDiscoveryDemo()),
             new Entry("分布式模式", null, new com.algoviz.engine.pattern.DistCqrsDemo()),
@@ -377,6 +381,15 @@ public final class AlgorithmRegistry {
                 yield new com.algoviz.engine.crypto.Sm4Demo(kb);
             }
             case "crypto.sm2" -> new com.algoviz.engine.crypto.Sm2Demo();
+            case "crypto.aes" -> {
+                int[] kb = new int[16];
+                for (int i = 0; i < 16; i++) {
+                    kb[i] = r.nextInt(256);                        // 随机 16 字节密钥
+                }
+                yield new com.algoviz.engine.crypto.AesDemo(kb);
+            }
+            case "crypto.sha256" -> new com.algoviz.engine.crypto.Sha256Demo(
+                    new String[]{"abc", "SHA-256", "哈希对照"}[r.nextInt(3)]);
             default -> null;
         };
     }

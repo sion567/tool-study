@@ -1,0 +1,1636 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "crypto.aes",
+    "title": "对称·AES-128",
+    "codeResource": "/code/AesDemo.java",
+    "input": "FIPS-197 C.1",
+    "inputSize": 10
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "AES-128 = 128 位分组 10 轮 SPN：每轮全状态替换——对照 SM4 每轮只动 1/4"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "0 密钥扩展"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "00"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "ff"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "密钥扩展"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "00",
+                "11",
+                "22",
+                "33",
+                "44",
+                "55",
+                "66",
+                "77",
+                "88",
+                "99",
+                "aa",
+                "bb",
+                "cc",
+                "dd",
+                "ee",
+                "ff"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "密钥扩展完成：44 个轮密钥字（Rcon 逐轮常量 + RotWord/SubWord）"
+        }
+      ],
+      "intent": {
+        "why": "AES-128 = 128 位分组 10 轮 SPN：每轮全状态替换——对照 SM4 每轮只动 1/4",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "白化轮：让密钥从一开始就参与，不给明文任何'裸露'的机会"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "0 AddRoundKey(0)"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "00"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "f0"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "AddRoundKey(0)"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "00",
+                "10",
+                "20",
+                "30",
+                "40",
+                "50",
+                "60",
+                "70",
+                "80",
+                "90",
+                "a0",
+                "b0",
+                "c0",
+                "d0",
+                "e0",
+                "f0"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [],
+          "detail": "初始轮：明文 ⊕ 密钥——之后的每一轮都在这个状态上搅动"
+        }
+      ],
+      "intent": {
+        "why": "白化轮：让密钥从一开始就参与，不给明文任何'裸露'的机会",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "1 第 1 轮"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "5f"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "1a"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "第 1 轮"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "5f",
+                "72",
+                "64",
+                "15",
+                "57",
+                "f5",
+                "bc",
+                "92",
+                "f7",
+                "be",
+                "3b",
+                "29",
+                "1d",
+                "b9",
+                "f9",
+                "1a"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 1 轮：SubBytes → ShiftRows → MixColumns → AddRoundKey 完成"
+        }
+      ],
+      "intent": {
+        "why": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "2 第 2 轮"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "ff"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "09"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "第 2 轮"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "ff",
+                "87",
+                "96",
+                "84",
+                "31",
+                "d8",
+                "6a",
+                "51",
+                "64",
+                "51",
+                "51",
+                "fa",
+                "77",
+                "3a",
+                "d0",
+                "09"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 2 轮：SubBytes → ShiftRows → MixColumns → AddRoundKey 完成"
+        }
+      ],
+      "intent": {
+        "why": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "3 第 3 轮"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "4c"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "56"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "第 3 轮"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "4c",
+                "9c",
+                "1e",
+                "66",
+                "f7",
+                "71",
+                "f0",
+                "76",
+                "2c",
+                "3f",
+                "86",
+                "8e",
+                "53",
+                "4d",
+                "f2",
+                "56"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 3 轮：SubBytes → ShiftRows → MixColumns → AddRoundKey 完成"
+        }
+      ],
+      "intent": {
+        "why": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "4 第 4 轮"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "63"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "91"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "第 4 轮"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "63",
+                "85",
+                "b7",
+                "9f",
+                "fc",
+                "53",
+                "8d",
+                "f9",
+                "97",
+                "be",
+                "47",
+                "8e",
+                "75",
+                "47",
+                "d6",
+                "91"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 4 轮：SubBytes → ShiftRows → MixColumns → AddRoundKey 完成"
+        }
+      ],
+      "intent": {
+        "why": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "5 第 5 轮"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "f4"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "3c"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "第 5 轮"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "f4",
+                "bc",
+                "d4",
+                "54",
+                "32",
+                "e5",
+                "54",
+                "d0",
+                "75",
+                "f1",
+                "d6",
+                "c5",
+                "1d",
+                "d0",
+                "3b",
+                "3c"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 5 轮：SubBytes → ShiftRows → MixColumns → AddRoundKey 完成"
+        }
+      ],
+      "intent": {
+        "why": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "6 第 6 轮"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "98"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "36"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "第 6 轮"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "98",
+                "16",
+                "ee",
+                "74",
+                "00",
+                "f8",
+                "7f",
+                "55",
+                "6b",
+                "2c",
+                "04",
+                "9c",
+                "8e",
+                "5a",
+                "d0",
+                "36"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 6 轮：SubBytes → ShiftRows → MixColumns → AddRoundKey 完成"
+        }
+      ],
+      "intent": {
+        "why": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "7 第 7 轮"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "c5"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "39"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "第 7 轮"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "c5",
+                "7e",
+                "1c",
+                "15",
+                "9a",
+                "9b",
+                "d2",
+                "86",
+                "f0",
+                "5f",
+                "4b",
+                "e0",
+                "98",
+                "c6",
+                "34",
+                "39"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 7 轮：SubBytes → ShiftRows → MixColumns → AddRoundKey 完成"
+        }
+      ],
+      "intent": {
+        "why": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "8 第 8 轮"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "ba"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "23"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "第 8 轮"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "ba",
+                "a0",
+                "3d",
+                "e7",
+                "a1",
+                "f9",
+                "b5",
+                "6e",
+                "d5",
+                "51",
+                "2c",
+                "ba",
+                "5f",
+                "41",
+                "4d",
+                "23"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 8 轮：SubBytes → ShiftRows → MixColumns → AddRoundKey 完成"
+        }
+      ],
+      "intent": {
+        "why": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "9 第 9 轮"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "e9"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "c7"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "第 9 轮"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "e9",
+                "f7",
+                "4e",
+                "ec",
+                "02",
+                "30",
+                "20",
+                "f6",
+                "1b",
+                "f2",
+                "cc",
+                "f2",
+                "35",
+                "3c",
+                "21",
+                "c7"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 9 轮：SubBytes → ShiftRows → MixColumns → AddRoundKey 完成"
+        }
+      ],
+      "intent": {
+        "why": "扩散三连：字节替换（非线性）+ 行移位 + 列混淆（GF(2⁸) 线性）——1 字节改动散满全状态",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 20,
+        "endLine": 20,
+        "note": "末轮去 MixColumns：既不损失安全性，也节省一次矩阵乘法"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "10 第 10 轮"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "7a"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "9f"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "第 10 轮"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "7a",
+                "d5",
+                "fd",
+                "a7",
+                "89",
+                "ef",
+                "4e",
+                "27",
+                "2b",
+                "ca",
+                "10",
+                "0b",
+                "3d",
+                "9f",
+                "f5",
+                "9f"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "第 10 轮：没有 MixColumns——最后一轮的扩散已完成，省一次列变换"
+        }
+      ],
+      "intent": {
+        "why": "末轮去 MixColumns：既不损失安全性，也节省一次矩阵乘法",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 24,
+        "endLine": 24,
+        "note": "FIPS-197 附录 C.1 的标准答案——实现正确性的最终裁判"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "10 密文"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "69"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "5a"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "密文"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "69",
+                "c4",
+                "e0",
+                "d8",
+                "6a",
+                "7b",
+                "04",
+                "30",
+                "d8",
+                "cd",
+                "b7",
+                "80",
+                "70",
+                "b4",
+                "c5",
+                "5a"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "密文 = 69c4e0d8 6a7b0430 d8cdb780 70b4c55a"
+        }
+      ],
+      "intent": {
+        "why": "FIPS-197 附录 C.1 的标准答案——实现正确性的最终裁判",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 27,
+        "endLine": 27,
+        "note": "无线 Wi-Fi、磁盘加密、HTTPS——AES 是现代密码世界的承重墙"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "aes",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "10 密文"
+                },
+                "state[0]": {
+                  "kind": "PRIM",
+                  "text": "69"
+                },
+                "state[15]": {
+                  "kind": "PRIM",
+                  "text": "5a"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "aes",
+                "type": "CipherState",
+                "fields": {
+                  "阶段": {
+                    "kind": "PRIM",
+                    "text": "密文"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "000102…0f（FIPS-197 C.1）"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AES-128 轮函数现场",
+          "grids": [
+            {
+              "id": "state",
+              "label": "AES 状态 4×4 字节（列主序；每轮全状态替换）",
+              "rows": 4,
+              "cols": 4,
+              "values": [
+                "69",
+                "c4",
+                "e0",
+                "d8",
+                "6a",
+                "7b",
+                "04",
+                "30",
+                "d8",
+                "cd",
+                "b7",
+                "80",
+                "70",
+                "b4",
+                "c5",
+                "5a"
+              ],
+              "activeCells": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "AES 与 SM4 同级对照：SPN 对 Feistel、代数式 S 盒对黑盒查表——两套设计哲学，同一安全强度"
+        }
+      ],
+      "intent": {
+        "why": "无线 Wi-Fi、磁盘加密、HTTPS——AES 是现代密码世界的承重墙",
+        "invariant": "SPN：每轮全状态替换（对照 SM4 每轮只动 1/4）；SubBytes 是唯一非线性，MixColumns 在 GF(2⁸) 上把 1 字节改动散满一列——10 轮后密文与明文逐位无关；解密 = 逆变换倒序"
+      }
+    }
+  ]
+}
