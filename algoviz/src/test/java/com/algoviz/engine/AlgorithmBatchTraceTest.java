@@ -124,6 +124,7 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"crypto_sm2", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sm2Demo::new},
                 new Object[]{"crypto_aes", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.AesDemo::new},
                 new Object[]{"crypto_sha256", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sha256Demo::new},
+                new Object[]{"crypto_des", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.DesDemo::new},
                 new Object[]{"concurrent_vis", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentVisDemo::new},
                 new Object[]{"concurrent_deadlock", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentDeadlockDemo::new},
                 new Object[]{"dl_lstm", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.LstmDemo::new},
@@ -1109,6 +1110,18 @@ class AlgorithmBatchTraceTest {
         for (int i = 0; i < 8; i++) {
             assertEquals(want25.get(i), grid25.value(0, i), "SHA-256 H" + i + " 必须与 NIST 向量一致");
         }
+        // DES：经典例逐字命中（Grabbe 教程 key=133457799BBCDFF1 → 密文 85e813540f0ab405）
+        var de = new com.algoviz.engine.crypto.DesDemo().produce().steps();
+        var gridD = de.get(de.size() - 1).math().grids().stream()
+                .filter(g -> g.id().equals("lr")).findFirst().orElseThrow();
+        assertEquals("43423234", gridD.value(0, 0), "L16 必须与 Grabbe 逐轮例一致");
+        assertEquals("0a4cd995", gridD.value(0, 1), "R16 必须与 Grabbe 逐轮例一致");
+        assertTrue2(de.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("密文 = 85e813540f0ab405")),
+                "DES 密文必须命中经典向量 85E813540F0AB405");
+        assertTrue2(de.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("1998 EFF")),
+                "收尾应引用历史线（EFF 破解 → AES 接棒）");
         // 线程可见性：三幕齐全（可见性消失/volatile/CAS 自旋）
         var cv = new com.algoviz.engine.pattern.ConcurrentVisDemo().produce().steps();
         String cvText = cv.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))

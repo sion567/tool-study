@@ -1,0 +1,996 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "crypto.des",
+    "title": "对称·DES",
+    "codeResource": "/code/DesDemo.java",
+    "input": "经典例 key/plain（64 位块）",
+    "inputSize": 64
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 13,
+        "endLine": 13,
+        "note": "IP 后拆成两半进入 Feistel"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "cc00ccff"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "f0aaf0aa"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "0"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "cc00ccff",
+                "f0aaf0aa"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [],
+          "detail": "IP: L0=cc00ccff R0=f0aaf0aa"
+        }
+      ],
+      "intent": {
+        "why": "IP 后拆成两半进入 Feistel",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "2"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "ef4a6544"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "cc017709"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "ef4a6544",
+                "cc017709"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "L01"
+          ],
+          "detail": "轮 1~2：L=ef4a6544，R=cc017709"
+        }
+      ],
+      "intent": {
+        "why": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "a25c0bf4"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "77220045"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "a25c0bf4",
+                "77220045"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "L21"
+          ],
+          "detail": "轮 3~4：L=a25c0bf4，R=77220045"
+        }
+      ],
+      "intent": {
+        "why": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "6"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "8a4fa637"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "e967cd69"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "8a4fa637",
+                "e967cd69"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "L41"
+          ],
+          "detail": "轮 5~6：L=8a4fa637，R=e967cd69"
+        }
+      ],
+      "intent": {
+        "why": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "8"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "064aba10"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "d5694b90"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "064aba10",
+                "d5694b90"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "L61"
+          ],
+          "detail": "轮 7~8：L=064aba10，R=d5694b90"
+        }
+      ],
+      "intent": {
+        "why": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "10"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "247cc67a"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "b7d5d7b2"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "247cc67a",
+                "b7d5d7b2"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "L81"
+          ],
+          "detail": "轮 9~10：L=247cc67a，R=b7d5d7b2"
+        }
+      ],
+      "intent": {
+        "why": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "12"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "c5783c78"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "75bd1858"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "12"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "c5783c78",
+                "75bd1858"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "L101"
+          ],
+          "detail": "轮 11~12：L=c5783c78，R=75bd1858"
+        }
+      ],
+      "intent": {
+        "why": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "14"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "18c3155a"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "c28c960d"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "14"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "18c3155a",
+                "c28c960d"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "L121"
+          ],
+          "detail": "轮 13~14：L=18c3155a，R=c28c960d"
+        }
+      ],
+      "intent": {
+        "why": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "16"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "43423234"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "0a4cd995"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "16"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "43423234",
+                "0a4cd995"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "L141"
+          ],
+          "detail": "轮 15~16：L=43423234，R=0a4cd995"
+        }
+      ],
+      "intent": {
+        "why": "轮函数 f 不要求可逆--Feistel 的解密 = 子密钥倒序重放同一轮函数",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "最终交换 + FP：Feistel 的收尾式--前后各 32 位对调再逆置换"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "17"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "43423234"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "0a4cd995"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "17"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "43423234",
+                "0a4cd995"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "密文 = 85e813540f0ab405（经典例 85e813540f0ab405 命中）"
+        }
+      ],
+      "intent": {
+        "why": "最终交换 + FP：Feistel 的收尾式--前后各 32 位对调再逆置换",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 24,
+        "endLine": 24,
+        "note": "DES 的 S 盒是'S 盒之母'：SM4/AES 的非线性层都从它的设计思想出发"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "des",
+              "locals": {
+                "轮": {
+                  "kind": "PRIM",
+                  "text": "17"
+                },
+                "L": {
+                  "kind": "PRIM",
+                  "text": "43423234"
+                },
+                "R": {
+                  "kind": "PRIM",
+                  "text": "0a4cd995"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "des",
+                "type": "DesState",
+                "fields": {
+                  "密钥": {
+                    "kind": "PRIM",
+                    "text": "133457799BBCDFF1"
+                  },
+                  "轮": {
+                    "kind": "PRIM",
+                    "text": "17"
+                  },
+                  "经典例密文": {
+                    "kind": "PRIM",
+                    "text": "85E813540F0AB405"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "DES",
+          "grids": [
+            {
+              "id": "lr",
+              "label": "L/R 状态（hex；每帧 2 轮全字更新）",
+              "rows": 1,
+              "cols": 2,
+              "values": [
+                "43423234",
+                "0a4cd995"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "历史：1977 标准化 → 56 位密钥 → 1998 EFF 22 小时破解 → 3DES 过渡 → AES(2001) 接棒"
+        }
+      ],
+      "intent": {
+        "why": "DES 的 S 盒是'S 盒之母'：SM4/AES 的非线性层都从它的设计思想出发",
+        "invariant": "16 轮 Feistel：L(i)=R(i-1)、R(i)=L(i-1)⊕f(R,K)--f=S盒(P(E(R)⊕K))；解密 = 子密钥倒序重放（Feistel 不要求 f 可逆）--56 位密钥 1998 年被 EFF 22 小时破解"
+      }
+    }
+  ]
+}

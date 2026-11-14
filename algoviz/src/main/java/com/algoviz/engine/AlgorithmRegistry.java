@@ -188,6 +188,7 @@ public final class AlgorithmRegistry {
             new Entry("密码学", "对称", new com.algoviz.engine.crypto.Sm4Demo()),
             new Entry("密码学", "非对称", new com.algoviz.engine.crypto.Sm2Demo()),
             new Entry("密码学", "对称", new com.algoviz.engine.crypto.AesDemo()),
+            new Entry("密码学", "对称", new com.algoviz.engine.crypto.DesDemo()),
             new Entry("密码学", "哈希", new com.algoviz.engine.crypto.Sha256Demo()),
             new Entry("数学", "数与计算", new com.algoviz.engine.math.KaratsubaDemo()),
             new Entry("数学", "微积分", new com.algoviz.engine.math.TrapezoidDemo()),
@@ -404,6 +405,9 @@ public final class AlgorithmRegistry {
                 }
                 yield new com.algoviz.engine.crypto.AesDemo(kb);
             }
+            case "crypto.des" -> new com.algoviz.engine.crypto.DesDemo(
+                    new long[]{0x0E329232EA6D0D73L, 0x7CA110454A1A6E57L,
+                            0x1313131313131313L}[r.nextInt(3)]);                 // 换密钥变体（NIST 测试密钥）
             case "crypto.sha256" -> new com.algoviz.engine.crypto.Sha256Demo(
                     new String[]{"abc", "SHA-256", "哈希对照"}[r.nextInt(3)]);
             case "dl.lstm" -> new com.algoviz.engine.dl.LstmDemo();
