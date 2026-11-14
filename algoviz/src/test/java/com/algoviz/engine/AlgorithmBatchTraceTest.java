@@ -138,6 +138,8 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"ml_qlearn", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.ml.QlearnDemo::new},
                 new Object[]{"ml_dtree", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.ml.DtreeDemo::new},
                 new Object[]{"ml_naivebayes", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.ml.NaiveBayesDemo::new},
+                new Object[]{"string_acauto", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.string.AcautoDemo::new},
+                new Object[]{"math_spiral", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.SpiralDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -1213,6 +1215,25 @@ class AlgorithmBatchTraceTest {
         String roseText = rose.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
                 .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
         assertTrue2(roseText.contains("8 瓣") && roseText.contains("7 瓣"), "k=4 八瓣与 k=7 七瓣展品应在场");
+    }
+
+    /** 行为：AC 自动机三命中 + 螺线三线同屏。 */
+    @org.junit.jupiter.api.Test
+    void acSpiralBehave() throws Exception {
+        var ac = new com.algoviz.engine.string.AcautoDemo().produce().steps();
+        String acText = ac.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        assertTrue2(acText.contains("she 命中") && acText.contains("hers 命中"), "应命中 she 与 hers");
+        assertTrue2(ac.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("嵌套命中")), "she 命中后应沿 fail 链嵌套命中 he");
+        var acFields = ac.get(ac.size() - 1).heap().heap().objects().get("@1").fields();
+        assertTrue2(acFields.get("命中").text().contains("hers@6"), "终态命中清单应含 hers@6");
+        // 螺线：三曲线同屏（sineTrace/cosineTrace/trace3 各 151 点）
+        var sp = new com.algoviz.engine.math.SpiralDemo().produce().steps();
+        var plot = sp.get(sp.size() - 1).plot();
+        assertEquals(151, plot.sineTrace().size());
+        assertEquals(151, plot.cosineTrace().size());
+        assertEquals(151, plot.trace3().size());
     }
 
     /** 行为：机器学习三连——Q-Learning 路径点亮/决策树根=天候/朴素贝叶斯判 spam。 */

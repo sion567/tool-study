@@ -1,0 +1,2177 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "string.acauto",
+    "title": "AC 自动机",
+    "codeResource": "/code/AcautoDemo.java",
+    "input": "4 模式 ushers",
+    "inputSize": 16
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Trie 的省字诀：公共前缀只建一次——新模式直接挂在已有前缀上"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 3,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入「he」——Trie 共 3 节点，共享前缀不重复建（she 复用 he 的两条边）"
+        }
+      ],
+      "intent": {
+        "why": "Trie 的省字诀：公共前缀只建一次——新模式直接挂在已有前缀上",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Trie 的省字诀：公共前缀只建一次——新模式直接挂在已有前缀上"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 6,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "0",
+                "N5",
+                "she",
+                "she",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入「she」——Trie 共 6 节点，共享前缀不重复建（she 复用 he 的两条边）"
+        }
+      ],
+      "intent": {
+        "why": "Trie 的省字诀：公共前缀只建一次——新模式直接挂在已有前缀上",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Trie 的省字诀：公共前缀只建一次——新模式直接挂在已有前缀上"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 8,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "0",
+                "N5",
+                "she",
+                "she",
+                "0",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入「his」——Trie 共 8 节点，共享前缀不重复建（she 复用 he 的两条边）"
+        }
+      ],
+      "intent": {
+        "why": "Trie 的省字诀：公共前缀只建一次——新模式直接挂在已有前缀上",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 9,
+        "endLine": 9,
+        "note": "Trie 的省字诀：公共前缀只建一次——新模式直接挂在已有前缀上"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "0",
+                "N5",
+                "she",
+                "she",
+                "0",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "0",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "0"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "插入「hers」——Trie 共 10 节点，共享前缀不重复建（she 复用 he 的两条边）"
+        }
+      ],
+      "intent": {
+        "why": "Trie 的省字诀：公共前缀只建一次——新模式直接挂在已有前缀上",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 15,
+        "endLine": 15,
+        "note": "fail 链 = '这个串的最长真后缀还在 Trie 里吗'——KMP 的 next 数组推广到树上"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [],
+          "detail": "fail 指针构建完成（BFS）：fail(节点she)=节点he——最长真后缀转移"
+        }
+      ],
+      "intent": {
+        "why": "fail 链 = '这个串的最长真后缀还在 Trie 里吗'——KMP 的 next 数组推广到树上",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 18,
+        "endLine": 18,
+        "note": "一次扫描命中全部模式：n 个字符跑完，不用为每个模式重扫"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MESSAGE",
+          "targets": [],
+          "detail": "扫描开始：文本指针只前进不回退——mismatch 时状态沿 fail 跳（KMP 的多模式版）"
+        }
+      ],
+      "intent": {
+        "why": "一次扫描命中全部模式：n 个字符跑完，不用为每个模式重扫",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "状态沿 Trie 前进或 fail 跳——文本指针永不回退"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "0/6"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                "0",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [
+                0,
+                6
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [
+                0,
+                1
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "文本[0]='u' → 状态 0"
+        }
+      ],
+      "intent": {
+        "why": "状态沿 Trie 前进或 fail 跳——文本指针永不回退",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "状态沿 Trie 前进或 fail 跳——文本指针永不回退"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "3"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "1/6"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                "OK",
+                "3",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [
+                1,
+                7
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [
+                12,
+                13
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "文本[1]='s' → 状态 3"
+        }
+      ],
+      "intent": {
+        "why": "状态沿 Trie 前进或 fail 跳——文本指针永不回退",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "状态沿 Trie 前进或 fail 跳——文本指针永不回退"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "4"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "2/6"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "-"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "-"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                "OK",
+                "OK",
+                "4",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [
+                2,
+                8
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [
+                16,
+                17
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "文本[2]='h' → 状态 4"
+        }
+      ],
+      "intent": {
+        "why": "状态沿 Trie 前进或 fail 跳——文本指针永不回退",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "词尾命中：本状态代表的模式在文本中结束——继续沿 fail 链看嵌套"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "3/6"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "2 次"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "she@4, he@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                "OK",
+                "OK",
+                "OK",
+                "5",
+                ".",
+                "."
+              ],
+              "activeCells": [
+                3,
+                9
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [
+                20,
+                21
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "文本[3]='e' → 状态 5（词尾：she 命中！）"
+        }
+      ],
+      "intent": {
+        "why": "词尾命中：本状态代表的模式在文本中结束——继续沿 fail 链看嵌套",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 23,
+        "endLine": 23,
+        "note": "she 命中的同时沿 fail 到 he——'一个文本位置可命中多个模式'"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "5"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "3/6"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "2 次"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "she@4, he@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                "OK",
+                "OK",
+                "OK",
+                "5",
+                ".",
+                "."
+              ],
+              "activeCells": [
+                3,
+                9
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [
+                20,
+                21
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "沿 fail 链：节点 2 也是词尾（he）——嵌套命中！"
+        }
+      ],
+      "intent": {
+        "why": "she 命中的同时沿 fail 到 he——'一个文本位置可命中多个模式'",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "状态沿 Trie 前进或 fail 跳——文本指针永不回退"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "8"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "4/6"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "2 次"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "she@4, he@4"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                "OK",
+                "OK",
+                "OK",
+                "OK",
+                "8",
+                "."
+              ],
+              "activeCells": [
+                4,
+                10
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [
+                32,
+                33
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "文本[4]='r' → 状态 8"
+        }
+      ],
+      "intent": {
+        "why": "状态沿 Trie 前进或 fail 跳——文本指针永不回退",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 21,
+        "endLine": 21,
+        "note": "词尾命中：本状态代表的模式在文本中结束——继续沿 fail 链看嵌套"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "9"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "5/6"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "3 次"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "she@4, he@4, hers@6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                "OK",
+                "OK",
+                "OK",
+                "OK",
+                "OK",
+                "9"
+              ],
+              "activeCells": [
+                5,
+                11
+              ],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [
+                36,
+                37
+              ],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [],
+          "detail": "文本[5]='s' → 状态 9（词尾：hers 命中！）"
+        }
+      ],
+      "intent": {
+        "why": "词尾命中：本状态代表的模式在文本中结束——继续沿 fail 链看嵌套",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "AC 自动机(1975)：grep 多模式搜索、入侵检测、DNA 序列比对——多模式匹配的工业标准"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "3 次"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "she@4, he@4, hers@6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [],
+          "detail": "扫描完成：命中 [she@4, he@4, hers@6]——3 次命中 1 次扫描"
+        }
+      ],
+      "intent": {
+        "why": "AC 自动机(1975)：grep 多模式搜索、入侵检测、DNA 序列比对——多模式匹配的工业标准",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 28,
+        "endLine": 28,
+        "note": "复杂度 O(文本 + 模式总长 + 命中数)——模式再多也只扫一遍文本"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": [
+            {
+              "method": "acauto",
+              "locals": {
+                "状态": {
+                  "kind": "PRIM",
+                  "text": "0"
+                },
+                "文本位": {
+                  "kind": "PRIM",
+                  "text": "-"
+                },
+                "命中": {
+                  "kind": "PRIM",
+                  "text": "3 次"
+                }
+              }
+            }
+          ]
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "ac",
+                "type": "AhoState",
+                "fields": {
+                  "模式": {
+                    "kind": "PRIM",
+                    "text": "[he, she, his, hers]"
+                  },
+                  "文本": {
+                    "kind": "PRIM",
+                    "text": "\"ushers\""
+                  },
+                  "命中": {
+                    "kind": "PRIM",
+                    "text": "she@4, he@4, hers@6"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "math.matrix": {
+          "name": "AC 自动机",
+          "grids": [
+            {
+              "id": "scan",
+              "label": "文本扫描（上行=字符，下行=进入的状态；黄=当前位）",
+              "rows": 2,
+              "cols": 6,
+              "values": [
+                "u",
+                "s",
+                "h",
+                "e",
+                "r",
+                "s",
+                ".",
+                ".",
+                ".",
+                ".",
+                ".",
+                "."
+              ],
+              "activeCells": [],
+              "doneCells": []
+            },
+            {
+              "id": "trie",
+              "label": "Trie 节点表（fail = 最长真后缀转移）",
+              "rows": 10,
+              "cols": 4,
+              "values": [
+                "N0",
+                "root",
+                "-",
+                "0",
+                "N1",
+                "h",
+                "-",
+                "0",
+                "N2",
+                "he",
+                "he",
+                "0",
+                "N3",
+                "s",
+                "-",
+                "0",
+                "N4",
+                "sh",
+                "-",
+                "1",
+                "N5",
+                "she",
+                "she",
+                "2",
+                "N6",
+                "hi",
+                "-",
+                "0",
+                "N7",
+                "his",
+                "his",
+                "3",
+                "N8",
+                "her",
+                "-",
+                "0",
+                "N9",
+                "hers",
+                "hers",
+                "3"
+              ],
+              "activeCells": [],
+              "doneCells": []
+            }
+          ]
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "对照 KMP：单模式 next → 多模式 fail；单模式扫描 → Trie 上扫描——推广而不重写"
+        }
+      ],
+      "intent": {
+        "why": "复杂度 O(文本 + 模式总长 + 命中数)——模式再多也只扫一遍文本",
+        "invariant": "fail(节点) = Trie 中该串的最长真后缀——扫描时 mismatch 沿 fail 跳（不回退文本指针），命中一个模式后沿 fail 链还能捡到嵌套的短模式——KMP 的单模式 fail 推广到 Trie 上"
+      }
+    }
+  ]
+}

@@ -167,6 +167,8 @@ public final class AlgorithmRegistry {
             new Entry("机器学习", null, new com.algoviz.engine.ml.QlearnDemo()),
             new Entry("机器学习", null, new com.algoviz.engine.ml.DtreeDemo()),
             new Entry("机器学习", null, new com.algoviz.engine.ml.NaiveBayesDemo()),
+            new Entry("字符串", null, new com.algoviz.engine.string.AcautoDemo()),
+            new Entry("数学", "几何坐标", new com.algoviz.engine.math.SpiralDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.ProjectileDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.SpringDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.DoublePendulumDemo()),
@@ -416,6 +418,8 @@ public final class AlgorithmRegistry {
             case "ml.qlearn" -> new com.algoviz.engine.ml.QlearnDemo();
             case "ml.dtree" -> new com.algoviz.engine.ml.DtreeDemo();
             case "ml.naivebayes" -> new com.algoviz.engine.ml.NaiveBayesDemo();
+            case "string.acauto" -> new com.algoviz.engine.string.AcautoDemo();
+            case "math.spiral" -> new com.algoviz.engine.math.SpiralDemo();
             default -> null;
         };
     }
