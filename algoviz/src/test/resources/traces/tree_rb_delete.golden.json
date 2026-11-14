@@ -1,0 +1,5144 @@
+{
+  "schemaVersion": "1",
+  "meta": {
+    "algorithmId": "tree.rb.delete",
+    "title": "红黑树删除",
+    "codeResource": "/code/RedBlackDeleteDemo.java",
+    "input": "10 节点删 3",
+    "inputSize": 30
+  },
+  "steps": [
+    {
+      "index": 0,
+      "loc": {
+        "startLine": 4,
+        "endLine": 4,
+        "note": "插入的红黑性质已在前一演示验证——本演示专注删除的修复"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@10",
+                    "refId": "@10"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@10": {
+                "id": "@10",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@7",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@8",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@10",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@9",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@10",
+              "val": 10,
+              "leftId": "@9",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [],
+          "detail": "10 节点红黑树就绪（LLRB 插入构建，根已压黑）——删除序列 [7, 1, 9]"
+        }
+      ],
+      "intent": {
+        "why": "插入的红黑性质已在前一演示验证——本演示专注删除的修复",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 1,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "删除黑节点会破坏黑高：先把'路径上的黑'喂成红（向兄弟借侄）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@10",
+                    "refId": "@10"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@10": {
+                "id": "@10",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@7",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@8",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@10",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@9",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@10",
+              "val": 10,
+              "leftId": "@9",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@4"
+          ],
+          "detail": "删除 7——先保证删除路径上没有 2-节点（moveRed 借侄）"
+        }
+      ],
+      "intent": {
+        "why": "删除黑节点会破坏黑高：先把'路径上的黑'喂成红（向兄弟借侄）",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 2,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "进入右子树删除前同样要喂红——否则黑高立刻破坏"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@10",
+                    "refId": "@10"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@10": {
+                "id": "@10",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@7",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@8",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@10",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@9",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@10",
+              "val": 10,
+              "leftId": "@9",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@6"
+          ],
+          "detail": "右孩子是 2-节点 → moveRedRight：向左兄弟借侄喂红"
+        }
+      ],
+      "intent": {
+        "why": "进入右子树删除前同样要喂红——否则黑高立刻破坏",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 3,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "对称版：右路删除前的喂红"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@10",
+                    "refId": "@10"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@10": {
+                "id": "@10",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@7",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@8",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@10",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@9",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@10",
+              "val": 10,
+              "leftId": "@9",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@6"
+          ],
+          "detail": "moveRedRight @h6：变色借左兄弟"
+        }
+      ],
+      "intent": {
+        "why": "对称版：右路删除前的喂红",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 4,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "叶删除最简单：断链后若自己是红，黑高无损；修复交给 fixup"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "7"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@10",
+                    "refId": "@10"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@10": {
+                "id": "@10",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 7,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@8",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@10",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@9",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@10",
+              "val": 10,
+              "leftId": "@9",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@7"
+          ],
+          "detail": "叶节点命中 → 直接移除（断链交给父调用）"
+        }
+      ],
+      "intent": {
+        "why": "叶删除最简单：断链后若自己是红，黑高无损；修复交给 fixup",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 5,
+      "loc": {
+        "startLine": 23,
+        "endLine": 23,
+        "note": "性质校验是断言不是口号：任何一步修复出错都会在这里现形"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@9",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@8",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@9",
+              "val": 10,
+              "leftId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "@4"
+          ],
+          "detail": "删除 7 完成——校验：根黑 ✓ 红红不相邻 ✓ 中序有序 ✓"
+        }
+      ],
+      "intent": {
+        "why": "性质校验是断言不是口号：任何一步修复出错都会在这里现形",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 6,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "删除黑节点会破坏黑高：先把'路径上的黑'喂成红（向兄弟借侄）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@9",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@8",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@9",
+              "val": 10,
+              "leftId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@4"
+          ],
+          "detail": "删除 1——先保证删除路径上没有 2-节点（moveRed 借侄）"
+        }
+      ],
+      "intent": {
+        "why": "删除黑节点会破坏黑高：先把'路径上的黑'喂成红（向兄弟借侄）",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 7,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "删除黑节点前必须把路径上的 2-节点喂红——借侄 = 给左边腾一个红"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@9",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@8",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@9",
+              "val": 10,
+              "leftId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "左孩子是 2-节点 → moveRedLeft：向右兄弟借侄喂红"
+        }
+      ],
+      "intent": {
+        "why": "删除黑节点前必须把路径上的 2-节点喂红——借侄 = 给左边腾一个红",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 8,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "先变色再借：借完可能触发旋转——LLRB 的借侄两连招"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@9",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@8",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@9",
+              "val": 10,
+              "leftId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@4"
+          ],
+          "detail": "moveRedLeft @h4：变色（自己红、孩子红）"
+        }
+      ],
+      "intent": {
+        "why": "先变色再借：借完可能触发旋转——LLRB 的借侄两连招",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 9,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "删除黑节点前必须把路径上的 2-节点喂红——借侄 = 给左边腾一个红"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@9",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@8",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@9",
+              "val": 10,
+              "leftId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "左孩子是 2-节点 → moveRedLeft：向右兄弟借侄喂红"
+        }
+      ],
+      "intent": {
+        "why": "删除黑节点前必须把路径上的 2-节点喂红——借侄 = 给左边腾一个红",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 10,
+      "loc": {
+        "startLine": 8,
+        "endLine": 8,
+        "note": "先变色再借：借完可能触发旋转——LLRB 的借侄两连招"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@9",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@8",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@9",
+              "val": 10,
+              "leftId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@2"
+          ],
+          "detail": "moveRedLeft @h2：变色（自己红、孩子红）"
+        }
+      ],
+      "intent": {
+        "why": "先变色再借：借完可能触发旋转——LLRB 的借侄两连招",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 11,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "叶删除最简单：断链后若自己是红，黑高无损；修复交给 fixup"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "1"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@9",
+                    "refId": "@9"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@9": {
+                "id": "@9",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@4",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 1,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 2,
+              "leftId": "@1",
+              "rightId": "@3",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 3,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@4",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@5",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@6",
+              "val": 6,
+              "leftId": "@5",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 8,
+              "leftId": "@6",
+              "rightId": "@9",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@8",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@9",
+              "val": 10,
+              "leftId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@1"
+          ],
+          "detail": "叶节点命中 → 直接移除（断链交给父调用）"
+        }
+      ],
+      "intent": {
+        "why": "叶删除最简单：断链后若自己是红，黑高无损；修复交给 fixup",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 12,
+      "loc": {
+        "startLine": 23,
+        "endLine": 23,
+        "note": "性质校验是断言不是口号：任何一步修复出错都会在这里现形"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@6",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 2,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@5",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@4",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@5",
+              "val": 6,
+              "leftId": "@4",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 8,
+              "leftId": "@3",
+              "rightId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@8",
+              "val": 10,
+              "leftId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "@6"
+          ],
+          "detail": "删除 1 完成——校验：根黑 ✓ 红红不相邻 ✓ 中序有序 ✓"
+        }
+      ],
+      "intent": {
+        "why": "性质校验是断言不是口号：任何一步修复出错都会在这里现形",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 13,
+      "loc": {
+        "startLine": 6,
+        "endLine": 6,
+        "note": "删除黑节点会破坏黑高：先把'路径上的黑'喂成红（向兄弟借侄）"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@6",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 2,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@5",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@4",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@5",
+              "val": 6,
+              "leftId": "@4",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 8,
+              "leftId": "@3",
+              "rightId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@8",
+              "val": 10,
+              "leftId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "INIT",
+          "targets": [
+            "@6"
+          ],
+          "detail": "删除 9——先保证删除路径上没有 2-节点（moveRed 借侄）"
+        }
+      ],
+      "intent": {
+        "why": "删除黑节点会破坏黑高：先把'路径上的黑'喂成红（向兄弟借侄）",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 14,
+      "loc": {
+        "startLine": 14,
+        "endLine": 14,
+        "note": "LLRB 左倾不变式：删除右子树前要先把左边的红旋过来"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@6",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 2,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@5",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@4",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@5",
+              "val": 6,
+              "leftId": "@4",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 8,
+              "leftId": "@3",
+              "rightId": "@8",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@8",
+              "val": 10,
+              "leftId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "SET",
+          "targets": [
+            "@6"
+          ],
+          "detail": "左子红 → 右旋（把红带到右路，准备进入右子树删除）"
+        }
+      ],
+      "intent": {
+        "why": "LLRB 左倾不变式：删除右子树前要先把左边的红旋过来",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 15,
+      "loc": {
+        "startLine": 17,
+        "endLine": 17,
+        "note": "叶删除最简单：断链后若自己是红，黑高无损；修复交给 fixup"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@6",
+                    "refId": "@6"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@8",
+                    "refId": "@8"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "9"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@8": {
+                "id": "@8",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@3",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 2,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@6",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@4",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@5",
+              "val": 6,
+              "leftId": "@4",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 8,
+              "leftId": "@5",
+              "rightId": "@8",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@7",
+              "val": 9,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@8",
+              "val": 10,
+              "leftId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [
+            "@7"
+          ],
+          "detail": "叶节点命中 → 直接移除（断链交给父调用）"
+        }
+      ],
+      "intent": {
+        "why": "叶删除最简单：断链后若自己是红，黑高无损；修复交给 fixup",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 16,
+      "loc": {
+        "startLine": 23,
+        "endLine": 23,
+        "note": "性质校验是断言不是口号：任何一步修复出错都会在这里现形"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@6",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 2,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@5",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@4",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@5",
+              "val": 6,
+              "leftId": "@4",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 8,
+              "leftId": "@3",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "MARK_SORTED",
+          "targets": [
+            "@6"
+          ],
+          "detail": "删除 9 完成——校验：根黑 ✓ 红红不相邻 ✓ 中序有序 ✓"
+        }
+      ],
+      "intent": {
+        "why": "性质校验是断言不是口号：任何一步修复出错都会在这里现形",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    },
+    {
+      "index": 17,
+      "loc": {
+        "startLine": 26,
+        "endLine": 26,
+        "note": "删除比插入难一档：双黑修复四情形——LLRB 用 moveRed 喂红把它压成'先借后修'两步"
+      },
+      "layers": {
+        "mem.stack": {
+          "frames": []
+        },
+        "mem.heap": {
+          "heap": {
+            "objects": {
+              "@1": {
+                "id": "@1",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "2"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@2": {
+                "id": "@2",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "3"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@1",
+                    "refId": "@1"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@3": {
+                "id": "@3",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "4"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@2",
+                    "refId": "@2"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@5",
+                    "refId": "@5"
+                  }
+                },
+                "elements": []
+              },
+              "@4": {
+                "id": "@4",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "5"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@5": {
+                "id": "@5",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "6"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@4",
+                    "refId": "@4"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              },
+              "@6": {
+                "id": "@6",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "8"
+                  },
+                  "left": {
+                    "kind": "REF",
+                    "text": "@3",
+                    "refId": "@3"
+                  },
+                  "right": {
+                    "kind": "REF",
+                    "text": "@7",
+                    "refId": "@7"
+                  }
+                },
+                "elements": []
+              },
+              "@7": {
+                "id": "@7",
+                "label": "node",
+                "type": "Node",
+                "fields": {
+                  "val": {
+                    "kind": "PRIM",
+                    "text": "10"
+                  },
+                  "left": {
+                    "kind": "NULL",
+                    "text": "null"
+                  },
+                  "right": {
+                    "kind": "NULL",
+                    "text": "null"
+                  }
+                },
+                "elements": []
+              }
+            }
+          }
+        },
+        "ds.tree": {
+          "name": "rbDelete",
+          "rootId": "@6",
+          "nodes": [
+            {
+              "nodeId": "@1",
+              "val": 2,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@2",
+              "val": 3,
+              "leftId": "@1",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@3",
+              "val": 4,
+              "leftId": "@2",
+              "rightId": "@5",
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@4",
+              "val": 5,
+              "state": "unvisited",
+              "rbColor": "RED"
+            },
+            {
+              "nodeId": "@5",
+              "val": 6,
+              "leftId": "@4",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@6",
+              "val": 8,
+              "leftId": "@3",
+              "rightId": "@7",
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            },
+            {
+              "nodeId": "@7",
+              "val": 10,
+              "state": "unvisited",
+              "rbColor": "BLACK"
+            }
+          ],
+          "callStackIds": [],
+          "varTags": {}
+        }
+      },
+      "events": [
+        {
+          "type": "RETURN",
+          "targets": [],
+          "detail": "三次删除完成——树始终是合法红黑树：删除的代价 = O(log n) 的修复"
+        }
+      ],
+      "intent": {
+        "why": "删除比插入难一档：双黑修复四情形——LLRB 用 moveRed 喂红把它压成'先借后修'两步",
+        "invariant": "LLRB 删除：删除前把路径上的 2-节点喂红（moveRed 借侄），删除后 fixup 逆序三步恢复——红黑性质（根黑/红红不相邻/黑高相同）每步删除后依然成立"
+      }
+    }
+  ]
+}

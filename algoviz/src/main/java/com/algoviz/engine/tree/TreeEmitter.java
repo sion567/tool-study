@@ -114,6 +114,88 @@ final class TreeEmitter {
         return rbMap.get(idx);
     }
 
+    /** 读节点值（红黑删除的后继替换用）。 */
+    int valOf(int idx) {
+        return nodes.get(idx)[0];
+    }
+
+    /**
+     * 紧凑化：从 root BFS 收集可达节点，物理移除孤儿（删除/断链残留）并重映射全部索引。
+     * 返回重映射后的新 root 下标（节点删除后 root 可能改变）。
+     */
+    int compact(int root) {
+        if (root == -1) {
+            return -1;
+        }
+        java.util.Set<Integer> reach = new java.util.LinkedHashSet<>();
+        java.util.ArrayDeque<Integer> q = new java.util.ArrayDeque<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int u = q.poll();
+            if (!reach.add(u)) {
+                continue;
+            }
+            for (int c : new int[]{nodes.get(u)[1], nodes.get(u)[2]}) {
+                if (c >= 0) {
+                    q.add(c);
+                }
+            }
+        }
+        // 重排：可达节点按原相对顺序压到前面
+        java.util.List<Integer> order = new java.util.ArrayList<>(reach);
+        Collections.sort(order);
+        Map<Integer, Integer> remap = new LinkedHashMap<>();
+        for (int i = 0; i < order.size(); i++) {
+            remap.put(order.get(i), i);
+        }
+        List<int[]> newNodes = new ArrayList<>();
+        Map<Integer, String> newRb = new LinkedHashMap<>();
+        List<Integer> newState = new ArrayList<>();
+        List<Integer> newVisit = new ArrayList<>();
+        for (int old : order) {
+            newNodes.add(nodes.get(old));
+            String c = rbMap.get(old);
+            if (c != null) {
+                newRb.put(i2k(remap.get(old)), c);
+            }
+            if (old < state.length) {
+                newState.add(state[old]);
+            }
+            if (old < visitOrder.length) {
+                newVisit.add(visitOrder[old]);
+            }
+        }
+        nodes.clear();
+        nodes.addAll(newNodes);
+        state = newState.stream().mapToInt(Integer::intValue).toArray();
+        visitOrder = newVisit.stream().mapToInt(Integer::intValue).toArray();
+        rbMap.clear();
+        rbMap.putAll(newRb);
+        // 孩子指针重映射
+        for (int[] nd : nodes) {
+            nd[1] = nd[1] >= 0 ? remap.get(nd[1]) : -1;
+            nd[2] = nd[2] >= 0 ? remap.get(nd[2]) : -1;
+        }
+        // 调用栈/指针标签重映射
+        for (int d = 0; d < callStack.size(); d++) {
+            Integer c = callStack.get(d);
+            if (c != null && c >= 0 && remap.containsKey(c)) {
+                callStack.set(d, remap.get(c));
+            }
+        }
+        pointerTags.replaceAll((k, v) -> v != null && remap.containsKey(v) ? remap.get(v) : -1);
+        return remap.get(root);
+    }
+
+    private static Integer i2k(Integer i) {
+        return i;
+    }
+
+    /** 写节点值（后继顶替：值换，结构不动）。 */
+    void valOf(int idx, int v) {
+        nodes.get(idx)[0] = v;
+    }
+
     /** 设置画布指针标签（-1 = 移除）。 */
     void tag(String name, int idx) {
         pointerTags.put(name, idx);

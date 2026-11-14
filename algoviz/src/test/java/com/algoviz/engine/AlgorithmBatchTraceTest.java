@@ -140,6 +140,7 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"ml_naivebayes", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.ml.NaiveBayesDemo::new},
                 new Object[]{"string_acauto", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.string.AcautoDemo::new},
                 new Object[]{"math_spiral", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.SpiralDemo::new},
+                new Object[]{"tree_rb_delete", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.tree.RedBlackDeleteDemo::new},
                 new Object[]{"math_fastpower", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.FastPowerDemo::new},
                 new Object[]{"math_gcd", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.GcdDemo::new},
                 new Object[]{"math_bloom", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BloomFilterDemo::new},
@@ -1215,6 +1216,65 @@ class AlgorithmBatchTraceTest {
         String roseText = rose.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
                 .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
         assertTrue2(roseText.contains("8 瓣") && roseText.contains("7 瓣"), "k=4 八瓣与 k=7 七瓣展品应在场");
+    }
+
+    /** 行为：红黑树删除——三次删除后中序有序、根黑、无红红、黑高一致（性质完整校验）。 */
+    @org.junit.jupiter.api.Test
+    void rbDeleteBehave() throws Exception {
+        var d = new com.algoviz.engine.tree.RedBlackDeleteDemo().produce();
+        var last = d.steps().get(d.steps().size() - 1);
+        var nodes = last.tree().nodes();
+        java.util.Map<Integer, Integer> l = new java.util.HashMap<>(), r = new java.util.HashMap<>();
+        java.util.Map<Integer, String> col = new java.util.HashMap<>();
+        java.util.Map<Integer, Integer> val = new java.util.HashMap<>();
+        int rootIdx = -1;
+        for (var n : nodes) {
+            int idx = Integer.parseInt(n.nodeId().replace("@", "")) - 1;
+            l.put(idx, n.leftId() == null ? -1 : Integer.parseInt(n.leftId().replace("@", "")) - 1);
+            r.put(idx, n.rightId() == null ? -1 : Integer.parseInt(n.rightId().replace("@", "")) - 1);
+            col.put(idx, n.rbColor());
+            val.put(idx, n.val());
+        }
+        for (int i = 0; i < nodes.size(); i++) {
+            boolean pointed = false;
+            for (var e : l.entrySet()) if (e.getValue() == i) pointed = true;
+            for (var e : r.entrySet()) if (e.getValue() == i) pointed = true;
+            if (!pointed) rootIdx = i;
+        }
+        java.util.List<Integer> in = new java.util.ArrayList<>();
+        inorderWalk(rootIdx, l, r, val, in);
+        assertEquals(java.util.List.of(2, 3, 4, 5, 6, 8, 10), in, "删 7/1/9 后中序应有序");
+        assertTrue2("BLACK".equals(col.get(rootIdx)), "根必须黑");
+        for (int i = 0; i < nodes.size(); i++) {
+            if ("RED".equals(col.get(i))) {
+                assertTrue2(l.get(i) < 0 || !"RED".equals(col.get(l.get(i))), "红红不相邻（左）");
+                assertTrue2(r.get(i) < 0 || !"RED".equals(col.get(r.get(i))), "红红不相邻（右）");
+            }
+        }
+        java.util.TreeSet<Integer> bh = new java.util.TreeSet<>();
+        blackHeightWalk(rootIdx, -1, col, l, r, bh);
+        assertTrue2(bh.size() == 1, "黑高必须一致：" + bh);
+    }
+
+    private static void inorderWalk(int i, java.util.Map<Integer, Integer> l,
+                                    java.util.Map<Integer, Integer> r,
+                                    java.util.Map<Integer, Integer> v, java.util.List<Integer> out) {
+        if (i < 0) return;
+        inorderWalk(l.get(i), l, r, v, out);
+        out.add(v.get(i));
+        inorderWalk(r.get(i), l, r, v, out);
+    }
+
+    private static void blackHeightWalk(int i, int parentBH, java.util.Map<Integer, String> col,
+                                        java.util.Map<Integer, Integer> l, java.util.Map<Integer, Integer> r,
+                                        java.util.TreeSet<Integer> bh) {
+        if (i < 0) {
+            bh.add(parentBH + 1);
+            return;
+        }
+        int add = "BLACK".equals(col.get(i)) ? 1 : 0;
+        blackHeightWalk(l.get(i), parentBH + add, col, l, r, bh);
+        blackHeightWalk(r.get(i), parentBH + add, col, l, r, bh);
     }
 
     /** 行为：AC 自动机三命中 + 螺线三线同屏。 */

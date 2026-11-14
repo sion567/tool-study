@@ -1,9 +1,9 @@
 # AlgoViz —— 算法的"执行现场"
 
-> 一个 JavaFX 桌面应用：把 **164 个算法/模式/数学/物理/奥数/化学/密码学/机器学习主题** 变成可逐帧回放的"执行现场"。
+> 一个 JavaFX 桌面应用：把 **165 个算法/模式/数学/物理/奥数/化学/密码学/机器学习主题** 变成可逐帧回放的"执行现场"。
 > 不是看动画的**电影院**，而是练预测、练默写的**健身房**。
 
-[![Java](https://img.shields.io/badge/Java-21-orange)]() [![JavaFX](https://img.shields.io/badge/JavaFX-21.0.4-blue)]() [![Tests](https://img.shields.io/badge/tests-546%20passing-brightgreen)]() [![Golden](https://img.shields.io/badge/golden%20baselines-163-yellow)]()
+[![Java](https://img.shields.io/badge/Java-21-orange)]() [![JavaFX](https://img.shields.io/badge/JavaFX-21.0.4-blue)]() [![Tests](https://img.shields.io/badge/tests-550%20passing-brightgreen)]() [![Golden](https://img.shields.io/badge/golden%20baselines-165-yellow)]()
 
 ---
 
@@ -19,11 +19,11 @@
 
 **时间旅行**：因为每帧不可变，任意回退、逐帧步进、 golden 基线逐字节比对，全部免费。
 
-## 内容目录（164 个演示，三口径一致：注册条目 = 独立 id = 独立标题）
+## 内容目录（165 个演示，三口径一致：注册条目 = 独立 id = 独立标题）
 
 | 板块 | 内容 |
 |---|---|
-| **算法**（52） | 排序 6 · 查找 2 · 链表 8 · 树 15 · 图 9 · DP 5 · 回溯 3 · 前缀和/双指针 2 · 贪心 1 · KMP 1 · AC 自动机 1 |
+| **算法**（53） | 排序 6 · 查找 2 · 链表 8 · 树 16（红黑树删除收官）· 图 9 · DP 5 · 回溯 3 · 前缀和/双指针 2 · 贪心 1 · KMP 1 · AC 自动机 1 |
 | **设计模式**（23） | GoF 全家桶：创建 5 / 结构 7 / 行为 11，时序图逐条消息 |
 | **SOLID + 重构**（8） | SOLID 五原则各有反例→正例两幕；重构三招（提取方法/参数对象/多态取代条件） |
 | **并发**（5） | 生产者-消费者 / 读写锁 / 线程池 / 可见性与CAS / 死锁四要件——脚本化交错保证确定性 |
@@ -43,7 +43,7 @@
 ```bash
 # 依赖：JDK 21 + Maven（Windows）
 cd algoviz
-mvn test              # 546 个测试（纯 JVM，不需要图形环境）
+mvn test              # 550 个测试（纯 JVM，不需要图形环境）
 mvn javafx:run        # 开发运行
 
 # 一键打包（产物：免安装 exe，自带 JRE，目标机器无需 Java）
@@ -61,7 +61,7 @@ MainApp（Controller/组合根）
                                      com.algoviz.app/（JavaRunner 行为判卷等纯逻辑）
 ```
 
-- **`engine/` 与测试零 JavaFX 依赖** → 546 个测试纯 JVM 毫秒级跑完
+- **`engine/` 与测试零 JavaFX 依赖** → 550 个测试纯 JVM 毫秒级跑完
 - 121 个 golden 基线逐字节锁定每条 trace——任何行为变化都看得见
 - 详见 [AlgoViz架构归档.md](AlgoViz架构归档.md)：MVC/MVP/MVVM 三镜头映射、新图层 7 步 checklist、关键决策日志
 
@@ -77,14 +77,14 @@ algoviz/
 ├── src/main/resources/
 │   ├── code/            # 每个演示的可运行代码模板（默写参考答案）
 │   └── markdown/        # 每个演示的课件
-└── src/test/            # 546 测试 + TraceAsserts 合约检查 + golden 基线
+└── src/test/            # 550 测试 + TraceAsserts 合约检查 + golden 基线
 package.cmd              # 一键打包
 ```
 
 ## 测试
 
 ```bash
-mvn test    # 546 tests：合约检查 + 渲染烟测（TraceAsserts）+ 幂等性 + 163 golden 逐字节 + 行为断言
+mvn test    # 550 tests：合约检查 + 渲染烟测（TraceAsserts）+ 幂等性 + 165 golden 逐字节 + 行为断言
 ```
 
 Golden 基线的哲学：**任何一行产出的变化都看得见**。有意变更时删除对应 `.golden.json` 重跑即自动重建。

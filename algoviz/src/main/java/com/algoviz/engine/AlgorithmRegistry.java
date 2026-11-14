@@ -168,6 +168,7 @@ public final class AlgorithmRegistry {
             new Entry("机器学习", null, new com.algoviz.engine.ml.DtreeDemo()),
             new Entry("机器学习", null, new com.algoviz.engine.ml.NaiveBayesDemo()),
             new Entry("字符串", null, new com.algoviz.engine.string.AcautoDemo()),
+            new Entry("树", null, new com.algoviz.engine.tree.RedBlackDeleteDemo()),
             new Entry("数学", "几何坐标", new com.algoviz.engine.math.SpiralDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.ProjectileDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.SpringDemo()),
@@ -420,6 +421,7 @@ public final class AlgorithmRegistry {
             case "ml.naivebayes" -> new com.algoviz.engine.ml.NaiveBayesDemo();
             case "string.acauto" -> new com.algoviz.engine.string.AcautoDemo();
             case "math.spiral" -> new com.algoviz.engine.math.SpiralDemo();
+            case "tree.rb.delete" -> new com.algoviz.engine.tree.RedBlackDeleteDemo();
             default -> null;
         };
     }
