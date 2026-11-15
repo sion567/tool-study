@@ -82,6 +82,9 @@ public class MainApp extends Application {
     private DictationPanel dictationPanel;
     private Tab complexityTab;
     private Tab compareTab;
+    private TabPane tabPane;
+    /** 固定 Tab（代码/说明/预测/默写）——复杂度/对比按演示能力动态增删，顺序保持。 */
+    private final java.util.List<Tab> fixedTabs = new java.util.ArrayList<>();
     private VarsPanel varsPanel;
     private IntentBar intentBar;
     private Canvas canvas;
@@ -197,19 +200,24 @@ public class MainApp extends Application {
         complexityTab.setOnSelectionChanged(e -> {
             if (complexityTab.isSelected()) {
                 stopPlayback();
-                ComplexityPanel.draw(canvas, 50);
             }
+            render();   // 选中→画曲线；切走→恢复算法现场（render 按 Tab 分流）
         });
         compareTab = new Tab("⚖ 对比", TabContents.compare());
         compareTab.setClosable(false);
         compareTab.setOnSelectionChanged(e -> {
             if (compareTab.isSelected()) {
                 stopPlayback();
-                ComplexityPanel.drawEmpirical(canvas, 50);
             }
+            render();
         });
-        TabPane tabs = new TabPane(codeTab, docTab, predictTab, dictationTab, complexityTab, compareTab);
-        tabs.setPrefWidth(500);
+        fixedTabs.clear();
+        fixedTabs.add(codeTab);
+        fixedTabs.add(docTab);
+        fixedTabs.add(predictTab);
+        fixedTabs.add(dictationTab);
+        tabPane = new TabPane(codeTab, docTab, predictTab, dictationTab, complexityTab, compareTab);
+        tabPane.setPrefWidth(500);
 
         // 底：意图栏 + 控制栏 + 现场面板
         intentBar = new IntentBar();
@@ -220,7 +228,7 @@ public class MainApp extends Application {
         bottom.setStyle(Theme.rootStyle());
 
         // 三段可拖拽：左目录 / 中动画 / 右面板（代码/说明/预测）——分隔条随意拉
-        SplitPane split = new SplitPane(tree, canvasPane, tabs);
+        SplitPane split = new SplitPane(tree, canvasPane, tabPane);
         split.setDividerPositions(0.13, 0.60);
         SplitPane.setResizableWithParent(tree, Boolean.FALSE);
 
@@ -289,19 +297,15 @@ public class MainApp extends Application {
         return tv;
     }
 
-    private void placeholder(TreeItem<String> root, String category, String leaf) {
-        TreeItem<String> cat = new TreeItem<>(category);
-        cat.getChildren().add(new TreeItem<>(leaf));
-        root.getChildren().add(cat);
-    }
-
     private HBox buildControls() {
-        // 纯 ASCII 按钮文字：⏮◀▶⏭ 等 Unicode 符号在部分 Windows 字体缺字形（渲染成方框/怪字符）
+        // 走带按钮语义（对称）：|< 到第一步 · < 上一步 · ▶ 播放(播放中 ||) · > 下一步 · >| 到最后一步
+        // 跳转仍用 ASCII |< >|（用户约定）；▶ 是唯一 Unicode——主题按钮 ☀🌙 早已用 Unicode 且
+        // Win11 字体回退链正常（Segoe UI Symbol 兜底）；仍避开 ⏮◀⏭ 这类缺字形风险的生僻符号
         Button first = new Button("|<");
         Button prev = new Button("<");
-        playBtn = new Button(">");
-        Button next = new Button(">|");
-        Button last = new Button(">>|");
+        playBtn = new Button("▶");
+        Button next = new Button(">");
+        Button last = new Button(">|");
         Button themeBtn = new Button(Theme.isDark() ? "☀" : "🌙");
         themeBtn.setOnAction(e -> {
             boolean dark = Theme.toggle();
@@ -320,10 +324,10 @@ public class MainApp extends Application {
             }
         });
 
-        // 数据量滑杆：n = 5..12，松手才触发（valueChanging 防止连发）
-        Label nLabel = new Label("n=8");
+        // 数据量滑杆：n = 5..15（与难度三档同域），松手才触发（valueChanging 防止连发）
+        Label nLabel = new Label("n=5");
         nLabel.setStyle("-fx-font-size:11px; -fx-text-fill:#6b7280;");
-        Slider nSlider = new Slider(5, 12, 8);
+        Slider nSlider = new Slider(5, 15, 5);
         nSlider.setPrefWidth(120);
         nSlider.setMajorTickUnit(1);
         nSlider.setSnapToTicks(true);
@@ -338,7 +342,8 @@ public class MainApp extends Application {
         nLabel.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
         dataNSlider = nSlider;
 
-        // 难度三档（需求 3）：简单/中等/复杂 = n 5/10/15——复用 regenerateWithN 管线；固定剧本类置灰
+        // 难度三档（需求 3）：简单/中等/复杂 = n 5/10/15 的预设——与滑杆同域、双向回写
+        // （成功重生成后 syncDataControls 对齐三控件；固定剧本类置灰）
         javafx.scene.control.ToggleGroup levelGroup = new javafx.scene.control.ToggleGroup();
         for (int[] lv : new int[][]{{0, 5}, {1, 10}, {2, 15}}) {
             javafx.scene.control.ToggleButton tb = new javafx.scene.control.ToggleButton(
@@ -346,6 +351,8 @@ public class MainApp extends Application {
             tb.setToggleGroup(levelGroup);
             tb.setUserData(lv[1]);
             tb.setStyle("-fx-font-size: 11px; -fx-padding: 2 7 2 7;");
+            Tooltip.install(tb, new Tooltip("预设 n=" + lv[1]
+                    + "（各演示按步数预算自行钳制实际规模，如 n≤10/12/16）"));
             tb.setOnAction(e -> regenerateWithN((int) tb.getUserData()));
             levelBtns.add(tb);
         }
@@ -399,7 +406,7 @@ public class MainApp extends Application {
 
     private void stopPlayback() {
         playing = false;
-        playBtn.setText(">");
+        playBtn.setText("▶");
         if (timer != null) {
             timer.stop();
         }
@@ -418,7 +425,9 @@ public class MainApp extends Application {
     }
 
     /** 渲染管线：UI 各组件分别取自己订阅的图层 + 上帧做 diff（蓝图 §2.2 视图 C）。
-     *  try/catch 保证单个算法渲染异常不会把整个播放器打死成白板。 */
+     *  try/catch 保证单个算法渲染异常不会把整个播放器打死成白板。
+     *  画布内容跟随 Tab：复杂度/对比 Tab 选中时画曲线，其余 Tab 画算法现场——
+     *  切回/resize/load 全部经这里收敛，图表画上去之后必有恢复路径。 */
     private void render() {
         try {
             if (canvas.getWidth() < 10 || canvas.getHeight() < 10) {
@@ -426,8 +435,14 @@ public class MainApp extends Application {
             }
             Step cur = playback.current();
             Step prev = playback.index() > 0 ? playback.trace().steps().get(playback.index() - 1) : null;
-            Set<Integer> pickedNow = prediction.armed() ? prediction.picked() : null;
-            CanvasDispatch.paint(canvas, prev, cur, pickedNow, viewZoom, viewPanX, viewPanY);
+            if (compareTab.isSelected()) {
+                ComplexityPanel.drawEmpirical(canvas, 50);
+            } else if (complexityTab.isSelected()) {
+                ComplexityPanel.draw(canvas, 50);
+            } else {
+                Set<Integer> pickedNow = prediction.armed() ? prediction.picked() : null;
+                CanvasDispatch.paint(canvas, prev, cur, pickedNow, viewZoom, viewPanX, viewPanY);
+            }
             if (cur != null) {
                 codePanel.highlight(cur.loc().startLine());
             }
@@ -443,7 +458,7 @@ public class MainApp extends Application {
         }
     }
 
-    /** 数据量滑杆：按 n 重新生成当前算法（支持随机变体的才生效）。 */
+    /** 数据量滑杆/难度三档共用：按 n 重生成；成功后回写滑杆值与难度选中态——三控件同源不说谎。 */
     private void regenerateWithN(int n) {
         if (currentAlgorithm == null) {
             return;
@@ -451,6 +466,18 @@ public class MainApp extends Application {
         Algorithm fresh = AlgorithmRegistry.randomVariant(currentAlgorithm, n);
         if (fresh != null) {
             load(fresh);
+            syncDataControls(n);
+        }
+    }
+
+    /** n 的唯一显示源：滑杆值 + 难度三档选中态（n≠5/10/15 时三档全部浮起——诚实反映"自定义 n"）。 */
+    private void syncDataControls(int n) {
+        if ((int) dataNSlider.getValue() != n) {
+            dataNSlider.setValue(n);   // 程序化赋值不触发 valueChanging，不会递归重生成
+        }
+        int[] presets = {5, 10, 15};
+        for (int i = 0; i < levelBtns.size() && i < presets.length; i++) {
+            levelBtns.get(i).setSelected(n == presets[i]);
         }
     }
 
@@ -484,6 +511,32 @@ public class MainApp extends Application {
         dataNSlider.setDisable(!canRoll);
         for (javafx.scene.control.ToggleButton tb : levelBtns) {   // 难度三档同步置灰
             tb.setDisable(!canRoll);
+        }
+        // 复杂度/对比 Tab 按当前演示能力显隐：无复杂度标注的（模式/物理/…）不显示 📈；
+        // 对比图是六种排序同数据实测，写死排序专用——非排序族不显示 ⚖
+        syncTabs(alg.complexity() != null, alg.id().startsWith("sort."));
+    }
+
+    /** 复杂度/对比 Tab 显隐同步：被隐藏的是选中 Tab 时先落回「代码」页再移除（触发其取消选中 → render 恢复现场）。 */
+    private void syncTabs(boolean showComplexity, boolean showCompare) {
+        java.util.List<Tab> wanted = new java.util.ArrayList<>(fixedTabs);
+        if (showComplexity) {
+            wanted.add(complexityTab);
+        }
+        if (showCompare) {
+            wanted.add(compareTab);
+        }
+        if (tabPane.getTabs().equals(wanted)) {
+            return;   // 常见路径：能力未变，不动 Tab 栏（选中态原样保留）
+        }
+        Tab selected = tabPane.getSelectionModel().getSelectedItem();
+        Tab toRestore = selected;
+        if ((selected == complexityTab && !showComplexity) || (selected == compareTab && !showCompare)) {
+            toRestore = codeTab;   // 当前页要被隐藏 → 落回「代码」
+        }
+        tabPane.getTabs().setAll(wanted);
+        if (toRestore != null && wanted.contains(toRestore)) {
+            tabPane.getSelectionModel().select(toRestore);   // setAll 会清选中态，恢复到原 Tab
         }
     }
 

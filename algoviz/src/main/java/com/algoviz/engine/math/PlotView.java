@@ -29,6 +29,12 @@ import java.util.List;
  * kind = doublePendulum：双摆混沌（物理域）。angle = 当前 θ₁，
  *   pointX/pointY = 主摆锤 2 位置，sineTrace = 主摆锤 2 轨迹，
  *   cosineTrace = 幽灵双摆锤 2 轨迹（初值差 0.001），labels = t/θ/分离度注解。
+ *
+ * kind = taylor：泰勒展开逼近。sineTrace = 真实曲线采样（蓝），
+ *   cosineTrace = 累加近似采样（橙，超域部分渲染器裁剪在边框），
+ *   trace3 = 甲帧新项单独曲线（绿虚线，累加帧为空），
+ *   rects = 误差历史点列 [项数, 全段最大误差]（左下角迷你误差图，逐乙帧追加），
+ *   angle = 当前最高次幂，pointY = [xMin,xMax] 全段最大误差，labels = 图例（真实/累加/新项）。
  */
 public record PlotView(String kind, String name, double angle,
                        double pointX, double pointY,
@@ -46,6 +52,7 @@ public record PlotView(String kind, String name, double angle,
     public static final String CARTESIAN = "cartesian";
     public static final String SCATTER = "scatter";
     public static final String DOUBLE_PENDULUM = "doublePendulum";
+    public static final String TAYLOR = "taylor";
 
     /** unitCircle 旧形态的便捷构造（0..2π / -1..1 域）。 */
     public static PlotView unitCircle(String name, double angle,

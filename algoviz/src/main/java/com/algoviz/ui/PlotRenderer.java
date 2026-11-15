@@ -34,6 +34,7 @@ public final class PlotRenderer {
             case PlotView.CARTESIAN -> drawCartesian(g, w, h, pv);
             case PlotView.SCATTER -> drawScatter(g, w, h, pv);
             case PlotView.DOUBLE_PENDULUM -> drawDoublePendulum(g, w, h, pv);
+            case PlotView.TAYLOR -> drawTaylor(g, w, h, pv);
             default -> drawUnitCircle(g, w, h, pv);
         }
     }
@@ -154,6 +155,176 @@ public final class PlotRenderer {
             g.setFill(Color.web("#ea580c"));
             g.fillOval(lx - 5, ly - 5, 10, 10);
         }
+    }
+
+    // ==================== kind = taylor（泰勒展开逼近 sin/cos）====================
+
+    private static void drawTaylor(GraphicsContext g, double w, double h, PlotView pv) {
+        // 绘图区（留边给刻度与图例）
+        double x0 = w * 0.07, x1 = w * 0.96;
+        double y0 = h * 0.10, y1 = h * 0.90;
+        double dx = pv.xMax() - pv.xMin();
+        double dy = pv.yMax() - pv.yMin();
+
+        java.util.function.DoubleUnaryOperator sx =
+                x -> x0 + (x - pv.xMin()) / dx * (x1 - x0);
+        java.util.function.DoubleUnaryOperator sy =
+                y -> y1 - (y - pv.yMin()) / dy * (y1 - y0);
+
+        // π 刻度竖网格（浅）
+        g.setStroke(Color.web("#eef2f7"));
+        g.setLineWidth(1);
+        double[] ticks = {Math.PI / 2, Math.PI, 3 * Math.PI / 2, 2 * Math.PI};
+        String[] tickNames = {"π/2", "π", "3π/2", "2π"};
+        g.setFill(Color.web("#9ca3af"));
+        g.setFont(Font.font(10));
+        for (int i = 0; i < ticks.length; i++) {
+            if (ticks[i] > pv.xMin() && ticks[i] < pv.xMax()) {
+                double tx = sx.applyAsDouble(ticks[i]);
+                g.strokeLine(tx, y0, tx, y1);
+                g.fillText(tickNames[i], tx, y1 + 14);
+            }
+        }
+        // 水平参考线 y=±1（浅）+ 坐标轴
+        g.setStroke(Color.web("#eef2f7"));
+        for (double yv : new double[]{-1, 1}) {
+            if (yv > pv.yMin() && yv < pv.yMax()) {
+                g.strokeLine(x0, sy.applyAsDouble(yv), x1, sy.applyAsDouble(yv));
+            }
+        }
+        g.setStroke(Color.web("#9ca3af"));
+        if (pv.yMin() <= 0 && pv.yMax() >= 0) {
+            g.strokeLine(x0, sy.applyAsDouble(0), x1, sy.applyAsDouble(0));
+        }
+        g.strokeLine(x0, y0, x0, y1);
+        g.setTextAlign(TextAlignment.RIGHT);
+        for (double yv : new double[]{-1, 0, 1}) {
+            if (yv >= pv.yMin() && yv <= pv.yMax()) {
+                g.fillText(fmt(yv), x0 - 6, sy.applyAsDouble(yv) + 4);
+            }
+        }
+        g.setTextAlign(TextAlignment.CENTER);
+
+        // 真实曲线（蓝实线）
+        g.setStroke(Color.web("#3b82f6"));
+        g.setLineWidth(2.5);
+        strokeInBand(g, pv.sineTrace(), sx, sy, pv.yMin(), pv.yMax());
+
+        // 近似曲线（橙实线）——低次多项式在远端爆冲：超域段裁剪在边框（经典泰勒图读感）
+        g.setStroke(Color.web("#f59e0b"));
+        g.setLineWidth(2);
+        strokeInBand(g, pv.cosineTrace(), sx, sy, pv.yMin(), pv.yMax());
+
+        // 新项单独曲线（绿虚线，甲帧才有——看这一项自己把曲线往哪拉）
+        if (pv.trace3().size() >= 2) {
+            g.setStroke(Color.web("#22c55e"));
+            g.setLineWidth(1.5);
+            g.setLineDashes(5, 4);
+            strokeInBand(g, pv.trace3(), sx, sy, pv.yMin(), pv.yMax());
+            g.setLineDashes();
+        }
+
+        // 误差历史迷你图（rects = [项数, 全段最大误差] 逐乙帧追加）。
+        // 位置：左下角 y<-1 的空白带——真实 sin 与近似曲线都不经过的区域，不遮挡主图。
+        if (!pv.rects().isEmpty()) {
+            double bw = 180, bh = 46;
+            double bx = x0 + 10, by = y1 - bh - 6;
+            g.setStroke(Color.web("#d1d5db"));
+            g.setLineWidth(1);
+            g.strokeRect(bx, by, bw, bh);
+            g.setFill(Color.web("#6b7280"));
+            g.setFont(Font.font(10));
+            g.setTextAlign(TextAlignment.LEFT);
+            g.fillText("全段最大误差", bx + 6, by + 12);
+            double maxErr = 0;
+            for (List<Double> pt : pv.rects()) {
+                maxErr = Math.max(maxErr, pt.get(1));
+            }
+            if (maxErr <= 0) {
+                maxErr = 1;
+            }
+            double padL = 10, padT = 20, padR = 10, padB = 8;
+            double iw = bw - padL - padR, ih = bh - padT - padB;
+            int n = pv.rects().size();
+            double pxPrev = 0, pyPrev = 0;
+            for (int i = 0; i < n; i++) {
+                List<Double> pt = pv.rects().get(i);
+                double px = bx + padL + (n == 1 ? iw / 2 : iw * i / (n - 1));
+                double py = by + padT + ih * (1 - pt.get(1) / (maxErr * 1.15));
+                if (i > 0) {
+                    g.setStroke(Color.web("#f59e0b"));
+                    g.setLineWidth(1.5);
+                    g.strokeLine(pxPrev, pyPrev, px, py);
+                }
+                g.setFill(Color.web("#f59e0b"));
+                g.fillOval(px - 2.5, py - 2.5, 5, 5);
+                pxPrev = px;
+                pyPrev = py;
+            }
+            g.setTextAlign(TextAlignment.CENTER);
+        }
+
+        // 图例（最多三行：真实/累加/新项）+ 读数（最高次幂 / 全段最大误差）
+        String[] legendColors = {"#3b82f6", "#f59e0b", "#22c55e"};
+        double lx = x1 - 210, ly = y0 + 6;
+        g.setTextAlign(TextAlignment.LEFT);
+        g.setFont(Font.font(11));
+        for (int i = 0; i < Math.min(legendColors.length, pv.labels().size()); i++) {
+            g.setFill(Color.web(legendColors[i]));
+            g.fillRect(lx, ly + i * 18, 14, 3);
+            g.setFill(Color.web("#374151"));
+            g.fillText(pv.labels().get(i), lx + 20, ly + i * 18 + 5);
+        }
+        g.setFill(Color.web("#6b7280"));
+        g.fillText(String.format("最高次幂 %d · 全段最大误差 %.4f", (int) pv.angle(), pv.pointY()),
+                x0 + 8, y0 + 10);
+        g.setTextAlign(TextAlignment.CENTER);
+    }
+
+    /** 折线绘制 + 水平带裁剪：整段在带内照画；跨界段线性插值截断在边界；带外整段跳过。 */
+    private static void strokeInBand(GraphicsContext g, List<List<Double>> trace,
+                                     java.util.function.DoubleUnaryOperator sx,
+                                     java.util.function.DoubleUnaryOperator sy,
+                                     double yLo, double yHi) {
+        if (trace == null || trace.size() < 2) return;
+        for (int i = 1; i < trace.size(); i++) {
+            double ax = trace.get(i - 1).get(0), ay = trace.get(i - 1).get(1);
+            double bx = trace.get(i).get(0), by = trace.get(i).get(1);
+            double lo = Math.min(ay, by), hi = Math.max(ay, by);
+            if (hi < yLo || lo > yHi) continue;
+            double[] seg = clipSegmentY(ax, ay, bx, by, yLo, yHi);
+            if (seg == null) continue;
+            g.strokeLine(sx.applyAsDouble(seg[0]), sy.applyAsDouble(seg[1]),
+                    sx.applyAsDouble(seg[2]), sy.applyAsDouble(seg[3]));
+        }
+    }
+
+    /** 线段与水平带 [yLo,yHi] 求交：返回带内子段 (x1,y1,x2,y2)，无交返回 null。 */
+    private static double[] clipSegmentY(double ax, double ay, double bx, double by,
+                                         double yLo, double yHi) {
+        double t0 = 0, t1 = 1;
+        double dy = by - ay;
+        double[] r = clipAxis(ay, dy, yLo, false);          // 约束 y >= yLo
+        if (r == null) return null;
+        t0 = Math.max(t0, r[0]);
+        t1 = Math.min(t1, r[1]);
+        r = clipAxis(ay, dy, yHi, true);                    // 约束 y <= yHi
+        if (r == null) return null;
+        t0 = Math.max(t0, r[0]);
+        t1 = Math.min(t1, r[1]);
+        if (t0 > t1) return null;
+        return new double[]{ax + (bx - ax) * t0, ay + dy * t0, ax + (bx - ax) * t1, ay + dy * t1};
+    }
+
+    /** 单边界约束：upper=true 要求 y(t)<=bound，否则 y(t)>=bound；返回满足约束的参数区间，恒不满足返回 null。 */
+    private static double[] clipAxis(double y0, double dy, double bound, boolean upper) {
+        if (dy == 0) {
+            boolean ok = upper ? y0 <= bound : y0 >= bound;
+            return ok ? new double[]{0, 1} : null;
+        }
+        double t = (bound - y0) / dy;
+        boolean keepAbove = upper ? dy < 0 : dy > 0;   // y 朝远离边界方向走 → t 在交点之后
+        return keepAbove ? new double[]{t, 1} : new double[]{0, t};
     }
 
     // ==================== kind = newton（牛顿迭代）====================
@@ -409,9 +580,28 @@ public final class PlotRenderer {
         double cx = sx.applyAsDouble(pv.pointX()), cy = sy.applyAsDouble(pv.pointY());
         g.setFill(Color.web("#ea580c"));
         g.fillOval(cx - 6, cy - 6, 12, 12);
-        g.setStroke(Color.web("#f59e0b", 0.35));   // 极径线弱化：极坐标演示（心形线）的参考，直角坐标里降为淡线
-        g.setLineWidth(1);
-        g.strokeLine(sx.applyAsDouble(0), sy.applyAsDouble(0), cx, cy);
+        // 参考线二选一，按声明域语义分流：
+        //   原点在域内 → 极坐标语义 → 淡极径线（心形线/螺线/旋转/抛体的发射原点）
+        //   原点不在域内 → 纯函数图像 → 动点向两轴的投影虚线 + 轴脚读数（如复利的 n 与终值）
+        boolean originInDomain = pv.xMin() <= 0 && pv.xMax() >= 0 && pv.yMin() <= 0 && pv.yMax() >= 0;
+        if (originInDomain) {
+            g.setStroke(Color.web("#f59e0b", 0.35));
+            g.setLineWidth(1);
+            g.strokeLine(sx.applyAsDouble(0), sy.applyAsDouble(0), cx, cy);
+        } else {
+            g.setStroke(Color.web("#f59e0b", 0.5));
+            g.setLineWidth(1);
+            g.setLineDashes(4, 4);
+            g.strokeLine(cx, cy, cx, yBase);   // 竖虚线落到 x 轴：读 n
+            g.strokeLine(cx, cy, x0, cy);      // 横虚线落到 y 轴：读终值
+            g.setLineDashes();
+            // 轴脚读数小字
+            g.setFill(Color.web("#b45309"));
+            g.setFont(Font.font(10));
+            g.setTextAlign(TextAlignment.CENTER);
+            g.fillText(fmtTick(pv.pointX()), cx, yBase + 14);
+            g.fillText(fmtTick(pv.pointY()), x0 - 6, cy + 3);
+        }
 
         // 注解
         g.setTextAlign(TextAlignment.LEFT);
@@ -554,6 +744,14 @@ public final class PlotRenderer {
 
     private static String fmt(double v) {
         return Math.abs(v) >= 10 ? String.valueOf((int) v) : String.format("%.1f", v);
+    }
+
+    /** 轴脚刻度小字：整数不带小数点（8 → "8"），小数保留两位（2.5356 → "2.54"）。 */
+    private static String fmtTick(double v) {
+        if (Math.abs(v - Math.rint(v)) < 1e-9) {
+            return String.valueOf((long) Math.rint(v));
+        }
+        return String.format("%.2f", v);
     }
 
     /** 波形折线：x 按图层 x 域映射，y 钳制在 [yMin,yMax]——低阶泰勒近似在远端会爆到 ±6，不钳就飞出画面。 */

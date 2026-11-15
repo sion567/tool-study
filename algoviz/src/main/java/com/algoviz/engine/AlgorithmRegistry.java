@@ -25,7 +25,6 @@ import com.algoviz.engine.backtracking.PermutationDemo;
 import com.algoviz.engine.math.BloomFilterDemo;
 import com.algoviz.engine.math.GcdDemo;
 import com.algoviz.engine.math.SieveDemo;
-import com.algoviz.engine.math.BitmapDemo;
 import com.algoviz.engine.math.MatrixMultiply;
 import com.algoviz.engine.search.BinarySearch;
 import com.algoviz.engine.sort.MergeSort;
@@ -93,6 +92,7 @@ public final class AlgorithmRegistry {
             new Entry("算法", "树", new BstInsert(new int[]{5, 3, 8}, 4)),
             new Entry("算法", "树", new BstDelete(new int[]{5, 3, 8, 1, 4, 7, 9}, 5)),
             new Entry("算法", "树", new RedBlackDemo()),
+            new Entry("算法", "树", new com.algoviz.engine.tree.RedBlackDeleteDemo()),
             new Entry("算法", "图", new Dijkstra()),
             new Entry("算法", "图", new BfsDemo()),
             new Entry("算法", "图", new DfsDemo()),
@@ -168,7 +168,6 @@ public final class AlgorithmRegistry {
             new Entry("机器学习", null, new com.algoviz.engine.ml.DtreeDemo()),
             new Entry("机器学习", null, new com.algoviz.engine.ml.NaiveBayesDemo()),
             new Entry("字符串", null, new com.algoviz.engine.string.AcautoDemo()),
-            new Entry("树", null, new com.algoviz.engine.tree.RedBlackDeleteDemo()),
             new Entry("数学", "几何坐标", new com.algoviz.engine.math.SpiralDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.ProjectileDemo()),
             new Entry("物理", "力学", new com.algoviz.engine.physics.SpringDemo()),
@@ -397,7 +396,6 @@ public final class AlgorithmRegistry {
                 }
                 yield new com.algoviz.engine.crypto.Sm4Demo(kb);
             }
-            case "crypto.sm2" -> new com.algoviz.engine.crypto.Sm2Demo();
             case "crypto.aes" -> {
                 int[] kb = new int[16];
                 for (int i = 0; i < 16; i++) {
@@ -410,22 +408,8 @@ public final class AlgorithmRegistry {
                             0x1313131313131313L}[r.nextInt(3)]);                 // 换密钥变体（NIST 测试密钥）
             case "crypto.sha256" -> new com.algoviz.engine.crypto.Sha256Demo(
                     new String[]{"abc", "SHA-256", "哈希对照"}[r.nextInt(3)]);
-            case "dl.lstm" -> new com.algoviz.engine.dl.LstmDemo();
-            case "dl.backprop" -> new com.algoviz.engine.dl.BackpropDemo();
-            case "dl.word2vec" -> new com.algoviz.engine.dl.Word2VecDemo();
-            case "dl.resnet" -> new com.algoviz.engine.dl.ResNetDemo();
-            case "dl.dropout" -> new com.algoviz.engine.dl.DropoutDemo();
-            case "dl.batchnorm" -> new com.algoviz.engine.dl.BatchNormDemo();
-            case "dl.kmeans" -> new com.algoviz.engine.dl.KMeansDemo();
-            case "dl.gradient" -> new com.algoviz.engine.dl.GradientDescentDemo();
-            case "math.trapezoid" -> new com.algoviz.engine.math.TrapezoidDemo();
-            case "math.bigint" -> new com.algoviz.engine.math.BigIntDemo();
-            case "ml.qlearn" -> new com.algoviz.engine.ml.QlearnDemo();
-            case "ml.dtree" -> new com.algoviz.engine.ml.DtreeDemo();
-            case "ml.naivebayes" -> new com.algoviz.engine.ml.NaiveBayesDemo();
-            case "string.acauto" -> new com.algoviz.engine.string.AcautoDemo();
-            case "math.spiral" -> new com.algoviz.engine.math.SpiralDemo();
-            case "tree.rb.delete" -> new com.algoviz.engine.tree.RedBlackDeleteDemo();
+            // 注意：固定剧本类（dl.*/ml.*/acauto/spiral/rb.delete/sm2/trapezoid/bigint）不设 case
+            // ——落到 default null，hasVariant=false，🎲/滑杆自动置灰（剧本无法"换一批数据"）
             default -> null;
         };
     }

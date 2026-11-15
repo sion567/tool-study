@@ -18,7 +18,7 @@
   </properties>
 
   <dependencies>
-    <!-- WebView 相关（javafx-web）到 M4 图算法时再加，M1 用不到 -->
+    <!-- javafx-web 有意未引入：蓝图原定 WebView+HTML，实际改为 Canvas 同架构渲染（见 Dijkstra.java 注） -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
@@ -39,6 +39,28 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>require-jdk-21</id>
+            <goals><goal>enforce</goal></goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>[21,)</version>
+                  <message>AlgoViz 需要 JDK 21+。当前 Maven 运行在较低版本上——请先设 JAVA_HOME 指向 JDK 21
+（Windows 参考：set JAVA_HOME=D:\sdk\Java\jdk-21.0.10，与 package.cmd 一致）。
+坑：target/classes 已由 JDK21 编译过时，JDK17 下 compile 会被增量跳过，
+到 surefire fork 才炸出难懂的栈——enforcer 在 validate 阶段就拦下。</message>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>

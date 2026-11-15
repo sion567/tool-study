@@ -37,7 +37,8 @@ import java.util.stream.Stream;
 import static com.algoviz.engine.TraceAsserts.assertContract;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/** 全部 20 个模式演示的统一测试：合约 + golden（golden 缺失时自动生成）。 */
+/** 20 个 GoF 模式演示的统一测试：合约 + golden（golden 缺失时自动生成）。
+ *  另外三个行为型（observer/templatemethod）见 PatternInteractionsTraceTest、strategy 见 PatternDemosTraceTest——各有合约+golden。 */
 class AllPatternsTraceTest {
 
     static Stream<Object[]> demos() {

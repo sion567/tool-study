@@ -125,6 +125,9 @@ class AlgorithmBatchTraceTest {
                 new Object[]{"crypto_aes", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.AesDemo::new},
                 new Object[]{"crypto_sha256", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.Sha256Demo::new},
                 new Object[]{"crypto_des", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.crypto.DesDemo::new},
+                // ---- 第二十一批补漏：数学馆补全（梯形/辛普森误差阶 / 大数竖式）golden 缺席，补齐对齐其余 164 个 ----
+                new Object[]{"math_trapezoid", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.TrapezoidDemo::new},
+                new Object[]{"math_bigint", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BigIntDemo::new},
                 new Object[]{"concurrent_vis", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentVisDemo::new},
                 new Object[]{"concurrent_deadlock", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentDeadlockDemo::new},
                 new Object[]{"dl_lstm", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.LstmDemo::new},

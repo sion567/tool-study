@@ -9,6 +9,7 @@ algoviz/target/
 .idea/
 *.iml
 .vscode/
+.zcode/
 
 # logs
 *.log
