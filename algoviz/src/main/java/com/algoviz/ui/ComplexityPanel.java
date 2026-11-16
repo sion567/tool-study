@@ -14,23 +14,46 @@ import java.util.function.DoubleUnaryOperator;
  */
 public final class ComplexityPanel {
 
-    private static final String[] NAMES = {"O(1)", "O(log n)", "O(n)", "O(n log n)", "O(n²)"};
+    /** 曲线族 id 与 ComplexityCurve.classify 的返回值一一对应。 */
+    private static final String[] IDS = {"constant", "log", "linear", "nlogn", "nsq", "exp", "fact"};
+    private static final String[] NAMES = {"O(1)", "O(log n)", "O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)", "O(n!)"};
     private static final Color[] COLORS = {
             Color.web("#22c55e"), Color.web("#3b82f6"), Color.web("#8b5cf6"),
-            Color.web("#f59e0b"), Color.web("#ef4444")};
+            Color.web("#f59e0b"), Color.web("#ef4444"), Color.web("#ec4899"), Color.web("#7f1d1d")};
     private static final DoubleUnaryOperator[] OPS = {
             n -> 1,
             n -> Math.log(n) / Math.log(2),
             n -> n,
             n -> n * Math.log(n) / Math.log(2),
-            n -> n * n};
+            n -> n * n,
+            n -> Math.pow(2, Math.min(n, 60)),       // 封顶防溢出：n=50 已出画布
+            n -> fact((int) Math.min(n, 25))};             // 同上，n! 增长更凶
+
+    private static double fact(int n) {
+        double f = 1;
+        for (int i = 2; i <= n; i++) {
+            f *= i;
+        }
+        return f;
+    }
 
     private ComplexityPanel() {
     }
 
-    /** 在画布上绘制增长曲线（n 上限 = maxN）。 */
+    /** 在画布上绘制增长曲线（n 上限 = maxN）——无高亮的旧签名。 */
     public static void draw(Canvas canvas, int maxN) {
+        draw(canvas, maxN, java.util.List.of(), -1, null);
+    }
+
+    /**
+     * 按演示高亮：曲线家族灰线打底（40% 透明），highlightIds 中的曲线加粗 + 图例挂 ⭐；
+     * markerN（演示实际 inputSize，>0 且 ≤maxN）画竖虚线 + 各高亮曲线交点圆点 + 顶部 n 标注；
+     * tag（Complexity.time() 原串）画在图例下。exp/fact 冲出画布顶部即截断——"指数爆炸出画"本身是教学点。
+     */
+    public static void draw(Canvas canvas, int maxN, java.util.List<String> highlightIds,
+                            int markerN, String tag) {
         GraphicsContext g = canvas.getGraphicsContext2D();
+        g.setGlobalAlpha(1.0);
         g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         double w = canvas.getWidth(), h = canvas.getHeight();
         double margin = 50;
@@ -61,32 +84,77 @@ public final class ComplexityPanel {
             g.fillText(String.valueOf(nTick), x, y0 + 14);
         }
 
-        // 归一化：用 O(n²) 在 maxN 时的值作为最高点（其他曲线都被压扁但形态可见）
+        // 归一化锚定 O(n²) 在 maxN 时的值；exp/fact 超过即冲出顶部（截断 = 指数爆炸的教学点）
         double yMax = OPS[4].applyAsDouble(maxN);
 
         for (int i = 0; i < OPS.length; i++) {
+            boolean hl = highlightIds.contains(IDS[i]);
+            g.setGlobalAlpha(hl ? 1.0 : 0.35);
             g.setStroke(COLORS[i]);
-            g.setLineWidth(2.2);
+            g.setLineWidth(hl ? 3.2 : 1.6);
             double prevX = 0, prevY = 0;
+            double exitX = -1;
             for (int px = 0; px <= 200; px++) {
                 double n = 1.0 + px / 200.0 * (maxN - 1);
                 double steps = OPS[i].applyAsDouble(n);
                 double cx = x0 + (n - 1) / (maxN - 1) * plotW;
-                double cy = y0 - Math.min(1.0, steps / yMax) * plotH;
+                if (steps > yMax) {                      // 冲出顶部：画到出画处即停
+                    exitX = cx;
+                    break;
+                }
+                double cy = y0 - steps / yMax * plotH;
                 if (px > 0) {
                     g.strokeLine(prevX, prevY, cx, cy);
                 }
                 prevX = cx;
                 prevY = cy;
             }
-            // 曲线标签（放在曲线末端附近）
-            double endN = maxN;
-            double endSteps = OPS[i].applyAsDouble(endN);
-            double ex = x0 + plotW;
-            double ey = y0 - Math.min(1.0, endSteps / yMax) * plotH;
+            // 曲线标签：普通曲线在末端，出画曲线在出画点上方
+            double lx, ly;
+            if (exitX > 0) {
+                lx = Math.min(exitX, x0 + plotW - 20);
+                ly = 20;
+            } else {
+                double endSteps = OPS[i].applyAsDouble(maxN);
+                lx = x0 + plotW;
+                ly = Math.max(14, y0 - Math.min(1.0, endSteps / yMax) * plotH - 6);
+            }
             g.setFill(COLORS[i]);
+            g.setFont(Font.font(hl ? 13 : 12));
+            g.fillText((hl ? "⭐ " : "") + NAMES[i], Math.max(lx - 30, 24), ly - (exitX > 0 ? 4 : 0));
+        }
+        g.setGlobalAlpha(1.0);
+
+        // 实际 n 标记：竖虚线 + 高亮曲线交点圆点 + 顶部标注
+        if (markerN > 0 && markerN <= maxN) {
+            double mx = x0 + (double) (markerN - 1) / (maxN - 1) * plotW;
+            g.setStroke(Color.web("#0ea5e9"));
+            g.setLineWidth(1.2);
+            g.setLineDashes(4, 4);
+            g.strokeLine(mx, y0, mx, y0 - plotH);
+            g.setLineDashes();
+            for (int i = 0; i < OPS.length; i++) {
+                if (!highlightIds.contains(IDS[i])) {
+                    continue;
+                }
+                double steps = OPS[i].applyAsDouble(markerN);
+                if (steps > yMax) {
+                    continue;
+                }
+                double cy = y0 - steps / yMax * plotH;
+                g.setFill(COLORS[i]);
+                g.fillOval(mx - 4, cy - 4, 8, 8);
+            }
+            g.setFill(Color.web("#0ea5e9"));
             g.setFont(Font.font(12));
-            g.fillText(NAMES[i], ex - 28, Math.max(14, ey - 6));
+            g.fillText("本演示 n = " + markerN, mx, y0 + 38);
+        }
+
+        // 图例下的原串（复杂度文本）
+        if (tag != null && !tag.isBlank()) {
+            g.setFill(Color.web("#9ca3af"));
+            g.setFont(Font.font(11));
+            g.fillText("⭐ 本演示 = " + tag, x0 + plotW / 2, 36);
         }
     }
 

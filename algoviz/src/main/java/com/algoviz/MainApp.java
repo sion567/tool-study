@@ -7,6 +7,7 @@ import com.algoviz.engine.ds.ListView;
 import com.algoviz.engine.math.MathView;
 import com.algoviz.engine.trace.Trace;
 import com.algoviz.ui.CodePanel;
+import com.algoviz.ui.ComplexityCurve;
 import com.algoviz.ui.ComplexityPanel;
 import com.algoviz.app.DictationDiff;
 import com.algoviz.app.DictationJudge;
@@ -438,7 +439,14 @@ public class MainApp extends Application {
             if (compareTab.isSelected()) {
                 ComplexityPanel.drawEmpirical(canvas, 50);
             } else if (complexityTab.isSelected()) {
-                ComplexityPanel.draw(canvas, 50);
+                var cx = currentAlgorithm == null ? null : currentAlgorithm.complexity();
+                if (cx != null) {
+                    var curve = ComplexityCurve.parse(cx.time());
+                    int n = playback.trace().meta().inputSize();
+                    ComplexityPanel.draw(canvas, 50, curve.ids(), n, cx.time());
+                } else {
+                    ComplexityPanel.draw(canvas, 50);
+                }
             } else {
                 Set<Integer> pickedNow = prediction.armed() ? prediction.picked() : null;
                 CanvasDispatch.paint(canvas, prev, cur, pickedNow, viewZoom, viewPanX, viewPanY);

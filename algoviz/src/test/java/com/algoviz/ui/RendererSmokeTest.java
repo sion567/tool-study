@@ -70,6 +70,29 @@ class RendererSmokeTest {
         }
     }
 
+    /** 复杂度图冒烟：按演示高亮重载（家族灰线+⭐加粗+n 标记）对三类曲线各画一次不抛异常。 */
+    @Test
+    void complexityPanelHighlightDraws() throws Exception {
+        AtomicReference<Throwable> failure = new AtomicReference<>();
+        CountDownLatch done = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                javafx.scene.canvas.Canvas canvas = new javafx.scene.canvas.Canvas(900, 520);
+                ComplexityPanel.draw(canvas, 50, java.util.List.of("nsq"), 7, "O(n²)");                       // 多项式族
+                ComplexityPanel.draw(canvas, 50, java.util.List.of("constant"), 64, "O(16) 轮 × O(1) 查表轮函数");   // 常数族（n=64 出界不画标记）
+                ComplexityPanel.draw(canvas, 50, java.util.List.of("log", "nlogn"), 15, "O(n log n) 平均 / O(n²) 最坏"); // 双高亮
+                ComplexityPanel.draw(canvas, 50);   // 无高亮旧签名
+                ComplexityPanel.drawEmpirical(canvas, 50);
+            } finally {
+                done.countDown();
+            }
+        });
+        assertTrue(done.await(30, TimeUnit.SECONDS), "复杂度图烟测超时");
+        if (failure.get() != null) {
+            throw new AssertionError(failure.get());
+        }
+    }
+
     private static void assertTrue(boolean cond, String msg) {
         org.junit.jupiter.api.Assertions.assertTrue(cond, msg);
     }
