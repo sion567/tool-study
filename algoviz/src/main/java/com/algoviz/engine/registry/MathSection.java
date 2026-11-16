@@ -26,6 +26,7 @@ public final class MathSection implements AlgorithmSection {
                 new AlgorithmRegistry.Entry("数学", "几何坐标", new com.algoviz.engine.math.GoldenSpiralDemo()),
                 new AlgorithmRegistry.Entry("数学", "几何坐标", new com.algoviz.engine.math.RoseCurveGalleryDemo()),
                 new AlgorithmRegistry.Entry("数学", "几何坐标", new com.algoviz.engine.math.Rotation2DDemo()),
+            new AlgorithmRegistry.Entry("数学", "线性代数", new com.algoviz.engine.math.Rotation3DDemo()),
                 new AlgorithmRegistry.Entry("数学", "微积分", new com.algoviz.engine.math.PendulumDemo()),
                 new AlgorithmRegistry.Entry("数学", "数与计算", new com.algoviz.engine.math.BisectionDemo()),
                 new AlgorithmRegistry.Entry("数学", "微积分", new com.algoviz.engine.math.CompoundInterestDemo()),
@@ -69,6 +70,8 @@ public final class MathSection implements AlgorithmSection {
     @Override
     public Algorithm variantOf(String id, int n, java.util.Random r) {
         return switch (id) {
+            case "math.rotation3d" -> new com.algoviz.engine.math.Rotation3DDemo(
+                    new int[]{15, 30, 45}[r.nextInt(3)]);                       // 步进角档位（轨迹粗细）
             case "math.log" -> new com.algoviz.engine.math.MathLogDemo(
                     new int[]{100, 1000, 1000000}[r.nextInt(3)]);              // 换猜数上限（砍半序列/阶梯 n 同步变）
             case "math.gcd" -> new com.algoviz.engine.math.GcdDemo(12 + r.nextInt(988), 12 + r.nextInt(988));

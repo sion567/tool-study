@@ -35,6 +35,11 @@ import java.util.List;
  *   trace3 = 甲帧新项单独曲线（绿虚线，累加帧为空），
  *   rects = 误差历史点列 [项数, 全段最大误差]（左下角迷你误差图，逐乙帧追加），
  *   angle = 当前最高次幂，pointY = [xMin,xMax] 全段最大误差，labels = 图例（真实/累加/新项）。
+ *
+ * kind = wire3d：3D 线框（立方体绕轴旋转）。trace3 = 边表 [x1,y1,z1,x2,y2,z2]，
+ *   rects = 顶点表 [x,y,z,hl]（hl=1 高亮），sineTrace = 坐标轴线 [x1,y1,z1,x2,y2,z2]，
+ *   labels = 左上角旋转矩阵三行 + 状态行（⚠ 开头 = 万向锁警示），
+ *   angle = 累计角度，pointX = 视距 fov，pointY = 世界缩放 s。
  */
 public record PlotView(String kind, String name, double angle,
                        double pointX, double pointY,
@@ -53,6 +58,7 @@ public record PlotView(String kind, String name, double angle,
     public static final String SCATTER = "scatter";
     public static final String DOUBLE_PENDULUM = "doublePendulum";
     public static final String TAYLOR = "taylor";
+    public static final String WIRE3D = "wire3d";
 
     /** unitCircle 旧形态的便捷构造（0..2π / -1..1 域）。 */
     public static PlotView unitCircle(String name, double angle,

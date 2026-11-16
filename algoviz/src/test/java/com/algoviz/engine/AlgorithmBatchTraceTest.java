@@ -128,6 +128,7 @@ class AlgorithmBatchTraceTest {
                 // ---- 第二十一批补漏：数学馆补全（梯形/辛普森误差阶 / 大数竖式）golden 缺席，补齐对齐其余 164 个 ----
                 new Object[]{"math_trapezoid", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.TrapezoidDemo::new},
                 new Object[]{"math_bigint", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BigIntDemo::new},
+                new Object[]{"math_rotation3d", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.Rotation3DDemo::new},
                 new Object[]{"math_log", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.MathLogDemo::new},
                 new Object[]{"concurrent_vis", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentVisDemo::new},
                 new Object[]{"concurrent_deadlock", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentDeadlockDemo::new},
@@ -1068,6 +1069,43 @@ class AlgorithmBatchTraceTest {
         long nonzero = arr.values().stream().filter(v -> v != 0).count();
         assertTrue2(nonzero > 0, "斐波那契递归阶段柱子应显示调用次数（非全 0）");
         assertTrue2("调用次数".equals(arr.name()), "递归阶段数组名应为「调用次数」，实际 " + arr.name());
+    }
+
+    /** 行为：3D 旋转——12 边 8 顶点/保范数/万向锁同姿态/变体步进角。 */
+    @org.junit.jupiter.api.Test
+    void rotation3dBehave() throws Exception {
+        var t = new com.algoviz.engine.math.Rotation3DDemo().produce().steps();
+        assertTrue2(t.size() >= 10, "3D 旋转应 ≥10 帧（三轴+万向锁+首尾），实际 " + t.size());
+        // 每帧 8 顶点 12 边，且顶点范数恒 √3（正交变换保长度）
+        for (var st : t) {
+            var pv = st.plot();
+            assertEquals(8, pv.rects().size(), "顶点数恒 8 @step " + st.index());
+            assertEquals(12, pv.trace3().size(), "边数恒 12 @step " + st.index());
+            for (var v : pv.rects()) {
+                double n = Math.sqrt(v.get(0) * v.get(0) + v.get(1) * v.get(1) + v.get(2) * v.get(2));
+                assertTrue2(Math.abs(n - Math.sqrt(3)) < 1e-9,
+                        "顶点范数应恒 = √3 @step " + st.index() + " 实际 " + n);
+            }
+        }
+        // 万向锁帧：事件文本点名"万向锁"与"自由度"，且 warning 帧在最后两帧附近
+        String joined = t.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        assertTrue2(joined.contains("万向锁") && joined.contains("自由度"),
+                "应有万向锁现场帧（两组欧拉角同一姿态）");
+        assertTrue2(joined.contains("四元数"), "收尾应引出四元数解法");
+        // 旋转发生过：最后一帧的顶点表与第一帧不同（姿态变化）
+        var first = t.get(0).plot().rects();
+        var last = t.get(t.size() - 2).plot().rects();
+        boolean moved = false;
+        for (int i = 0; i < 8 && !moved; i++) {
+            moved = Math.abs(first.get(i).get(0) - last.get(i).get(0)) > 0.5;
+        }
+        assertTrue2(moved, "旋转应真实发生（首末帧姿态不同）");
+        // 变体：步进角 15° 生效（事件文本含"步进"档位角度）
+        var v15 = new com.algoviz.engine.math.Rotation3DDemo(15).produce().steps();
+        String v15Text = v15.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))
+                .filter(java.util.Objects::nonNull).collect(java.util.stream.Collectors.joining(" "));
+        assertTrue2(v15Text.contains("15°"), "变体步进角 15° 应出现在事件文本");
     }
 
     /** 行为：对数——砍半次数/lg6 演算/换底/复杂度阶梯逐项。 */

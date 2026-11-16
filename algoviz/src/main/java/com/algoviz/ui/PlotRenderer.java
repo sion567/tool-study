@@ -35,8 +35,81 @@ public final class PlotRenderer {
             case PlotView.SCATTER -> drawScatter(g, w, h, pv);
             case PlotView.DOUBLE_PENDULUM -> drawDoublePendulum(g, w, h, pv);
             case PlotView.TAYLOR -> drawTaylor(g, w, h, pv);
+            case PlotView.WIRE3D -> drawWireframe3d(g, w, h, pv);
             default -> drawUnitCircle(g, w, h, pv);
         }
+    }
+
+    // ==================== kind = wire3d（3D 线框：立方体绕轴旋转）====================
+
+    /** 弱透视投影：scale = fov/(fov−z)，近大远小；深度感 = 近粗远细 + alpha。 */
+    private static void drawWireframe3d(GraphicsContext g, double w, double h, PlotView pv) {
+        double fov = pv.pointX() > 0 ? pv.pointX() : 4;       // 视距（世界单位）
+        double s = pv.pointY() > 0 ? pv.pointY() : 90;        // 世界缩放（像素/世界单位）
+        double cx = w / 2, cy = h / 2 + 8;
+        // 投影：世界 (x,y,z) → 屏幕 = center + (x,y)·s·scale(z)；z 朝观察者为正，scale=fov/(fov−z) 近大远小。
+        java.util.function.DoubleBinaryOperator pxF =
+                (x, z) -> cx + x * s * (fov / (fov - z));
+        java.util.function.DoubleBinaryOperator pyF =
+                (y, z) -> cy - y * s * (fov / (fov - z));
+
+        // 坐标轴：X 红 / Y 绿 / Z 蓝
+        double[][] axes = {
+                {1, 0, 0, -1, 0, 0}, {0, 1, 0, 0, -1, 0}, {0, 0, 1, 0, 0, -1}};
+        javafx.scene.paint.Color[] axisCols = {
+                Palette.RED, Palette.GREEN_DEEP, Palette.BLUE};
+        String[] axisNames = {"X", "Y", "Z"};
+        for (int i = 0; i < 3; i++) {
+            double[] a = axes[i];
+            g.setStroke(axisCols[i]);
+            g.setLineWidth(2);
+            g.strokeLine(pxF.applyAsDouble(a[0], a[2]), pyF.applyAsDouble(a[1], a[2]), pxF.applyAsDouble(a[3], a[5]), pyF.applyAsDouble(a[4], a[5]));
+            g.setFill(axisCols[i]);
+            g.setFont(Font.font(13));
+            g.fillText(axisNames[i],
+                    pxF.applyAsDouble(a[0], a[2]) + (i == 0 ? 14 : 0),
+                    pyF.applyAsDouble(a[1], a[2]) - (i == 1 ? 8 : (i == 2 ? -6 : 0)));
+        }
+
+        // 边：近粗远细 + alpha 渐变（深度感）
+        for (List<Double> e : pv.trace3()) {
+            double zAvg = (e.get(2) + e.get(5)) / 2;
+            double depth = Math.max(0, Math.min(1, (zAvg + 1.8) / 3.6));   // 0(远)..1(近)
+            g.setStroke(Palette.AXIS);
+            g.setGlobalAlpha(0.35 + 0.6 * depth);
+            g.setLineWidth(1.2 + 1.8 * depth);
+            g.strokeLine(pxF.applyAsDouble(e.get(0), e.get(2)), pyF.applyAsDouble(e.get(1), e.get(2)),
+                    pxF.applyAsDouble(e.get(3), e.get(5)), pyF.applyAsDouble(e.get(4), e.get(5)));
+        }
+        g.setGlobalAlpha(1.0);
+
+        // 顶点：空心圆点（深度调半径），高亮顶点琥珀实心
+        for (List<Double> v : pv.rects()) {
+            double pxx = pxF.applyAsDouble(v.get(0), v.get(2)), pyy = pyF.applyAsDouble(v.get(1), v.get(2));
+            double r = 3 + 2 * Math.max(0, Math.min(1, (v.get(2) + 1.8) / 3.6));
+            boolean hl = v.size() > 3 && v.get(3) > 0.5;
+            if (hl) {
+                g.setFill(Palette.AMBER);
+                g.fillOval(pxx - r, pyy - r, 2 * r, 2 * r);
+            } else {
+                g.setStroke(Palette.INK);
+                g.setLineWidth(1.4);
+                g.strokeOval(pxx - r, pyy - r, 2 * r, 2 * r);
+            }
+        }
+
+        // 左上角：旋转矩阵三行 + 状态行（⚠ = 万向锁警示 → 玫红强调）
+        g.setTextAlign(TextAlignment.LEFT);
+        g.setFont(Font.font(12));
+        double ly = 26;
+        for (int i = 0; i < pv.labels().size(); i++) {
+            String text = pv.labels().get(i);
+            boolean warn = text.startsWith("⚠");
+            g.setFill(warn ? Palette.ROSE : (i == 0 ? Palette.INK : Palette.MUTED));
+            g.setFont(Font.font(warn ? 13 : 12));
+            g.fillText(text, 14, ly + i * 18);
+        }
+        g.setTextAlign(TextAlignment.CENTER);
     }
 
     // ==================== kind = unitCircle（原单位圆→正弦波）====================
