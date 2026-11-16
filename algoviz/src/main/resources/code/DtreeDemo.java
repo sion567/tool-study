@@ -1,7 +1,6 @@
 public class DtreeDemo {
     public static void main(String[] args) {
-        String[][] data = {{"晴","弱","否"},{"晴","强","否"},{"阴","弱","是"},{"雨","弱","是"},   //@DATA 精简 play-tennis
-                {"雨","强","否"},{"阴","强","是"},{"阴","弱","是"},{"雨","弱","否"}};
+        String[][] data = {{"晴","弱","否"},{"晴","强","否"},{"阴","弱","是"},{"雨","弱","是"},{"雨","强","否"},{"阴","强","是"},{"阴","弱","是"},{"雨","弱","否"}};   //@DATA 精简 play-tennis
         double hS = entropy(count(data, 2, "是"), count(data, 2, "否"));
         System.out.printf("H(S) = %.3f%n", hS);
         for (int feat = 0; feat < 2; feat++) {       // 每个特征算条件熵 → 增益

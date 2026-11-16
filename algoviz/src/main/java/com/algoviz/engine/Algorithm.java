@@ -53,6 +53,12 @@ public interface Algorithm {
         return sb.append("};").toString();
     }
 
+    /** 同上，但变量名与模板一致（joinArray 固定叫 a；模板用别的名时用这个）。 */
+    static String joinArray(String name, int[] a) {
+        String s = joinArray(a);
+        return "int[] " + name + s.substring("int[] a".length());
+    }
+
     /**
      * 复杂度标注（M7）：时间 + 空间 + 推导过程。null = 不适用（模式/数学演示）。
      */

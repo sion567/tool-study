@@ -17,8 +17,7 @@ public class BstInsert {
     }
 
     public static void main(String[] args) {          // 复制本类即可直接运行
-        int[] vals = {5, 3, 8};                        //@DATA
-        int insertVal = 4;
+        int[] vals = {5, 3, 8}; int insertVal = 4;     //@DATA
         Node root = bstFrom(vals);
         root = insert(root, insertVal);
         System.out.println("插入 " + insertVal + " 后中序: " + inOrder(root));
@@ -35,8 +34,4 @@ public class BstInsert {
         return inOrder(n.left) + n.val + " " + inOrder(n.right);
     }
 
-    @Override
-    public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(input), "int insertVal = " + insertVal + ";");
-    }
 }

@@ -1,7 +1,6 @@
 public class KmpDemo {
     public static void main(String[] args) {
-        String text = "ABABDABACDABABCABAB";   //@DATA
-        String pattern = "ABABCABAB";
+        String text = "ABABDABACDABABCABAB"; String pattern = "ABABCABAB";   //@DATA
         int[] next = new int[pattern.length()];
         // 构建前缀表
         int len = 0;

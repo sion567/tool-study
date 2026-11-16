@@ -1,10 +1,6 @@
 public class GaussianElimDemo {
     public static void main(String[] args) {
-        double[][] m = {                 //@DATA
-                {1, 1, 1, 6},
-                {1, 2, 3, 14},
-                {1, 4, 9, 36}
-        };
+        double[][] m = {{1, 1, 1, 6}, {1, 2, 3, 14}, {1, 4, 9, 36}};   //@DATA
         int n = 3;
         // 前向消元：O(n³)
         for (int col = 0; col < n; col++) {

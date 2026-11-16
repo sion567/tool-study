@@ -235,7 +235,14 @@ public final class AStarDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("int[][] walls = {...21 堵墙...};   // " + ROWS + "×" + COLS + " 网格");
+        StringBuilder sb = new StringBuilder("int[][] walls = {");
+        for (int r = 0; r < ROWS; r++) {
+            for (int c = 0; c < COLS; c++) {
+                if (WALL[r][c]) sb.append('{').append(r).append(',').append(c).append("},");
+            }
+        }
+        sb.setCharAt(sb.length() - 1, '}');
+        return java.util.List.of(sb.replace(0, "int[][]".length(), "static int[][]") + ";   // " + ROWS + "×" + COLS + " 网格");
     }
 
     @Override

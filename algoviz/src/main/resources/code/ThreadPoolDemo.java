@@ -2,11 +2,12 @@ import java.util.concurrent.*;
 
 public class ThreadPoolDemo {
     public static void main(String[] args) throws Exception {
-        // corePoolSize=2：2 个常驻 worker 循环「take → 执行 → 再 take」
+        int corePoolSize = 2;   //@DATA   线程数（提交 T1/T2/T3）
+        // corePoolSize 个常驻 worker 循环「take → 执行 → 再 take」
         ThreadPoolExecutor pool = new ThreadPoolExecutor(
-                2, 2, 0L, TimeUnit.MILLISECONDS,
+                corePoolSize, corePoolSize, 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(10));           // workQueue：削峰
-        for (int i = 1; i <= 3; i++) {                    //@DATA   提交 T1/T2/T3
+        for (int i = 1; i <= 3; i++) {
             final int id = i;
             pool.submit(() -> {
                 System.out.println("T" + id + " 由 " + Thread.currentThread().getName() + " 执行");

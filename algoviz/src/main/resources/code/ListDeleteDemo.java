@@ -5,8 +5,7 @@ public class ListDeleteDemo {
     }
 
     public static void main(String[] args) {
-        int[] vals = {4, 9, 2, 7, 5};   //@DATA
-        int target = 7;
+        int[] vals = {4, 9, 2, 7, 5}; int target = 7;   //@DATA
         Node head = build(vals);
 
         // 单链表删除：prev 必须提前一站——要改的就是 prev.next

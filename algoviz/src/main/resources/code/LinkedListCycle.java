@@ -15,8 +15,7 @@ public class LinkedListCycle {
     }
 
     public static void main(String[] args) {          // 复制本类即可直接运行
-        int[] vals = {5, 2, 9, 1, 5};                  //@DATA
-        int anchor = 1;                                // 环接回的下标（0-based）
+        int[] vals = {5, 2, 9, 1, 5}; int anchor = 1;   //@DATA 环接回下标（0-based）
         Node head = buildCycle(vals, anchor);
         System.out.println("有环吗？" + hasCycle(head));
     }
@@ -29,8 +28,4 @@ public class LinkedListCycle {
         return ns[0];
     }
 
-    @Override
-    public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(vals), "int anchor = " + anchorIdx + ";");
-    }
 }

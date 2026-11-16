@@ -1,4 +1,4 @@
-public class PreOrderTraversal {
+public class TraversalPre {
     static void traverse(Node node) {
         if (node == null) {
             return;
@@ -35,8 +35,4 @@ public class PreOrderTraversal {
         return r;
     }
 
-    @Override
-    public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(input));
-    }
 }

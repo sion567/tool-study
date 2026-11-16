@@ -1,6 +1,7 @@
 public class Word2VecDemo {
     public static void main(String[] args) {
-        String[] words = {"the", "cat", "sat", "on", "mat"};   //@DATA 语料 "the cat sat on the mat"
+        String corpus = "the cat sat on the mat";   //@DATA 语料
+        String[] words = corpus.split(" ");
         int[][] pairs = {{0, 1}, {1, 2}, {2, 3}, {3, 0}, {0, 4}};   // 窗口 ±1 配对
         double lr = 0.3;
         double[][] emb = {{2, 2}, {-2, 2}, {2, -2}, {-2, -2}, {0.5, 0.5}};   // 2 维嵌入四角散开

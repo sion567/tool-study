@@ -146,7 +146,17 @@ public final class DtreeDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("String[][] data = {…8 行…};   //@DATA 精简 play-tennis");
+        StringBuilder sb = new StringBuilder("String[][] data = {");
+        for (String[] row : DATA) {
+            sb.append('{');
+            for (String v : row) {
+                sb.append('"').append(v).append('"').append(',');
+            }
+            sb.setCharAt(sb.length() - 1, '}');
+            sb.append(',');
+        }
+        sb.setCharAt(sb.length() - 1, '}');
+        return java.util.List.of(sb + ";   //@DATA 精简 play-tennis");
     }
 
     @Override

@@ -274,7 +274,7 @@ public final class DesDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("String key = \"133457799BBCDFF1\";   //@DATA 密钥（经典例）");
+        return java.util.List.of("long key = Long.parseUnsignedLong(\"133457799BBCDFF1\", 16);   //@DATA 密钥（经典例）");
     }
 
     @Override

@@ -210,14 +210,7 @@ public final class NBodyDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        StringBuilder sb = new StringBuilder("double[][] p = {");
-        for (int a = 0; a < 3; a++) {
-            sb.append(String.format("{%.4f, %.4f}", initP[a][0], initP[a][1]));
-            if (a < 2) {
-                sb.append(", ");
-            }
-        }
-        return java.util.List.of(sb.append("};").toString());
+        return java.util.List.of("double G = 1, M = 60, dt = " + DT + ";");
     }
 
     @Override

@@ -201,7 +201,17 @@ public final class SudokuDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("int[][] board = { {5,3,0,...}, ... };   // 0 = 空");
+        StringBuilder sb = new StringBuilder("int[][] board = {");
+        for (int r = 0; r < 9; r++) {
+            sb.append('{');
+            for (int c = 0; c < 9; c++) {
+                sb.append(PUZZLE[r][c]).append(',');
+            }
+            sb.setCharAt(sb.length() - 1, '}');
+            sb.append(',');
+        }
+        sb.setCharAt(sb.length() - 1, '}');
+        return java.util.List.of(sb.replace(0, "int[][]".length(), "static int[][]") + ";   // 0 = 空");
     }
 
     @Override

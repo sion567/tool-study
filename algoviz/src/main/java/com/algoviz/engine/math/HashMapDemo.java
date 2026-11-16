@@ -219,7 +219,7 @@ public final class HashMapDemo implements Algorithm {
     @Override
     public java.util.List<String> dataLines() {
         return java.util.List.of(
-                "int[] keys = " + java.util.Arrays.toString(PUT_KEYS) + ";",
+                Algorithm.joinArray("keys", PUT_KEYS),
                 "int query = " + QUERY_KEY + ";   // " + BUCKETS + " 桶，h(k)=k%" + BUCKETS);
     }
 

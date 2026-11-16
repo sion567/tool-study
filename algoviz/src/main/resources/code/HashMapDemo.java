@@ -11,8 +11,7 @@ public class HashMapDemo {
     static Entry[] table = new Entry[BUCKETS];
 
     public static void main(String[] args) {
-        int[] keys = {12, 7, 20, 3, 15};   //@DATA
-        int query = 7;
+        int[] keys = {12, 7, 20, 3, 15}; int query = 7;   //@DATA
         for (int k : keys) put(k);
         System.out.println("get(" + query + ") = " + get(query));
         // 撞车看这里：12%4=0 和 20%4=0 都进桶 0；7/3/15 都进桶 3 → 链长 3

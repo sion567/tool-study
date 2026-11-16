@@ -143,7 +143,7 @@ public final class NewtonDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("double x0 = 2.0;   // 求 x*x - 2 = 0");
+        return java.util.List.of("double x = " + X0 + ";   // 求 x*x - 2 = 0");
     }
 
     @Override

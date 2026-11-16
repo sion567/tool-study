@@ -193,7 +193,7 @@ public final class ListDeleteDemo implements Algorithm {
     @Override
     public java.util.List<String> dataLines() {
         return java.util.List.of(
-                "int[] vals = " + java.util.Arrays.toString(VALS) + ";",
+                Algorithm.joinArray("vals", VALS),
                 "int target = " + TARGET + ";");
     }
 

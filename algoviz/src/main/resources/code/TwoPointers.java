@@ -1,7 +1,6 @@
 public class TwoPointers {
     public static void main(String[] args) {
-        int[] a = {1, 2, 5, 5, 9, 12, 15};   //@DATA
-        int target = 14;
+        int[] a = {1, 2, 5, 5, 9, 12, 15}; int target = 14;   //@DATA
         int lo = 0, hi = a.length - 1;
         while (lo < hi) {
             int sum = a[lo] + a[hi];

@@ -102,7 +102,7 @@ public final class LevelOrderTraversal implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(input));
+        return java.util.List.of(Algorithm.joinArray("vals", input));
     }
 
     @Override

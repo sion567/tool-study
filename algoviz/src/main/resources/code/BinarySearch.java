@@ -14,8 +14,5 @@ public class BinarySearch {
         int[] a = {1, 2, 5, 5, 9, 12, 15};   //@DATA
         System.out.println("target 9 → 下标 " + search(a, 9));
 
-    @Override
-    public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(input));
     }
 }

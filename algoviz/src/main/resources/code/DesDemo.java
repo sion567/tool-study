@@ -1,7 +1,7 @@
 public class DesDemo {
     public static void main(String[] args) {
         long key = Long.parseUnsignedLong("133457799BBCDFF1", 16);    //@DATA 密钥（经典例）
-        long plain = Long.parseUnsignedLong("0123456789ABCDEF", 16);  //@DATA 明文（64 位块）
+        long plain = Long.parseUnsignedLong("0123456789ABCDEF", 16);  // 明文（64 位块）
         int[][] rk = expandKey(key);                    // 16 把子密钥：PC1 选 56 位 → 循环左移 → PC2 选 48 位
         int[] x = permute(toBits(plain), IP);           // 初始置换 IP：64 位重排，历史包袱（硬件并线时代产物）
         int[] l = java.util.Arrays.copyOfRange(x, 0, 32);    // L0 = IP 后前 32 位

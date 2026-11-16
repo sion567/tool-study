@@ -176,7 +176,7 @@ public final class LstmDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("int[] xs = " + java.util.Arrays.toString(XS) + ";   // 门权重 0.5/0.4/0.6");
+        return java.util.List.of(Algorithm.joinArray("xs", XS) + "   // 门权重 0.5/0.4/0.6");
     }
 
     @Override

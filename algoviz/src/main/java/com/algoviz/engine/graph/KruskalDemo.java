@@ -152,7 +152,8 @@ public final class KruskalDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("int[][] edges = " + java.util.Arrays.deepToString(EDGES) + ";");
+        return java.util.List.of("int[][] edges = "
+                + java.util.Arrays.deepToString(EDGES).replace('[', '{').replace(']', '}') + ";");
     }
 
     @Override

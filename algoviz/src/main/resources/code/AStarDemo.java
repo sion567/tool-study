@@ -3,7 +3,12 @@ import java.util.*;
 public class AStarDemo {
     static final int ROWS = 8, COLS = 12;
     static final int SR = 0, SC = 0, GR = 7, GC = 11;   // 起点/终点
-    static boolean[][] wall = new boolean[ROWS][COLS];  //@DATA
+    static int[][] walls = {{1,2},{1,3},{1,4},{1,8},{2,4},{2,8},{2,9},{3,4},{3,6},{3,7},{3,8},{4,2},{4,4},{4,6},{5,2},{5,6},{5,7},{5,8},{5,10},{6,2},{6,10}};   //@DATA 21 堵墙
+    static boolean[][] wall = new boolean[ROWS][COLS];
+
+    static {
+        for (int[] w : walls) wall[w[0]][w[1]] = true;
+    }
 
     public static void main(String[] args) {
         // open 集：f = g + h 最小的先出（小根堆）

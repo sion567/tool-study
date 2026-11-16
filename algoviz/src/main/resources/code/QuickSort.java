@@ -23,8 +23,5 @@ public class QuickSort {
         qs(a, 0, a.length - 1);
         System.out.println(java.util.Arrays.toString(a));
 
-    @Override
-    public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(input));
     }
 }

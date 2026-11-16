@@ -30,8 +30,4 @@ public class ReverseList {
         return head;
     }
 
-    @Override
-    public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(input));
-    }
 }

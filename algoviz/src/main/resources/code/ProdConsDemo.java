@@ -2,7 +2,8 @@ import java.util.concurrent.*;
 
 public class ProdConsDemo {
     public static void main(String[] args) throws Exception {
-        BlockingQueue<String> queue = new ArrayBlockingQueue<>(2);   //@DATA   容量 2
+        int capacity = 2;   //@DATA   队列容量
+        BlockingQueue<String> queue = new ArrayBlockingQueue<>(capacity);
 
         // 生产者：连放 4 个——队列满时 put() 自动阻塞（背压）
         Thread producer = new Thread(() -> {

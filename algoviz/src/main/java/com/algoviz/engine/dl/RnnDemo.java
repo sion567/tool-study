@@ -135,7 +135,7 @@ public final class RnnDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("int[] xs = " + java.util.Arrays.toString(XS) + ";   // w_x=1, w_h=0.8");
+        return java.util.List.of(Algorithm.joinArray("xs", XS) + "   // w_x=1, w_h=0.8");
     }
 
     @Override

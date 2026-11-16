@@ -145,8 +145,8 @@ public final class KnapsackDemo implements Algorithm {
     @Override
     public java.util.List<String> dataLines() {
         return java.util.List.of(
-                "int[] weights = " + java.util.Arrays.toString(WEIGHTS) + ";",
-                "int[] values = " + java.util.Arrays.toString(VALUES) + ";",
+                Algorithm.joinArray("weights", WEIGHTS),
+                Algorithm.joinArray("values", VALUES),
                 "int capacity = " + CAPACITY + ";");
     }
 

@@ -18,8 +18,5 @@ public class SelectionSort {
         sort(a);
         System.out.println(java.util.Arrays.toString(a));
 
-    @Override
-    public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(input));
     }
 }

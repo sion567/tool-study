@@ -179,7 +179,7 @@ public final class ListBuildDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("int[] data = " + java.util.Arrays.toString(DATA) + ";");
+        return java.util.List.of(Algorithm.joinArray("data", DATA));
     }
 
     @Override

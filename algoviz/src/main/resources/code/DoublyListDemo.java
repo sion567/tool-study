@@ -6,8 +6,7 @@ public class DoublyListDemo {
     }
 
     public static void main(String[] args) {
-        int[] init = {4, 9, 2};        //@DATA
-        int insertVal = 7, deleteVal = 9;
+        int[] init = {4, 9, 2}; int insertVal = 7, deleteVal = 9;   //@DATA
         DNode head = null, tail = null;
         for (int v : init) {           // 尾插建表
             DNode n = new DNode(v);

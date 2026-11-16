@@ -1,4 +1,4 @@
-public class InOrderTraversal {
+public class TraversalIn {
     static void traverse(Node node) {
         if (node == null) {
             return;
@@ -35,8 +35,4 @@ public class InOrderTraversal {
         return r;
     }
 
-    @Override
-    public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(input));
-    }
 }

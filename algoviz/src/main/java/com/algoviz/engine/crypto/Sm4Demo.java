@@ -235,7 +235,7 @@ public final class Sm4Demo implements Algorithm {
     @Override
     public java.util.List<String> dataLines() {
         return java.util.List.of(String.format(
-                "int[] key = {%08x, %08x, %08x, %08x};   //@DATA 密钥", key[0], key[1], key[2], key[3]));
+                "int[] key = {0x%08x, 0x%08x, 0x%08x, 0x%08x};   //@DATA 密钥", key[0], key[1], key[2], key[3]));
     }
 
     @Override

@@ -149,7 +149,7 @@ public final class LinkedListCycle implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(vals), "int anchor = " + anchorIdx + ";");
+        return java.util.List.of(Algorithm.joinArray("vals", vals), "int anchor = " + anchorIdx + ";");
     }
 
     @Override

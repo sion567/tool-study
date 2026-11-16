@@ -1,11 +1,18 @@
 public class TaylorDemo {
     public static void main(String[] args) {
-        double x = 1.0;   // 求 sin(1)
+        double x = 1.0;   // 求 sin(1) 与 cos(1)
         for (int terms : new int[]{1, 3, 5, 7, 9}) {
             System.out.printf("%d 项近似 sin(%.1f) = %.6f（真实 %.6f）%n",
                     terms, x, taylorSin(x, terms), Math.sin(x));
         }
+        // ===== cos 版：偶次幂，常数项起步 =====
+        // cos(x) = 1 - x²/2! + x⁴/4! - x⁶/6! + …
+        for (int maxPower : new int[]{0, 2, 4, 6, 8}) {
+            System.out.printf("最高 %d 次幂近似 cos(%.1f) = %.6f（真实 %.6f）%n",
+                    maxPower, x, taylorCos(x, maxPower), Math.cos(x));
+        }
     }
+
     static double taylorSin(double x, int n) {
         double sum = 0, power = x;
         int sign = 1;
@@ -16,15 +23,7 @@ public class TaylorDemo {
         }
         return sum;
     }
-    static double factorial(int n) {
-        double f = 1;
-        for (int i = 2; i <= n; i++) f *= i;
-        return f;
-    }
-}
 
-    // ===== cos 版：偶次幂，常数项起步 =====
-    // cos(x) = 1 - x²/2! + x⁴/4! - x⁶/6! + …
     static double taylorCos(double x, int maxPower) {
         double sum = 1, power = 1, sign = -1;
         for (int k = 2; k <= maxPower; k += 2) {
@@ -34,3 +33,10 @@ public class TaylorDemo {
         }
         return sum;
     }
+
+    static double factorial(int n) {
+        double f = 1;
+        for (int i = 2; i <= n; i++) f *= i;
+        return f;
+    }
+}

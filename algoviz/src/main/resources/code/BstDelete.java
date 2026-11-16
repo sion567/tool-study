@@ -30,8 +30,7 @@ public class BstDelete {
     }
 
     public static void main(String[] args) {          // 复制本类即可直接运行
-        int[] vals = {5, 3, 8, 1, 4, 7, 9};            //@DATA
-        int deleteVal = 5;
+        int[] vals = {5, 3, 8, 1, 4, 7, 9}; int deleteVal = 5;   //@DATA
         Node root = bstFrom(vals);
         root = delete(root, deleteVal);
         System.out.println("删除 " + deleteVal + " 后中序: " + inOrder(root) + "｜新根 = " + root.val);
@@ -55,8 +54,4 @@ public class BstDelete {
         return inOrder(n.left) + n.val + " " + inOrder(n.right);
     }
 
-    @Override
-    public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(input), "int deleteVal = " + deleteVal + ";");
-    }
 }

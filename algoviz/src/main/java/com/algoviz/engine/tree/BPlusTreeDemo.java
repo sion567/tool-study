@@ -312,7 +312,7 @@ public final class BPlusTreeDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of("int[] keys = " + java.util.Arrays.toString(keys) + ";   // 阶 m=4");
+        return java.util.List.of(Algorithm.joinArray("keys", keys) + "   // 阶 m=4");
     }
 
     @Override

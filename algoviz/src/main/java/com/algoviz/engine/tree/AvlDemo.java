@@ -207,7 +207,7 @@ public final class AvlDemo implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(INPUT));
+        return java.util.List.of(Algorithm.joinArray("input", INPUT));
     }
 
     @Override

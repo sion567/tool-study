@@ -267,7 +267,7 @@ public final class DoublyListDemo implements Algorithm {
     @Override
     public java.util.List<String> dataLines() {
         return java.util.List.of(
-                "int[] init = " + java.util.Arrays.toString(INIT) + ";",
+                Algorithm.joinArray("init", INIT),
                 "int insertVal = " + INSERT_VAL + ", deleteVal = " + DELETE_VAL + ";");
     }
 

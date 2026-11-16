@@ -1,7 +1,7 @@
 public class AcautoDemo {
     public static void main(String[] args) {
         String text = "ushers";   //@DATA 文本
-        String[] patterns = {"he", "she", "his", "hers"};   //@DATA 模式
+        java.util.Set<String> patterns = java.util.Set.of("he", "she", "his", "hers");
         // Trie：共享前缀只建一次
         java.util.Map<String, Integer> nodes = new java.util.LinkedHashMap<>();
         nodes.put("", 0);

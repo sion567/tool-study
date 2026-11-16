@@ -191,7 +191,8 @@ public final class BstDelete implements Algorithm {
 
     @Override
     public java.util.List<String> dataLines() {
-        return java.util.List.of(Algorithm.joinArray(input));
+        return java.util.List.of(Algorithm.joinArray("vals", input),
+                "int deleteVal = " + deleteVal + ";");
     }
 
     @Override

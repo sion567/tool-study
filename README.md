@@ -3,7 +3,7 @@
 > 一个 JavaFX 桌面应用：把 **167 个算法/模式/数学/物理/奥数/化学/密码学/机器学习主题** 变成可逐帧回放的"执行现场"。
 > 不是看动画的**电影院**，而是练预测、练默写的**健身房**。
 
-[![Java](https://img.shields.io/badge/Java-21-orange)]() [![JavaFX](https://img.shields.io/badge/JavaFX-21.0.4-blue)]() [![Tests](https://img.shields.io/badge/tests-566%20passing-brightgreen)]() [![Golden](https://img.shields.io/badge/golden%20baselines-167-yellow)]()
+[![Java](https://img.shields.io/badge/Java-21-orange)]() [![JavaFX](https://img.shields.io/badge/JavaFX-21.0.4-blue)]() [![Tests](https://img.shields.io/badge/tests-567%20passing-brightgreen)]() [![Golden](https://img.shields.io/badge/golden%20baselines-167-yellow)]()
 
 ---
 
@@ -45,7 +45,7 @@
 # 注意：默认 java 若是 17，mvn test 会在 validate 阶段被 enforcer 拦下——先设 JAVA_HOME
 cd algoviz
 set JAVA_HOME=D:\sdk\Java\jdk-21.0.10   # Git Bash: export JAVA_HOME="D:\sdk\Java\jdk-21.0.10"
-mvn test              # 566 个测试（纯 JVM，不需要图形环境）
+mvn test              # 567 个测试（纯 JVM，不需要图形环境）
 mvn javafx:run        # 开发运行
 
 # 一键打包（产物：免安装 exe，自带 JRE，目标机器无需 Java）
@@ -63,7 +63,7 @@ MainApp（Controller/组合根）
                                      com.algoviz.app/（JavaRunner 行为判卷等纯逻辑）
 ```
 
-- **`engine/` 与测试零 JavaFX 依赖** → 566 个测试纯 JVM 毫秒级跑完
+- **`engine/` 与测试零 JavaFX 依赖** → 567 个测试纯 JVM 毫秒级跑完
 - 167 个 golden 基线逐字节锁定每条 trace——任何行为变化都看得见
 - 详见 [AlgoViz架构归档.md](AlgoViz架构归档.md)：MVC/MVP/MVVM 三镜头映射、新图层 7 步 checklist、关键决策日志
 
@@ -79,14 +79,14 @@ algoviz/
 ├── src/main/resources/
 │   ├── code/            # 每个演示的可运行代码模板（默写参考答案）
 │   └── markdown/        # 每个演示的课件
-└── src/test/            # 566 测试 + TraceAsserts 合约检查 + golden 基线
+└── src/test/            # 567 测试 + TraceAsserts 合约检查 + golden 基线
 package.cmd              # 一键打包
 ```
 
 ## 测试
 
 ```bash
-mvn test    # 566 tests：合约检查 + 渲染烟测（TraceAsserts）+ 幂等性 + 167 golden 逐字节 + 行为断言
+mvn test    # 567 tests：合约检查 + 渲染烟测（TraceAsserts）+ 幂等性 + 167 golden 逐字节 + 行为断言
 ```
 
 Golden 基线的哲学：**任何一行产出的变化都看得见**。有意变更时删除对应 `.golden.json` 重跑即自动重建。
