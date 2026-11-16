@@ -37,6 +37,7 @@ public final class BisectionDemo implements Algorithm {
     private static final int STEPS = 10;
 
     private final List<Step> steps = new ArrayList<>();
+    private boolean intervalOn = true;
     private double a, b, mid, fMid;
 
     @Override public String id() { return "math.bisection"; }
@@ -51,7 +52,7 @@ public final class BisectionDemo implements Algorithm {
         b = B0;
         emit(4, List.of(VizEvent.of(VizEvent.EventType.INIT,
                 "f(x)=x³−x−2：f(1)=−2 < 0，f(2)=4 > 0 → 根被夹在 [1,2]")),
-                "介值定理：连续函数从负走到正，必经过零——这就是二分法的合法性");
+                "介值定理：连续函数从负走到正，必经过零——这就是二分法的合法性", false);
         for (int i = 1; i <= STEPS; i++) {
             mid = (a + b) / 2;
             fMid = f(mid);
@@ -87,6 +88,11 @@ public final class BisectionDemo implements Algorithm {
     }
 
     private void emit(int line, List<VizEvent> events, String why) {
+        emit(line, events, why, true);
+    }
+
+    private void emit(int line, List<VizEvent> events, String why, boolean withInterval) {
+        intervalOn = withInterval;
         StackFrame frame = new StackFrame("bisection",
                 OrderedMaps.of("区间", Value.prim("[" + fmt(a) + ", " + fmt(b) + "]"),
                         "中点 f(x)", Value.prim(String.format("%+.4f", fMid))),
@@ -112,6 +118,10 @@ public final class BisectionDemo implements Algorithm {
     }
 
     private PlotView snapshotPlot() {
+        return snapshotPlot(intervalOn);
+    }
+
+    private PlotView snapshotPlot(boolean withInterval) {
         List<List<Double>> curve = new ArrayList<>();
         for (int i = 0; i <= 60; i++) {
             double x = A0 + (B0 - A0) * i / 60;
@@ -128,7 +138,7 @@ public final class BisectionDemo implements Algorithm {
                 1.0, 2.0, -2.5, 4.5,
                 Collections.unmodifiableList(curve),
                 Collections.unmodifiableList(midLine),
-                List.of(), List.of(),
+                List.of(), withInterval ? List.of(java.util.List.of(a, mid, b)) : List.of(),   // 🎯 rects[0] = [a, mid, b]（INIT 帧不编——mid 未定）
                 Collections.unmodifiableList(labels));
     }
 

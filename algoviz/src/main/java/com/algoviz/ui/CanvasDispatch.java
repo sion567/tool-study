@@ -74,10 +74,10 @@ public final class CanvasDispatch {
                         DiffHighlighter.changedMatrixCells(math(p), cur.math()));
                 return true;
             },
-            // ---- 函数图像 ----
+            // ---- 函数图像（🎯 预测模式画选中态：wire3d 轴 / newton 半区）----
             (c, p, cur, pk) -> {
                 if (cur.plot() == null) return false;
-                PlotRenderer.draw(c, cur);
+                PlotRenderer.draw(c, cur, pk);
                 return true;
             },
             // ---- 位图（bits: 前缀换算成下标高亮）----
@@ -112,6 +112,7 @@ public final class CanvasDispatch {
             (c, cur, x, y) -> cur.bitmap() == null ? -1 : BitmapRenderer.hitIndex(c, cur, x, y),
             (c, cur, x, y) -> cur.array() == null ? -1
                     : BarRenderer.hitIndex(c.getWidth(), c.getHeight(), cur.array().values().size(), x, y),
+            (c, cur, x, y) -> cur.plot() == null ? -1 : PlotRenderer.hitIndex(c, cur, x, y),
     };
 
     /** 按优先级渲染：第一个命中该层的渲染器胜出。 */

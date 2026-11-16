@@ -579,6 +579,27 @@ class AlgorithmBatchTraceTest {
         assertTrue2(width < 0.002, "10 步后区间宽 = 1/1024 ≈ 0.00098，实际 " + width);
         double root = Double.parseDouble(biFields.get("根估计").text());
         assertEquals(1.5213797, root, 0.002, "根 ≈ 1.5214");
+        // 🎯 预测语义：rects[0] = [a, mid, b]（每帧 3 项，a 随迭代单调增或不变）
+        for (var st : bi) {
+            var pv = st.plot();
+            if (pv != null && !pv.rects().isEmpty()) {
+                assertEquals(3, pv.rects().get(0).size(), "二分区间编码应 3 项 @step " + st.index());
+                var iv = pv.rects().get(0);
+                assertTrue2(iv.get(0) <= iv.get(1) && iv.get(1) <= iv.get(2),
+                        "a ≤ mid ≤ b @step " + st.index());
+            }
+        }
+        boolean aMonotonic = true;
+        double prevA = -1;
+        for (var st : bi) {
+            var pv = st.plot();
+            if (pv != null && !pv.rects().isEmpty()) {
+                double a = pv.rects().get(0).get(0);
+                if (prevA >= 0 && a < prevA - 1e-12) aMonotonic = false;
+                prevA = a;
+            }
+        }
+        assertTrue2(aMonotonic, "a 单调不减（goRight 真值可从 a 推导的前提）");
         // 复利：n=128 终值介于 2.7 与 e 之间，且单调逼近
         var ci = new com.algoviz.engine.math.CompoundInterestDemo().produce().steps();
         var ciFields = ci.get(ci.size() - 3).heap().heap().objects().get("@1").fields();
@@ -1101,6 +1122,20 @@ class AlgorithmBatchTraceTest {
             moved = Math.abs(first.get(i).get(0) - last.get(i).get(0)) > 0.5;
         }
         assertTrue2(moved, "旋转应真实发生（首末帧姿态不同）");
+        // 🎯 预测语义：spin 帧 plot().angle() 编码轴 0/1/2，开场/万向锁/收尾帧 = -1
+        java.util.Set<Integer> axes = new java.util.HashSet<>();
+        int unpredictable = 0;
+        for (var st : t) {
+            double ang = st.plot().angle();
+            if (ang < 0) {
+                unpredictable++;
+            } else {
+                assertTrue2(ang == 0 || ang == 1 || ang == 2, "轴编码应 ∈{0,1,2} @step " + st.index());
+                axes.add((int) ang);
+            }
+        }
+        assertTrue2(axes.equals(java.util.Set.of(0, 1, 2)), "三根轴都出现过，实际 " + axes);
+        assertTrue2(unpredictable >= 3, "开场+万向锁+收尾帧不可预测（≥3 帧），实际 " + unpredictable);
         // 变体：步进角 15° 生效（事件文本含"步进"档位角度）
         var v15 = new com.algoviz.engine.math.Rotation3DDemo(15).produce().steps();
         String v15Text = v15.stream().flatMap(s -> s.events().stream().map(e -> e.detail()))

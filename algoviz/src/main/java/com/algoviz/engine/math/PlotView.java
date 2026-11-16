@@ -39,7 +39,11 @@ import java.util.List;
  * kind = wire3d：3D 线框（立方体绕轴旋转）。trace3 = 边表 [x1,y1,z1,x2,y2,z2]，
  *   rects = 顶点表 [x,y,z,hl]（hl=1 高亮），sineTrace = 坐标轴线 [x1,y1,z1,x2,y2,z2]，
  *   labels = 左上角旋转矩阵三行 + 状态行（⚠ 开头 = 万向锁警示），
- *   angle = 累计角度，pointX = 视距 fov，pointY = 世界缩放 s。
+ *   angle = 🎯 预测语义：当前旋转轴 0/1/2（X/Y/Z），-1 = 不可预测帧（INIT/万向锁/RETURN），
+ *   pointX = 视距 fov，pointY = 世界缩放 s。
+ *
+ * kind = newton 的 rects 复用：二分演示（math.bisection）= [a, mid, b] 当前区间
+ *   （🎯 预测：下一帧 rects[0] 变大 = 根在右半）；其它 NEWTON 演示 rects 为空。
  */
 public record PlotView(String kind, String name, double angle,
                        double pointX, double pointY,

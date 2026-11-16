@@ -66,7 +66,7 @@
         "math.plot": {
           "kind": "wire3d",
           "name": "3D 旋转",
-          "angle": 0.0,
+          "angle": -1.0,
           "pointX": 4.0,
           "pointY": 90.0,
           "xMin": -3.2,
@@ -325,7 +325,7 @@
         "math.plot": {
           "kind": "wire3d",
           "name": "3D 旋转",
-          "angle": 0.0,
+          "angle": 2.0,
           "pointX": 4.0,
           "pointY": 90.0,
           "xMin": -3.2,
@@ -584,7 +584,7 @@
         "math.plot": {
           "kind": "wire3d",
           "name": "3D 旋转",
-          "angle": 0.0,
+          "angle": 2.0,
           "pointX": 4.0,
           "pointY": 90.0,
           "xMin": -3.2,
@@ -843,7 +843,7 @@
         "math.plot": {
           "kind": "wire3d",
           "name": "3D 旋转",
-          "angle": 0.0,
+          "angle": 2.0,
           "pointX": 4.0,
           "pointY": 90.0,
           "xMin": -3.2,
@@ -1620,7 +1620,7 @@
         "math.plot": {
           "kind": "wire3d",
           "name": "3D 旋转",
-          "angle": 0.0,
+          "angle": 1.0,
           "pointX": 4.0,
           "pointY": 90.0,
           "xMin": -3.2,
@@ -1879,7 +1879,7 @@
         "math.plot": {
           "kind": "wire3d",
           "name": "3D 旋转",
-          "angle": 0.0,
+          "angle": 1.0,
           "pointX": 4.0,
           "pointY": 90.0,
           "xMin": -3.2,
@@ -2138,7 +2138,7 @@
         "math.plot": {
           "kind": "wire3d",
           "name": "3D 旋转",
-          "angle": 0.0,
+          "angle": -1.0,
           "pointX": 4.0,
           "pointY": 90.0,
           "xMin": -3.2,
@@ -2397,7 +2397,7 @@
         "math.plot": {
           "kind": "wire3d",
           "name": "3D 旋转",
-          "angle": 0.0,
+          "angle": -1.0,
           "pointX": 4.0,
           "pointY": 90.0,
           "xMin": -3.2,
@@ -2656,7 +2656,7 @@
         "math.plot": {
           "kind": "wire3d",
           "name": "3D 旋转",
-          "angle": 0.0,
+          "angle": -1.0,
           "pointX": 4.0,
           "pointY": 90.0,
           "xMin": -3.2,

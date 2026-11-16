@@ -7,6 +7,7 @@ import com.algoviz.engine.ds.HashView;
 import com.algoviz.engine.ds.ListView;
 import com.algoviz.engine.ds.TreeView;
 import com.algoviz.engine.math.MathView;
+import com.algoviz.engine.math.PlotView;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -101,11 +102,27 @@ public final class PredictionController {
         }
         Step cur = playback.current();
         boolean plotMode = cur != null && cur.plot() != null;
-        if (plotMode) {
+        if (plotMode && !predictablePlot(cur)) {
             panel.setQuestion("此演示是连续图像型（曲线/几何），暂不支持点选预测——"
-                    + "点选类演示（排序/链表/树/图/矩阵）练起来更顺手。");
+                    + "已开放：线性代数·3D 旋转（猜转轴）、二分法（猜半区）；"
+                    + "其余点选类演示（排序/链表/树/图/矩阵）练起来更顺手。");
             panel.setPicked("");
             panel.setButtons(false, false, "跳过");
+            return;
+        }
+        if (plotMode) {
+            if (PlotView.WIRE3D.equals(cur.plot().kind()) && cur.plot().angle() < 0) {
+                panel.setQuestion("本帧不可预测（开场/万向锁现场/收尾——看懂它本身就是收获）。");
+                panel.setPicked("");
+                panel.setButtons(false, false, "跳过");
+                return;
+            }
+            String target = cur.plot().kind().equals(PlotView.WIRE3D)
+                    ? "这一步绕哪根轴转？（点轴线选择）"
+                    : "中点分半后，根在左半还是右半？（点半个区间选择）";
+            panel.setQuestion("第 " + (idx + 1) + " 步 → 第 " + (idx + 2) + " 步：" + target);
+            panel.setPicked(picked.isEmpty() ? "已选：（无）" : "已选：" + fmtIdx(picked, cur));
+            panel.setButtons(true, true, "提交答案");
             return;
         }
         boolean listMode = cur != null && cur.list() != null;
@@ -233,9 +250,32 @@ public final class PredictionController {
     // ---------- 真值与命名（原 MainApp 静态工具平移） ----------
 
     /** 预测的真值：与下一帧相比，变的是哪些下标。 */
+    /** plot 类白名单：数据驱动真值的两演示（wire3d angle 编码轴、二分 rects[0]=[a,mid,b]）。 */
+    private static boolean predictablePlot(Step cur) {
+        PlotView pv = cur.plot();
+        if (pv == null) {
+            return false;
+        }
+        if (PlotView.WIRE3D.equals(pv.kind())) {
+            return true;
+        }
+        return PlotView.NEWTON.equals(pv.kind()) && !pv.rects().isEmpty() && pv.rects().get(0).size() == 3;
+    }
+
     private static Set<Integer> truthIndices(Step cur, Step next) {
         if (cur == null || next == null) {
             return Set.of();
+        }
+        if (cur.plot() != null && predictablePlot(cur)) {
+            PlotView pv = cur.plot();
+            PlotView npv = next.plot();
+            if (PlotView.WIRE3D.equals(pv.kind())) {
+                int axis = (int) Math.round(npv.angle());
+                return axis >= 0 && axis <= 2 ? Set.of(axis) : Set.of();
+            }
+            // 二分：下一帧 rects[0]（区间左端 a）变大 = mid 归入 a = 根在右半
+            boolean goRight = npv.rects().get(0).get(0) > pv.rects().get(0).get(0);
+            return Set.of(goRight ? 1 : 0);
         }
         if (cur.array() != null) {
             return DiffHighlighter.changedIndices(cur.array(), next.array());
@@ -321,6 +361,13 @@ public final class PredictionController {
     }
 
     private static String fmtIdx(Collection<Integer> idxs, Step refStep) {
+        if (refStep != null && refStep.plot() != null && predictablePlot(refStep)) {
+            boolean wire = PlotView.WIRE3D.equals(refStep.plot().kind());
+            return idxs.stream().sorted().map(i -> wire
+                    ? (i == 0 ? "绕X" : i == 1 ? "绕Y" : "绕Z")
+                    : (i == 0 ? "左半" : "右半"))
+                    .collect(Collectors.joining(", "));
+        }
         boolean listMode = refStep != null && refStep.list() != null;
         boolean treeMode = refStep != null && refStep.tree() != null;
         boolean graphMode = refStep != null && refStep.graph() != null;

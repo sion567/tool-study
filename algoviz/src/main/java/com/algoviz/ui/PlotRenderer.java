@@ -21,6 +21,11 @@ public final class PlotRenderer {
     }
 
     public static void draw(Canvas canvas, Step step) {
+        draw(canvas, step, java.util.Set.of());
+    }
+
+    /** 🎯 预测模式：picked = 用户选中的 plot 目标（wire3d 轴 0/1/2、newton 半区 0/1），渲染选中态。 */
+    public static void draw(Canvas canvas, Step step, java.util.Set<Integer> picked) {
         GraphicsContext g = canvas.getGraphicsContext2D();
         g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         if (step == null || step.plot() == null) return;
@@ -28,22 +33,69 @@ public final class PlotRenderer {
         double w = canvas.getWidth(), h = canvas.getHeight();
         g.setTextAlign(TextAlignment.CENTER);
         switch (pv.kind() == null ? PlotView.UNIT_CIRCLE : pv.kind()) {
-            case PlotView.NEWTON -> drawNewton(g, w, h, pv);
+            case PlotView.NEWTON -> drawNewton(g, w, h, pv, picked);
             case PlotView.CORDIC -> drawCordic(g, w, h, pv);
             case PlotView.RIEMANN -> drawRiemann(g, w, h, pv);
             case PlotView.CARTESIAN -> drawCartesian(g, w, h, pv);
             case PlotView.SCATTER -> drawScatter(g, w, h, pv);
             case PlotView.DOUBLE_PENDULUM -> drawDoublePendulum(g, w, h, pv);
             case PlotView.TAYLOR -> drawTaylor(g, w, h, pv);
-            case PlotView.WIRE3D -> drawWireframe3d(g, w, h, pv);
+            case PlotView.WIRE3D -> drawWireframe3d(g, w, h, pv, picked);
             default -> drawUnitCircle(g, w, h, pv);
         }
+    }
+
+    /**
+     * 🎯 plot 命中检测：wire3d = 点三根轴线（距线段 <24px → 轴 0/1/2）；
+     * newton（仅二分演示 rects=[a,mid,b] 非空）= mid 屏幕投影左右半区 → 0/1；其它 kind 返回 -1。
+     */
+    public static int hitIndex(Canvas canvas, Step cur, double x, double y) {
+        PlotView pv = cur.plot();
+        if (pv == null) {
+            return -1;
+        }
+        double w = canvas.getWidth(), h = canvas.getHeight();
+        if (PlotView.WIRE3D.equals(pv.kind())) {
+            double fov = pv.pointX() > 0 ? pv.pointX() : 4;
+            double s = pv.pointY() > 0 ? pv.pointY() : 90;
+            double cx = w / 2, cy = h / 2 + 8;
+            double[][] axes = {{1, 0, 0, -1, 0, 0}, {0, 1, 0, 0, -1, 0}, {0, 0, 1, 0, 0, -1}};
+            int best = -1;
+            double bestD = 24;
+            for (int i = 0; i < 3; i++) {
+                double[] a = axes[i];
+                double x1 = cx + a[0] * s * (fov / (fov - a[2])), y1 = cy - a[1] * s * (fov / (fov - a[2]));
+                double x2 = cx + a[3] * s * (fov / (fov - a[5])), y2 = cy - a[4] * s * (fov / (fov - a[5]));
+                double d = distToSeg(x, y, x1, y1, x2, y2);
+                if (d < bestD) {
+                    bestD = d;
+                    best = i;
+                }
+            }
+            return best;
+        }
+        if (PlotView.NEWTON.equals(pv.kind()) && !pv.rects().isEmpty()
+                && pv.rects().get(0).size() == 3) {   // 二分演示约定
+            double x0 = w * 0.08, x1 = w * 0.95;
+            double midScreen = x0 + (pv.pointX() - pv.xMin()) / (pv.xMax() - pv.xMin()) * (x1 - x0);
+            return x < midScreen ? 0 : 1;
+        }
+        return -1;
+    }
+
+    private static double distToSeg(double px, double py, double x1, double y1, double x2, double y2) {
+        double dx = x2 - x1, dy = y2 - y1;
+        double len2 = dx * dx + dy * dy;
+        double t = len2 == 0 ? 0 : Math.max(0, Math.min(1, ((px - x1) * dx + (py - y1) * dy) / len2));
+        double cx = x1 + t * dx, cy = y1 + t * dy;
+        return Math.hypot(px - cx, py - cy);
     }
 
     // ==================== kind = wire3d（3D 线框：立方体绕轴旋转）====================
 
     /** 弱透视投影：scale = fov/(fov−z)，近大远小；深度感 = 近粗远细 + alpha。 */
-    private static void drawWireframe3d(GraphicsContext g, double w, double h, PlotView pv) {
+    private static void drawWireframe3d(GraphicsContext g, double w, double h, PlotView pv,
+                                         java.util.Set<Integer> picked) {
         double fov = pv.pointX() > 0 ? pv.pointX() : 4;       // 视距（世界单位）
         double s = pv.pointY() > 0 ? pv.pointY() : 90;        // 世界缩放（像素/世界单位）
         double cx = w / 2, cy = h / 2 + 8;
@@ -96,6 +148,18 @@ public final class PlotRenderer {
                 g.setLineWidth(1.4);
                 g.strokeOval(pxx - r, pyy - r, 2 * r, 2 * r);
             }
+        }
+
+        // 🎯 用户选中的轴：玫红加粗重描（盖在灰轴上）
+        for (Integer pk : picked) {
+            if (pk == null || pk < 0 || pk > 2) {
+                continue;
+            }
+            double[] a = axes[pk];
+            g.setStroke(Palette.ROSE);
+            g.setLineWidth(3.5);
+            g.strokeLine(pxF.applyAsDouble(a[0], a[2]), pyF.applyAsDouble(a[1], a[2]),
+                    pxF.applyAsDouble(a[3], a[5]), pyF.applyAsDouble(a[4], a[5]));
         }
 
         // 左上角：旋转矩阵三行 + 状态行（⚠ = 万向锁警示 → 玫红强调）
@@ -408,7 +472,8 @@ public final class PlotRenderer {
 
     // ==================== kind = newton（牛顿迭代）====================
 
-    private static void drawNewton(GraphicsContext g, double w, double h, PlotView pv) {
+    private static void drawNewton(GraphicsContext g, double w, double h, PlotView pv,
+                                    java.util.Set<Integer> picked) {
         // 绘图区（留边给轴标签）
         double x0 = w * 0.08, x1 = w * 0.95;
         double y0 = h * 0.12, y1 = h * 0.90;
@@ -419,6 +484,32 @@ public final class PlotRenderer {
                 x -> x0 + (x - pv.xMin()) / dx * (x1 - x0);
         java.util.function.DoubleUnaryOperator sy =
                 y -> y1 - (y - pv.yMin()) / dy * (y1 - y0);
+
+        // 二分演示：区间 [a,mid,b] 高亮带 + 🎯 选中半区玫红填充（rects[0] = [a, mid, b]）
+        if (!pv.rects().isEmpty() && pv.rects().get(0).size() == 3) {
+            var iv = pv.rects().get(0);
+            double aS = sx.applyAsDouble(iv.get(0)), bS = sx.applyAsDouble(iv.get(2));
+            double mS = sx.applyAsDouble(pv.pointX());
+            for (Integer pk : picked) {
+                if (pk == null) {
+                    continue;
+                }
+                g.setFill(new Color(Palette.ROSE.getRed(), Palette.ROSE.getGreen(), Palette.ROSE.getBlue(), 0.12));
+                g.fillRect(pk == 0 ? aS : mS, y0, (pk == 0 ? mS : bS) - (pk == 0 ? aS : mS), y1 - y0);
+            }
+            g.setFill(new Color(Palette.AMBER.getRed(), Palette.AMBER.getGreen(), Palette.AMBER.getBlue(), 0.10));
+            g.fillRect(aS, y0, bS - aS, y1 - y0);
+            g.setStroke(Palette.AMBER);
+            g.setLineWidth(1.2);
+            g.setLineDashes(5, 4);
+            g.strokeLine(aS, y0, aS, y1);
+            g.strokeLine(bS, y0, bS, y1);
+            g.setLineDashes();
+            g.setFill(Palette.FAINT);
+            g.setFont(Font.font(10));
+            g.fillText("a", aS, y1 + 14);
+            g.fillText("b", bS, y1 + 14);
+        }
 
         // 坐标轴：y=0 与 x=0（若在域内）
         g.setStroke(Palette.FAINT);

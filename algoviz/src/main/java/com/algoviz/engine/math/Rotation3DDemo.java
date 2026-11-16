@@ -142,10 +142,11 @@ public final class Rotation3DDemo implements Algorithm {
             }
             checkOrthonormal(rot, verts);
             String axisName = axis == 'x' ? "X（翻滚 pitch）" : axis == 'y' ? "Y（偏航 yaw）" : "Z（平面旋转的推广）";
+            int ax = axis == 'x' ? 0 : axis == 'y' ? 1 : 2;
             emit(31, List.of(VizEvent.of(VizEvent.EventType.SET,
                     String.format("绕 %s 第 %d 步（累计 %d°）：R = R%c(%d°)·R_prev——8 顶点范数仍 = √3 ✓",
                             axisName, k, k * stepDeg, Character.toUpperCase(axis), stepDeg))),
-                    "绕 Z 是 2D 旋转的直接推广（z 列不动）；绕 X/Y 才是 3D 新增的自由度");
+                    "绕 Z 是 2D 旋转的直接推广（z 列不动）；绕 X/Y 才是 3D 新增的自由度", ax);
         }
     }
 
@@ -190,6 +191,10 @@ public final class Rotation3DDemo implements Algorithm {
     }
 
     private void emit(int line, List<VizEvent> events, String why) {
+        emit(line, events, why, -1);
+    }
+
+    private void emit(int line, List<VizEvent> events, String why, int axisIndex) {
         StackFrame frame = new StackFrame("rot3d",
                 OrderedMaps.of("累计角", Value.prim(String.format("%.0f°", Math.toDegrees(Math.acos(rot[0][0])))),
                         "步进", Value.prim(stepDeg + "°"),
@@ -197,7 +202,7 @@ public final class Rotation3DDemo implements Algorithm {
         Map<String, Layer> layers = new LinkedHashMap<>();
         layers.put("mem.stack", new StackLayer(List.of(frame)));
         layers.put("mem.heap", new HeapLayer(snapshotHeap()));
-        layers.put("math.plot", snapshotPlot());
+        layers.put("math.plot", snapshotPlot(axisIndex));
         steps.add(new Step(steps.size(), Loc.line(line, why),
                 Collections.unmodifiableMap(layers), List.copyOf(events), new Intent(why, INVARIANT)));
     }
@@ -213,7 +218,7 @@ public final class Rotation3DDemo implements Algorithm {
         return new Heap(Collections.unmodifiableMap(objs));
     }
 
-    private PlotView snapshotPlot() {
+    private PlotView snapshotPlot(int axisIndex) {
         List<List<Double>> edges = new ArrayList<>();
         for (int[] e : BASE_EDGES) {
             double[] a = verts[e[0]], b = verts[e[1]];
@@ -231,7 +236,7 @@ public final class Rotation3DDemo implements Algorithm {
         for (int r = 0; r < 3; r++) {
             labels.add(String.format("[ %.2f  %.2f  %.2f ]", rot[r][0], rot[r][1], rot[r][2]));
         }
-        return new PlotView(PlotView.WIRE3D, "3D 旋转", 0, 4, 90,
+        return new PlotView(PlotView.WIRE3D, "3D 旋转", axisIndex, 4, 90,
                 -3.2, 3.2, -3.2, 3.2, axes, List.of(), edges, vs, labels);
     }
 
