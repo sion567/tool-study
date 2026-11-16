@@ -26,6 +26,10 @@ public final class Theme {
         showGrid = !showGrid;
     }
 
+    public static void setShowGrid(boolean g) {
+        showGrid = g;
+    }
+
     public static boolean toggle() {
         dark = !dark;
         return dark;

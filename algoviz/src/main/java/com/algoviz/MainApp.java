@@ -9,6 +9,7 @@ import com.algoviz.engine.trace.Trace;
 import com.algoviz.ui.CodePanel;
 import com.algoviz.ui.ComplexityCurve;
 import com.algoviz.ui.ComplexityPanel;
+import com.algoviz.app.PrefsStore;
 import com.algoviz.app.DictationDiff;
 import com.algoviz.app.DictationJudge;
 import com.algoviz.ui.DiffHighlighter;
@@ -97,7 +98,8 @@ public class MainApp extends Application {
     private final java.util.List<javafx.scene.control.ToggleButton> levelBtns = new java.util.ArrayList<>();
 
     // 画布视图变换：拖动平移 + 缩放（滚轮/按钮），围绕画布中心
-    private double viewZoom = 1, viewPanX = 0, viewPanY = 0;
+    private double viewZoom = com.algoviz.app.PrefsStore.viewZoom(),
+            viewPanX = com.algoviz.app.PrefsStore.viewPanX(), viewPanY = com.algoviz.app.PrefsStore.viewPanY();
     private double lastDragX, lastDragY;
     private boolean draggedView;
 
@@ -107,6 +109,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) {
         playback.addListener(this::render);
+        Theme.setDark(PrefsStore.dark());
+        Theme.setShowGrid(PrefsStore.showGrid());
 
         BorderPane root = new BorderPane();
         rootPane = root;
@@ -141,6 +145,7 @@ public class MainApp extends Application {
             }
             viewPanX += dx;
             viewPanY += dy;
+            savePrefs();
             lastDragX = e.getX();
             lastDragY = e.getY();
             render();
@@ -155,6 +160,7 @@ public class MainApp extends Application {
             viewPanX = mx * (1 - ratio) + viewPanX * ratio;
             viewPanY = my * (1 - ratio) + viewPanY * ratio;
             viewZoom = newZoom;
+            savePrefs();
             render();
             e.consume();
         });
@@ -229,7 +235,7 @@ public class MainApp extends Application {
         bottom.setStyle(Theme.rootStyle());
 
         // 三段可拖拽：左目录 / 中动画 / 右面板（代码/说明/预测）——分隔条随意拉
-        SplitPane split = new SplitPane(tree, canvasPane, tabPane);
+        SplitPane split = new SplitPane(searchWrap(), canvasPane, tabPane);
         split.setDividerPositions(0.13, 0.60);
         SplitPane.setResizableWithParent(tree, Boolean.FALSE);
 
@@ -250,11 +256,76 @@ public class MainApp extends Application {
         selectDefault();
     }
 
+    /** 左栏：演示搜索框 + 目录树（按 title/category/sub contains 实时过滤）。 */
+    private javafx.scene.Node searchWrap() {
+        javafx.scene.control.TextField search = new javafx.scene.control.TextField();
+        search.setPromptText("搜索演示…（如 红黑 / fft / des）");
+        search.setStyle("-fx-font-size:12px;");
+        javafx.scene.layout.VBox wrap = new javafx.scene.layout.VBox(search, tree);
+        wrap.setSpacing(4);
+        search.textProperty().addListener((o, ov, nv) -> tree.setRoot(buildTreeRoot(nv == null ? "" : nv.strip())));
+        return wrap;
+    }
+
+    private void savePrefs() {
+        PrefsStore.save(Theme.isDark(), Theme.showGrid(), viewZoom, viewPanX, viewPanY);
+    }
+
+    /** 📷 导出当前帧为 PNG：FileChooser 保存，无新依赖（snapshot → 手写 ARGB → ImageIO）。 */
+    private void exportFrame() {
+        if (currentAlgorithm == null) {
+            return;
+        }
+        try {
+            var chooser = new javafx.stage.FileChooser();
+            chooser.setTitle("导出当前帧 PNG");
+            chooser.setInitialFileName(currentAlgorithm.id().replace('.', '-') + "-step" + (playback.index() + 1) + ".png");
+            chooser.getExtensionFilters().add(new javafx.stage.FileChooser.ExtensionFilter("PNG 图片", "*.png"));
+            var file = chooser.showSaveDialog(canvas.getScene() == null ? null : canvas.getScene().getWindow());
+            if (file == null) {
+                return;
+            }
+            javafx.scene.image.WritableImage img = canvas.snapshot(null, null);
+            int w = (int) img.getWidth(), h = (int) img.getHeight();
+            java.awt.image.BufferedImage buf = new java.awt.image.BufferedImage(w, h,
+                    java.awt.image.BufferedImage.TYPE_INT_ARGB);
+            for (int y = 0; y < h; y++) {
+                for (int x = 0; x < w; x++) {
+                    buf.setRGB(x, y, img.getPixelReader().getArgb(x, y));
+                }
+            }
+            javax.imageio.ImageIO.write(buf, "png", file);
+        } catch (Exception ex) {
+            System.err.println("导出失败: " + ex.getMessage());
+        }
+    }
+
+    /** 目录树：selection → load 演示（重建过滤根时监听保持在 TreeView 上，不受影响）。 */
     private TreeView<String> buildTree() {
+        TreeView<String> tv = new TreeView<>(buildTreeRoot(""));
+        tv.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
+            if (nv == null || nv.getValue() == null) {
+                return;
+            }
+            AlgorithmRegistry.all().stream()
+                    .filter(e -> e.algorithm().title().equals(nv.getValue()))
+                    .findFirst()
+                    .ifPresent(e -> load(e.algorithm()));
+        });
+        return tv;
+    }
+
+    private TreeItem<String> buildTreeRoot(String filter) {
         TreeItem<String> root = new TreeItem<>("AlgoViz");
         root.setExpanded(true);
 
-        var all = AlgorithmRegistry.all();
+        String f = filter.toLowerCase();
+        java.util.List<AlgorithmRegistry.Entry> all = AlgorithmRegistry.all().stream()
+                .filter(e -> f.isEmpty()
+                        || e.algorithm().title().toLowerCase().contains(f)
+                        || e.category().toLowerCase().contains(f)
+                        || (e.sub() != null && e.sub().toLowerCase().contains(f)))
+                .toList();
         Map<String, Long> catCounts = all.stream()
                 .collect(java.util.stream.Collectors.groupingBy(AlgorithmRegistry.Entry::category,
                         java.util.stream.Collectors.counting()));
@@ -285,17 +356,7 @@ public class MainApp extends Application {
             parent.getChildren().add(new TreeItem<>(e.algorithm().title()));
         }
 
-        TreeView<String> tv = new TreeView<>(root);
-        tv.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
-            if (nv == null || nv.getValue() == null) {
-                return;
-            }
-            AlgorithmRegistry.all().stream()
-                    .filter(e -> e.algorithm().title().equals(nv.getValue()))
-                    .findFirst()
-                    .ifPresent(e -> load(e.algorithm()));
-        });
-        return tv;
+        return root;
     }
 
     private HBox buildControls() {
@@ -312,6 +373,7 @@ public class MainApp extends Application {
             boolean dark = Theme.toggle();
             themeBtn.setText(dark ? "☀" : "🌙");
             applyTheme();
+            savePrefs();
         });
         Button gridBtn = new Button(Theme.showGrid() ? "▦" : "▢");
         Tooltip.install(gridBtn, new Tooltip("背景网格：显示/隐藏（默认显示）"));
@@ -319,7 +381,11 @@ public class MainApp extends Application {
             Theme.toggleGrid();
             gridBtn.setText(Theme.showGrid() ? "▦" : "▢");
             render();
+            savePrefs();
         });
+        Button shotBtn = new Button("📷");
+        Tooltip.install(shotBtn, new Tooltip("导出当前帧为 PNG（做笔记插图）"));
+        shotBtn.setOnAction(e -> exportFrame());
         randBtn = new Button("🎲");
         Tooltip.install(randBtn, new Tooltip("换一批随机数据（灰=该演示是固定剧本）"));
         randBtn.setOnAction(e -> {
@@ -379,7 +445,7 @@ public class MainApp extends Application {
         slider.valueProperty().addListener((o, ov, nv) -> navigate((int) Math.round(nv.doubleValue())));
 
         stepLabel = new Label("0 / 0");
-        HBox bar = new HBox(8, first, prev, playBtn, next, last, randBtn, levelBox, nLabel, gridBtn, themeBtn, slider, stepLabel);
+        HBox bar = new HBox(8, first, prev, playBtn, next, last, shotBtn, randBtn, levelBox, nLabel, gridBtn, themeBtn, slider, stepLabel);
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setPadding(new Insets(4, 0, 4, 0));
         return bar;
