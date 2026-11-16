@@ -4,6 +4,8 @@ package com.algoviz.ui;
 public final class Theme {
 
     private static boolean dark;
+    /** 画布背景网格开关（默认显示；▦ 按钮切换，渲染器读 Theme.showGrid）。 */
+    private static boolean showGrid = true;
 
     private Theme() {
     }
@@ -14,6 +16,14 @@ public final class Theme {
 
     public static void setDark(boolean d) {
         dark = d;
+    }
+
+    public static boolean showGrid() {
+        return showGrid;
+    }
+
+    public static void toggleGrid() {
+        showGrid = !showGrid;
     }
 
     public static boolean toggle() {

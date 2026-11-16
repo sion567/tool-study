@@ -120,11 +120,13 @@ public final class PlotRenderer {
         double circleCy = h * 0.45;
         double circleR = Math.min(w * 0.15, h * 0.30);
 
-        // 圆网格
-        g.setStroke(Palette.GRID_SOFT);
-        g.setLineWidth(1);
-        g.strokeLine(circleCx - circleR - 20, circleCy, circleCx + circleR + 20, circleCy);
-        g.strokeLine(circleCx, circleCy - circleR - 20, circleCx, circleCy + circleR + 20);
+        // 圆网格（背景网格开关 ▦）
+        if (Theme.showGrid()) {
+            g.setStroke(Palette.GRID_SOFT);
+            g.setLineWidth(1);
+            g.strokeLine(circleCx - circleR - 20, circleCy, circleCx + circleR + 20, circleCy);
+            g.strokeLine(circleCx, circleCy - circleR - 20, circleCx, circleCy + circleR + 20);
+        }
 
         // 单位圆
         g.setStroke(Palette.MUTED);
@@ -169,20 +171,22 @@ public final class PlotRenderer {
         double waveMidY = h * 0.45;
         double waveAmp = h * 0.25;
 
-        // 网格
-        g.setStroke(Palette.GRID_SOFT);
-        g.setLineWidth(1);
-        g.strokeLine(waveX0, waveMidY, waveX1, waveMidY);   // x 轴
-        g.setStroke(Palette.GRID);
-        g.strokeLine(waveX0, waveMidY - waveAmp, waveX1, waveMidY - waveAmp);
-        g.strokeLine(waveX0, waveMidY + waveAmp, waveX1, waveMidY + waveAmp);
-        // 方格背景（竖刻度）——与黄金螺旋同款读感，缩放时有参照
-        g.setStroke(Palette.CARD);
-        g.setLineWidth(1);
-        int vLines = 8;
-        for (int i = 1; i < vLines; i++) {
-            double vx = waveX0 + (waveX1 - waveX0) * i / vLines;
-            g.strokeLine(vx, waveMidY - waveAmp, vx, waveMidY + waveAmp);
+        // 网格 + 方格背景（背景网格开关 ▦）
+        if (Theme.showGrid()) {
+            g.setStroke(Palette.GRID_SOFT);
+            g.setLineWidth(1);
+            g.strokeLine(waveX0, waveMidY, waveX1, waveMidY);   // x 轴
+            g.setStroke(Palette.GRID);
+            g.strokeLine(waveX0, waveMidY - waveAmp, waveX1, waveMidY - waveAmp);
+            g.strokeLine(waveX0, waveMidY + waveAmp, waveX1, waveMidY + waveAmp);
+            // 方格背景（竖刻度）——与黄金螺旋同款读感，缩放时有参照
+            g.setStroke(Palette.CARD);
+            g.setLineWidth(1);
+            int vLines = 8;
+            for (int i = 1; i < vLines; i++) {
+                double vx = waveX0 + (waveX1 - waveX0) * i / vLines;
+                g.strokeLine(vx, waveMidY - waveAmp, vx, waveMidY + waveAmp);
+            }
         }
         g.setFill(Palette.FAINT);
         g.setFont(Font.font(10));
@@ -244,18 +248,20 @@ public final class PlotRenderer {
         java.util.function.DoubleUnaryOperator sy =
                 y -> y1 - (y - pv.yMin()) / dy * (y1 - y0);
 
-        // π 刻度竖网格（浅）
-        g.setStroke(Palette.CARD);
-        g.setLineWidth(1);
-        double[] ticks = {Math.PI / 2, Math.PI, 3 * Math.PI / 2, 2 * Math.PI};
-        String[] tickNames = {"π/2", "π", "3π/2", "2π"};
-        g.setFill(Palette.FAINT);
-        g.setFont(Font.font(10));
-        for (int i = 0; i < ticks.length; i++) {
-            if (ticks[i] > pv.xMin() && ticks[i] < pv.xMax()) {
-                double tx = sx.applyAsDouble(ticks[i]);
-                g.strokeLine(tx, y0, tx, y1);
-                g.fillText(tickNames[i], tx, y1 + 14);
+        // π 刻度竖网格（浅）——背景网格开关 ▦
+        if (Theme.showGrid()) {
+            g.setStroke(Palette.CARD);
+            g.setLineWidth(1);
+            double[] ticks = {Math.PI / 2, Math.PI, 3 * Math.PI / 2, 2 * Math.PI};
+            String[] tickNames = {"π/2", "π", "3π/2", "2π"};
+            g.setFill(Palette.FAINT);
+            g.setFont(Font.font(10));
+            for (int i = 0; i < ticks.length; i++) {
+                if (ticks[i] > pv.xMin() && ticks[i] < pv.xMax()) {
+                    double tx = sx.applyAsDouble(ticks[i]);
+                    g.strokeLine(tx, y0, tx, y1);
+                    g.fillText(tickNames[i], tx, y1 + 14);
+                }
             }
         }
         // 水平参考线 y=±1（浅）+ 坐标轴
@@ -606,14 +612,16 @@ public final class PlotRenderer {
         java.util.function.DoubleUnaryOperator sx = x -> x0 + (x - pv.xMin()) / dx * (x1 - x0);
         java.util.function.DoubleUnaryOperator sy = y -> yBase - (y - pv.yMin()) / dy * (yBase - yTop);
 
-        // 网格 + 坐标轴（笛卡尔坐标系的骨架）
-        g.setStroke(Palette.CARD);
-        g.setLineWidth(1);
-        for (int gx = (int) Math.ceil(pv.xMin()); gx <= pv.xMax(); gx++) {
-            g.strokeLine(sx.applyAsDouble(gx), yTop, sx.applyAsDouble(gx), yBase);
-        }
-        for (int gy = (int) Math.ceil(pv.yMin()); gy <= pv.yMax(); gy++) {
-            g.strokeLine(x0, sy.applyAsDouble(gy), x1, sy.applyAsDouble(gy));
+        // 网格（背景网格开关 ▦）+ 坐标轴（0 线永远保留）
+        if (Theme.showGrid()) {
+            g.setStroke(Palette.CARD);
+            g.setLineWidth(1);
+            for (int gx = (int) Math.ceil(pv.xMin()); gx <= pv.xMax(); gx++) {
+                g.strokeLine(sx.applyAsDouble(gx), yTop, sx.applyAsDouble(gx), yBase);
+            }
+            for (int gy = (int) Math.ceil(pv.yMin()); gy <= pv.yMax(); gy++) {
+                g.strokeLine(x0, sy.applyAsDouble(gy), x1, sy.applyAsDouble(gy));
+            }
         }
         if (pv.yMin() <= 0 && pv.yMax() >= 0) {
             g.setStroke(Palette.MUTED);

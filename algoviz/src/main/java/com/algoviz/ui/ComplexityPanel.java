@@ -78,8 +78,10 @@ public final class ComplexityPanel {
         // x 轴刻度
         for (int nTick : new int[]{10, 20, 30, 40, 50}) {
             double x = x0 + (double) nTick / maxN * plotW;
-            g.setStroke(Palette.GRID);
-            g.strokeLine(x, y0, x, y0 - 4);
+            if (Theme.showGrid()) {
+                g.setStroke(Palette.GRID);
+                g.strokeLine(x, y0, x, y0 - 4);
+            }
             g.setFill(Palette.FAINT);
             g.fillText(String.valueOf(nTick), x, y0 + 14);
         }
@@ -228,8 +230,10 @@ public final class ComplexityPanel {
         for (int t = 0; t <= 4; t++) {
             double v = yMax * t / 4.0;
             double y = y0 - (double) t / 4 * plotH;
-            g.setStroke(Palette.GRID_SOFT);
-            g.strokeLine(x0, y, x0 + plotW, y);
+            if (Theme.showGrid()) {
+                g.setStroke(Palette.GRID_SOFT);
+                g.strokeLine(x0, y, x0 + plotW, y);
+            }
             g.setFill(Palette.FAINT);
             g.fillText(String.valueOf(Math.round(v)), x0 - 8, y + 4);
         }

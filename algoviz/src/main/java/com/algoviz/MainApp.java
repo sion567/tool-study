@@ -313,6 +313,13 @@ public class MainApp extends Application {
             themeBtn.setText(dark ? "☀" : "🌙");
             applyTheme();
         });
+        Button gridBtn = new Button(Theme.showGrid() ? "▦" : "▢");
+        Tooltip.install(gridBtn, new Tooltip("背景网格：显示/隐藏（默认显示）"));
+        gridBtn.setOnAction(e -> {
+            Theme.toggleGrid();
+            gridBtn.setText(Theme.showGrid() ? "▦" : "▢");
+            render();
+        });
         randBtn = new Button("🎲");
         Tooltip.install(randBtn, new Tooltip("换一批随机数据（灰=该演示是固定剧本）"));
         randBtn.setOnAction(e -> {
@@ -372,7 +379,7 @@ public class MainApp extends Application {
         slider.valueProperty().addListener((o, ov, nv) -> navigate((int) Math.round(nv.doubleValue())));
 
         stepLabel = new Label("0 / 0");
-        HBox bar = new HBox(8, first, prev, playBtn, next, last, randBtn, levelBox, nLabel, themeBtn, slider, stepLabel);
+        HBox bar = new HBox(8, first, prev, playBtn, next, last, randBtn, levelBox, nLabel, gridBtn, themeBtn, slider, stepLabel);
         bar.setAlignment(Pos.CENTER_LEFT);
         bar.setPadding(new Insets(4, 0, 4, 0));
         return bar;
