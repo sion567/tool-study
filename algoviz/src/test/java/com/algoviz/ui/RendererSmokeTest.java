@@ -73,4 +73,31 @@ class RendererSmokeTest {
     private static void assertTrue(boolean cond, String msg) {
         org.junit.jupiter.api.Assertions.assertTrue(cond, msg);
     }
+
+    /** 课件渲染烟测：AST 遍历（commonmark）装载代表性课件——表格/引用块/新演示三类各一，任何异常即失败。 */
+    @Test
+    void markdownViewsLoadWithoutThrowing() throws Exception {
+        AtomicReference<Throwable> failure = new AtomicReference<>();
+        CountDownLatch done = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                MarkdownView view = new MarkdownView();
+                for (String doc : new String[]{"/markdown/aes.md", "/markdown/two-pointers.md", "/markdown/log.md"}) {
+                    try {
+                        view.loadResource(doc);
+                    } catch (Throwable t) {
+                        failure.compareAndSet(null, new RuntimeException(doc + " 渲染抛异常: " + t, t));
+                        return;
+                    }
+                }
+                view.applyTheme();   // 主题重渲染路径
+            } finally {
+                done.countDown();
+            }
+        });
+        assertTrue(done.await(30, TimeUnit.SECONDS), "课件渲染烟测超时");
+        if (failure.get() != null) {
+            throw new AssertionError(failure.get());
+        }
+    }
 }
