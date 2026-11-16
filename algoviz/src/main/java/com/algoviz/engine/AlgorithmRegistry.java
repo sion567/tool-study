@@ -192,6 +192,7 @@ public final class AlgorithmRegistry {
             new Entry("数学", "数与计算", new com.algoviz.engine.math.KaratsubaDemo()),
             new Entry("数学", "微积分", new com.algoviz.engine.math.TrapezoidDemo()),
             new Entry("数学", "数与计算", new com.algoviz.engine.math.BigIntDemo()),
+            new Entry("数学", "数与计算", new com.algoviz.engine.math.MathLogDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.TreeSerializeDemo()),
             new Entry("算法", "树", new com.algoviz.engine.tree.BPlusTreeDemo()),
             new Entry("SOLID 原则", null, new com.algoviz.engine.pattern.SolidSrpDemo()),
@@ -337,6 +338,8 @@ public final class AlgorithmRegistry {
                 String pattern = text.substring(4 + r.nextInt(3), 8 + r.nextInt(3));   // 必在文本中
                 yield new KmpDemo(text.toString(), pattern);
             }
+            case "math.log" -> new com.algoviz.engine.math.MathLogDemo(
+                    new int[]{100, 1000, 1000000}[r.nextInt(3)]);              // 换猜数上限（砍半序列/阶梯 n 同步变）
             case "math.gcd" -> new GcdDemo(12 + r.nextInt(988), 12 + r.nextInt(988));
             case "math.fastpower" -> new FastPowerDemo(2 + r.nextInt(8), 10 + r.nextInt(21));
             case "math.sieve" -> new SieveDemo(20 + r.nextInt(41));

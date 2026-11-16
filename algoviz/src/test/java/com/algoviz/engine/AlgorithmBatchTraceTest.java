@@ -128,6 +128,7 @@ class AlgorithmBatchTraceTest {
                 // ---- 第二十一批补漏：数学馆补全（梯形/辛普森误差阶 / 大数竖式）golden 缺席，补齐对齐其余 164 个 ----
                 new Object[]{"math_trapezoid", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.TrapezoidDemo::new},
                 new Object[]{"math_bigint", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.BigIntDemo::new},
+                new Object[]{"math_log", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.math.MathLogDemo::new},
                 new Object[]{"concurrent_vis", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentVisDemo::new},
                 new Object[]{"concurrent_deadlock", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.pattern.ConcurrentDeadlockDemo::new},
                 new Object[]{"dl_lstm", (java.util.function.Supplier<Algorithm>) com.algoviz.engine.dl.LstmDemo::new},
@@ -1067,6 +1068,41 @@ class AlgorithmBatchTraceTest {
         long nonzero = arr.values().stream().filter(v -> v != 0).count();
         assertTrue2(nonzero > 0, "斐波那契递归阶段柱子应显示调用次数（非全 0）");
         assertTrue2("调用次数".equals(arr.name()), "递归阶段数组名应为「调用次数」，实际 " + arr.name());
+    }
+
+    /** 行为：对数——砍半次数/lg6 演算/换底/复杂度阶梯逐项。 */
+    @org.junit.jupiter.api.Test
+    void mathLogBehave() throws Exception {
+        // 默认 N=1000：⌈log₂1000⌉=10 次必中
+        var lg = new com.algoviz.engine.math.MathLogDemo().produce().steps();
+        assertTrue2(lg.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("10 次必中：2^10=1024 ≥ 1000")),
+                "猜数字必须 10 次必中（2^10=1024 ≥ 1000）");
+        assertTrue2(lg.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("0.77815 = lg6")),
+                "乘变加必须命中 lg2+lg3=0.77815=lg6");
+        assertTrue2(lg.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("≈ 9.97")),
+                "换底必须命中 log₂1000 ≈ 9.97");
+        // 阶梯格逐格：n=1000 时 [1,10,1000,10000,1000000]
+        var ladder = lg.get(lg.size() - 1).math().grids().stream()
+                .filter(g -> g.id().equals("ladder")).findFirst().orElseThrow();
+        String[] want = {"1", "10", "1000", "10000", "1000000"};
+        for (int i = 0; i < 5; i++) {
+            assertEquals(want[i], ladder.value(0, i), "复杂度阶梯第 " + i + " 列不符");
+        }
+        assertTrue2(lg.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("纳皮尔")
+                        && e.detail().contains("计算尺")), "收尾应含历史线（纳皮尔/计算尺）");
+        // 变体 N=100：7 次必中，阶梯 [1,7,100,700,10000]
+        var v = new com.algoviz.engine.math.MathLogDemo(100).produce().steps();
+        assertTrue2(v.stream().flatMap(s -> s.events().stream())
+                .anyMatch(e -> e.detail() != null && e.detail().contains("7 次必中：2^7=128 ≥ 100")),
+                "变体 N=100 必须 7 次必中");
+        var vl = v.get(v.size() - 1).math().grids().stream()
+                .filter(g -> g.id().equals("ladder")).findFirst().orElseThrow();
+        assertEquals("700", vl.value(0, 3), "变体阶梯 O(n·log n) 应为 700");
+        assertEquals("10000", vl.value(0, 4), "变体阶梯 O(n²) 应为 10000");
     }
 
     /** 行为：国密三件套——SM3/SM4 终值 == 国标向量，SM2 教学曲线群闭合。 */
