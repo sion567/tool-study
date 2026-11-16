@@ -3,9 +3,9 @@ package com.algoviz.ui;
 import com.algoviz.engine.Step;
 import com.algoviz.engine.ds.SeqView;
 import com.algoviz.engine.math.MathView;
+import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -18,12 +18,12 @@ import java.util.Set;
  */
 public final class MatrixRenderer {
 
-    private static final Color CELL_BG = Color.web("#e8eefc");
-    private static final Color CELL_LINE = Color.web("#94a3b8");
-    private static final Color HL = Color.web("#f59e0b");
-    private static final Color CHANGED = Color.web("#eab308");
-    private static final Color DONE = Color.web("#22c55e");
-    private static final Color PICKED = Color.web("#8b5cf6");
+    private static final Color CELL_BG = Palette.CARD_ALT;
+    private static final Color CELL_LINE = Palette.AXIS;
+    private static final Color HL = Palette.AMBER;
+    private static final Color CHANGED = Palette.YELLOW;
+    private static final Color DONE = Palette.GREEN;
+    private static final Color PICKED = Palette.VIOLET;
 
     private MatrixRenderer() {
     }
@@ -54,7 +54,7 @@ public final class MatrixRenderer {
             double cx = w * 0.36;
             g.setTextAlign(TextAlignment.CENTER);
             drawGrid(g, a, ax, topY, cell, cell, picked != null, changedKeys, null);
-            g.setFill(Color.web("#6b7280"));
+            g.setFill(Palette.MUTED);
             g.setFont(Font.font(18));
             g.fillText("×", ax + a.cols() * cell + 18, topY + a.rows() * cell / 2 + 6);
             drawGrid(g, b, bx, topY, cell, cell, false, changedKeys, null);
@@ -144,7 +144,7 @@ public final class MatrixRenderer {
                                  double cell, double cellW, boolean clickable, Set<String> changedKeys,
                                  Set<Integer> picked) {
         double cw = cellW;   // 格宽由布局层统一决定：长公式横向加宽而非缩字
-        g.setFill(Color.web("#111827"));
+        g.setFill(Palette.INK_STRONG);
         g.setFont(Font.font(12));
         g.setTextAlign(TextAlignment.CENTER);
         g.fillText(grid.label(), x + grid.cols() * cw / 2, y - 8);
@@ -159,7 +159,7 @@ public final class MatrixRenderer {
                         || (grid.hlCol() != null && grid.hlCol() == c);
                 boolean active = grid.activeCells().contains(idx);
                 boolean changed = changedKeys != null && changedKeys.contains(grid.id() + ":" + idx);
-                g.setFill(done ? Color.web("#dcfce7") : CELL_BG);
+                g.setFill(done ? Palette.GREEN_SOFT : CELL_BG);
                 g.fillRect(cx, cy, cw, cell);
                 if (done) {
                     g.setStroke(DONE);
@@ -179,7 +179,7 @@ public final class MatrixRenderer {
                     g.strokeRect(cx - 3, cy - 3, cw + 6, cell + 6);
                     g.setLineDashes();
                 }
-                g.setFill(done ? Color.web("#166534") : Color.web("#1e3a8a"));
+                g.setFill(done ? Palette.GREEN_DARK : Palette.BLUE_INK);
                 g.setFont(Font.font(fitFontSize(grid.values().get(idx), cw)));
                 g.fillText(grid.values().get(idx), cx + cw / 2, cy + cell / 2 + 5);
             }

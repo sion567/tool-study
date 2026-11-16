@@ -3,9 +3,10 @@ package com.algoviz.ui;
 import com.algoviz.engine.Step;
 import com.algoviz.engine.Value;
 import com.algoviz.engine.ds.HashView;
+import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -30,11 +31,11 @@ public final class HashRenderer {
     private static final double BOX_H = 26;
     private static final double CHAIN_GAP = 14;
 
-    private static final Color SLOT_C = Color.web("#64748b");
-    private static final Color BOX_C = Color.web("#3b82f6");
-    private static final Color ARROW = Color.web("#6b7280");
-    private static final Color CHANGED = Color.web("#eab308");
-    private static final Color PICKED = Color.web("#8b5cf6");
+    private static final Color SLOT_C = Palette.SLATE_LIGHT;
+    private static final Color BOX_C = Palette.BLUE;
+    private static final Color ARROW = Palette.MUTED;
+    private static final Color CHANGED = Palette.YELLOW;
+    private static final Color PICKED = Palette.VIOLET;
 
     private HashRenderer() {
     }
@@ -54,7 +55,7 @@ public final class HashRenderer {
 
         // 桶标签 h(k)=k%N
         g.setTextAlign(TextAlignment.RIGHT);
-        g.setFill(Color.web("#9ca3af"));
+        g.setFill(Palette.FAINT);
         g.setFont(Font.font(10));
         g.fillText("h(k) = k % " + buckets, slotX + SLOT_W, y0 - 8);
 
@@ -63,7 +64,7 @@ public final class HashRenderer {
         for (int b = 0; b < buckets; b++) {
             double y = y0 + b * (SLOT_H + GAP);
             boolean active = isActiveBucket(step, b);
-            g.setFill(active ? Color.web("#f59e0b") : SLOT_C);
+            g.setFill(active ? Palette.AMBER : SLOT_C);
             g.fillRoundRect(slotX, y, SLOT_W, SLOT_H, 6, 6);
             g.setFill(Color.WHITE);
             g.setFont(Font.font(13));
@@ -131,7 +132,7 @@ public final class HashRenderer {
                 int k = chainOf(hv, nd.bucket()).indexOf(nd);
                 double x = slotX + SLOT_W + 20 + k * (BOX_W + CHAIN_GAP) + BOX_W / 2;
                 double ty = y0 + nd.bucket() * (SLOT_H + GAP) - (BOX_H - SLOT_H) / 2 - 8;
-                g.setFill(Color.web("#ea580c"));
+                g.setFill(Palette.ORANGE);
                 g.fillText(String.join("·", entry.getValue()), x, ty);
             }
         }

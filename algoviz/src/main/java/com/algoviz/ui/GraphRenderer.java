@@ -2,9 +2,9 @@ package com.algoviz.ui;
 
 import com.algoviz.engine.Step;
 import com.algoviz.engine.ds.GraphView;
+import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -20,12 +20,12 @@ import java.util.Set;
  */
 public final class GraphRenderer {
 
-    private static final Color BASE = Color.web("#3b82f6");
-    private static final Color SETTLED = Color.web("#22c55e");
-    private static final Color EDGE = Color.web("#94a3b8");
-    private static final Color RELAX = Color.web("#eab308");
-    private static final Color TOP = Color.web("#ea580c");
-    private static final Color PICKED = Color.web("#8b5cf6");
+    private static final Color BASE = Palette.BLUE;
+    private static final Color SETTLED = Palette.GREEN;
+    private static final Color EDGE = Palette.AXIS;
+    private static final Color RELAX = Palette.YELLOW;
+    private static final Color TOP = Palette.ORANGE;
+    private static final Color PICKED = Palette.VIOLET;
 
     private GraphRenderer() {
     }
@@ -60,7 +60,7 @@ public final class GraphRenderer {
             double mx = (a[0] + b[0]) / 2;
             double my = (a[1] + b[1]) / 2;
             if (e.weight() > 0) {   // 权重 0 = 无权边（并查集森林），不显示数字
-                g.setFill(Color.web("#6b7280"));
+                g.setFill(Palette.MUTED);
                 g.setFont(Font.font(11));
                 g.fillText(String.valueOf(e.weight()), mx, my - 4);
             }
@@ -95,7 +95,7 @@ public final class GraphRenderer {
             g.fillText(v.label(), p[0], p[1] + 5);
             Integer d = gv.dist().get(v.label());
             if (d != null) {
-                g.setFill(settledNow ? Color.web("#15803d") : Color.web("#1d4ed8"));
+                g.setFill(settledNow ? Palette.GREEN_INK : Palette.BLUE_DEEP);
                 g.setFont(Font.font(12));
                 g.fillText("d=" + d, p[0], p[1] + r + 16);
             }

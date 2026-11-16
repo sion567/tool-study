@@ -2,9 +2,9 @@ package com.algoviz.ui;
 
 import com.algoviz.engine.Step;
 import com.algoviz.engine.ds.BTreeView;
+import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -25,13 +25,13 @@ public final class BTreeRenderer {
     private static final double SLOT_H = 26;
     private static final int MAX_KEYS = 3;
 
-    private static final Color LEAF_C = Color.web("#059669");
-    private static final Color INNER_C = Color.web("#3b82f6");
-    private static final Color FRESH_C = Color.web("#f59e0b");
-    private static final Color ARROW = Color.web("#6b7280");
-    private static final Color ONSTACK = Color.web("#ea580c");
-    private static final Color PICKED = Color.web("#8b5cf6");
-    private static final Color CHAIN_C = Color.web("#16a34a");
+    private static final Color LEAF_C = Palette.TEAL_DEEP;
+    private static final Color INNER_C = Palette.BLUE;
+    private static final Color FRESH_C = Palette.AMBER;
+    private static final Color ARROW = Palette.MUTED;
+    private static final Color ONSTACK = Palette.ORANGE;
+    private static final Color PICKED = Palette.VIOLET;
+    private static final Color CHAIN_C = Palette.GREEN_DEEP;
 
     private BTreeRenderer() {
     }
@@ -64,7 +64,7 @@ public final class BTreeRenderer {
                 double[] to = pos.get(cid);
                 if (to == null) continue;
                 boolean changed = changedNodes != null && (changedNodes.contains(nd.nodeId()) || changedNodes.contains(cid));
-                g.setStroke(changed ? Color.web("#eab308") : ARROW);
+                g.setStroke(changed ? Palette.YELLOW : ARROW);
                 g.setLineWidth(changed ? 3 : 1.5);
                 g.strokeLine(from[0] + nodeW / 2, from[1] + nodeH, to[0] + nodeW / 2, to[1]);
             }
@@ -113,12 +113,12 @@ public final class BTreeRenderer {
                 double sx = p[0] + pad + k * slotW;
                 boolean hasKey = k < nd.keys().size();
                 // 槽底
-                g.setStroke(hasKey ? Color.web("#ffffff55") : Color.web("#ffffff33"));
+                g.setStroke(hasKey ? Palette.WHITE_GHOST : Palette.WHITE_WISP);
                 g.setLineWidth(1);
                 g.strokeRect(sx, p[1] + 5 * s, slotW - 4 * s, nodeH - 10 * s);
                 if (hasKey) {
                     boolean active = nd.activeKey() != null && nd.activeKey() == nd.keys().get(k);
-                    g.setFill(active ? Color.web("#fde047") : Color.WHITE);
+                    g.setFill(active ? Palette.YELLOW_SOFT : Color.WHITE);
                     g.setFont(Font.font(Math.max(8, (active ? 14 : 13) * s)));
                     g.fillText(String.valueOf(nd.keys().get(k)), sx + (slotW - 4 * s) / 2, p[1] + nodeH - 4 * s);
                 }
@@ -128,7 +128,7 @@ public final class BTreeRenderer {
         // 图例
         g.setTextAlign(TextAlignment.LEFT);
         g.setFont(Font.font(10));
-        g.setFill(Color.web("#9ca3af"));
+        g.setFill(Palette.FAINT);
         g.fillText("蓝=内部  绿=叶子  黄=刚分裂  橙描边=下探路径  亮字=本步写入", 12, h - 8);
     }
 

@@ -1,8 +1,8 @@
 package com.algoviz.ui;
 
+import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -18,8 +18,8 @@ public final class ComplexityPanel {
     private static final String[] IDS = {"constant", "log", "linear", "nlogn", "nsq", "exp", "fact"};
     private static final String[] NAMES = {"O(1)", "O(log n)", "O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)", "O(n!)"};
     private static final Color[] COLORS = {
-            Color.web("#22c55e"), Color.web("#3b82f6"), Color.web("#8b5cf6"),
-            Color.web("#f59e0b"), Color.web("#ef4444"), Color.web("#ec4899"), Color.web("#7f1d1d")};
+            Palette.GREEN, Palette.BLUE, Palette.VIOLET,
+            Palette.AMBER, Palette.RED, Palette.PINK, Palette.RED_DEEP};
     private static final DoubleUnaryOperator[] OPS = {
             n -> 1,
             n -> Math.log(n) / Math.log(2),
@@ -62,11 +62,11 @@ public final class ComplexityPanel {
         g.setTextAlign(TextAlignment.CENTER);
 
         // 坐标轴
-        g.setStroke(Color.web("#94a3b8"));
+        g.setStroke(Palette.AXIS);
         g.setLineWidth(1.5);
         g.strokeLine(x0, y0, x0 + plotW, y0);
         g.strokeLine(x0, y0, x0, y0 - plotH);
-        g.setFill(Color.web("#6b7280"));
+        g.setFill(Palette.MUTED);
         g.setFont(Font.font(11));
         g.fillText("n（数据量）", x0 + plotW / 2, y0 + 24);
         g.save();
@@ -78,9 +78,9 @@ public final class ComplexityPanel {
         // x 轴刻度
         for (int nTick : new int[]{10, 20, 30, 40, 50}) {
             double x = x0 + (double) nTick / maxN * plotW;
-            g.setStroke(Color.web("#d1d5db"));
+            g.setStroke(Palette.GRID);
             g.strokeLine(x, y0, x, y0 - 4);
-            g.setFill(Color.web("#9ca3af"));
+            g.setFill(Palette.FAINT);
             g.fillText(String.valueOf(nTick), x, y0 + 14);
         }
 
@@ -128,7 +128,7 @@ public final class ComplexityPanel {
         // 实际 n 标记：竖虚线 + 高亮曲线交点圆点 + 顶部标注
         if (markerN > 0 && markerN <= maxN) {
             double mx = x0 + (double) (markerN - 1) / (maxN - 1) * plotW;
-            g.setStroke(Color.web("#0ea5e9"));
+            g.setStroke(Palette.SKY);
             g.setLineWidth(1.2);
             g.setLineDashes(4, 4);
             g.strokeLine(mx, y0, mx, y0 - plotH);
@@ -145,14 +145,14 @@ public final class ComplexityPanel {
                 g.setFill(COLORS[i]);
                 g.fillOval(mx - 4, cy - 4, 8, 8);
             }
-            g.setFill(Color.web("#0ea5e9"));
+            g.setFill(Palette.SKY);
             g.setFont(Font.font(12));
             g.fillText("本演示 n = " + markerN, mx, y0 + 38);
         }
 
         // 图例下的原串（复杂度文本）
         if (tag != null && !tag.isBlank()) {
-            g.setFill(Color.web("#9ca3af"));
+            g.setFill(Palette.FAINT);
             g.setFont(Font.font(11));
             g.fillText("⭐ 本演示 = " + tag, x0 + plotW / 2, 36);
         }
@@ -176,8 +176,8 @@ public final class ComplexityPanel {
     /** 参赛选手：六个真实 trace 的步数（不是公式，是跑出来的）。 */
     private static final String[] SORT_NAMES = {"冒泡", "选择", "插入", "快排", "归并", "堆排"};
     private static final Color[] SORT_COLORS = {
-            Color.web("#ef4444"), Color.web("#f59e0b"), Color.web("#8b5cf6"),
-            Color.web("#22c55e"), Color.web("#3b82f6"), Color.web("#0891b2")};
+            Palette.RED, Palette.AMBER, Palette.VIOLET,
+            Palette.GREEN, Palette.BLUE, Palette.TEAL};
 
     /**
      * 实测：每个 n 用同一批（固定种子）随机数据跑六种排序，纵轴 = 步数。
@@ -212,11 +212,11 @@ public final class ComplexityPanel {
         }
 
         // 坐标轴
-        g.setStroke(Color.web("#94a3b8"));
+        g.setStroke(Palette.AXIS);
         g.setLineWidth(1.5);
         g.strokeLine(x0, y0, x0 + plotW, y0);
         g.strokeLine(x0, y0, x0, y0 - plotH);
-        g.setFill(Color.web("#6b7280"));
+        g.setFill(Palette.MUTED);
         g.setFont(Font.font(11));
         g.fillText("n（数据量）", x0 + plotW / 2, y0 + 26);
         g.save();
@@ -228,9 +228,9 @@ public final class ComplexityPanel {
         for (int t = 0; t <= 4; t++) {
             double v = yMax * t / 4.0;
             double y = y0 - (double) t / 4 * plotH;
-            g.setStroke(Color.web("#e5e7eb"));
+            g.setStroke(Palette.GRID_SOFT);
             g.strokeLine(x0, y, x0 + plotW, y);
-            g.setFill(Color.web("#9ca3af"));
+            g.setFill(Palette.FAINT);
             g.fillText(String.valueOf(Math.round(v)), x0 - 8, y + 4);
         }
 
@@ -259,12 +259,12 @@ public final class ComplexityPanel {
             int row = s / 3, col = s % 3;
             double gx = lx + col * 92, gy = ly + row * 18;
             g.strokeLine(gx, gy, gx + 20, gy);
-            g.setFill(Color.web("#374151"));
+            g.setFill(Palette.INK);
             g.setTextAlign(TextAlignment.LEFT);
             g.fillText(SORT_NAMES[s], gx + 25, gy + 4);
         }
         g.setTextAlign(TextAlignment.CENTER);
-        g.setFill(Color.web("#9ca3af"));
+        g.setFill(Palette.FAINT);
         g.setFont(Font.font(10));
         g.fillText("同一批随机数据（种子 42）· 步数 = trace 长度 · 冒泡在 n=50 时步数 ≈ 快排 10 倍",
                 x0 + plotW / 2, y0 + 44);

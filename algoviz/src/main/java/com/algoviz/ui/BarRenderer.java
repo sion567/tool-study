@@ -2,9 +2,10 @@ package com.algoviz.ui;
 
 import com.algoviz.engine.Step;
 import com.algoviz.engine.ds.ArrayView;
+import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
+
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -20,12 +21,12 @@ public final class BarRenderer {
     private static final double PAD = 40;
     private static final double GAP = 8;
 
-    private static final Color BASE = Color.web("#3b82f6");
-    private static final Color COMPARE = Color.web("#f59e0b");
-    private static final Color SWAP = Color.web("#ef4444");
-    private static final Color SORTED = Color.web("#22c55e");
-    private static final Color CHANGED = Color.web("#eab308");
-    private static final Color PICKED = Color.web("#8b5cf6");
+    private static final Color BASE = Palette.BLUE;
+    private static final Color COMPARE = Palette.AMBER;
+    private static final Color SWAP = Palette.RED;
+    private static final Color SORTED = Palette.GREEN;
+    private static final Color CHANGED = Palette.YELLOW;
+    private static final Color PICKED = Palette.VIOLET;
 
     private BarRenderer() {
     }
@@ -90,9 +91,9 @@ public final class BarRenderer {
             double x = PAD + i * (bw + GAP);
             int v = av.values().get(i);
             boolean on = v != 0;
-            g.setFill(on ? colorOf(av, i) : Color.web("#eef2f7"));
+            g.setFill(on ? colorOf(av, i) : Palette.CARD);
             g.fillRoundRect(x, y, bw, size, 6, 6);
-            g.setStroke(Color.web("#cbd5e1"));
+            g.setStroke(Palette.BORDER);
             g.setLineWidth(1.2);
             g.strokeRoundRect(x, y, bw, size, 6, 6);
             if (changed != null && changed.contains(i)) {
@@ -107,7 +108,7 @@ public final class BarRenderer {
                 g.strokeRoundRect(x - 4, y - 4, bw + 8, size + 8, 10, 10);
                 g.setLineDashes();
             }
-            g.setFill(on ? Color.web("#1e3a8a") : Color.GRAY);
+            g.setFill(on ? Palette.BLUE_INK : Color.GRAY);
             g.setFont(Font.font(11));
             g.fillText(String.valueOf(v), x + bw / 2, y + size / 2 + 4);
             g.fillText("[" + i + "]", x + bw / 2, h - 30);

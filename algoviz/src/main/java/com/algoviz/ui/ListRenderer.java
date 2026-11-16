@@ -3,9 +3,9 @@ package com.algoviz.ui;
 import com.algoviz.engine.Step;
 import com.algoviz.engine.Value;
 import com.algoviz.engine.ds.ListView;
+import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -26,19 +26,19 @@ public final class ListRenderer {
     private static final double GAP = 34;
     private static final double BOX_H = 54;
 
-    private static final Color BASE = Color.web("#3b82f6");
-    private static final Color ARROW = Color.web("#6b7280");
-    private static final Color CHANGED = Color.web("#eab308");
-    private static final Color PICKED = Color.web("#8b5cf6");
-    private static final Color NULL_C = Color.web("#9ca3af");
+    private static final Color BASE = Palette.BLUE;
+    private static final Color ARROW = Palette.MUTED;
+    private static final Color CHANGED = Palette.YELLOW;
+    private static final Color PICKED = Palette.VIOLET;
+    private static final Color NULL_C = Palette.FAINT;
 
     private static final Map<String, Color> VAR_COLORS = Map.of(
-            "head", Color.web("#2563eb"),
-            "prev", Color.web("#16a34a"),
-            "curr", Color.web("#ea580c"),
-            "next", Color.web("#9333ea"),
-            "slow", Color.web("#0891b2"),
-            "fast", Color.web("#e11d48"));
+            "head", Palette.BLUE_MID,
+            "prev", Palette.GREEN_DEEP,
+            "curr", Palette.ORANGE,
+            "next", Palette.VIOLET_DEEP,
+            "slow", Palette.TEAL,
+            "fast", Palette.ROSE);
 
     private ListRenderer() {
     }
@@ -92,7 +92,7 @@ public final class ListRenderer {
             double x = cx0 + i * (bw + GAP);
             g.setFill(BASE);
             g.fillRoundRect(x, boxTop, bw, BOX_H, 8, 8);
-            g.setFill(Color.web("#dbeafe"));
+            g.setFill(Palette.BLUE_SOFT);
             g.setFont(Font.font(10));
             g.fillText(nb.nodeId(), x + bw / 2, boxTop + 14);
             g.setFill(Color.WHITE);
@@ -143,12 +143,12 @@ public final class ListRenderer {
                         ? cx0 + p * (bw + GAP) + bw         // 相邻：指向前一盒右缘
                         : cx0 + p * (bw + GAP) + bw / 2;    // 跨接：指向前盒中心（配合弧线更清楚）
                 boolean changed = isChanged(changedArrows, nb.nodeId());
-                g.setStroke(changed ? CHANGED : Color.web("#16a34a"));
+                g.setStroke(changed ? CHANGED : Palette.GREEN_DEEP);
                 g.setLineWidth(changed ? 3 : 1.6);
                 g.strokeLine(xFrom, yb, xTo, yb);
                 arrowHead(g, xTo, yb, xTo - (xFrom - xTo) * 0.2, yb);
             }
-            g.setFill(Color.web("#16a34a"));
+            g.setFill(Palette.GREEN_DEEP);
             g.setTextAlign(TextAlignment.LEFT);
             g.fillText("prev", cx0 - 34, yb + 4);
             g.setTextAlign(TextAlignment.CENTER);

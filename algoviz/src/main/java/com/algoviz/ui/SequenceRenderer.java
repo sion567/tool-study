@@ -2,9 +2,9 @@ package com.algoviz.ui;
 
 import com.algoviz.engine.Step;
 import com.algoviz.engine.ds.SeqView;
+import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -18,12 +18,12 @@ import java.util.Set;
  */
 public final class SequenceRenderer {
 
-    private static final Color LIFELINE = Color.web("#cbd5e1");
-    private static final Color HEADER = Color.web("#334155");
-    private static final Color PAST = Color.web("#94a3b8");
-    private static final Color ACTIVE = Color.web("#ea580c");
-    private static final Color CHANGED = Color.web("#eab308");
-    private static final Color PICKED = Color.web("#8b5cf6");
+    private static final Color LIFELINE = Palette.BORDER;
+    private static final Color HEADER = Palette.SLATE;
+    private static final Color PAST = Palette.AXIS;
+    private static final Color ACTIVE = Palette.ORANGE;
+    private static final Color CHANGED = Palette.YELLOW;
+    private static final Color PICKED = Palette.VIOLET;
 
     private SequenceRenderer() {
     }
@@ -125,7 +125,7 @@ public final class SequenceRenderer {
     private static void label(GraphicsContext g, String text, double x, double y,
                               boolean active, TextAlignment align) {
         g.setTextAlign(align);
-        g.setFill(active ? Color.web("#111827") : Color.web("#6b7280"));
+        g.setFill(active ? Palette.INK_STRONG : Palette.MUTED);
         g.setFont(Font.font(active ? 12 : 11));
         g.fillText(text, x, y);
         g.setTextAlign(TextAlignment.CENTER);

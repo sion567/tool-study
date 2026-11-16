@@ -1,9 +1,9 @@
 package com.algoviz.ui;
 
 import com.algoviz.engine.Step;
+import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -16,13 +16,13 @@ import java.util.Set;
  */
 public final class BitmapRenderer {
 
-    private static final Color CELL_WHITE = Color.web("#ffffff");
-    private static final Color CELL_BLACK = Color.web("#111827");
-    private static final Color DUP = Color.web("#ef4444");
-    private static final Color LINE = Color.web("#94a3b8");
-    private static final Color PICKED = Color.web("#8b5cf6");
-    private static final Color READ = Color.web("#f59e0b");
-    private static final Color READ_BG = Color.web("#fde68a");
+    private static final Color CELL_WHITE = Palette.WHITE;
+    private static final Color CELL_BLACK = Palette.INK_STRONG;
+    private static final Color DUP = Palette.RED;
+    private static final Color LINE = Palette.AXIS;
+    private static final Color PICKED = Palette.VIOLET;
+    private static final Color READ = Palette.AMBER;
+    private static final Color READ_BG = Palette.AMBER_SOFT;
 
     private BitmapRenderer() {
     }
@@ -52,12 +52,12 @@ public final class BitmapRenderer {
                 g.setFill(READ_BG);
                 g.fillRoundRect(60, y - 18, 150, 26, 6, 6);
             }
-            g.setFill(current ? Color.web("#b45309") : past ? Color.web("#9ca3af") : Color.web("#334155"));
+            g.setFill(current ? Palette.RUST : past ? Palette.FAINT : Palette.SLATE);
             g.fillText("data[" + i + "] = " + bm.data().get(i) + (current ? "   ← 正在读" : ""), 135, y);
         }
 
         // 2. 右：BitSet 格子
-        g.setFill(Color.web("#6b7280"));
+        g.setFill(Palette.MUTED);
         g.setFont(Font.font(12));
         g.fillText("BitSet（白=0 没见过 · 黑=1 见过 · 红圈=重复）", bitX + bm.bits() * cell / 2, bitY - 30);
         for (int b = 0; b < bm.bits(); b++) {
@@ -73,14 +73,14 @@ public final class BitmapRenderer {
                 g.strokeRect(x - 2, bitY - 2, cell + 4, cell + 4);
                 g.setFill(DUP);
             } else {
-                g.setStroke(changed ? Color.web("#eab308") : LINE);
+                g.setStroke(changed ? Palette.YELLOW : LINE);
                 g.setLineWidth(changed ? 2.5 : 1.4);
                 g.strokeRect(x, bitY, cell, cell);
-                g.setFill(Color.web("#6b7280"));
+                g.setFill(Palette.MUTED);
             }
             g.setFont(Font.font(14));
             g.fillText(String.valueOf(one ? 1 : 0), x + cell / 2, bitY + cell / 2 + 5);
-            g.setFill(Color.web("#6b7280"));
+            g.setFill(Palette.MUTED);
             g.setFont(Font.font(10));
             g.fillText("[" + b + "]", x + cell / 2, bitY + cell + 14);
         }

@@ -2,9 +2,9 @@ package com.algoviz.ui;
 
 import com.algoviz.engine.Step;
 import com.algoviz.engine.ds.TreeView;
+import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
@@ -20,13 +20,13 @@ import java.util.Set;
  */
 public final class TreeRenderer {
 
-    private static final Color UNVISITED = Color.web("#e2e8f0");
-    private static final Color ONSTACK = Color.web("#3b82f6");
-    private static final Color VISITED = Color.web("#22c55e");
-    private static final Color EDGE = Color.web("#94a3b8");
-    private static final Color CHANGED = Color.web("#eab308");
-    private static final Color TOP = Color.web("#ea580c");
-    private static final Color PICKED = Color.web("#8b5cf6");
+    private static final Color UNVISITED = Palette.MIST;
+    private static final Color ONSTACK = Palette.BLUE;
+    private static final Color VISITED = Palette.GREEN;
+    private static final Color EDGE = Palette.AXIS;
+    private static final Color CHANGED = Palette.YELLOW;
+    private static final Color TOP = Palette.ORANGE;
+    private static final Color PICKED = Palette.VIOLET;
 
     private TreeRenderer() {
     }
@@ -81,8 +81,8 @@ public final class TreeRenderer {
             g.setFill(switch (nb.state()) {
                 case "onstack" -> ONSTACK;
                 case "visited" -> VISITED;
-                default -> "RED".equals(nb.rbColor()) ? Color.web("#ef4444")
-                        : "BLACK".equals(nb.rbColor()) ? Color.web("#334155") : UNVISITED;
+                default -> "RED".equals(nb.rbColor()) ? Palette.RED
+                        : "BLACK".equals(nb.rbColor()) ? Palette.SLATE : UNVISITED;
             });
             g.fillOval(p[0] - r, p[1] - r, r * 2, r * 2);
             boolean isChanged = changedNodes != null && changedNodes.contains(nb.nodeId());
@@ -104,10 +104,10 @@ public final class TreeRenderer {
                 g.setLineDashes();
             }
             boolean dark = "unvisited".equals(nb.state()) && nb.rbColor() == null;
-            g.setFill(dark ? Color.web("#334155") : Color.WHITE);
+            g.setFill(dark ? Palette.SLATE : Color.WHITE);
             g.setFont(Font.font(14));
             g.fillText(String.valueOf(nb.val()), p[0], p[1] + 5);
-            g.setFill(Color.web("#64748b"));
+            g.setFill(Palette.SLATE_LIGHT);
             g.setFont(Font.font(9));
             g.fillText(nb.nodeId(), p[0], p[1] - r - 4);
             if (nb.visitOrder() != null) {
@@ -127,7 +127,7 @@ public final class TreeRenderer {
                     continue;
                 }
                 double ty = p[1] - r - 24;
-                g.setFill(Color.web("#9333ea"));
+                g.setFill(Palette.VIOLET_DEEP);
                 g.setFont(Font.font(12));
                 g.fillRoundRect(p[0] - 19, ty - 13, 38, 18, 6, 6);
                 g.setFill(Color.WHITE);
